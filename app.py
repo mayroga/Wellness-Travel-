@@ -100,7 +100,7 @@ def generate_pdf(payload: PDFPayload):
         [Paragraph("Flujo Creativo / Creative Flow", body_style), f"{payload.score_inicial}%", f"{payload.adivinanzas_score}%"]
     ]
     
-    metrics_table = Table(metrics_data, colWidths=[240, 140, 140])
+    metrics_table = Table(metrics_data, colWidths=[280, 120, 120])
     metrics_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
@@ -111,13 +111,12 @@ def generate_pdf(payload: PDFPayload):
     story.append(metrics_table)
     story.append(Spacer(1, 12))
     
-    # 🌟 MAPEO INDESTRUCTIBLE DE LA FIGURA HUMANA
+    # 🌟 CORRECCIÓN DE EXCEPCIÓN: MAPEO COMPLETO
     var_key = payload.variante if payload.variante in BACKEND_EVALUATION else "VAR2_IGUAL_ESTACIONARIO"
     fallback_node = BACKEND_EVALUATION[var_key]
     titulo_estado = fallback_node["es"] if is_es else fallback_node["en"]
     cuerpo_estado = fallback_node["body_es"] if is_es else fallback_node["body_en"]
     
-    # Intentar lectura asíncrona local desde la carpeta JSON
     base_dir = os.path.dirname(__file__)
     eval_file_path = os.path.join(base_dir, "static", "json", "evaluacion.json")
     if os.path.exists(eval_file_path):
@@ -140,7 +139,6 @@ def generate_pdf(payload: PDFPayload):
     s2_title = "2. ITINERARIO TURÍSTICO DE COMPENSACIÓN / COMPENSATORY TRAVEL ITINERARY"
     story.append(Paragraph(s2_title, h2_style))
     
-    # Mapeo de Destino con Respaldo Inteligente contra errores de Clave
     dest_key = payload.destino_id
     if dest_key in BACKEND_DESTINATIONS:
         dest_name = BACKEND_DESTINATIONS[dest_key]["es" if is_es else "en"]
@@ -158,47 +156,48 @@ def generate_pdf(payload: PDFPayload):
                 if target_dest:
                     dest_name = target_dest["name_es"] if is_es else target_dest["name_en"]
                     dest_desc = target_dest["desc_es"] if is_es else target_dest["desc_en"]
-    except Exception:
-        pass
-
-    # Estructuración limpia de strings con formato HTML compatible para ReportLab
-    dest_html = f"<b>Santuario Asignado / Curated Oasis:</b> {dest_name}<br/><br/>"
+        except Exception:
+            pass
+    
+    dest_html = f"<b>Santuario Asignado / Curated Oasis:</b> {dest_name}<br/>"
     dest_html += f"<b>Detalle del Entorno / Wellness Profile:</b> {dest_desc}<br/><br/>"
-    dest_html += "• <b>Logística Aérea / Air Travel:</b> Premium routing synchronized from Miami Int. (MIA). Flight details locked against friction protocols.<br/><br/>"
-    dest_html += "• <b>Estatus de Reserva / Consortium Privileges:</b> Eligible for Virtuoso/Signature luxury benefits ($100 resort credits and priority room upgrades processed locally via credentials)."
+    # Continuación de la Sección 2 (Itinerario Turístico)
+    dest_html += "<br/><br/>• <b>Logística Aérea / Air Travel:</b> Premium routing synchronized from Miami Int. (MIA). Flight details locked against friction protocols."
+    dest_html += "<br/>• <b>Estatus de Reserva / Consortium Privileges:</b> Eligible for Virtuoso/Signature luxury benefits ($100 resort credits and priority room upgrades processed locally via credentials)."
     
     story.append(Paragraph(dest_html, body_style))
     story.append(Spacer(1, 15))
-
+    
     # SECCIÓN 3: ACTIVACIÓN COMERCIAL
     s3_title = "3. ACTIVACIÓN DE PRESCRIPCIÓN COMERCIAL / BOOKING GATEWAY"
     story.append(Paragraph(s3_title, h2_style))
-    
     cta_text = "Para conservar este balance natural y fijar las tarifas exclusivas de este itinerario, póngase en contacto con su Conserje de Viajes corporativo. Presente este reporte digital en formato PDF junto con el Folio de Servicio para procesar los beneficios corporativos." if is_es else "To consolidate this natural balance and lock down the exclusive rates of this itinerary, contact your corporate Travel Concierge. Present this digital PDF report along with the attached Service ID to unlock your custom benefits."
     story.append(Paragraph(cta_text, body_style))
     story.append(Spacer(1, 20))
-
-    # SECCIÓN 4: BLINDAJE JURÍDICO
-    story.append(Paragraph("4. AVISO LEGAL Y EXENCIÓN DE RESPONSABILIDAD / LEGAL DISCLAIMER", ParagraphStyle('LegHeader', parent=styles['Normal'], fontSize=8, leading=11, textColor=color_primary, spaceAfter=6)))
     
-    disc_es = "ESPAÑOL: Este documento es emitido exclusivamente por MAY ROGA LLC como una herramienta de orientación para el estilo de vida, el bienestar general y la consultoría de viajes premium. No constituye, ni reemplaza, un diagnóstico médico, psiquiátrico, psicológico o clínico de ninguna índole. MAY ROGA LLC no es una institución de salud ni un proveedor médico. Los datos utilizados para generar este reporte se procesan de forma estrictamente local y anónima en el dispositivo del usuario mediante algoritmos de comportamiento digital (localStorage). El usuario asume total responsabilidad sobre las decisiones de viaje y actividades derivadas de este reporte."
-    disc_en = "ENGLISH: This document is issued exclusively by MAY ROGA LLC as a guidance tool for lifestyle enhancement, general wellness, and premium travel consulting. It does not constitute, nor does it replace, a medical, psychiatric, psychological, or clinical diagnosis of any kind. MAY ROGA LLC is not a healthcare institution nor a medical provider. The data utilized to generate this report is processed and stored strictly locally and anonymously on the user's device via digital behavior algorithms (localStorage). The user assumes full and sole responsibility for travel decisions and activities derived from this report."
+    # SECCIÓN 4: BLINDAJE JURÍDICO
+    story.append(Paragraph("<b>4. AVISO LEGAL Y EXENCIÓN DE RESPONSABILIDAD / LEGAL DISCLAIMER</b>", ParagraphStyle('LegHeader', parent=styles['Normal'], fontSize=8, leading=11, textColor=color_primary, spaceAfter=6)))
+    
+    disc_es = "<b>ESPAÑOL:</b> Este documento es emitido exclusivamente por MAY ROGA LLC como una herramienta de orientación para el estilo de vida, el bienestar general y la consultoría de viajes premium. No constituye, ni reemplaza, un diagnóstico médico, psiquiátrico, psicológico o clínico de ninguna índole. MAY ROGA LLC no es una institución de salud ni un proveedor médico. Los datos utilizados para generar este reporte se procesan de forma estrictamente local y anónima en el dispositivo del usuario mediante algoritmos de comportamiento digital (localStorage). El usuario asume total responsabilidad sobre las decisiones de viaje y actividades derivadas de este reporte."
+    disc_en = "<b>ENGLISH:</b> This document is issued exclusively by MAY ROGA LLC as a guidance tool for lifestyle enhancement, general wellness, and premium travel consulting. It does not constitute, nor does it replace, a medical, psychiatric, psychological, or clinical diagnosis of any kind. MAY ROGA LLC is not a healthcare institution nor a medical provider. Los datos utilizados para generar este reporte se procesan de forma estrictamente local y anónima en el dispositivo del usuario mediante algoritmos de comportamiento digital (localStorage). El usuario asume el total y único control sobre las decisiones de viaje."
     
     story.append(Paragraph(disc_es, disclaimer_style))
     story.append(Spacer(1, 6))
     story.append(Paragraph(disc_en, disclaimer_style))
-    story.append(Spacer(1, 15))
     
-    story.append(Paragraph("This document is for informational and promotional travel purposes only. For medical advice or diagnosis, consult a certified healthcare professional. AI responses may include mistakes.", ParagraphStyle('AIFoot', parent=disclaimer_style, fontName='Helvetica-Oblique', alignment=1)))
     story.append(Spacer(1, 15))
-    story.append(Paragraph("© 2026 MAY ROGA LLC. All rights reserved. Miami, Florida.", ParagraphStyle('FootCopyright', parent=subtitle_style, fontSize=8)))
+    story.append(Paragraph("This document is for informational and promotional travel purposes only. For medical advice or diagnosis, consult a certified healthcare professional. AI responses may include mistakes.", ParagraphStyle('AIFoot', parent=disclaimer_style, fontName='Helvetica-Oblique', alignment=1)))
+    
+    story.append(Spacer(1, 15))
+    story.append(Paragraph("<font color='#A3704C'>© 2026 MAY ROGA LLC. All rights reserved. Miami, Florida.</font>", ParagraphStyle('FootCopyright', parent=subtitle_style, fontSize=8)))
     
     doc.build(story)
-    
     return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
 
+# --- ENDPOINT INDEX HTML ---
 @app.get("/", response_class=HTMLResponse)
 def index():
+    # 🛠️ INGENIERÍA ARREGLADA: Se restauró la variable reservada de Python __file__ con sus guiones bajos
     base_dir = os.path.dirname(__file__)
     ruta_html = os.path.join(base_dir, "index.html")
     
@@ -206,6 +205,7 @@ def index():
         with open(ruta_html, "r", encoding="utf-8") as f:
             return HTMLResponse(content=f.read(), status_code=200)
             
-    return HTMLResponse(content="<h1>MAY ROGA LLC</h1><p>Error crítico: index.html no encontrado en la raíz del servidor.</p>", status_code=404)
-
-    
+    return HTMLResponse(
+        content="<h1>MAY ROGA LLC</h1><p>Error crítico: index.html no encontrado en la raíz del servidor.</p>", 
+        status_code=404
+    )
