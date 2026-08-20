@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ADV-001",
+    "es": "Corro pero no tengo pies, tengo un lecho pero nunca duermo. ¿Qué soy?",
+    "en": "I run but have no feet, I have a bed but never sleep. What am I?",
+    "ans_es": "El río",
+    "ans_en": "A river"
+  },
+  {
+    "id": "ADV-002",
+    "es": "No tengo peso, pero si me pones dentro de un barril lo haré más liviano. ¿Qué soy?",
+    "en": "I have no weight, but if you put me inside a barrel I make it lighter. What am I?",
+    "ans_es": "Un agujero",
+    "ans_en": "A hole"
+  },
+  {
+    "id": "ADV-003",
+    "es": "Te sigo a todas partes, copio tus movimientos, pero en la oscuridad absoluta desaparezco. ¿Qué soy?",
+    "en": "I follow you everywhere, copying your moves, but in absolute darkness I disappear. What am I?",
+    "ans_es": "La sombra",
+    "ans_en": "The shadow"
+  },
+  {
+    "id": "ADV-004",
+    "es": "Cuanto más profunda es mi presencia, menos puedes ver a tu alrededor. ¿Qué soy?",
+    "en": "The deeper my presence is, the less you can see around you. What am I?",
+    "ans_es": "La niebla",
+    "ans_en": "The fog"
+  },
+  {
+    "id": "ADV-005",
+    "es": "Nazco libre cuando sueltas el aire, no tengo voz pero hago cantar al viento. ¿Qué soy?",
+    "en": "I am born free when you let go of your breath, I have no voice but make the wind sing. What am I?",
+    "ans_es": "La respiración",
+    "ans_en": "The breath"
+  }
+]
