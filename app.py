@@ -1,8 +1,8 @@
 # ====================================================================================================
-#                                           MAY ROGA LLC
-#                        Wellness Travel Architecture & Lifestyle Optimization
+#                                         MAY ROGA LLC
+#                       Wellness Travel Architecture & Lifestyle Optimization
 #                                    Miami, Florida | USA
-#                               PRODUCTION BACKEND - AUDITED
+#                                 PRODUCTION BACKEND - AUDITED
 # ====================================================================================================
 
 import os
@@ -21,11 +21,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# MOUNT STATIC DIRECTORY FOR ASSETS AND SAFETY KERNELS IF INSTANTIATED
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# INDESTRUCTIBLE MIRROR TRANSLATION MAPS ACCORDING TO USER SELECTOR
 DICTIONARY_BILINGUAL = {
     "ES": {
         "doc_title": "LIBRETA DE VIAJE INDIVIDUAL (PRÁCTICA Y PRIVADA)",
@@ -126,7 +124,6 @@ def generate_pdf(payload: PDFPayload):
     pdf_path = os.path.join("temp", pdf_filename)
     os.makedirs("temp", exist_ok=True)
     
-    # 📏 Exact 522-point inner canvas metrics to guarantee zero row squishing or text wrapping overlaps
     doc = SimpleDocTemplate(
         pdf_path, pagesize=letter,
         rightMargin=45, leftMargin=45, topMargin=45, bottomMargin=45,
@@ -134,7 +131,7 @@ def generate_pdf(payload: PDFPayload):
     )
     styles = getSampleStyleSheet()
     
-    color_primary = colors.HexColor("#1A1A1A")    
+    color_primary = colors.HexColor("#1A1A1A")   
     color_gold = colors.HexColor("#A3704C")      
     color_text = colors.HexColor("#333333")      
     color_legal = colors.HexColor("#777777")     
@@ -147,11 +144,9 @@ def generate_pdf(payload: PDFPayload):
     
     story = []
     
-    # READ INCOMING LANGUAGE TOGGLE DATA FOR FLUID REAL-TIME SWAPPING
     lang_key = "EN" if payload.lang.upper() == "EN" else "ES"
     lang_map = DICTIONARY_BILINGUAL[lang_key]
     
-    # HEADER METRICS BLOCK
     story.append(Paragraph("<b>MAY ROGA LLC</b>", title_style))
     story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization<br/>Miami, Florida | USA", subtitle_style))
     story.append(Spacer(1, 15))
@@ -162,7 +157,6 @@ def generate_pdf(payload: PDFPayload):
     story.append(Paragraph(meta_text, body_style))
     story.append(Spacer(1, 12))
     
-    # SECTION 1: CRM ANONYMOUS SCORING MATRIX
     story.append(Paragraph(lang_map['sec1_title'], h2_style))
     
     metrics_data = [
@@ -172,8 +166,7 @@ def generate_pdf(payload: PDFPayload):
         [Paragraph(lang_map['m_logic'], body_style), "0%", f"{payload.adivinanzas_score}%"]
     ]
     
-    # Ancho total: 522 puntos (ancho de carta menos márgenes: 612 - 90)
-    metrics_table = Table(metrics_data, colWidths=[232, 145, 145])
+    metrics_table = Table(metrics_data, colWidths=[240, 140, 142])
     metrics_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
@@ -183,12 +176,16 @@ def generate_pdf(payload: PDFPayload):
     ]))
     story.append(metrics_table)
     story.append(Spacer(1, 12))
-
-    # SECTION 2: DESTINATION PROFILE (OPEN CORRIDOR FOR HOST AGENCY INTEGRATION)
+    
     story.append(Paragraph(lang_map['sec2_title'], h2_style))
-    hotel_id = payload.destino_id if payload.destino_id in BACKEND_HOTELES else "H1"
-    h_name = BACKEND_HOTELES[hotel_id][lang_key.lower()]["name"]
-    h_desc = BACKEND_HOTELES[hotel_id][lang_key.lower()]["desc"]
+    hotel_id = payload.destino_id
+    if hotel_id in BACKEND_HOTELES:
+        h_name = BACKEND_HOTELES[hotel_id][lang_key.lower()]["name"]
+        h_desc = BACKEND_HOTELES[hotel_id][lang_key.lower()]["desc"]
+    else:
+        h_name = "Eden Roc Cap Cana (Punta Cana)"
+        h_desc = "Villas de ultra-lujo con alberca propia y aislamiento acústico absoluto."
+        
     tier_key = "ELITE" if "ELITE" in payload.variante or payload.score_inicial < 45 else "PREMIUM"
     logistica = BACKEND_LOGISTICA.get(tier_key, BACKEND_LOGISTICA["ELITE"])[lang_key.lower()]
     
@@ -199,28 +196,19 @@ def generate_pdf(payload: PDFPayload):
     dest_html += f"<i>{lang_map['consorcio']}</i>"
     story.append(Paragraph(dest_html, body_style))
     story.append(Spacer(1, 15))
-
-    # SECTION 3: CALL TO ACTION
+    
     story.append(Paragraph(lang_map['sec3_title'], h2_style))
     story.append(Paragraph(lang_map['cta'], body_style))
-    story.append(Spacer(1, 20))
-
-    # SECTION 4: STATE-COMPLIANT WAIVER ASSURANCE
-    story.append(Paragraph(f"{lang_map['sec4_title']}", ParagraphStyle('LegHeader', parent=styles['Normal'], fontSize=8, leading=11, textColor=color_primary, spaceAfter=6)))
-    story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
-    story.append(Spacer(1, 12))
-    story.append(Paragraph(lang_map['ai_foot'], ParagraphStyle('AIFoot', parent=disclaimer_style, fontName='Helvetica-Oblique', alignment=1)))
     story.append(Spacer(1, 15))
-    story.append(Paragraph("© 2026 MAY ROGA LLC. All rights reserved. Miami, Florida.", ParagraphStyle('FootCopyright', parent=subtitle_style, fontSize=8)))
-
+    
+    story.append(Paragraph(lang_map['sec4_title'], h2_style))
+    story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph(lang_map['ai_foot'], disclaimer_style))
+    
     doc.build(story)
     return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
 
 @app.get("/", response_class=HTMLResponse)
-def index():
-    base_dir = os.path.dirname(__file__)
-    ruta_html = os.path.join(base_dir, "index.html")
-    if os.path.exists(ruta_html):
-        with open(ruta_html, "r", encoding="utf-8") as file:
-            return HTMLResponse(content=file.read(), status_code=200)
-    return HTMLResponse(content="MAY ROGA LLC: Critical Error - index.html not found.", status_code=404)
+def read_index():
+    return "<h3>MAY ROGA LLC - Production Backend Operational</h3>"
