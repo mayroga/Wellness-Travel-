@@ -1,0 +1,74 @@
+[
+  {
+    "id": "HOT-ELITE-001",
+    "tier": "ELITE",
+    "pasillo": "DOM_PUNTA_CANA",
+    "name_es": "Eden Roc Cap Cana (Punta Cana, República Dominicana)",
+    "name_en": "Eden Roc Cap Cana (Punta Cana, Dominican Republic)",
+    "desc_es": "Miembro exclusivo de Relais & Châteaux. Ofrece villas de ultra-lujo con piscinas privadas, duchas de spa tipo lluvia al aire libre y acceso directo a un club de playa privado de arena blanca.",
+    "desc_en": "Exclusive Relais & Châteaux member property. Offering ultra-luxury villas with private pools, outdoor rain-spa showers, and direct access to a private white-sand beach club enclave."
+  },
+  {
+    "id": "HOT-ELITE-002",
+    "tier": "ELITE",
+    "pasillo": "DOM_PUNTA_CANA",
+    "name_es": "Amanera (Playa Grande, República Dominicana)",
+    "name_en": "Amanera (Playa Grande, Dominican Republic)",
+    "desc_es": "Suspendido sobre acantilados masivos que caen al mar. Combina arquitectura minimalista zen con selva virgen, casitas con techos verdes, piscinas infinitas y enfoque en el silencio acústico absoluto.",
+    "desc_en": "Perched above massive ocean cliffs. Blends minimalist Zen architecture with raw jungle, green-roof casitas, private infinity pools, and a strict focus on absolute acoustic silence."
+  },
+  {
+    "id": "HOT-ELITE-003",
+    "tier": "ELITE",
+    "pasillo": "MEX_CANCUN",
+    "name_es": "Chablé Maroma (Riviera Maya, México)",
+    "name_en": "Chablé Maroma (Riviera Maya, Mexico)",
+    "desc_es": "Santuario de ultra-lujo escondido entre una playa galardonada y la mística jungla maya. Famoso por su spa enfocado en ceremonias de purificación maya y meditación de frecuencias.",
+    "desc_en": "Ultra-luxury sanctuary hidden between an award-winning beach and the mystical Mayan jungle. Renowned for its world-class spa focused on ancestral purification rituals and frequency meditation."
+  },
+  {
+    "id": "HOT-ELITE-004",
+    "tier": "ELITE",
+    "pasillo": "MEX_CANCUN",
+    "name_es": "Belmond Maroma Resort & Spa (Riviera Maya, México)",
+    "name_en": "Belmond Maroma Resort & Spa (Riviera Maya, Mexico)",
+    "desc_es": "Completamente rediseñado para ofrecer el nivel más alto de sofisticación. Servicio hiper-personalizado donde cada huésped cuenta con un conserje de bienestar dedicado para estructurar sus días.",
+    "desc_en": "Completamente redesigned to deliver the highest echelon of sophistication. Features hyper-personalized service where every guest is paired with a dedicated wellness host to structure their days."
+  },
+  {
+    "id": "HOT-PREM-001",
+    "tier": "PREMIUM",
+    "pasillo": "MEX_CANCUN",
+    "name_es": "Grand Velas Riviera Maya (Riviera Maya, México)",
+    "name_en": "Grand Velas Riviera Maya (Riviera Maya, Mexico)",
+    "desc_es": "Resort todo incluido que redefine los estándares de la alta cocina en el Caribe. Destaca por su spa con un circuito hidrotermal de 7 etapas y restaurantes de especialidades galardonados.",
+    "desc_en": "All-inclusive resort completely redefining fine-dining standards in the Caribbean. Features an upscale spa with a 7-stage hydrothermal circuit and award-winning specialty restaurants."
+  },
+  {
+    "id": "HOT-PREM-002",
+    "tier": "PREMIUM",
+    "pasillo": "MEX_CANCUN",
+    "name_es": "Secrets Impression Moxché (Playa del Carmen, México)",
+    "name_en": "Secrets Impression Moxché (Playa del Carmen, Mexico)",
+    "desc_es": "Sección presidencial rústico-chic de escala masiva. Ofrece piscinas infinity exclusivas en el rooftop con vistas completas al Caribe y servicio de mayordomo personalizado las 24 horas.",
+    "desc_en": "Massive upscale rustic-chic presidential enclave. Delivering exclusive rooftop infinity pools with panoramic Caribbean views and dedicated 24/7 personal butler service."
+  },
+  {
+    "id": "HOT-ASPI-001",
+    "tier": "ASPI",
+    "pasillo": "DOM_PUNTA_CANA",
+    "name_es": "Secrets Royal Beach Punta Cana (República Dominicana)",
+    "name_en": "Secrets Royal Beach Punta Cana (Dominican Republic)",
+    "desc_es": "Resort todo incluido solo para adultos con excelente relación calidad-precio en Playa Bávaro. Ríos lentos tropicales y concepto de Lujo Ilimitado sin reservaciones requeridas.",
+    "desc_en": "Adults-only, all-inclusive resort delivering exceptional quality-to-price ratios on Bávaro Beach. Features winding tropical lazy rivers and Unlimited-Luxury dining with zero reservations required."
+  },
+  {
+    "id": "HOT-ASPI-002",
+    "tier": "ASPI",
+    "pasillo": "MEX_CANCUN",
+    "name_es": "Hyatt Ziva Cancún (Cancún, México)",
+    "name_en": "Hyatt Ziva Cancun (Cancun, Mexico)",
+    "desc_es": "Rodeado por el mar en tres de sus lados. Cuenta con la torre exclusiva para adultos Turquoize que ofrece jacuzzis privados en los balcones y piscina infinity en el rooftop de acceso restringido.",
+    "desc_en": "Framed by the ocean on three sides. Features the adults-only Turquoize tower boasting private balcony hot tubs and a restricted-access scenic rooftop infinity pool."
+  }
+]
