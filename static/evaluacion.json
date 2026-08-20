@@ -1,11 +1,9 @@
-[
 {
   "CONFIGURACION_MATRIZ_EVALUACION": {
     "pilar_id": "PILAR-004-EVALUACION-CRM",
     "version_algoritmo": "2.5.0-Extended",
     "total_subvariantes": 6
   },
-
   "VAR1_MEJORIA_GENERAL": {
     "color_hex": "#3D9970",
     "status_es": "ARMONÍA LOGRADA: OPTIMIZACIÓN INTEGRAL",
@@ -13,7 +11,6 @@
     "body_es": "Tu Figura Humana muestra una respuesta excepcional al estímulo de bienestar de 15 minutos. El Círculo de Desprendimiento ha regresado al centro geométrico del Triángulo de Balance. Tu Índice de Ritmo de Vida se ha desacelerado hacia una zona de calma, tu Reserva Energética se ha recargado en un 30% y tu Flujo Creativo se encuentra desbloqueado y receptivo. Has demostrado una excelente capacidad de reconexión y enfoque en el momento presente.",
     "body_en": "Your Vitality Silhouette displays an exceptional response to the 15-minute wellness alignment. The Center Circle has successfully anchored back into the core of your Balance Triangle. Your Lifestyle Pace Index has shifted into a state of calm, your Energy Reserves have replenished by 30%, and your Creative Flow is unlocked and highly receptive. You have demonstrated an outstanding ability to reconnect and focus on the present moment."
   },
-
   "VAR1_MEJORIA_CREATIVA": {
     "color_hex": "#50B883",
     "status_es": "ARMONÍA LOGRADA: ENFOQUE E INSPIRACIÓN",
@@ -21,7 +18,6 @@
     "body_es": "Felicidades. El CRM detecta que los ejercicios de pensamiento lateral rompieron la rigidez de tus procesos cognitivos. El Círculo de Desprendimiento se ha alineado directamente con el vértice de tu Flujo Creativo, disparando tus indicadores de innovación en un 45%. Tu mente ha salido del bucle operativo y se encuentra en un estado de receptividad óptima, ideal para diseñar nuevas estrategias de negocio.",
     "body_en": "Congratulations. The CRM detects that lateral thinking exercises shattered the rigidity of your cognitive processes. The Center Circle has aligned directly with the Creative Flow vertex, skyrocketing your innovation indicators by 45%. Your mind has broken free from the operational loop and stands in a state of optimal receptivity, ideal for designing new business strategies."
   },
-
   "VAR2_IGUAL_ESTACIONARIO": {
     "color_hex": "#C5A059",
     "status_es": "BALANCE ESTACIONARIO: MESETA ADAPTATIVA",
@@ -29,7 +25,6 @@
     "body_es": "Tu Figura Humana se mantiene en una meseta de energía adaptativa. Tras los 15 minutos de servicio, el Círculo de Desprendimiento sigue inclinado hacia uno de los vértices del Triángulo, indicando que las presiones del entorno cotidiano han generado una inercia que bloquea tu relajación natural. Tu Reserva Energética no ha empeorado, pero tu Flujo Creativo requiere un estímulo de choque más profundo para salir de la monotonía de la rutina.",
     "body_en": "Your Vitality Silhouette remains on an adaptive energy plateau. Following the 15-minute service, the Center Circle remains tilted toward one of the Triangle's vertices, indicating that daily environmental pressures have created an inertia blocking your natural relaxation. While your Energy Reserves have not declined, your Creative Flow requires a more profound shock stimulus to break free from routine monotony."
   },
-
   "VAR2_IGUAL_RIGIDEZ": {
     "color_hex": "#D4B26F",
     "status_es": "BALANCE ESTACIONARIO: RITMO RÍGIDO",
@@ -37,7 +32,6 @@
     "body_es": "El CRM local registra que tu sistema autónomo mantiene una alta rigidez estructural. El Círculo de Desprendimiento apenas se desplazó 3 milímetros de su posición inicial, reflejando que tu mente continúa procesando de forma subconsciente problemas logísticos o financieros. Tu Reserva Energética se mantiene estable, pero para romper esta inercia estacionaria, la plataforma prescribe un cambio drástico e inmediato de entorno geográfico.",
     "body_en": "The local CRM records that your autonomous system retains high structural rigidity. The Center Circle barely moved 3 millimeters from its initial position, reflecting that your mind continues to subconsciously process logistical or financial friction. Your Energy Reserves remain stable, but to break this stationary inertia, the platform prescribes an immediate and drastic change of geographic environment."
   },
-
   "VAR3_EMPEORAMIENTO_SATURACION": {
     "color_hex": "#E04F4F",
     "status_es": "SATURACIÓN ACUMULADA: BLOQUEO SISTÉMICO",
@@ -45,7 +39,6 @@
     "body_es": "Tu Figura Humana refleja una resistencia activa a la desconexión digital. Los datos recolectados localmente muestran que el Círculo de Desprendimiento ha sido desplazado con fuerza hacia el extremo exterior del Triángulo de Balance. Tu Índice de Ritmo de Vida se encuentra acelerado y tu Reserva Energética está operando bajo mínimos, lo que bloquea por completo tu Flujo Creativo. Tu mente está luchando por mantener el control ante una sobrecarga sistémica acumulada.",
     "body_en": "Your Vitality Silhouette reflects an active resistance to digital disconnection. The local metrics indicate that the Center Circle has been forcefully pushed to the outer edge of the Balance Triangle. Your Lifestyle Pace Index is over-accelerated, and your Energy Reserves are operating at a critical minimum, completely blocking your Creative Flow. Your mind is straining to maintain control against an accumulated systemic overload."
   },
-
   "VAR3_EMPEORAMIENTO_AGOTAMIENTO": {
     "color_hex": "#C0392B",
     "status_es": "SATURACIÓN CRÍTICA: AGOTAMIENTO DE RESERVA",
@@ -53,4 +46,4 @@
     "body_es": "Alerta de fatiga cognitiva emitida por el CRM local de MAY ROGA LLC. Tu interacción táctil y velocidad de respuesta delatan un agotamiento severo de tu Reserva Energética. El Círculo de Desprendimiento ha colapsado hacia el borde inferior del Triángulo y tu Silueta de Vitalidad parpadea en nivel crítico. Los 15 minutos confirman que tu sistema ya no puede autorregularse de forma local; requieres aislamiento total y confort absoluto inmediato.",
     "body_en": "Cognitive fatigue alert issued by the local CRM of MAY ROGA LLC. Your tactile interaction and response speed betray a severe depletion of your Energy Reserves. The Center Circle has collapsed toward the bottom edge of the Triangle, and your Vitality Silhouette flashes at a critical level. The 15-minute runtime confirms your system can no longer self-regulate locally; you require immediate total isolation and absolute comfort."
   }
-]
+}
