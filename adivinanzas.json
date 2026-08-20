@@ -1,37 +1,247 @@
 [
   {
     "id": "ADV-001",
-    "es": "Corro pero no tengo pies, tengo un lecho pero nunca duermo. ¿Qué soy?",
-    "en": "I run but have no feet, I have a bed but never sleep. What am I?",
+    "es": "Corro pero no tengo pies, tengo un lecho pero nunca duermo, y aunque siempre avanzo, nunca regreso. ¿Qué soy?",
+    "en": "I run but have no feet, I have a bed but never sleep, and though I always move forward, I never return. What am I?",
     "ans_es": "El río",
     "ans_en": "A river"
   },
   {
     "id": "ADV-002",
-    "es": "No tengo peso, pero si me pones dentro de un barril lo haré más liviano. ¿Qué soy?",
-    "en": "I have no weight, but if you put me inside a barrel I make it lighter. What am I?",
-    "ans_es": "Un agujero",
-    "ans_en": "A hole"
-  },
-  {
-    "id": "ADV-003",
-    "es": "Te sigo a todas partes, copio tus movimientos, pero en la oscuridad absoluta desaparezco. ¿Qué soy?",
-    "en": "I follow you everywhere, copying your moves, but in absolute darkness I disappear. What am I?",
+    "es": "Te sigo a todas partes y copio cada uno de tus movimientos, pero si te paras bajo la luz de la luna en la oscuridad absoluta, desaparezco por completo. ¿Qué soy?",
+    "en": "I follow you everywhere and copy your every move, but if you stand under the moonlight in absolute darkness, I completely vanish. What am I?",
     "ans_es": "La sombra",
     "ans_en": "The shadow"
   },
   {
+    "id": "ADV-003",
+    "es": "No tengo peso ni dimensiones, pero si me pones dentro de un barril de madera lleno de agua pesada, lo haré más liviano. ¿Qué soy?",
+    "en": "I have no weight or dimensions, but if you put me inside a wooden barrel full of heavy water, I will make it lighter. What am I?",
+    "ans_es": "Un agujero",
+    "ans_en": "A hole"
+  },
+  {
     "id": "ADV-004",
-    "es": "Cuanto más profunda es mi presencia, menos puedes ver a tu alrededor. ¿Qué soy?",
-    "en": "The deeper my presence is, the less you can see around you. What am I?",
+    "es": "Cuanto más sutil y profunda sea mi presencia, menos podrás ver a tu alrededor. Solo la luz del sol me obliga a retirarme del océano. ¿Qué soy?",
+    "en": "The more subtle and deep my presence is, the less you can see around you. Only the sunlight forces me to retreat from the ocean. What am I?",
     "ans_es": "La niebla",
     "ans_en": "The fog"
   },
   {
     "id": "ADV-005",
-    "es": "Nazco libre cuando sueltas el aire, no tengo voz pero hago cantar al viento. ¿Qué soy?",
-    "en": "I am born free when you let go of your breath, I have no voice but make the wind sing. What am I?",
+    "es": "Nazco libre cuando decides soltar el aire, no tengo voz pero puedo hacer que el viento cante a través de los árboles, y si me dejas de alimentar, tu mente se apaga. ¿Qué soy?",
+    "en": "I am born free when you decide to let go of your breath, I have no voice but I can make the wind sing through the trees, and if you stop feeding me, your mind goes out. What am I?",
     "ans_es": "La respiración",
     "ans_en": "The breath"
+  },
+  {
+    "id": "ADV-006",
+    "es": "Soy una caja perfecta que no tiene bisagras, ni cerradura, ni llave, pero en mi interior guardo un tesoro dorado y puro que da vida. ¿Qué soy?",
+    "en": "I am a perfect box that has no hinges, no lock, nor key, yet inside I protect a pure, golden treasure that gives life. What am I?",
+    "ans_es": "El huevo",
+    "ans_en": "An egg"
+  },
+  {
+    "id": "ADV-007",
+    "es": "Todos me pisan cuando caminan por la costa de Cancún, pero yo jamás piso a nadie. Si el mar me abraza con fuerza, me vuelvo parte de él. ¿Qué soy?",
+    "en": "Everyone steps on me when walking along the coast of Cancun, but I never step on anyone. If the sea embraces me tightly, I become part of it. What am I?",
+    "ans_es": "La arena",
+    "ans_en": "The sand"
+  },
+  {
+    "id": "ADV-008",
+    "es": "Te pertenezco por completo, tú nunca me usas, pero todas las personas que te conocen en tus negocios y en tu vida te llaman por mí todos los días. ¿Qué soy?",
+    "en": "I belong entirely to you, you never use me, yet everyone who knows you in business and life calls you by me every single day. What am I?",
+    "ans_es": "Tu nombre",
+    "ans_en": "Your name"
+  },
+  {
+    "id": "ADV-009",
+    "es": "Construyo castillos efímeros en la playa, destruyo montañas con paciencia milenaria, hago llorar a los hombres en el desierto y ciego a los que no quieren ver. ¿Qué soy?",
+    "en": "I build fleeting castles on the beach, destroy mountains with ancient patience, make men weep in the desert, and blind those who refuse to see. What am I?",
+    "ans_es": "El viento",
+    "ans_en": "The wind"
+  },
+  {
+    "id": "ADV-010",
+    "es": "Siempre estoy en camino, vengo desde el horizonte para aliviar tu rutina, pero cuando finalmente llego a ti y me vives, dejo de ser yo para convertirme en el ayer. ¿Qué soy?",
+    "en": "I am always on my way, coming from the horizon to ease your routine, but when I finally reach you and you live me, I cease to be myself and become yesterday. What am I?",
+    "ans_es": "El mañana",
+    "ans_en": "Tomorrow"
+  },
+  {
+    "id": "ADV-011",
+    "es": "Tengo ciudades pero no casas, tengo montañas pero no árboles, tengo ríos y mares pero no agua, y te guío a tu próximo destino sin moverme. ¿Qué soy?",
+    "en": "I have cities but no houses, mountains but no trees, rivers and seas but no water, and I guide you to your next destination without moving. What am I?",
+    "ans_es": "El mapa",
+    "ans_en": "A map"
+  },
+  {
+    "id": "ADV-012",
+    "es": "Nazco en el cielo profundo, muero al tocar la tierra de la Riviera Maya, y aunque soy suave y refrescante, puedo ocultar el sol si vengo acompañada. ¿Qué soy?",
+    "en": "I am born in the deep sky, I die upon touching the ground of the Riviera Maya, and though I am soft and refreshing, I can hide the sun if I come accompanied. What am I?",
+    "ans_es": "La gota de lluvia",
+    "ans_en": "A raindrop"
+  },
+  {
+    "id": "ADV-013",
+    "es": "Vuelo sin alas, lloro sin ojos, viajo con el viento por todo el Caribe y cambio de forma constantemente para que tu imaginación vuele. ¿Qué soy?",
+    "en": "I fly without wings, I cry without eyes, I travel with the wind across the Caribbean, and I constantly change shape to let your imagination soar. What am I?",
+    "ans_es": "La nube",
+    "ans_en": "A cloud"
+  },
+  {
+    "id": "ADV-014",
+    "es": "Me puedes encontrar en el fondo del mar de Punta Cana, guardo el sonido del océano en mi interior, y si me pones en tu oído, te susurro el eco de las olas. ¿Qué soy?",
+    "en": "You can find me at the bottom of the sea in Punta Cana, I keep the sound of the ocean inside me, and if you place me to your ear, I whisper the echo of the waves. What am I?",
+    "ans_es": "El caracol de mar",
+    "ans_en": "A seashell"
+  },
+  {
+    "id": "ADV-015",
+    "es": "No hablo, no escucho, pero digo siempre la verdad. Si me miras fijamente en tu suite de lujo, te mostraré exactamente quién eres en este instante. ¿Qué soy?",
+    "en": "I don't speak, I don't hear, but I always tell the truth. If you look at me closely in your luxury suite, I will show you exactly who you are right now. What am I?",
+    "ans_es": "El espejo",
+    "ans_en": "The mirror"
+  },
+  {
+    "id": "ADV-016",
+    "es": "Tengo llaves pero no abro cerraduras, tengo espacio pero no hay cuartos, puedes entrar en mí pero no puedes salir, y traduzco tus ideas a la pantalla. ¿Qué soy?",
+    "en": "I have keys but open no locks, I have space but there are no rooms, you can enter me but you cannot walk out, and I translate your ideas to the screen. What am I?",
+    "ans_es": "El teclado",
+    "ans_en": "The keyboard"
+  },
+  {
+    "id": "ADV-017",
+    "es": "Soy tan sutil que si dices mi nombre en voz alta en medio de la selva maya, me rompo por completo y desaparezco. ¿Qué soy?",
+    "en": "I am so subtle that if you speak my name out loud in the middle of the Mayan jungle, I break completely and vanish. What am I?",
+    "ans_es": "El silencio",
+    "ans_en": "The silence"
+  },
+  {
+    "id": "ADV-018",
+    "es": "Cuanto más viejo me vuelvo, más valor me das en las cenas premium. Nazco del fruto de la vid, duermo a oscuras en madera y alegro el espíritu de los hombres. ¿Qué soy?",
+    "en": "The older I get, the more value you give me at premium dinners. I am born from the fruit of the vine, I sleep in darkness within wood, and I gladden the spirit of men. What am I?",
+    "ans_es": "El vino",
+    "ans_en": "The wine"
+  },
+  {
+    "id": "ADV-019",
+    "es": "Tengo hojas pero no soy un árbol, tengo un lomo pero no soy un animal, te abro mundos e historias infinitas y me disfrutas frente al mar sin usar baterías. ¿Qué soy?",
+    "en": "I have leaves but I am not a tree, I have a spine but I am not an animal, I open endless worlds and stories for you, and you enjoy me by the sea without using batteries. What am I?",
+    "ans_es": "El libro",
+    "ans_en": "A book"
+  },
+  {
+    "id": "ADV-020",
+    "es": "Ilumino tus noches en la playa, cambio de forma cada semana sin moverme de mi lugar, y controlo las mareas del Caribe con mi fuerza invisible. ¿Qué soy?",
+    "en": "I light up your nights on the beach, I change shape every week without moving from my place, and I control the Caribbean tides with my invisible force. What am I?",
+    "ans_es": "La luna",
+    "ans_en": "The moon"
+  },
+  {
+    "id": "ADV-021",
+    "es": "Tengo un corazón de piedra que nunca late, nazco en lo profundo de la tierra y brillo con tal fuerza en tu mano que represento el compromiso eterno. ¿Qué soy?",
+    "en": "I have a heart of stone that never beats, I am born deep within the earth, and I shine with such power on your hand that I represent eternal commitment. What am I?",
+    "ans_es": "El diamante",
+    "ans_en": "A diamond"
+  },
+  {
+    "id": "ADV-022",
+    "es": "No tengo voz pero te hablo sin cesar, marco el paso de tus negocios pero no puedo caminar. Si me miras fijamente, verás cómo se escapa tu día. ¿Qué soy?",
+    "en": "I have no voice but I speak to you constantly, I set the pace of your business but I cannot walk. If you stare at me, you will see your day slip away. What am I?",
+    "ans_es": "El reloj",
+    "ans_en": "A clock"
+  },
+  {
+    "id": "ADV-023",
+    "es": "Tengo raíces que nadie ve, soy más alta que los árboles más antiguos de la selva, subo hasta tocar el cielo y sin embargo jamás crezco. ¿Qué soy?",
+    "en": "I have roots that nobody sees, I am taller than the oldest trees in the jungle, I climb until I touch the sky and yet I never grow. What am I?",
+    "ans_es": "La montaña",
+    "ans_en": "A mountain"
+  },
+  {
+    "id": "ADV-024",
+    "es": "Nazco de una pequeña semilla en el trópico, me muelen con fuego y me disfrutas caliente en una taza en Brickell para despertar tus sentidos cada mañana. ¿Qué soy?",
+    "en": "I am born from a small seed in the tropics, I am ground with fire, and you enjoy me hot in a cup in Brickell to awaken your senses every morning. What am I?",
+    "ans_es": "El café",
+    "ans_en": "Coffee"
+  },
+  {
+    "id": "ADV-025",
+    "es": "Te pertenezco solo a ti, pero cuando caminas por la arena blanca de la playa, me dejas atrás marcando tu camino para que el mar me borre. ¿Qué soy?",
+    "en": "I belong only to you, but when you walk on the white sand of the beach, you leave me behind marking your path for the sea to erase me. What am I?",
+    "ans_es": "La huella",
+    "ans_en": "A footprint"
+  },
+  {
+    "id": "ADV-026",
+    "es": "Soy tan ligera que una pluma me puede sostener, pero el hombre más fuerte del mundo no podría contenerme en sus pulmones por más de unos minutos. ¿Qué soy?",
+    "en": "I am so light that a feather can hold me, yet the strongest man in the world could not contain me in his lungs for more than a few minutes. What am I?",
+    "ans_es": "La respiración",
+    "ans_en": "The breath"
+  },
+  {
+    "id": "ADV-027",
+    "es": "No tengo cuerpo pero me puedes escuchar, nazco cuando las olas rompen en la orilla o cuando el viento roza las palmeras de Dominicana. ¿Qué soy?",
+    "en": "I have no body but you can hear me, I am born when waves crash on the shore or when the wind brushes the palm trees in Dominicana. What am I?",
+    "ans_es": "El sonido",
+    "ans_en": "The sound"
+  },
+  {
+    "id": "ADV-028",
+    "es": "Tengo un ojo brillante en mi centro pero no puedo ver nada, giro con fuerza destructiva en el océano y obligo a los barcos a buscar un puerto seguro. ¿Qué soy?",
+    "en": "I have a bright eye in my center but I cannot see a thing, I spin with destructive power in the ocean and force ships to seek a safe harbor. What am I?",
+    "ans_es": "El huracán",
+    "ans_en": "A hurricane"
+  },
+  {
+    "id": "ADV-029",
+    "es": "No tengo peso pero puedo romper un barco de lujo, me formo del frío extremo y floto sobre el océano como una montaña de cristal oculta. ¿Qué soy?",
+    "en": "I have no weight but I can break a luxury ship, I am formed from extreme cold and float upon the ocean like a hidden crystal mountain. What am I?",
+    "ans_es": "El iceberg",
+    "ans_en": "An iceberg"
+  },
+  {
+    "id": "ADV-030",
+    "es": "Tengo hilos pero no soy ropa, tengo un mástil pero no soy un barco, y si mis cuerdas vibran con suavidad frente al mar, acaricio tu mente con melodías. ¿Qué soy?",
+    "en": "I have strings but I am not clothes, I have a mast but I am not a ship, and if my chords vibrate softly by the sea, I caress your mind with melodies. What am I?",
+    "ans_es": "La guitarra",
+    "ans_en": "The guitar"
+  },
+  {
+    "id": "ADV-031",
+    "es": "Soy un manto dorado que calienta tus mañanas en Cancún, viajo millones de kilómetros en segundos y si me dejas de mirar, me oculto en el horizonte. ¿Qué soy?",
+    "en": "I am a golden blanket warming your mornings in Cancun, I travel millions of miles in seconds, and if you stop looking at me, I hide on the horizon. What am I?",
+    "ans_es": "La luz del sol",
+    "ans_en": "The sunlight"
+  },
+  {
+    "id": "ADV-032",
+    "es": "Tengo una corona pero no soy rey, guardo agua dulce en mi interior pero nazco en la arena, y mi fruto tropical refresca a los viajeros del Caribe. ¿Qué soy?",
+    "en": "I have a crown but I am not a king, I keep fresh water inside me but I am born in the sand, and my tropical fruit refreshes Caribbean travelers. What am I?",
+    "ans_es": "La palmera",
+    "ans_en": "The palm tree"
+  },
+  {
+    "id": "ADV-033",
+    "es": "No tengo alas pero puedo cruzar continentes enteros, cargo los sueños de miles de viajeros y te elevo por encima de las nubes hacia tu próximo destino. ¿Qué soy?",
+    "en": "I have no wings but I can cross entire continents, I carry the dreams of thousands of travelers, and I lift you above the clouds toward your next destination. What am I?",
+    "ans_es": "El avión",
+    "ans_en": "An airplane"
+  },
+  {
+    "id": "ADV-034",
+    "es": "Me abres cuando hay tormenta en la ciudad pero me cierras cuando brilla el sol en la playa, y te protejo del cielo con mi techo de tela portátil. ¿Qué soy?",
+    "en": "You open me when there is a storm in the city but close me when the sun shines on the beach, and I protect you from the sky with my portable fabric roof. What am I?",
+    "ans_es": "El paraguas",
+    "ans_en": "An umbrella"
+  },
+  {
+    "id": "ADV-035",
+    "es": "Soy un puente de siete colores que nadie puede pisar, aparezco cuando la lluvia y el sol se abrazan en el Caribe y desaparezco sin dejar rastro. ¿Qué soy?",
+    "en": "I am a bridge of seven colors that nobody can step on, I appear when rain and sun embrace in the Caribbean and disappear without a trace. What am I?",
+    "ans_es": "El arcoíris",
+    "ans_en": "A rainbow"
   }
 ]
