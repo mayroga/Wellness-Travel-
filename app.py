@@ -8,6 +8,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles # ◄── 1. AGREGAR ESTA IMPORTACIÓN
 from pydantic import BaseModel
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
@@ -18,6 +19,9 @@ app = FastAPI(
     title="MAY ROGA LLC - Wellness Travel App Production Backend",
     version="1.0.0"
 )
+
+# ◄── 2. MONTAR LA CARPETA ESTÁTICA AQUÍ MISMO
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # 🏢 CATÁLOGO GLOBAL DE INFRAESTRUCTURA REAL Y COMPLETO (FASE 1)
 CATALOGO_GLOBAL = [
