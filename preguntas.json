@@ -5,56 +5,172 @@
     "es": "Al abrir los ojos por la mañana, ¿cómo procesas las demandas de tu agenda actual?",
     "en": "When you open your eyes in the morning, how do you process the demands of your current schedule?",
     "opts": [
-      {"es": "Como un río en calma; avanzo con total claridad.", "en": "Like a calm river; I move forward with total clarity.", "pts": 25},
-      {"es": "Como una corriente constante; acelero el paso.", "en": "Like a steady current; I pick up the pace.", "pts": 15},
-      {"es": "Como una marea alta; siento la presión antes de levantarme.", "en": "Like a high tide; I feel the pressure before even getting up.", "pts": 5},
-      {"es": "Como una cascada en tormenta; mi mente ya ejecuta decisiones.", "en": "Like a storm waterfall; my mind is already executing decisions.", "pts": 0}
+      {"es": "Como un río en calma; avanzo con total claridad y dominio del tiempo.", "en": "Like a calm river; I move forward with total clarity and mastery of time.", "pts": 25},
+      {"es": "Como una corriente constante; acelero el paso pero mantengo el rumbo.", "en": "Like a steady current; I pick up the pace but keep my bearings.", "pts": 15},
+      {"es": "Como una marea alta; siento la presión de los compromisos antes de levantarme.", "en": "Like a high tide; I feel the pressure of commitments before even getting up.", "pts": 5},
+      {"es": "Como una cascada en tormenta; mi mente ya está ejecutando múltiples decisiones a la vez.", "en": "Like a storm waterfall; my mind is already executing multiple decisions at once.", "pts": 0}
     ]
   },
   {
     "id": "PRG-002",
     "variable": "Reserva_Energetica",
-    "es": "Si tu enfoque mental fuera la batería de un dispositivo premium, ¿en qué nivel estás a mitad de jornada?",
-    "en": "If your mental focus were the battery of a premium device, where are you at mid-day?",
+    "es": "Si tu energía corporal y enfoque mental fueran la batería de un dispositivo premium, ¿en qué nivel te encuentras a mitad de tu jornada?",
+    "en": "If your body energy and mental focus were the battery of a premium device, where do you find yourself halfway through your day?",
     "opts": [
-      {"es": "Rendimiento Óptimo: Brillo máximo y funciones activas.", "en": "Optimal Performance: Maximum brightness and active functions.", "pts": 25},
-      {"es": "Rendimiento Estable: Desactivé procesos secundarios.", "en": "Stable Performance: Deactivated secondary processes.", "pts": 15},
-      {"es": "Modo Ahorro: Sostengo la marcha solo por fuerza de voluntad.", "en": "Power Saving: Sustaining momentum by sheer willpower.", "pts": 5},
-      {"es": "Descarga Crítica: Alertas de saturación, necesito un reset.", "en": "Critical Discharge: Saturation alerts, in need of a reset.", "pts": 0}
+      {"es": "Rendimiento Óptimo: Brillo máximo y todas las funciones activas sin esfuerzo.", "en": "Optimal Performance: Maximum brightness and all functions active effortlessly.", "pts": 25},
+      {"es": "Rendimiento Estable: Funciono bien, pero he desactivado los procesos secundarios.", "en": "Stable Performance: Operating well, but I have deactivated secondary processes.", "pts": 15},
+      {"es": "Modo Ahorro: Sostengo la marcha solo por fuerza de voluntad; el agotamiento es perceptible.", "en": "Power Saving Mode: Sustaining momentum by sheer willpower; exhaustion is noticeable.", "pts": 5},
+      {"es": "Descarga Crítica: Operando bajo mínimos, con alertas de saturación y necesidad de un reset inmediato.", "en": "Critical Discharge: Operating at bare minimums, with saturation alerts and a need for an immediate reset.", "pts": 0}
     ]
   },
   {
     "id": "PRG-003",
     "variable": "Flujo_Creativo",
-    "es": "Cuando analizas tus últimas semanas, ¿qué tan predecibles han sido tus estímulos visuales?",
-    "en": "When you analyze your last weeks, how predictable have your visual stimuli been?",
+    "es": "Cuando analizas tus últimas dos semanas, ¿qué tan predecibles y repetitivos han sido tus estímulos visuales y decisiones?",
+    "en": "When you analyze your last two weeks, how predictable and repetitive have your visual stimuli and decisions been?",
     "opts": [
-      {"es": "Dinámicos e inspiradores; cada día trae nuevos horizontes.", "en": "Dynamic and inspiring; each day brings new horizons.", "pts": 25},
-      {"es": "Estructurados pero fluidos; encuentro espacios de exploración.", "en": "Structured but fluid; I find spaces for exploration.", "pts": 15},
-      {"es": "Monótonos; los mismos trayectos y las mismas pantallas.", "en": "Monotonous; the same commutes and the same screens.", "pts": 5},
-      {"es": "Bucle cerrado; siento que los días se clonan unos a otros.", "en": "Closed loop; I feel like days clone one another.", "pts": 0}
+      {"es": "Dinámicos e inspiradores; cada día trae nuevos paisajes, ideas y horizontes.", "en": "Dynamic and inspiring; each day brings new landscapes, ideas, and horizons.", "pts": 25},
+      {"es": "Estructurados pero fluidos; sigo una agenda pero encuentro espacios de exploración.", "en": "Structured but fluid; I follow a schedule but find spaces for exploration.", "pts": 15},
+      {"es": "Monótonos; los mismos trayectos, las mismas pantallas y los mismos entornos.", "en": "Monotonous; the same commutes, the same screens, and the same environments.", "pts": 5},
+      {"es": "Bucle cerrado; siento un estancamiento profundo donde los días se clonan unos a otros.", "en": "Closed loop; I feel a deep stagnation where days clone one another.", "pts": 0}
     ]
   },
   {
     "id": "PRG-004",
     "variable": "Resistencia_Desconexion",
-    "es": "Si te obligaras a sentarte en silencio frente al mar sin tecnología por una hora, ¿qué pasaría?",
-    "en": "If you forced yourself to sit in silence facing the sea with no tech for an hour, what would happen?",
+    "es": "Si te obligaras a sentarte en silencio en este instante, frente al mar, sin tecnología por una hora, ¿cuál sería la primera reacción de tu sistema?",
+    "en": "If you forced yourself to sit in silence right now, facing the ocean, with no technology for an hour, what would be your system's immediate reaction?",
     "opts": [
-      {"es": "Calma inmediata; me conecto con el entorno al instante.", "en": "Immediate calm; I connect with the environment instantly.", "pts": 25},
-      {"es": "Transición gradual; me tomaría unos minutos apagar el ruido mental.", "en": "Gradual transition; it would take a few minutes to quiet the mind.", "pts": 15},
-      {"es": "Inquietud motriz; sentiría la urgencia de revisar pendientes.", "en": "Motor restlessness; I would feel the urge to check pending tasks.", "pts": 5},
-      {"es": "Resistencia total; la falta de estímulo me generaría impaciencia.", "en": "Total resistance; the lack of stimulus would generate impatience.", "pts": 0}
+      {"es": "Absorción inmediata de la calma; me conecto con el entorno al instante.", "en": "Immediate absorption of calm; I connect with the environment instantly.", "pts": 25},
+      {"es": "Transición gradual; me tomaría unos minutos apagar el ruido mental de los pendientes.", "en": "Gradual transition; it would take me a few minutes to quiet the mental buzz of pending tasks.", "pts": 15},
+      {"es": "Inquietud motriz; sentiría la urgencia de revisar notificaciones o 'hacer algo productivo'.", "en": "Motor restlessness; I would feel the urge to check notifications or 'do something productively'.", "pts": 5},
+      {"es": "Resistencia total o agobio; la falta de estímulo me generaría una sensación de vacío o impaciencia extrema.", "en": "Total resistance or overwhelm; the lack of stimulus would generate a sense of emptiness or extreme impatience.", "pts": 0}
     ]
   },
   {
     "id": "PRG-005",
     "variable": "Enrutamiento_Destino",
-    "es": "Cuando imaginas el concepto de 'libertad absoluta' hoy, ¿qué exige tu mente?",
-    "en": "When you imagine the concept of 'absolute freedom' right now, what does your mind demand?",
+    "es": "Cuando imaginas el concepto de 'libertad absoluta' en este momento, ¿qué es lo primero que exige tu mente?",
+    "en": "When you imagine the concept of 'absolute freedom' right now, what is the first thing your mind demands?",
     "opts": [
-      {"es": "Silencio total, naturaleza virgen y una villa privada.", "en": "Total silence, untouched nature, and a private villa.", "pts": 25, "route": "HOTEL"},
-      {"es": "Nuevos rostros, alta gastronomía y explorar horizontes navegando.", "en": "New faces, fine dining, and exploring horizons sailing.", "pts": 25, "route": "CRUCERO"}
+      {"es": "Silencio total, naturaleza virgen, una villa privada y que nadie sepa dónde estoy.", "en": "Total silence, untouched nature, a private villa, and nobody knowing where I am.", "pts": 25, "route": "HOTEL"},
+      {"es": "Nuevos rostros, alta gastronomía, espectáculos vibrantes y explorar múltiples horizontes navegando.", "en": "New faces, fine dining, vibrant shows, and exploring multiple horizons while sailing.", "pts": 25, "route": "CRUCERO"}
+    ]
+  },
+  {
+    "id": "PRG-006",
+    "variable": "Ritmo_De_Vida",
+    "es": "Ante un imprevisto o cambio de último minuto en tus planes diarios, ¿cómo responde tu flujo de pensamiento?",
+    "en": "Faced with an unexpected or last-minute change in your daily plans, how does your thought process respond?",
+    "opts": [
+      {"es": "Flexibilidad absoluta; me adapto al cambio como el agua bordeando una roca.", "en": "Absolute flexibility; I adapt to the change like water flowing around a rock.", "pts": 25},
+      {"es": "Ajuste controlado; evalúo opciones fríamente y reprogramo la jornada sin drama.", "en": "Controlled adjustment; I coldly evaluate options and reschedule the day with no drama.", "pts": 15},
+      {"es": "Fricción interna; noto tensión y me cuesta soltar la estructura original del día.", "en": "Internal friction; I notice tension and struggle to let go of the day's original structure.", "pts": 5},
+      {"es": "Bloqueo o saturación; el cambio altera mi enfoque por completo, elevando el agobio.", "en": "Mental block or saturation; the change completely disrupts my focus, increasing overwhelm.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-007",
+    "variable": "Reserva_Energetica",
+    "es": "Al concluir una reunión de alta exigencia o una sesión de toma de decisiones, ¿qué rastro físico notas en tu sistema?",
+    "en": "Upon concluding a high-demand meeting or a critical decision-making session, what physical trace do you notice in your system?",
+    "opts": [
+      {"es": "Vitalidad intacta; mi mente se limpia de inmediato y queda lista para el siguiente reto.", "en": "Intact vitality; my mind clears immediately and stands ready for the next challenge.", "pts": 25},
+      {"es": "Desgaste ligero; noto cansancio físico pero conservo claridad en mis procesos de pensamiento.", "en": "Light wear; I notice physical fatigue but retain clarity in my thought processes.", "pts": 15},
+      {"es": "Pesadez de pantalla; tensión ocular y una marcada dificultad para mantener el foco continuo.", "en": "Screen heaviness; eye strain and a marked difficulty in maintaining continuous focus.", "pts": 5},
+      {"es": "Agotamiento neuro-sistémico; fatiga extrema que me impide procesar nueva información.", "en": "Neuro-systemic exhaustion; extreme fatigue that prevents me from processing new information.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-008",
+    "variable": "Flujo_Creativo",
+    "es": "Cuando estás en tu espacio de trabajo habitual, ¿con qué frecuencia surgen ideas innovadoras de forma natural?",
+    "en": "When you are in your regular workspace, how frequently do innovative ideas arise naturally?",
+    "opts": [
+      {"es": "Constantemente; el entorno estimula mi creatividad de forma fluida y espontánea.", "en": "Constantly; the environment stimulates my creativity in a fluid and spontaneous way.", "pts": 25},
+      {"es": "De forma intermitente; requiero buscar activamente estímulos externos para desbloquearme.", "en": "Intermittently; I need to actively seek external stimuli to unblock myself.", "pts": 15},
+      {"es": "Raramente; resuelvo lo operativo mecánicamente, pero la innovación brilla por su ausencia.", "en": "Rarely; I handle operations mechanically, but innovation is noticeably absent.", "pts": 5},
+      {"es": "Cero flujo; me siento atrapado en un desierto creativo, aburrido de las mismas dinámicas.", "en": "Zero flow; I feel trapped in a creative desert, bored of the exact same dynamics.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-009",
+    "variable": "Resistencia_Desconexion",
+    "es": "Al recibir notificaciones continuas en tu teléfono fuera del horario laboral, ¿cuál es tu conducta automática?",
+    "en": "When receiving continuous notifications on your phone outside of business hours, what is your automatic behavior?",
+    "opts": [
+      {"es": "Desconexión total; mi dispositivo entra en modo silencio y priorizo mi bienestar absoluto.", "en": "Total disconnection; my device goes on silent and I prioritize my absolute wellness.", "pts": 25},
+      {"es": "Filtro selectivo; reviso de reojo y solo atiendo lo que considero una emergencia real.", "en": "Selective filter; I glance from the corner of my eye and only address real emergencies.", "pts": 15},
+      {"es": "Lectura impulsiva; respondo casi al instante sintiendo la obligación de resolverlo ya.", "en": "Impulsive reading; I respond almost instantly, feeling forced to solve it right then.", "pts": 5},
+      {"es": "Hipervigilancia y ansiedad; no puedo soltar el terminal, el sonido del aviso altera mi pulso.", "en": "Hypervigilance and anxiety; I cannot drop the phone, the notification sound alters my pulse.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-010",
+    "variable": "Enrutamiento_Destino",
+    "es": "¿Qué tipo de entorno geográfico crees que aceleraría el desbloqueo de tu vitalidad en este instante?",
+    "en": "What type of geographical environment do you think would accelerate the unblocking of your vitality right now?",
+    "opts": [
+      {"es": "Un santuario terrestre aislado; el murmullo de la jungla y la quietud de una playa virgen.", "en": "An isolated land sanctuary; the rustle of the jungle and the stillness of an untouched beach.", "pts": 25, "route": "HOTEL"},
+      {"es": "La inmensidad del océano en movimiento; brisa marina constante y cambiar de horizonte cada día.", "en": "The immensity of the ocean in motion; steady sea breeze and changing horizons every day.", "pts": 25, "route": "CRUCERO"}
+    ]
+  },
+  {
+    "id": "PRG-011",
+    "variable": "Ritmo_De_Vida",
+    "es": "Cuando estás en medio de un trayecto o desplazamiento en Miami, ¿cuál es el estado de tu diálogo interno?",
+    "en": "When you are in the middle of a commute or transit in Miami, what is the state of your internal dialogue?",
+    "opts": [
+      {"es": "Presencia absoluta; disfruto del paisaje, la música y aprovecho el espacio para respirar.", "en": "Absolute presence; I enjoy the scenery, the music, and use the space to breathe.", "pts": 25},
+      {"es": "Planificación neutral; voy repasando mentalmente las tareas del día sin alterar mi pulso.", "en": "Neutral planning; I mentally review the day's tasks without altering my pulse.", "pts": 15},
+      {"es": "Prisa inconsciente; calculo los minutos con tensión y siento impaciencia por el tráfico.", "en": "Unconscious rush; I calculate the minutes with tension and feel impatience with traffic.", "pts": 5},
+      {"es": "Saturación mental; me siento abrumado por el entorno y el ruido de los pendientes acumulados.", "en": "Mental saturation; I feel overwhelmed by the environment and the noise of accumulated tasks.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-012",
+    "variable": "Reserva_Energetica",
+    "es": "¿Cómo calificarías tu calidad de descanso y regeneración al despertar por las mañanas?",
+    "en": "How would you rate your quality of rest and regeneration upon waking up in the morning?",
+    "opts": [
+      {"es": "Restauración Total: Me levanto ligero, con la mente ágil y energía renovada.", "en": "Total Restoration: I wake up light, with an agile mind and renewed energy.", "pts": 25},
+      {"es": "Restauración Parcial: Duermo bien, pero arrastro una leve pesadez física los primeros minutos.", "en": "Partial Restoration: I sleep well, but drag a slight physical heaviness for the first few minutes.", "pts": 15},
+      {"es": "Sueño Fragmentado: Microdespertares nocturnos y la sensación de no haber desconectado el cerebro.", "en": "Fragmented Sleep: Nighttime micro-awakenings and the feeling of not having disconnected the brain.", "pts": 5},
+      {"es": "Agotamiento Acumulado: Me despierto más cansado de lo que me acosté; mi reserva está bajo mínimos.", "en": "Accumulated Exhaustion: I wake up more tired than when I went to bed; my reserves are at a bare minimum.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-013",
+    "variable": "Flujo_Creativo",
+    "es": "Frente a un problema complejo en tus proyectos, ¿qué tan rápido visualizas soluciones fuera de la caja?",
+    "en": "Faced with a complex problem in your projects, how quickly do you visualize out-of-the-box solutions?",
+    "opts": [
+      {"es": "Inmediato; las analogías abstractas surgen de forma natural e innovadora.", "en": "Immediate; abstract analogies emerge naturally and innovatively.", "pts": 25},
+      {"es": "Procesamiento lógico; llego a una buena solución tras analizar metódicamente los datos.", "en": "Logical processing; I reach a good solution after methodically analyzing the data.", "pts": 15},
+      {"es": "Iteración monótona; tiendo a aplicar las mismas fórmulas de siempre por falta de inspiración.", "en": "Monotonous iteration; I tend to apply the same old formulas due to lack of inspiration.", "pts": 5},
+      {"es": "Bloqueo por fatiga; la mente repite el problema en bucle sin encontrar ninguna salida fresca.", "en": "Fatigue block; the mind repeats the problem in a loop without finding any fresh way out.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-014",
+    "variable": "Resistencia_Desconexion",
+    "es": "Si tuvieras que desconectarte de correos corporativos y chats de negocios por 48 horas seguidas, ¿qué experimentas?",
+    "en": "If you had to disconnect from corporate emails and business chats for 48 consecutive hours, what would you experience?",
+    "opts": [
+      {"es": "Paz absoluta; disfruto de mi tiempo libre con total desapego digital.", "en": "Absolute peace; I enjoy my free time with total digital detachment.", "pts": 25},
+      {"es": "Adaptación inicial; las primeras horas siento curiosidad, pero luego me desconecto felizmente.", "en": "Initial adaptation; the first few hours I feel curious, but then I happily disconnect.", "pts": 15},
+      {"es": "Fantasía de control; reviso en silencio solo para asegurarme de que 'todo marcha bien'.", "en": "Control fantasy; I silently check just to ensure that 'everything is running smoothly'.", "pts": 5},
+      {"es": "Síndrome de hiperconectividad; ansiedad constante y la sensación de estar perdiendo el control del negocio.", "en": "Hyperconnectivity syndrome; constant anxiety and the feeling of losing control of the business.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-015",
+    "variable": "Enrutamiento_Destino",
+    "es": "¿Cuál de estas experiencias premium consideras que aliviaría de inmediato tu saturación actual?",
+    "en": "Which of these premium experiences do you think would immediately relieve your current saturation?",
+    "opts": [
+      {"es": "Desintoxicación digital en una villa privada con piscina infinita escondida en el Caribe.", "en": "Digital detox in a private villa with a hidden infinity pool in the Caribbean.", "pts": 25, "route": "HOTEL"},
+      {"es": "Navegación de alta gama en un mega-yate de lujo, disfrutando de alta gastronomía en movimiento.", "en": "High-end sailing on a luxury mega-yacht, enjoying fine dining in motion.", "pts": 25, "route": "CRUCERO"}
     ]
   }
 ]
