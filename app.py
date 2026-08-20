@@ -21,20 +21,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# MONTAR LA CARPETA ESTÁTICA SÓLO SI EXISTE EN EL DISCO
+# MONTAR LA CARPETA ESTÁTICA EXCLUSIVAMENTE PARA KERNEL-SAFETY Y RECURSOS
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# NUEVA DATA MAESTRA DE RESPALDO SINCRONIZADA CON LOS HOTELES DEL FRONTEND
 BACKEND_HOTELES = {
-    "H1": {"name": "Eden Roc Cap Cana (República Dominicana)", "desc": "Bungalows de ultra-lujo con alberca propia, jardín privado y aislamiento acústico absoluto."},
+    "H1": {"name": "Eden Roc Cap Cana (Punta Cana)", "desc": "Bungalows de ultra-lujo con alberca propia, jardín privado y aislamiento acústico absoluto."},
     "H2": {"name": "Amanera Resort (Playa Grande)", "desc": "Casitas de ebanistería minimalista y cristal suspendidas sobre los acantilados marinos del Caribe."},
-    "H3": {"name": "Grand Velas Riviera Maya (México)", "desc": "Suites presidenciales de alta gama con un circuito hidrotermal guiado de spa de 7 etapas."},
-    "H4": {"name": "Secrets Impression Moxché", "desc": "Oasis premium solo para adultos con rooftops infinity y mayordomía dedicada las 24 horas."},
-    "H5": {"name": "Secrets Royal Beach Punta Cana", "desc": "Complejo vacacional todo incluido de confort con swim-up suites frente a las arenas blancas de Bávaro."}
+    "H3": {"name": "Grand Velas Riviera Maya (México)", "desc": "Suites presidenciales de alta gama con un circuito hidrotermal guiado de spa de 7 etapas."}
 }
 
-# DICCIONARIO DE TRASLADOS PREMIUM SEGÚN EL TIER CALCULADO POR EL CRM LOCAL
 BACKEND_LOGISTICA = {
     "ELITE": {
         "air": "Gulfstream G650 Chárter Privado directo sin filas desde la terminal VIP FBO de Miami.",
@@ -43,10 +39,6 @@ BACKEND_LOGISTICA = {
     "PREMIUM": {
         "air": "Clase Ejecutiva Flagship Suite con asientos Lie-Flat totalmente reclinables en vuelo directo.",
         "sea": "Celebrity Cruises (The Retreat Enclave) con solárium y restaurante de autor VIP."
-    },
-    "ASPI": {
-        "air": "Cabina Principal Confort+ en vuelo directo con prioridad de chequeo y equipaje express.",
-        "sea": "Royal Caribbean International (Solarium Adults-Only Retreat) libre de ruidos familiares."
     }
 }
 
@@ -67,7 +59,6 @@ def generate_pdf(payload: PDFPayload):
     pdf_path = os.path.join("temp", pdf_filename)
     os.makedirs("temp", exist_ok=True)
     
-    # Configuración del documento en formato Carta (Letter) despejado y espacioso
     doc = SimpleDocTemplate(
         pdf_path, pagesize=letter,
         rightMargin=45, leftMargin=45, topMargin=45, bottomMargin=45,
@@ -88,18 +79,16 @@ def generate_pdf(payload: PDFPayload):
     
     story = []
     
-    # ENCABEZADO CORPORATIVO DE ALTA GAMA
     story.append(Paragraph("<b>MAY ROGA LLC</b>", title_style))
     story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization<br/>Miami, Florida | USA", subtitle_style))
     story.append(Spacer(1, 15))
     
     story.append(Paragraph("<b>LIBRETA DE VIAJE INDIVIDUAL / PERSONAL TRAVEL ITINERARY</b>", ParagraphStyle('RepTitle', parent=styles['Heading3'], fontSize=11, leading=14, alignment=1, textColor=color_primary, spaceAfter=15)))
     
-    meta_text = f"<b>Folio de Acompañamiento / Service ID:</b> {payload.servicio_id} | <b>Estatus:</b> Completado con Éxito / Completed"
+    meta_text = f"<b>Folio de Acompañamiento / Service ID:</b> {payload.servicio_id} | <b>Estatus:</b> Completado / Completed"
     story.append(Paragraph(meta_text, body_style))
     story.append(Spacer(1, 12))
     
-    # SECCIÓN 1: BALANCE DEL COMPORTAMIENTO WELLNESS MIGRADO DE LOCALSTORAGE
     story.append(Paragraph("1. BALANCE DEL ACOMPAÑAMIENTO DE BIENESTAR", h2_style))
     
     metrics_data = [
@@ -120,61 +109,51 @@ def generate_pdf(payload: PDFPayload):
     story.append(metrics_table)
     story.append(Spacer(1, 12))
     
-    # SECCIÓN 2: DETERMINACIÓN DEL ENRUTAMIENTO TURÍSTICO (CAMINO ABIERTO HOST AGENCY)
-    story.append(Paragraph("2. TU ENRUTAMIENTO EXCLUSIVO DE VIAJE", h2_style))
+    story.append(Paragraph("2. TU ENRUTAMIENTO EXCLUSIVO DE VIAJE (CAMINO HOST AGENT)", h2_style))
     
     hotel_id = payload.destino_id
     if hotel_id in BACKEND_HOTELES:
         h_name = BACKEND_HOTELES[hotel_id]["name"]
         h_desc = BACKEND_HOTELES[hotel_id]["desc"]
     else:
-        h_name = "Santuario Curado Premium"
-        h_desc = "Oasis seleccionado dinámicamente según tus respuestas locales."
+        h_name = "Eden Roc Cap Cana (Punta Cana)"
+        h_desc = "Villas de ultra-lujo con alberca propia y aislamiento acústico absoluto."
     
-    tier_key = "ELITE"
-    if "PREMIUM" in hotel_id or (payload.score_inicial >= 40 and payload.score_inicial < 75): 
-        tier_key = "PREMIUM"
-    elif "ASPI" in hotel_id or payload.score_inicial >= 75: 
-        tier_key = "ASPI"
-    
+    tier_key = "ELITE" if "ELITE" in payload.variante or payload.score_inicial < 40 else "PREMIUM"
     logistica = BACKEND_LOGISTICA[tier_key]
         
     dest_html = f"• <b>Santuario Recomendado:</b> {h_name}<br/>"
     dest_html += f"• <b>Detalle del Espacio:</b> {h_desc}<br/><br/>"
     dest_html += f"• <b>Logística del Aire:</b> {logistica['air']}<br/>"
     dest_html += f"• <b>Pasillo Marítimo:</b> {logistica['sea']}<br/>"
-    dest_html += "• <b>Beneficios Exclusivos Consorcio:</b> Acceso preferencial a créditos de cortesía Virtuoso ($100 utilizables en áreas de spa y mejoras de habitación gestionadas automáticamente mediante credenciales)."
+    dest_html += "• <b>Beneficios Exclusivos Consorcio:</b> Acceso preferencial a créditos de cortesía Virtuoso ($100 para spa y mejoras de habitación gestionadas de forma automática)."
     
     story.append(Paragraph(dest_html, body_style))
     story.append(Spacer(1, 15))
     
-    # SECCIÓN 3: ACTIVACIÓN COMERCIAL
     story.append(Paragraph("3. CÓMO ACTIVAR TU ITINERARIO DE CALMA", h2_style))
-    cta_text = "Para conservar este balance natural de calma y fijar las tarifas corporativas preferenciales de este itinerario, envíe este documento PDF a su Conserje de Viajes VIP de MAY ROGA LLC. Indique su Folio de Servicio para validar sus beneficios exclusivos de cortesía."
+    cta_text = "Para conservar este balance natural de calma y fijar las tarifas preferenciales de este itinerario, envíe este documento PDF a su Conserje de Viajes VIP de MAY ROGA LLC. Indique su Folio de Servicio para validar sus beneficios de cortesía."
     story.append(Paragraph(cta_text, body_style))
     story.append(Spacer(1, 20))
     
-    # SECCIÓN 4: BLINDAJE JURÍDICO EXIGIDO POR EL ESTADO DE FLORIDA (AVISO COMPRENSIBLE)
     story.append(Paragraph("<b>4. AVISO CORPORATIVO DE BIENESTAR & EXENCIÓN DE RESPONSABILIDAD</b>", ParagraphStyle('LegHeader', parent=styles['Normal'], fontSize=8, leading=11, textColor=color_primary, spaceAfter=6)))
     
-    disc_es = "<b>ESPAÑOL:</b> Este documento es emitido exclusivamente por MAY ROGA LLC como una guía recreativa de orientación para el estilo de vida, el confort y la consultoría de viajes premium. No constituye, ni reemplaza en ninguna circunstancia, un diagnóstico, consulta o tratamiento médico, psicológico, psiquiátrico o clínico de ninguna índole. MAY ROGA LLC no provee servicios de salud ni es un proveedor médico. Toda la información recopilada para generar esta prescripción se procesa y almacena de forma estrictamente local y anónima en el navegador del dispositivo del usuario (localStorage). El usuario asume total control y responsabilidad sobre sus elecciones de viaje y actividades corporativas."
-    disc_en = "ENGLISH: This document is issued exclusively by MAY ROGA LLC as a recreational guidance tool for premium lifestyle configuration and travel consulting. It does not replace, nor substitute, any psychiatric, psychological, clinical, or medical advice or diagnosis. MAY ROGA LLC is not a healthcare institution nor a medical provider. All analytics are generated strictly locally and anonymously on the user's terminal via algorithmic indicators (localStorage). The client maintains full control and liability for travel actions."
+    disc_es = "<b>ESPAÑOL:</b> Este documento es emitido exclusivamente por MAY ROGA LLC como una guía recreativa de orientación para el estilo de vida, el confort y la consultoría de viajes premium. No constituye, ni reemplaza en ninguna circunstancia, un diagnóstico, consulta o tratamiento médico, psicológico, psiquiátrico o clínico de ninguna índole. MAY ROGA LLC no provee servicios de salud ni es un proveedor médico. Toda la información recopilada para generar esta prescripción se procesa y almacena de forma estrictamente local y anónima en el navegador del dispositivo del usuario (localStorage). El usuario asume total control y responsabilidad sobre sus elecciones de viaje."
+    disc_en = "<b>ENGLISH:</b> This document is issued exclusively by MAY ROGA LLC as a recreational guidance tool for premium lifestyle configuration and travel consulting. It does not replace, nor substitute, any psychiatric, psychological, clinical, or medical advice or diagnosis. MAY ROGA LLC is not a healthcare institution nor a medical provider. All analytics are generated strictly locally and anonymously on the user's terminal via algorithmic indicators (localStorage)."
     
     story.append(Paragraph(disc_es, disclaimer_style))
     story.append(Spacer(1, 6))
     story.append(Paragraph(disc_en, disclaimer_style))
+    
     story.append(Spacer(1, 15))
-    story.append(Paragraph("This document is for informational and promotional travel purposes only. For medical advice, consult a certified healthcare professional. AI responses may include mistakes.", ParagraphStyle('AIFoot', parent=disclaimer_style, fontName='Helvetica-Oblique', alignment=1)))
+    story.append(Paragraph("This document is for informational and promotional travel purposes only. For medical advice, consult a certified healthcare professional.", ParagraphStyle('AIFoot', parent=disclaimer_style, fontName='Helvetica-Oblique', alignment=1)))
+    
     story.append(Spacer(1, 15))
-    story.append(Paragraph("© 2026 MAY ROGA LLC. All rights reserved. Miami, Florida.", ParagraphStyle('FootCopyright', parent=subtitle_style, fontSize=8)))
+    story.append(Paragraph("<font color='#A3704C'>© 2026 MAY ROGA LLC. All rights reserved. Miami, Florida.</font>", ParagraphStyle('FootCopyright', parent=subtitle_style, fontSize=8)))
     
     doc.build(story)
     return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
 
-
-# ====================================================================================================
-# ENDPOINT INDEX HTML PRINCIPAL
-# ====================================================================================================
 @app.get("/", response_class=HTMLResponse)
 def index():
     base_dir = os.path.dirname(__file__)
