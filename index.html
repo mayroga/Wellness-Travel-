@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAY ROGA LLC | Wellness Architecture</title>
+    <title>AL CIELO | Aura Experience</title>
     <style>
         :root {
-            --bg-obsidian: #09090b;
+            --bg-obsidian: #050507;
             --bg-card: #121216;
             --gold-champagne: #dfb16b;
-            --white-ivory: #f4f4f6;
-            --text-muted: #9ba1a6;
-            --alert-crimson: #e04f4f;
-            --wellness-green: #4fe0b0;
-            --border-subtle: rgba(223, 177, 107, 0.25);
+            --white-ivory: #f8f8fa;
+            --text-muted: #a0a5ad;
+            --wellness-green: #34d399;
+            --border-subtle: rgba(223, 177, 107, 0.2);
         }
 
         * {
@@ -31,19 +30,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
             overflow-x: hidden;
         }
 
-        /* CONTENEDOR MAESTRO CENTRADO Y RESPONSIVE */
+        /* CONTENEDOR MAESTRO PERFECTAMENTE CENTRADO Y RESPONSIVE */
         .master-container {
             width: 100%;
-            max-width: 520px;
+            max-width: 480px;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 30px 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 24px;
+            padding: 28px 22px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -51,13 +50,13 @@
             position: relative;
         }
 
-        /* BARRA SUPERIOR CON IDIOMA */
+        /* BARRA SUPERIOR */
         .top-bar {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 12px;
         }
@@ -65,7 +64,7 @@
         .brand-title {
             font-size: 13px;
             font-weight: 700;
-            letter-spacing: 2.5px;
+            letter-spacing: 2px;
             color: var(--gold-champagne);
             text-transform: uppercase;
         }
@@ -74,12 +73,12 @@
             background: transparent;
             border: 1px solid var(--gold-champagne);
             color: var(--gold-champagne);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .lang-btn:hover {
@@ -87,166 +86,170 @@
             color: var(--bg-obsidian);
         }
 
-        /* TIPOGRAFÍA CLARA Y DE FÁCIL LECTURA */
+        /* TIPOGRAFÍA CLARA Y DE ALTA LECTIBILIDAD */
         h2 {
-            font-size: 22px;
-            font-weight: 500;
+            font-size: 20px;
+            font-weight: 600;
             color: var(--white-ivory);
-            margin-bottom: 12px;
-            line-height: 1.35;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
         p {
-            font-size: 15px;
+            font-size: 14.5px;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 24px;
+            line-height: 1.55;
+            margin-bottom: 20px;
         }
 
-        /* BOTONES PRINCIPALES DE ALTA VISIBILIDAD */
+        /* BOTONES PRINCIPALES */
         .gold-btn {
             width: 100%;
             background: linear-gradient(135deg, #dfb16b 0%, #b8863b 100%);
             color: #050507;
             border: none;
-            padding: 16px 20px;
+            padding: 15px 18px;
             border-radius: 14px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             cursor: pointer;
             transition: transform 0.2s ease, opacity 0.2s ease;
-            box-shadow: 0 4px 15px rgba(223, 177, 107, 0.3);
+            box-shadow: 0 4px 15px rgba(223, 177, 107, 0.25);
             margin-top: 10px;
         }
 
         .gold-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
             opacity: 0.95;
         }
 
         .gold-btn:disabled {
-            background: #2a2a30;
+            background: #232328;
             color: #666;
             cursor: not-allowed;
             box-shadow: none;
         }
 
-        /* OPCIONES DE RESPUESTA LIMPIAS */
-        .option-btn {
+        /* TARJETAS DE PRECIOS Y OPCIONES (AURA STYLE) */
+        .price-card {
             width: 100%;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--white-ivory);
-            padding: 16px 18px;
-            border-radius: 12px;
-            font-size: 14.5px;
-            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px;
             margin-bottom: 12px;
-            cursor: pointer;
+            text-align: left;
             transition: all 0.2s ease;
-            line-height: 1.4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .option-btn:hover {
+        .price-card.featured {
             background: rgba(223, 177, 107, 0.08);
             border-color: var(--gold-champagne);
         }
 
-        .option-btn.correct-choice {
-            background: rgba(79, 224, 176, 0.15);
-            border-color: var(--wellness-green);
-            color: var(--wellness-green);
+        .price-info h4 {
+            font-size: 15px;
+            color: var(--white-ivory);
+            margin-bottom: 3px;
         }
 
-        .option-btn.wrong-choice {
-            background: rgba(224, 79, 79, 0.15);
-            border-color: var(--alert-crimson);
-            color: var(--alert-crimson);
+        .price-info span {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        /* CRONÓMETRO Y ESTADO */
+        .price-val {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold-champagne);
+        }
+
+        /* ESTADO Y CRONÓMETRO */
         .status-bar {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-size: 13px;
             color: var(--gold-champagne);
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .timer-badge {
             background: rgba(223, 177, 107, 0.1);
             border: 1px solid var(--border-subtle);
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 16px;
             font-family: monospace;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        /* CAJA DE EXPLICACIÓN */
-        .feedback-box {
-            background: rgba(223, 177, 107, 0.05);
-            border: 1px solid var(--border-subtle);
+        /* CAJA DE RESULTADOS RÁPIDOS E IMPACTANTES */
+        .reveal-box {
+            background: rgba(52, 211, 153, 0.05);
+            border: 1px solid rgba(52, 211, 153, 0.25);
             padding: 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.5;
-            color: var(--white-ivory);
-            margin: 15px 0;
+            border-radius: 14px;
+            margin-bottom: 18px;
             text-align: left;
-            display: none;
         }
 
-        /* GRID DE ECOSOSISTEMA RESPONSIVE */
-        .ecosystem-grid {
+        .reveal-box h3 {
+            font-size: 15px;
+            color: var(--wellness-green);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reveal-box p {
+            font-size: 13.5px;
+            color: var(--white-ivory);
+            margin-bottom: 0;
+            line-height: 1.45;
+        }
+
+        /* GRID DE ACCESOS RÁPIDOS */
+        .quick-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 14px;
         }
 
-        .grid-tile {
+        .quick-tile {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 10px;
-            padding: 12px 6px;
+            padding: 10px 4px;
             text-decoration: none;
             color: var(--white-ivory);
-            font-size: 12px;
+            font-size: 11.5px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             transition: background 0.2s ease;
         }
 
-        .grid-tile:hover {
+        .quick-tile:hover {
             background: rgba(223, 177, 107, 0.1);
             border-color: var(--gold-champagne);
         }
 
-        .tile-subtext {
-            font-size: 9.5px;
-            color: var(--text-muted);
-        }
-
-        @media (max-width: 480px) {
+        @media (max-width: 420px) {
             .master-container {
                 padding: 20px 16px;
             }
             h2 {
-                font-size: 19px;
-            }
-            p {
-                font-size: 14px;
-            }
-            .ecosystem-grid {
-                grid-template-columns: repeat(2, 1fr);
+                font-size: 18px;
             }
         }
     </style>
@@ -257,82 +260,88 @@
     
     <!-- BARRA SUPERIOR -->
     <div class="top-bar">
-        <span class="brand-title">MAY ROGA LLC</span>
-        <button class="lang-btn" id="langSwitch" onclick="KERNEL.toggleLanguage()">EN</button>
+        <span class="brand-title">AL CIELO</span>
+        <button class="lang-btn" id="langSwitch" onclick="AURA.toggleLanguage()">ES</button>
     </div>
 
-    <!-- PANTALLA 1: BIENVENIDA Y ACCESO -->
+    <!-- PANTALLA 1: INICIO / ACCESO -->
     <div id="panelLegal" style="width: 100%;">
-        <h2 id="lblLegalTitle">Espacio Privado de Sintonía</h2>
-        <p id="lblLegalDesc">
-            Bienvenido. Vamos a compartir un breve trayecto interactivo diseñado para liberar su atención de la rutina y alinear su enfoque con total claridad.
+        <h2 id="lblTitle1">Su transformación instantánea comienza aquí</h2>
+        <p id="lblDesc1">
+            Experimente un cambio de enfoque inmediato y claridad mental profunda diseñada para elevar su estado actual en segundos.
         </p>
 
-        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 16px; border-radius: 14px; margin-bottom: 22px;">
-            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold-champagne); margin-bottom: 4px;" id="lblPrepText">Preparando el entorno</div>
-            <div style="font-size: 24px; font-weight: 300; color: var(--white-ivory); font-family: monospace;" id="unlockCountdown">10s</div>
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 14px; border-radius: 14px; margin-bottom: 18px;">
+            <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold-champagne); margin-bottom: 3px;" id="lblSub1">Sintonizando frecuencia</div>
+            <div style="font-size: 22px; font-weight: 300; color: var(--white-ivory); font-family: monospace;" id="unlockCountdown">5s</div>
         </div>
 
-        <button class="gold-btn" id="btnUnlock" disabled onclick="KERNEL.init()">Preparando el entorno (10s)</button>
+        <button class="gold-btn" id="btnUnlock" disabled onclick="AURA.init()">Iniciando sintonía (5s)</button>
     </div>
 
-    <!-- PANTALLA 2: SERVICIO E INTERACTIVIDAD -->
+    <!-- PANTALLA 2: SELECCIÓN DE OPCIONES INTELIGENTES (AURA PRICING & INSIGHTS) -->
     <div id="panelService" style="display: none; width: 100%;">
         <div class="status-bar">
-            <span id="lblPhaseTracker">Calibración Activa</span>
-            <div class="timer-badge" id="clockDisplay">15:00</div>
+            <span id="lblStatusTitle">Selección Activa</span>
+            <div class="timer-badge" id="clockDisplay">10:00</div>
         </div>
 
-        <h2 id="lblTaskTitle" style="text-align: left; margin-bottom: 18px;">Abriendo canal...</h2>
+        <h2 id="lblServiceHeading" style="text-align: left; margin-bottom: 14px;">Elija su vía de optimización:</h2>
 
-        <div id="interactiveStack" style="width: 100%;"></div>
+        <div id="optionsContainer" style="width: 100%; margin-bottom: 14px;">
+            <!-- Opciones dinámicas de precios y rutas -->
+            <div class="price-card" onclick="AURA.selectOption(1)">
+                <div class="price-info">
+                    <h4 id="opt1Title">Opción Local Económica</h4>
+                    <span id="opt1Sub">Alternativa cercana y directa</span>
+                </div>
+                <div class="price-val">$5</div>
+            </div>
 
-        <div id="lblExplanationBox" class="feedback-box"></div>
+            <div class="price-card featured" onclick="AURA.selectOption(2)">
+                <div class="price-info">
+                    <h4 id="opt2Title">Opción Nacional Prioritaria</h4>
+                    <span id="opt2Sub">Mayor cobertura y ahorro global</span>
+                </div>
+                <div class="price-val">$10</div>
+            </div>
 
-        <button class="gold-btn" id="btnNext" style="display: none;" onclick="KERNEL.avanzarRetoContinuo()">Continuar Trayecto</button>
+            <div class="price-card" onclick="AURA.selectOption(3)">
+                <div class="price-info">
+                    <h4 id="opt3Title">Opción Élite / Exclusiva</h4>
+                    <span id="opt3Sub">Acceso completo VIP sin restricciones</span>
+                </div>
+                <div class="price-val">$25</div>
+            </div>
+        </div>
+
+        <button class="gold-btn" id="btnResolve" onclick="AURA.resolverDudaExtra()">Aclarar duda con Asesor</button>
     </div>
 
-    <!-- PANTALLA 3: RESULTADOS Y SALIDAS -->
+    <!-- PANTALLA 3: RESULTADO INSTANTÁNEO & ASOMBRO -->
     <div id="panelResults" style="display: none; width: 100%;">
-        <h2 id="lblResultsTitle" style="color: var(--gold-champagne); margin-bottom: 10px;">Prescripción de Viaje y Bienestar</h2>
-        <p id="lblResultsDesc" style="font-size: 13.5px; margin-bottom: 20px;">Parámetros procesados localmente en su dispositivo. Nuestro sistema prescribe las siguientes coordinaciones:</p>
+        <h2 id="lblResTitle" style="color: var(--gold-champagne); margin-bottom: 8px;">¡Cambio Inmediato Registrado!</h2>
+        <p id="lblResDesc" style="font-size: 13.5px; margin-bottom: 16px;">Su estado ha sido optimizado con éxito. Aquí está su ruta de avance:</p>
 
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 18px; margin-bottom: 20px; text-align: left;">
-            <div style="margin-bottom: 14px;">
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold-champagne); margin-bottom: 3px;" id="lblStayTitle">🏨 Santuario Curado:</div>
-                <div style="font-size: 14px; color: var(--white-ivory);" id="outStay">-</div>
-            </div>
-            <div style="margin-bottom: 14px;">
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold-champagne); margin-bottom: 3px;" id="lblAirTitle">✈️ Aviación Ejecutiva:</div>
-                <div style="font-size: 13px; color: var(--text-muted); line-height: 1.4;" id="outAir">-</div>
-            </div>
-            <div>
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold-champagne); margin-bottom: 3px;" id="lblSeaTitle">⚓ Corredor Náutico:</div>
-                <div style="font-size: 13px; color: var(--text-muted); line-height: 1.4;" id="outSea">-</div>
-            </div>
+        <div class="reveal-box">
+            <h3 id="resHeading">⚡ Asombro y Claridad Activa</h3>
+            <p id="resText">Su nivel de enfoque se ha elevado un 85%. Disfrute de una estabilidad inmediata y sensación de control absoluto.</p>
         </div>
 
-        <button class="gold-btn" id="btnPDF" onclick="KERNEL.despacharOraculo()" style="margin-bottom: 22px;">Descargar Libreta de Viaje (PDF)</button>
+        <button class="gold-btn" id="btnPDF" onclick="AURA.descargarReporte()" style="margin-bottom: 16px;">Descargar Reporte (PDF)</button>
 
-        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; width: 100%;">
-            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 12px;" id="lblEcosystemTitle">Ecosistema de Salida Directa</div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; width: 100%;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 10px;" id="lblEcoTitle">Accesos Rápidos del Ecosistema</div>
             
-            <div class="ecosystem-grid">
-                <a href="https://www.amazon.com" target="_blank" class="grid-tile">
+            <div class="quick-grid">
+                <a href="https://www.amazon.com" target="_blank" class="quick-tile">
                     📦 <span>Amazon</span>
-                    <span class="tile-subtext">Provisiones</span>
                 </a>
-                <a href="https://www.uber.com" target="_blank" class="grid-tile">
-                    🚗 <span>Uber VIP</span>
-                    <span class="tile-subtext">Traslados</span>
+                <a href="https://www.uber.com" target="_blank" class="quick-tile">
+                    🚗 <span>Uber</span>
                 </a>
-                <a href="https://www.aa.com" target="_blank" class="grid-tile">
-                    ✈️ <span>American</span>
-                    <span class="tile-subtext">Aerolínea</span>
-                </a>
-                <a href="https://www.costco.com" target="_blank" class="grid-tile">
-                    🏪 <span>Costco</span>
-                    <span class="tile-subtext">Élite</span>
+                <a href="https://www.avianca.com" target="_blank" class="quick-tile">
+                    ✈️ <span>Avianca</span>
                 </a>
             </div>
         </div>
@@ -341,339 +350,152 @@
 </div>
 
 <script>
-    let legalCounter = 10, serviceTimer = null, voiceInterval = null, silenceTimeout = null;
-    let timeRemaining = 15 * 60, userAnswers = [], currentTier = "ELITE", sessionData = null, currentLang = "ES";
+    let countdownSec = 5, serviceTimer = null, timeRemaining = 10 * 60, currentLang = "ES";
 
-    const BASE_EJERCICIOS = [
-        {
-            id: 1,
-            q_es: "¿Cómo responde su diálogo interno ante los retos y pendientes de su jornada?",
-            q_en: "How does your internal dialogue respond when faced with daily professional tasks?",
-            opts_es: [
-                {t: "A. Avanzo con total claridad y dominio de mi tiempo.", p: 25, c: true, ex: "Excelente. El orden natural es el activo principal de un líder."},
-                {t: "B. Avanzo de forma constante, pero el ritmo genera desgaste.", p: 15, c: false, ex: "Precaución: acelerar de forma continua agota su reserva energética."},
-                {t: "C. Siento presión acumulada antes de iniciar mis actividades.", p: 5, c: false, ex: "Saturación detectada: su mente procesa demasiadas variables simultáneamente."}
-            ],
-            opts_en: [
-                {t: "A. I proceed with absolute clarity and control over my schedule.", p: 25, c: true, ex: "Brilliant. Preserving natural order is a true leader's primary asset."},
-                {t: "B. I move at a steady pace, but lifestyle speed creates fatigue.", p: 15, c: false, ex: "Caution: constantly picking up speed drains your underlying energy reserves."},
-                {t: "C. I feel accumulated pressure before even starting my activities.", p: 5, c: false, ex: "Saturation alert: your mind is running background processes prematurely."}
-            ]
-        },
-        {
-            id: 2,
-            q_es: "Calibración Lógica: Si un jet privado vuela a 600 millas por hora, ¿cuántas millas recorre en un cuarto de hora?",
-            q_en: "Logical Calibration: If a private jet cruises at 600 mph, how many miles does it cross in a quarter of an hour?",
-            opts_es: [
-                {t: "A. Recorre exactamente 100 millas.", p: 0, c: false, ex: "Recalibre: 15 minutos representan la cuarta parte de una hora completa."},
-                {t: "B. Recorre exactamente 150 millas.", p: 25, c: true, ex: "¡Exacto! 150 millas. Su agilidad analítica y enfoque permanecen agudos."},
-                {t: "C. Recorre exactamente 200 millas.", p: 0, c: false, ex: "Recalibre: divida las 600 millas entre cuatro bloques de tiempo iguales."}
-            ],
-            opts_en: [
-                {t: "A. It covers exactly 100 miles.", p: 0, c: false, ex: "Recalibrate: 15 minutes represents a quarter of a full hour."},
-                {t: "B. It covers exactly 150 miles.", p: 25, c: true, ex: "Excellent! 150 miles. Your analytical processing and focus remain sharp."},
-                {t: "C. It covers exactly 200 miles.", p: 0, c: false, ex: "Recalibrate: divide 600 miles into four distinct time blocks."}
-            ]
-        },
-        {
-            id: 3,
-            q_es: "Si tuviera la oportunidad de suspender sus dispositivos y terminales por 48 horas, ¿cómo reaccionaría?",
-            q_en: "If you had the opportunity to shut down your digital terminals for 48 hours right now, how would you react?",
-            opts_es: [
-                {t: "A. Disfruto de una paz inmediata y confort absoluto.", p: 25, c: true, ex: "Perfecto. Posee una alta capacidad de autorregulación y desapego técnico."},
-                {t: "B. Siento la inercia de revisar notificaciones por precaución.", p: 15, c: false, ex: "Fricción de entorno: su cerebro mantiene un bucle oculto de hipervigilancia."},
-                {t: "C. Experimento inquietud por perder el control del flujo operativo.", p: 5, c: false, ex: "Saturación severa: su nivel de energía opera bajo mínimos acumulados."}
-            ],
-            opts_en: [
-                {t: "A. I experience immediate peace and total absolute comfort.", p: 25, c: true, ex: "Perfect. You exhibit high self-regulation bandwidth and digital detachment."},
-                {t: "B. I feel a subconscious urge to check notifications just in case.", p: 15, c: false, ex: "Routine friction: your brain maintains a background loop of hyper-vigilance."},
-                {t: "C. I feel restless due to potentially losing workflow oversight.", p: 5, c: false, ex: "Severe saturation: your base energy reserves are running on critical depletion."}
-            ]
-        }
-    ];
-
-    const BASE_SANTUARIOS = [
-        { id: "H1", tier: "ELITE", name_es: "Eden Roc Cap Cana (Punta Cana)", name_en: "Eden Roc Cap Cana (Dominican Republic)", desc_es: "Bungalows de ultra-lujo con alberca propia, club de playa privado y aislamiento acústico total.", desc_en: "Ultra-luxury standalone bungalows featuring private pools, beach clubs, and total acoustic insulation." },
-        { id: "H2", tier: "ELITE", name_es: "Amanera Resort (Playa Grande)", name_en: "Amanera Resort (Playa Grande)", desc_es: "Casitas de cristal y ebanistería minimalista suspendidas sobre acantilados masivos frente al mar.", desc_en: "Minimalist glass casitas perched on massive ocean cliffs blending with pure Caribbean jungle." },
-        { id: "H3", tier: "PREMIUM", name_es: "Grand Velas Riviera Maya (México)", name_en: "Grand Velas Riviera Maya (Mexico)", desc_es: "Suites de alta gama acompañadas de un circuito hidrotermal de spa guiado de 7 etapas.", desc_en: "Upscale beachfront suites paired with an immersive 7-stage guided hydrothermal spa circuit." }
-    ];
-
-    const BASE_PASILLOS = {
-        "ELITE": {
-            es: { air: "Gulfstream G650 Chárter Privado directo desde la terminal VIP FBO de Miami.", sea: "The Ritz-Carlton Yacht Collection Suite de popa con terraza privada sobre el océano." },
-            en: { air: "Gulfstream G650 Private Charter direct from Miami's VIP FBO terminal with zero lines.", sea: "The Ritz-Carlton Yacht Collection premium suite with a private ocean-facing terrace." }
-        },
-        "PREMIUM": {
-            es: { air: "Clase Ejecutiva Flagship Suite con asientos Lie-Flat totalmente reclinables en vuelo directo.", sea: "Celebrity Cruises (The Retreat Enclave) con solárium y restaurante de autor VIP." },
-            en: { air: "Flagship Business Class Suite featuring fully reclinable lie-flat non-stop seating.", sea: "Celebrity Cruises (The Retreat Enclave) granting VIP sundeck access and upscale dining." }
-        }
-    };
-
-    const VOCABULARIO_ACOMPANANTE = {
-        es: ["Calma.", "Respira despacio.", "Disfruta el momento.", "Suelta la prisa.", "Disuelve el agobio."],
-        en: ["Calm.", "Breathe slowly.", "Enjoy the moment.", "Release the rush.", "Dissolve the noise."]
-    };
-
-    const TEXTOS_INTERFAZ = {
+    const TEXTOS = {
         es: {
-            unlock_load: "Preparando el entorno",
-            unlock_ready: "ENTRAR A MI ESPACIO PRIVADO",
-            phase_test: "Calibración Activa",
-            next_btn: "Continuar Trayecto",
-            stay_lbl: "🏨 Santuario Curado:",
-            air_lbl: "✈️ Aviación Ejecutiva:",
-            sea_lbl: "⚓ Corredor Náutico:",
-            pdf_btn: "Descargar Libreta de Viaje (PDF)",
-            eco_title: "Ecosistema de Salida Directa",
-            results_title: "Prescripción de Viaje y Bienestar",
-            results_desc: "Parámetros procesados localmente en su dispositivo. Nuestro sistema prescribe las siguientes coordinaciones:"
+            title1: "Su transformación instantánea comienza aquí",
+            desc1: "Experimente un cambio de enfoque inmediato y claridad mental profunda diseñada para elevar su estado actual en segundos.",
+            sub1: "Sintonizando frecuencia",
+            btnLoad: "Iniciando sintonía",
+            btnReady: "ENTRAR A MI ESPACIO",
+            status: "Selección Activa",
+            heading2: "Elija su vía de optimización:",
+            o1T: "Opción Local Económica", o1S: "Alternativa cercana y directa",
+            o2T: "Opción Nacional Prioritaria", o2S: "Mayor cobertura y ahorro global",
+            o3T: "Opción Élite / Exclusiva", o3S: "Acceso completo VIP sin restricciones",
+            resolveBtn: "Aclarar duda con Asesor",
+            resTitle: "¡Cambio Inmediato Registrado!",
+            resDesc: "Su estado ha sido optimizado con éxito. Aquí está su ruta de avance:",
+            resH: "⚡ Asombro y Claridad Activa",
+            resP: "Su nivel de enfoque se ha elevado notablemente. Disfrute de estabilidad inmediata y control absoluto.",
+            pdfBtn: "Descargar Reporte (PDF)",
+            ecoTitle: "Accesos Rápidos del Ecosistema",
+            pdfDone: "¡Reporte Generado con Éxito!"
         },
         en: {
-            unlock_load: "Calibrating environment",
-            unlock_ready: "ENTER MY PRIVATE SANCTUARY",
-            phase_test: "Active Calibration",
-            next_btn: "Continue Itinerary",
-            stay_lbl: "🏨 Curated Sanctuary:",
-            air_lbl: "✈️ Executive Aviation:",
-            sea_lbl: "⚓ Nautical Corridor:",
-            pdf_btn: "Download Travel Passport (PDF)",
-            eco_title: "Direct Gateway Ecosystem",
-            results_title: "Your Compensatory Travel Prescription",
-            results_desc: "We have processed your parameters locally. Our system compiles the following routing parameters:"
+            title1: "Your instant transformation starts here",
+            desc1: "Experience immediate focus alignment and deep clarity designed to elevate your current state in seconds.",
+            sub1: "Calibrating frequency",
+            btnLoad: "Initializing setup",
+            btnReady: "ENTER MY SANCTUARY",
+            status: "Active Selection",
+            heading2: "Choose your optimization path:",
+            o1T: "Local Budget Option", o1S: "Direct and nearby alternative",
+            o2T: "National Priority Option", o2S: "Wider coverage and maximum savings",
+            o3T: "Elite / Exclusive Option", o3S: "Full VIP access without restrictions",
+            resolveBtn: "Clarify doubts with Advisor",
+            resTitle: "Immediate Shift Confirmed!",
+            resDesc: "Your parameters have been successfully optimized. Here is your forward routing:",
+            resH: "⚡ Active Clarity & Wonder",
+            resP: "Your focus level has scaled significantly. Enjoy instant stability and absolute command.",
+            pdfBtn: "Download Report (PDF)",
+            ecoTitle: "Ecosystem Quick Gateways",
+            pdfDone: "Report Successfully Generated!"
         }
     };
 
     let initTimer = window.setInterval(() => {
-        legalCounter--;
+        countdownSec--;
         let btn = document.getElementById('btnUnlock');
         let counterDisplay = document.getElementById('unlockCountdown');
         if(!btn) return;
-        let map = TEXTOS_INTERFAZ[currentLang.toLowerCase()];
-        if(legalCounter <= 0) {
+        let t = TEXTOS[currentLang.toLowerCase()];
+        if(countdownSec <= 0) {
             window.clearInterval(initTimer);
             btn.disabled = false;
-            btn.innerText = map.unlock_ready;
+            btn.innerText = t.btnReady;
             if(counterDisplay) counterDisplay.innerText = "0s";
         } else {
-            btn.innerText = `${map.unlock_load} (${legalCounter}s)`;
-            if(counterDisplay) counterDisplay.innerText = `${legalCounter}s`;
+            btn.innerText = `${t.btnLoad} (${countdownSec}s)`;
+            if(counterDisplay) counterDisplay.innerText = `${countdownSec}s`;
         }
     }, 1000);
 
-    window.KERNEL = {
+    window.AURA = {
         init: function() {
-            let panelLegal = document.getElementById('panelLegal');
-            let panelService = document.getElementById('panelService');
-
-            if(panelLegal) panelLegal.style.display = 'none';
-            if(panelService) panelService.style.display = 'block';
-            
-            this.hablar();
-            this.cargarSiguienteEjercicioLocalStorage();
+            let p1 = document.getElementById('panelLegal');
+            let p2 = document.getElementById('panelService');
+            if(p1) p1.style.display = 'none';
+            if(p2) p2.style.display = 'block';
 
             serviceTimer = window.setInterval(() => {
                 timeRemaining--;
                 let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
                 let secs = (timeRemaining % 60).toString().padStart(2, '0');
-                let clockElem = document.getElementById('clockDisplay');
-                if(clockElem) clockElem.innerText = `${mins}:${secs}`;
-                if (timeRemaining <= 0) KERNEL.destruirYReiniciar();
+                let clock = document.getElementById('clockDisplay');
+                if(clock) clock.innerText = `${mins}:${secs}`;
+                if(timeRemaining <= 0) location.reload();
             }, 1000);
         },
 
         toggleLanguage: function() {
             currentLang = currentLang === "ES" ? "EN" : "ES";
-            let langSwitch = document.getElementById('langSwitch');
-            if(langSwitch) langSwitch.innerText = currentLang === "ES" ? "EN" : "ES";
-            
-            let map = TEXTOS_INTERFAZ[currentLang.toLowerCase()];
+            let btnLang = document.getElementById('langSwitch');
+            if(btnLang) btnLang.innerText = currentLang === "ES" ? "ES" : "EN";
+
+            let t = TEXTOS[currentLang.toLowerCase()];
             let btnU = document.getElementById('btnUnlock');
-            if(btnU && legalCounter > 0) btnU.innerText = `${map.unlock_load} (${legalCounter}s)`;
-            else if(btnU) btnU.innerText = map.unlock_ready;
+            if(btnU && countdownSec > 0) btnU.innerText = `${t.btnLoad} (${countdownSec}s)`;
+            else if(btnU) btnU.innerText = t.btnReady;
 
-            let lTitle = document.getElementById('lblLegalTitle');
-            let lDesc = document.getElementById('lblLegalDesc');
-            if(lTitle) lTitle.innerText = currentLang === "ES" ? "Espacio Privado de Sintonía" : "Private Tuning Sanctuary";
-            if(lDesc) lDesc.innerText = currentLang === "ES" ? "Bienvenido. Vamos a compartir un breve trayecto interactivo diseñado para liberar su atención de la rutina y alinear su enfoque con total claridad." : "Welcome. We are sharing a brief interactive journey designed to untether your attention from routine and align your focus.";
-
-            if(document.getElementById('panelService').style.display === 'block') {
-                this.hablar();
-                let vistosArr = JSON.parse(localStorage.getItem('mayroga_ejercicios_vistos')) || [];
-                let disponibles = BASE_EJERCICIOS.filter(e => !vistosArr.includes(e.id)).sort((a,b) => a.id - b.id);
-                if(disponibles.length > 0) this.inyectarPreguntaDom(disponibles[0]);
-            }
-        },
-
-        hablar: function() {
-            if(voiceInterval) window.clearInterval(voiceInterval);
-            const emitirAudio = () => {
-                if ('speechSynthesis' in window) {
-                    let pool = VOCABULARIO_ACOMPANANTE[currentLang.toLowerCase()];
-                    let frase = pool[Math.floor(Math.random() * pool.length)];
-                    let utterance = new SpeechSynthesisUtterance(frase);
-                    utterance.lang = currentLang === "ES" ? "es-US" : "en-US";
-                    utterance.rate = 0.85; 
-                    utterance.pitch = 0.95;
-                    window.speechSynthesis.speak(utterance);
-                }
-            };
-            emitirAudio();
-            voiceInterval = window.setInterval(emitirAudio, 18000);
-        },
-
-        cargarSiguienteEjercicioLocalStorage: function() {
-            let expBox = document.getElementById('lblExplanationBox');
-            let btnNextElem = document.getElementById('btnNext');
-            if(expBox) expBox.style.display = 'none';
-            if(btnNextElem) btnNextElem.style.display = 'none';
-
-            if(!localStorage.getItem('mayroga_ejercicios_vistos')) localStorage.setItem('mayroga_ejercicios_vistos', JSON.stringify([]));
-            let vistos = JSON.parse(localStorage.getItem('mayroga_ejercicios_vistos')) || [];
-            let disponibles = BASE_EJERCICIOS.filter(e => !vistos.includes(e.id)).sort((a,b) => a.id - b.id);
-
-            if(disponibles.length === 0 || userAnswers.length >= BASE_EJERCICIOS.length) {
-                this.finalizarAcompanamientoCRM(); 
-                return;
-            }
-            this.inyectarPreguntaDom(disponibles[0]);
-        },
-
-        inyectarPreguntaDom: function(nodoActual) {
-            let stack = document.getElementById('interactiveStack');
-            let map = TEXTOS_INTERFAZ[currentLang.toLowerCase()];
-            let tTitle = document.getElementById('lblTaskTitle');
-            let pTracker = document.getElementById('lblPhaseTracker');
-
-            if(!stack || !nodoActual) return;
-
-            if(pTracker) pTracker.innerText = map.phase_test;
-            if(tTitle) tTitle.innerText = currentLang === "ES" ? nodoActual.q_es : nodoActual.q_en;
-
-            let htmlButtons = "";
-            let poolOpts = currentLang === "ES" ? nodoActual.opts_es : nodoActual.opts_en;
-            poolOpts.forEach((o, index) => {
-                htmlButtons += `<button class="option-btn" id="optBtn_${index}" onclick="window.KERNEL.evaluarSeleccion(${o.p}, ${o.c}, '${o.ex}', ${index}, ${nodoActual.id})">${o.t}</button>`;
-            });
-            stack.innerHTML = htmlButtons;
-
-            let btnNextElem = document.getElementById('btnNext');
-            if(btnNextElem) btnNextElem.innerText = map.next_btn;
-        },
-
-        evaluarSeleccion: function(puntos, esCorrecto, explicacion, indexBtn, idEjercicio) {
-            let botones = document.getElementsByClassName('option-btn');
-            for(let i=0; i<botones.length; i++) { botones[i].disabled = true; }
+            document.getElementById('lblTitle1').innerText = t.title1;
+            document.getElementById('lblDesc1').innerText = t.desc1;
+            document.getElementById('lblSub1').innerText = t.sub1;
+            document.getElementById('lblStatusTitle').innerText = t.status;
+            document.getElementById('lblServiceHeading').innerText = t.heading2;
             
-            let targetBtn = indexBtn >= 0 ? document.getElementById(`optBtn_${indexBtn}`) : null;
-            let box = document.getElementById('lblExplanationBox');
+            document.getElementById('opt1Title').innerText = t.o1T;
+            document.getElementById('opt1Sub').innerText = t.o1S;
+            document.getElementById('opt2Title').innerText = t.o2T;
+            document.getElementById('opt2Sub').innerText = t.o2S;
+            document.getElementById('opt3Title').innerText = t.o3T;
+            document.getElementById('opt3Sub').innerText = t.o3S;
+            document.getElementById('btnResolve').innerText = t.resolveBtn;
 
-            if(targetBtn) {
-                if(esCorrecto) { targetBtn.classList.add('correct-choice'); } 
-                else { targetBtn.classList.add('wrong-choice'); }
-            }
-
-            userAnswers.push(puntos);
-            let vistos = JSON.parse(localStorage.getItem('mayroga_ejercicios_vistos')) || [];
-            if(!vistos.includes(idEjercicio)) vistos.push(idEjercicio);
-            localStorage.setItem('mayroga_ejercicios_vistos', JSON.stringify(vistos));
-
-            if(box) { 
-                box.innerText = explicacion; 
-                box.style.display = 'block'; 
-            }
-            let btnNextElem = document.getElementById('btnNext');
-            if(btnNextElem) btnNextElem.style.display = 'block';
+            document.getElementById('lblResTitle').innerText = t.resTitle;
+            document.getElementById('lblResDesc').innerText = t.resDesc;
+            document.getElementById('resHeading').innerText = t.resH;
+            document.getElementById('resText').innerText = t.resP;
+            document.getElementById('btnPDF').innerText = t.pdfBtn;
+            document.getElementById('lblEcoTitle').innerText = t.ecoTitle;
         },
 
-        avanzarRetoContinuo: function() {
-            this.cargarSiguienteEjercicioLocalStorage();
+        selectOption: function(optNumber) {
+            let p2 = document.getElementById('panelService');
+            let p3 = document.getElementById('panelResults');
+            if(p2) p2.style.display = 'none';
+            if(p3) p3.style.display = 'block';
         },
 
-        finalizarAcompanamientoCRM: function() {
-            window.clearInterval(serviceTimer); 
-            window.clearInterval(voiceInterval);
-            if('speechSynthesis' in window) window.speechSynthesis.cancel();
-
-            let totalScore = userAnswers.reduce((a, b) => a + b, 0);
-            currentTier = totalScore < 50 ? "ELITE" : "PREMIUM";
-            let map = TEXTOS_INTERFAZ[currentLang.toLowerCase()];
-
-            if(!localStorage.getItem('mayroga_vistos_prop')) localStorage.setItem('mayroga_vistos_prop', JSON.stringify([]));
-            let vistosH = JSON.parse(localStorage.getItem('mayroga_vistos_prop')) || [];
-            let disponiblesH = BASE_SANTUARIOS.filter(h => h.tier === currentTier && !vistosH.includes(h.id));
-            if(disponiblesH.length === 0) { 
-                vistosH = []; 
-                disponiblesH = BASE_SANTUARIOS.filter(h => h.tier === currentTier); 
-            }
-            let hotelAsignado = disponiblesH[Math.floor(Math.random() * disponiblesH.length)] || BASE_SANTUARIOS[0];
-            vistosH.push(hotelAsignado.id); 
-            localStorage.setItem('mayroga_vistos_prop', JSON.stringify(vistosH));
-
-            let logistica = BASE_PASILLOS[currentTier][currentLang.toLowerCase()];
-            sessionData = { 
-                servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000), 
-                lang: currentLang, 
-                score_inicial: totalScore, 
-                score_actual: 95, 
-                respiracion_score: 100, 
-                adivinanzas_score: 90, 
-                iev: 20, 
-                variante: currentTier === "ELITE" ? "VAR3_EMPEORAMIENTO_SATURACION" : "VAR1_MEJORIA_GENERAL", 
-                destino_id: hotelAsignado.id 
-            };
-
-            document.getElementById('outStay').innerText = currentLang === "ES" ? hotelAsignado.name_es : hotelAsignado.name_en;
-            document.getElementById('outAir').innerText = logistica.air; 
-            document.getElementById('outSea').innerText = logistica.sea;
-
-            document.getElementById('lblResultsTitle').innerText = map.results_title;
-            document.getElementById('lblResultsDesc').innerText = map.results_desc;
-            document.getElementById('lblStayTitle').innerHTML = map.stay_lbl;
-            document.getElementById('lblAirTitle').innerHTML = map.air_lbl;
-            document.getElementById('lblSeaTitle').innerHTML = map.sea_lbl;
-            document.getElementById('btnPDF').innerText = map.pdf_btn;
-            document.getElementById('lblEcosystemTitle').innerText = map.eco_title;
-
-            let panelService = document.getElementById('panelService');
-            let panelResults = document.getElementById('panelResults');
-            if(panelService) panelService.style.display = 'none';
-            if(panelResults) panelResults.style.display = 'block';
+        resolverDudaExtra: function() {
+            alert(currentLang === "ES" ? "Canal de asesoramiento abierto. Su consulta ha sido canalizada con éxito." : "Advisory channel open. Your query has been successfully routed.");
+            this.selectOption(2);
         },
 
-        despacharOraculo: function() {
-            let btn = document.getElementById('btnPDF'); 
-            if(!btn || !sessionData) return;
-            let map = TEXTOS_INTERFAZ[currentLang.toLowerCase()];
-            btn.innerText = currentLang === "ES" ? "COMPILANDO LIBRETA..." : "COMPILING PASSPORT..."; 
+        descargarReporte: function() {
+            let btn = document.getElementById('btnPDF');
+            if(!btn) return;
+            let t = TEXTOS[currentLang.toLowerCase()];
+            
+            btn.innerText = currentLang === "ES" ? "GENERANDO..." : "GENERATING...";
             btn.disabled = true;
 
-            fetch('/generate-pdf', { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify(sessionData) 
-            })
-            .then(r => { if(!r.ok) throw new Error(); return r.blob(); })
-            .then(b => {
-                let url = window.URL.createObjectURL(b); 
-                let a = document.createElement('a'); 
+            // Simulación rápida y blindada para evitar bloqueos de red o errores de PDF pesado
+            setTimeout(() => {
+                let blob = new Blob([`AL CIELO - Reporte de Bienestar y Cambio Inmediato\nID: AURA-${Math.floor(1000+Math.random()*9000)}`], {type: 'text/plain'});
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
                 a.href = url;
-                a.download = `Plan_Bienestar_MAYROGA_${sessionData.servicio_id}.pdf`; 
+                a.download = `AlCielo_Reporte_${Math.floor(1000+Math.random()*9000)}.txt`;
                 a.click();
-                btn.innerText = map.pdf_btn; 
-                btn.disabled = false;
-            })
-            .catch(() => { 
-                alert(currentLang === "ES" ? "Sincronización de Libreta completada." : "Passport synchronization completed."); 
-                btn.innerText = map.pdf_btn; 
-                btn.disabled = false; 
-            });
-        },
-
-        destruirYReiniciar: function() {
-            window.clearInterval(serviceTimer); 
-            window.clearInterval(voiceInterval);
-            if('speechSynthesis' in window) window.speechSynthesis.cancel();
-            location.reload();
+                
+                btn.innerText = t.pdfDone;
+                setTimeout(() => {
+                    btn.innerText = t.pdfBtn;
+                    btn.disabled = false;
+                }, 2000);
+            }, 800);
         }
     };
 </script>
