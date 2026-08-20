@@ -1,26 +1,101 @@
 {
-  "MANANA": {
+  "CONFIGURACION_SISTEMA_CRM": {
+    "pilar_id": "PILAR-002-RESPIRACION",
+    "version_algoritmo": "2.0.0-Production",
+    "metrica_asociada": "Reserva_Energetica_Y_Ritmo_De_Vida",
+    "unidades_tiempo": "segundos"
+  },
+  "BLOQUE_MANANA": {
+    "id": "RESP-MAN-001",
     "rango_horas": "06:00-11:59",
-    "tecnica_es": "Respiración Energizante (Foco Activo)",
-    "tecnica_en": "Energizing Breath (Active Focus)",
-    "tiempos": { "inhalar": 3, "retener": 1, "exhalar": 3, "vacio": 0 },
-    "guion_es": "Bienvenido a tu amanecer con MAY ROGA LLC. Vamos a despertar tu enfoque matutino sacudiendo la inercia del sueño. Inhala vitalidad limpia... exhala con fuerza liberando el cansancio.",
-    "guion_en": "Welcome to your sunrise with MAY ROGA LLC. Let us awaken your morning focus, shaking off sleep inertia. Inhale clean vitality... exhale with power, releasing fatigue."
-  },
-  "TARDE": {
+    "tipo_tratamiento_es": "Alineación Matutina: Foco Activo y Sacudida de Inercia",
+    "tipo_tratamiento_en": "Morning Alignment: Active Focus and Inertia Release",
+    "tecnica_es": "Respiración Energizante (Proporción Dinámica 3-1-3-0)",
+    "tecnica_en": "Energizing Breath (Dynamic Ratio 3-1-3-0)",
+    "parametros_animacion_circulo": {
+      "inhalar_segundos": 3,
+      "retener_lleno_segundos": 1,
+      "exhalar_segundos": 3,
+      "retener_vacio_segundos": 0,
+      "ciclos_totales_fase": 25,
+      "color_pulso_hex": "#C5A059"
+    },
+    "guion_audio_es": {
+      "introduccion": "Bienvenido a tu amanecer con MAY ROGA LLC. Vamos a despertar tu enfoque matutino sacudiendo la inercia del sueño y preparando tu mente para un rendimiento óptimo. Sostén el dispositivo de forma cómoda y enfoca tu mirada en el centro del Triángulo de Balance.",
+      "ciclo_inhalar": "Inhala vitalidad limpia, expandiendo tu caja torácica... Uno... Dos... Tres.",
+      "ciclo_retener": "Sostén un instante, fijando la energía en tu centro... Uno.",
+      "ciclo_exhalar": "Exhala con fuerza, liberando cualquier rastro de fatiga o letargo... Uno... Dos... Tres.",
+      "ciclo_vacio": "Fluye de inmediato al siguiente ciclo sin detener el movimiento.",
+      "cierre_transicion": "Tu sistema autónomo ha despertado de forma armónica. Tu reserva energética matutina está calibrada y lista para canalizar las decisiones del día. Es momento de activar tu flujo creativo con nuestro banco lógico."
+    },
+    "guion_audio_en": {
+      "introduccion": "Welcome to your sunrise with MAY ROGA LLC. Let us awaken your morning focus, shaking off sleep inertia and priming your mind for peak performance. Hold your device comfortably and focus your gaze on the center of the Balance Triangle.",
+      "ciclo_inhalar": "Inhale clean vitality, expanding your chest... One... Two... Three.",
+      "ciclo_retener": "Hold for a brief moment, locking the energy in your core... One.",
+      "ciclo_exhalar": "Exhale with power, releasing any trace of fatigue or lethargy... One... Two... Three.",
+      "ciclo_vacio": "Flow immediately into the next cycle without stopping the momentum.",
+      "cierre_transicion": "Your autonomous system has awakened harmoniously. Your morning energy reserves are calibrated and primed for the day's decisions. It is time to unlock your creative flow with our logical matrix."
+    }
+  }
+}
+  "BLOQUE_TARDE": {
+    "id": "RESP-TAR-002",
     "rango_horas": "12:00-17:59",
-    "tecnica_es": "Respiración Cuadrada (Anti-Agobio)",
-    "tecnica_en": "Box Breathing (Decompression)",
-    "tiempos": { "inhalar": 4, "retener": 4, "exhalar": 4, "vacio": 4 },
-    "guion_es": "Pausa de mediodía. Es momento de rendir la sobrecarga laboral acumulada. Sigue el ritmo perfecto del cuadrado: inhala... sostén... exhala... vacía. Recupera el control de tu tiempo.",
-    "guion_en": "Midday pause. It is time to surrender the accumulated corporate overload. Follow the perfect rhythm of the box: inhale... hold... exhale... empty. Regain control of your time."
-  },
-  "NOCHE": {
+    "tipo_tratamiento_es": "Descompresión del Mediodía: Liberación de Sobrecarga Cognitiva",
+    "tipo_treatment_en": "Midday Decompression: Cognitive Overload Release",
+    "tecnica_es": "Respiración Cuadrada Estabilizadora (Proporción Simétrica 4-4-4-4)",
+    "tecnica_en": "Stabilizing Box Breathing (Symmetrical Ratio 4-4-4-4)",
+    "parametros_animacion_circulo": {
+      "inhalar_segundos": 4,
+      "retener_lleno_segundos": 4,
+      "exhalar_segundos": 4,
+      "retener_vacio_segundos": 4,
+      "ciclos_totales_fase": 18,
+      "color_pulso_hex": "#3D9970"
+    },
+    "guion_audio_es": {
+      "introduccion": "Pausa de mediodía con MAY ROGA LLC. Es momento de rendir la sobrecarga laboral acumulada y desacelerar tu ritmo de vida. Vamos a balancear tus hemisferios cerebrales mediante una proporción geométrica perfecta. Cierra los ojos o sigue la expansión del círculo.",
+      "ciclo_inhalar": "Inhala suavemente, absorbiendo la calma del océano... Uno... Dos... Tres... Cuatro.",
+      "ciclo_retener": "Sostén el aire, permitiendo que la quietud inunde tu sistema... Uno... Dos... Tres... Cuatro.",
+      "ciclo_exhalar": "Exhala despacio, soltando el agobio de los pendientes y las pantallas... Uno... Dos... Tres... Cuatro.",
+      "ciclo_vacio": "Pausa en vacío, disfrutando del silencio absoluto del momento presente... Uno... Dos... Tres... Cuatro."
+    },
+    "guion_audio_en": {
+      "introduccion": "Midday pause with MAY ROGA LLC. It is time to surrender the accumulated corporate overload and slow down your lifestyle pace. We are going to balance your brain hemispheres through perfect geometric proportion. Close your eyes or follow the expanding circle.",
+      "ciclo_inhalar": "Inhale gently, drawing in the calm of the ocean... One... Two... Three... Four.",
+      "ciclo_retener": "Hold your breath, allowing stillness to flood your system... One... Two... Three... Four.",
+      "ciclo_exhalar": "Exhale slowly, releasing the clutter of tasks and screens... One... Two... Three... Four.",
+      "ciclo_vacio": "Pause in emptiness, enjoying the absolute silence of the present moment... One... Two... Three... Four."
+    }
+  }
+  "BLOQUE_NOCHE": {
+    "id": "RESP-NOC-003",
     "rango_horas": "18:00-05:59",
-    "tecnica_es": "Respiración 4-7-8 (Desconexión y Sueño)",
-    "tecnica_en": "4-7-8 Breathing (Deep Sleep Induction)",
-    "tiempos": { "inhalar": 4, "retener": 7, "exhalar": 8, "vacio": 0 },
-    "guion_es": "Buenas noches. Tu jornada de negocios ha concluido. MAY ROGA LLC prescribe apagar el ruido mental. Inhala suavemente... sostén el aire permitiendo la calma profunda... exhala lento, disolviendo la ansiedad.",
-    "guion_en": "Good evening. Your business day has concluded. MAY ROGA LLC prescribes shutting down the mental noise. Inhale gently... hold allowing deep calm... exhale slowly, dissolving anxiety."
+    "tipo_tratamiento_es": "Desconexión Nocturna: Inducción al Descanso Reparador y Cierre de Ruido Mental",
+    "tipo_treatment_en": "Nightly Disconnection: Deep Rest Induction and Mental Noise Shutdown",
+    "tecnica_es": "Respiración 4-7-8 de Relajación Profunda (Proporción Desacelerada)",
+    "tecnica_en": "4-7-8 Deep Relaxation Breathing (Decelerated Ratio)",
+    "parametros_animacion_circulo": {
+      "inhalar_segundos": 4,
+      "retener_lleno_segundos": 7,
+      "exhalar_segundos": 8,
+      "retener_vacio_segundos": 0,
+      "ciclos_totales_fase": 10,
+      "color_pulso_hex": "#1c1c24"
+    },
+    "guion_audio_es": {
+      "introduccion": "Buenas noches. Tu jornada de negocios ha concluido. MAY ROGA LLC prescribe apagar por completo las demandas del entorno digital. Vamos a reprogramar tu ritmo cardíaco hacia la calma absoluta. Siente el peso de tu cuerpo y prepárate para soltar el control.",
+      "ciclo_inhalar": "Inhala suavemente por la nariz, llenándote de paz... Uno... Dos... Tres... Cuatro.",
+      "ciclo_retener": "Sostén el aire, permitiendo que la tranquilidad inunde cada célula de tu cuerpo... Uno... Dos... Tres... Cuatro... Cinco... Seis... Siete.",
+      "ciclo_exhalar": "Exhala de forma prolongada por la boca, expulsando toda la ansiedad de la rutina... Uno... Dos... Tres... Cuatro... Cinco... Seis... Siete... Ocho.",
+      "ciclo_vacio": "Fluye de inmediato hacia la calma de la siguiente inhalación."
+    },
+    "guion_audio_en": {
+      "introduccion": "Good evening. Your business day has concluded. MAY ROGA LLC prescribes completely shutting down the demands of the digital environment. We are going to reprogram your heart rate into absolute stillness. Feel the weight of your body and prepare to let go of control.",
+      "ciclo_inhalar": "Inhale gently through your nose, filling yourself with peace... One... Two... Three... Four.",
+      "ciclo_retener": "Hold your breath, allowing tranquility to flood every single cell... One... Two... Three... Four... Five... Six... Seven.",
+      "ciclo_exhalar": "Exhale slowly and completely through your mouth, pushing away all routine anxiety... One... Two... Three... Four... Five... Six... Seven... Eight.",
+      "ciclo_vacio": "Flow immediately into the calm of the next inhalation."
+    }
   }
 }
