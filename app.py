@@ -26,7 +26,7 @@ if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
 BACKEND_HOTELES = {
-    "H1": {"name": "Eden Roc Cap Cana (Punta Cana)", "desc": "Bungalows de ultra-lujo con alberca propia, jardín privado y aislamiento acústico absoluto."},
+    "H1": {"name": "Eden Roc Cap Cana (República Dominicana)", "desc": "Bungalows de ultra-lujo con alberca propia, jardín privado y aislamiento acústico absoluto."},
     "H2": {"name": "Amanera Resort (Playa Grande)", "desc": "Casitas de ebanistería minimalista y cristal suspendidas sobre los acantilados marinos del Caribe."},
     "H3": {"name": "Grand Velas Riviera Maya (México)", "desc": "Suites presidenciales de alta gama con un circuito hidrotermal guiado de spa de 7 etapas."}
 }
@@ -39,6 +39,10 @@ BACKEND_LOGISTICA = {
     "PREMIUM": {
         "air": "Clase Ejecutiva Flagship Suite con asientos Lie-Flat totalmente reclinables en vuelo directo.",
         "sea": "Celebrity Cruises (The Retreat Enclave) con solárium y restaurante de autor VIP."
+    },
+    "ASPI": {
+        "air": "Cabina Principal Confort+ en vuelo directo con prioridad de chequeo y equipaje express.",
+        "sea": "Royal Caribbean International (Solarium Adults-Only Retreat) libre de ruidos familiares."
     }
 }
 
@@ -59,6 +63,7 @@ def generate_pdf(payload: PDFPayload):
     pdf_path = os.path.join("temp", pdf_filename)
     os.makedirs("temp", exist_ok=True)
     
+    # Ajuste de márgenes premium para evitar hojas amontonadas
     doc = SimpleDocTemplate(
         pdf_path, pagesize=letter,
         rightMargin=45, leftMargin=45, topMargin=45, bottomMargin=45,
@@ -98,7 +103,8 @@ def generate_pdf(payload: PDFPayload):
         [Paragraph("Agilidad del Enfoque Lógico / Focus Clarity Rate", body_style), "0%", f"{payload.adivinanzas_score}%"]
     ]
     
-    metrics_table = Table(metrics_data, colWidths=[280, 110, 110])
+    # 🛠️ CORRECCIÓN DE ANCHO: Modificado de 500 a 522 puntos exactos para un balance visual perfecto
+    metrics_table = Table(metrics_data, colWidths=[302, 110, 110])
     metrics_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
@@ -119,8 +125,14 @@ def generate_pdf(payload: PDFPayload):
         h_name = "Eden Roc Cap Cana (Punta Cana)"
         h_desc = "Villas de ultra-lujo con alberca propia y aislamiento acústico absoluto."
     
-    tier_key = "ELITE" if "ELITE" in payload.variante or payload.score_inicial < 40 else "PREMIUM"
-    logistica = BACKEND_LOGISTICA[tier_key]
+    # 🛠️ BLINDAJE ANTI-FALLOS: Mapeo tolerante de llaves logísticas para evitar colapsos de hilo
+    tier_key = "ELITE"
+    if "PREMIUM" in payload.variante or payload.score_inicial >= 40:
+        tier_key = "PREMIUM"
+    elif "ASPI" in payload.variante:
+        tier_key = "ASPI"
+        
+    logistica = BACKEND_LOGISTICA.get(tier_key, BACKEND_LOGISTICA["ELITE"])
         
     dest_html = f"• <b>Santuario Recomendado:</b> {h_name}<br/>"
     dest_html += f"• <b>Detalle del Espacio:</b> {h_desc}<br/><br/>"
@@ -161,4 +173,4 @@ def index():
     if os.path.exists(ruta_html):
         with open(ruta_html, "r", encoding="utf-8") as file:
             return HTMLResponse(content=file.read(), status_code=200)
-    return HTMLResponse(content="MAY ROGA LLC Error crítico: index.html no encontrado en la raíz del servidor.", status_code=404)
+    return HTMLResponse(content="MAY ROGA LLC - Error crítico: index.html no encontrado en la raíz del servidor.", status_code=404)
