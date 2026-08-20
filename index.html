@@ -25,8 +25,7 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         body {
-            background-color: var(--bg-main);
-            color: var(--text-pure);
+            background-color: var(--bg-main); color: var(--text-pure);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
             display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
         }
@@ -82,11 +81,11 @@
         <button class="lang-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
     </header>
 
-    <!-- PANTALLA LEGAL DE INICIO -->
+    <!-- PANTALLA LEGAL -->
     <div id="screenLegal">
         <div class="legal-box" id="legalContent">
             <h2>Términos y Condiciones / Legal Disclaimer</h2>
-            <p><b>ESPAÑOL:</b> MAY ROGA LLC no es una institución médica ni psicológica. Este software opera de forma 100% local a través de localStorage para el diseño de estilo de vida y bienestar general (Wellness Travel). Al presionar el botón inferior, usted libera a la LLC de cualquier responsabilidad civil o comercial.</p>
+            <p><b>ESPANL:</b> MAY ROGA LLC no es una institución médica ni psicológica. Este software opera de forma 100% local a través de localStorage para el diseño de estilo de vida y bienestar general (Wellness Travel). Al presionar el botón inferior, usted libera a la LLC de cualquier responsabilidad civil o comercial.</p>
             <p><b>ENGLISH:</b> MAY ROGA LLC is not a medical provider. This app operates 100% locally via localStorage for lifestyle and wellness travel optimization. By clicking the button below, you release the LLC from any civil or commercial liability.</p>
         </div>
         <button class="action-btn" id="awakenBtn" disabled onclick="transitionToService()">Lea los Términos para Despertar (10s)</button>
@@ -98,27 +97,123 @@
             <div class="timer-clock" id="timerDisplay">15:00</div>
             <button class="exit-btn" id="exitBtn" onclick="terminateServiceEarly()">Cerrar Servicio / Close</button>
         </div>
-<!-- CONTINUACIÓN DIRECTA DE LA INTERFAZ Y LOGICA DE CONTROL DE LA APP -->
-<div class="graphics-wrapper">
-    <div class="triangle-canvas" id="balanceTriangle">
+
+<div class="graphics-wrapper"> 
+    <div class="triangle-canvas" id="balanceTriangle"> 
         <div class="center-pulse-circle" id="desprendimientoCircle"></div>
     </div>
 </div>
 
-<!-- TEXTOS DE CONTROL DE INTERFAZ -->
-<!-- Analizando Sistema... Cargando evaluación... Fase 2: Sincronización Revelar Respuesta Tu Prescripción Wellness ✈️ Air 🚢 Sea 🏨 Stay Explorar Otra Descargar PDF -->
+<!-- CAPAS DE TEXTO DE LA INTERFAZ DE CARGA Y RESULTADOS -->
+<!-- 
+    Analizando Sistema...
+    Cargando evaluación...
+    Fase 2: Sincronización
+    Revelar Respuesta
+    Tu Prescripción Wellness
+    ✈️ Air  🚢 Sea  🏨 Stay
+    Explorar Otra
+    Descargar PDF 
+-->
 
 <script>
+// VARIABLES DE CONTROL GLOBAL
 let currentLang = 'ES', serviceTimer = null, timeRemaining = 15 * 60, currentQuestionIndex = 0;
-let userAnswers = [], currentTier = "ELITE", currentRoute = "HOTEL", sessionData = null;
-let DATABASE_TEST = [], DATABASE_RIDDLES = [], DATABASE_RESPIRATION = {}, DATABASE_EVALUATION = {}, DATABASE_DESTINATIONS = [], DATABASE_TRANSPORT = [], ACTIVE_TREATMENT = null;
-let countdown = 10;
+let userAnswers = [], currentTier = "ELITE", currentRoute = "HOTEL", sessionData = null, ACTIVE_TREATMENT = null;
 
+// BASE DE DATOS INYECTADA LOCALMENTE (CERO ERRORES 404)
+const DATABASE_TEST = [
+    {
+        es: "Al abrir los ojos por la mañana, ¿cómo procesas las demandas de tu agenda actual?",
+        en: "When you open your eyes in the morning, how do you process the demands of your current schedule?",
+        opts: [
+            {es: "Como un río en calma; avanzo con total claridad.", en: "Like a calm river; I move forward with total clarity.", pts: 25},
+            {es: "Como una corriente constante; acelero el paso.", en: "Like a steady current; I pick up the pace.", pts: 15},
+            {es: "Como una marea alta; siento la presión antes de levantarme.", en: "Like a high tide; I feel the pressure before even getting up.", pts: 5},
+            {es: "Como una cascada en tormenta; agobio inmediato.", en: "Like a storm waterfall; immediate overwhelm.", pts: 0}
+        ]
+    },
+    {
+        es: "Si tu enfoque mental fuera la batería de un dispositivo premium, ¿en qué nivel estás a mitad de jornada?",
+        en: "If your mental focus were the battery of a premium device, where are you at mid-day?",
+        opts: [
+            {es: "Rendimiento Óptimo: Brillo máximo y funciones activas.", en: "Optimal Performance: Maximum brightness and active functions.", pts: 25},
+            {es: "Rendimiento Estable: Desactivé procesos secundarios.", en: "Stable Performance: Deactivated secondary processes.", pts: 15},
+            {es: "Modo Ahorro: Sostengo la marcha solo por fuerza de voluntad.", en: "Power Saving: Sustaining momentum by sheer willpower.", pts: 5},
+            {es: "Descarga Crítica: Alertas de saturación, necesito un reset.", en: "Critical Discharge: Saturation alerts, in need of a reset.", pts: 0}
+        ]
+    },
+    {
+        es: "Cuando analizas tus últimas semanas, ¿qué tan predecibles han sido tus estímulos visuales?",
+        en: "When you analyze your last weeks, how predictable have your visual stimuli been?",
+        opts: [
+            {es: "Dinámicos e inspiradores; cada día trae nuevos horizontes.", en: "Dynamic and inspiring; each day brings new horizons.", pts: 25},
+            {es: "Estructurados pero fluidos; encuentro espacios de exploración.", en: "Structured but fluid; I find spaces for exploration.", pts: 15},
+            {es: "Monótonos; los mismos trayectos y las mismas pantallas.", en: "Monotonous; the same commutes and the same screens.", pts: 5},
+            {es: "Bucle cerrado; los días se clonan unos a otros.", en: "Closed loop; days clone one another.", pts: 0}
+        ]
+    },
+    {
+        es: "Si te obligaras a sentarte en silencio frente al mar sin tecnología por una hora, ¿qué pasaría?",
+        en: "If you forced yourself to sit in silence facing the sea with no tech for an hour, what would happen?",
+        opts: [
+            {es: "Calma inmediata; me conecto con el entorno al instante.", en: "Immediate calm; I connect with the environment instantly.", pts: 25},
+            {es: "Transición gradual; me tomaría unos minutos apagar el ruido.", en: "Gradual transition; it would take a few minutes to quiet the mind.", pts: 15},
+            {es: "Inquietud motriz; sentiría la urgencia de revisar pendientes.", en: "Motor restlessness; I would feel the urge to check pending tasks.", pts: 5},
+            {es: "Resistencia total; la falta de estímulo me generaría impaciencia.", en: "Total resistance; the lack of stimulus would generate impatience.", pts: 0}
+        ]
+    },
+    {
+        es: "Cuando imaginas el concepto de 'libertad absoluta' hoy, ¿qué exige tu mente?",
+        en: "When you imagine the concept of 'absolute freedom' right now, what does your mind demand?",
+        opts: [
+            {es: "Silencio total, naturaleza virgen y una villa privada.", en: "Total silence, untouched nature, and a private villa.", pts: 25, route: "HOTEL"},
+            {es: "Nuevos rostros, alta gastronomía y explorar horizontes navegando.", en: "New faces, fine dining, and exploring horizons sailing.", pts: 25, route: "CRUCERO"}
+        ]
+    }
+];
+</script>
+// --- CONTINUACIÓN DIRECTA DE LAS BASES DE DATOS LOCALES Y CONTROLADORES ---
+
+const DATABASE_RIDDLES = [
+    { id: "ADV-001", es: "Corro pero no tengo pies, tengo un lecho pero nunca duermo. ¿Qué soy?", en: "I run but have no feet, I have a bed but never sleep. What am I?", ans_es: "El río", ans_en: "A river" },
+    { id: "ADV-002", es: "No tengo peso, pero dentro de un barril lo hago más liviano. ¿Qué soy?", en: "I have no weight, but inside a barrel I make it lighter. What am I?", ans_es: "Un agujero", ans_en: "A hole" },
+    { id: "ADV-003", es: "Te sigo a todas partes, copio tus movimientos, pero en la oscuridad desaparezco. ¿Qué soy?", en: "I follow you everywhere, copying your moves, but in absolute darkness I disappear. What am I?", ans_es: "La sombra", ans_en: "The shadow" }
+];
+
+const DATABASE_RESPIRATION = {
+    MANANA: { id: "M", tecnica_es: "Respiración Energizante (Mañana)", tecnica_en: "Energizing Breath (Morning)", guion_es: "Bienvenido a tu amanecer con MAY ROGA LLC. Inhala vitalidad limpia... exhala liberando el cansancio.", guion_en: "Welcome to your sunrise with MAY ROGA LLC. Inhale clean vitality... exhale releasing fatigue." },
+    TARDE: { id: "T", tecnica_es: "Respiración Cuadrada (Tarde)", tecnica_en: "Box Breathing (Afternoon)", guion_es: "Pausa de mediodía. Es momento de rendir la sobrecarga. Inhala... sostén... exhala... vacía.", guion_en: "Midday pause. Time to surrender the overload. Inhale... hold... exhale... empty." },
+    NOCHE: { id: "N", tecnica_es: "Respiración 4-7-8 (Noche)", tecnica_en: "4-7-8 Breathing (Night)", guion_es: "Buenas noches. MAY ROGA LLC prescribe apagar el ruido mental. Inhala suave... sostén... exhala lento.", guion_en: "Good evening. MAY ROGA LLC prescribes shutting down mental noise. Inhale... hold... exhale slowly." }
+};
+
+const DATABASE_EVALUATION = {
+    "VAR1_MEJORIA_GENERAL": { color_hex: "#3D9970", status_es: "ARMONÍA LOGRADA", status_en: "HARMONY ACHIEVED" },
+    "VAR2_IGUAL_ESTACIONARIO": { color_hex: "#C5A059", status_es: "BALANCE ESTACIONARIO", status_en: "STATIONARY BALANCE" },
+    "VAR3_EMPEORAMIENTO_SATURACION": { color_hex: "#E04F4F", status_es: "SATURACIÓN ACUMULADA", status_en: "ACCUMULATED SATURATION" }
+};
+
+const DATABASE_DESTINATIONS = [
+    { id: "HOT-ELITE-001", tier: "ELITE", name_es: "Eden Roc Cap Cana (Punta Cana)", name_en: "Eden Roc Cap Cana (Punta Cana)", desc_es: "Villas de ultra-lujo con piscinas privadas y club de playa privado.", desc_en: "Ultra-luxury villas with private pools and a private beach club." },
+    { id: "HOT-PREM-001", tier: "PREMIUM", name_es: "Grand Velas Riviera Maya (México)", name_en: "Grand Velas Riviera Maya (Mexico)", desc_es: "Todo incluido premium con circuito hidrotermal de spa.", desc_en: "Premium all-inclusive featuring an immersive hydrothermal spa." },
+    { id: "HOT-ASPI-001", tier: "ASPI", name_es: "Secrets Royal Beach Punta Cana", name_en: "Secrets Royal Beach Punta Cana", desc_es: "Oasis todo incluido solo para adultos frente al mar Caribe.", desc_en: "Adults-only all-inclusive oasis facing the Caribbean sea." }
+];
+
+const DATABASE_TRANSPORT = [
+    { id: "T1", tier: "ELITE", tipo: "AEREO", es: "Chárter Privado de Aviación (Gulfstream G650) desde Miami VIP.", en: "Private Aviation Charter (Gulfstream G650) from Miami VIP." },
+    { id: "T2", tier: "ELITE", tipo: "MARITIMO", es: "The Ritz-Carlton Yacht Collection suite con terraza privada.", en: "The Ritz-Carlton Yacht Collection private terrace suite." },
+    { id: "T3", tier: "PREMIUM", tipo: "AEREO", es: "Clase Ejecutiva Flagship (Asientos Lie-Flat) sin escalas.", en: "Flagship Business Class (Lie-Flat Suites) non-stop." },
+    { id: "T4", tier: "PREMIUM", tipo: "MARITIMO", es: "Celebrity Cruises (The Retreat Enclave) con solárium VIP.", en: "Celebrity Cruises (The Retreat Enclave) with VIP sundeck." },
+    { id: "T5", tier: "ASPI", tipo: "AEREO", es: "Cabina Principal Premium Economy con embarque prioritario.", en: "Premium Economy Main Cabin with priority boarding." },
+    { id: "T6", tier: "ASPI", tipo: "MARITIMO", es: "Royal Caribbean International Solarium Adults-Only Retreat.", en: "Royal Caribbean International Solarium Adults-Only Retreat." }
+];
+
+// CRONÓMETRO DE LECTURA JURÍDICA (10 SEGUNDOS)
+let countdown = 10;
 let legalInterval = setInterval(() => {
     countdown--;
     let btn = document.getElementById('awakenBtn');
     if (!btn) return;
-    
     if (countdown <= 0) {
         clearInterval(legalInterval); 
         btn.disabled = false;
@@ -127,39 +222,6 @@ let legalInterval = setInterval(() => {
         btn.innerText = currentLang === 'ES' ? `Lea los Términos para Despertar (${countdown}s)` : `Read Terms to Awaken (${countdown}s)`;
     }
 }, 1000);
-
-async function inicializarEcosistemaJSON() {
-    try {
-        const [resTest, resRiddles, resBreathing, resEval, resDest, resTrans] = await Promise.all([
-            fetch('/static/json/preguntas.json').then(r => r.json()),
-            fetch('/static/json/adivinanzas.json').then(r => r.json()),
-            fetch('/static/json/respiracion.json').then(r => r.json()),
-            fetch('/static/json/evaluacion.json').then(r => r.json()),
-            fetch('/static/json/destinos.json').then(r => r.json()),
-            fetch('/static/json/transporte.json').then(r => r.json())
-        ]);
-        
-        DATABASE_TEST = resTest; 
-        DATABASE_RIDDLES = resRiddles; 
-        DATABASE_RESPIRATION = resBreathing;
-        DATABASE_EVALUATION = resEval; 
-        DATABASE_DESTINATIONS = resDest; 
-        DATABASE_TRANSPORT = resTrans;
-        
-        const horaActual = new Date().getHours();
-        if (horaActual >= 6 && horaActual < 12) ACTIVE_TREATMENT = DATABASE_RESPIRATION.BLOQUE_MANANA;
-        else if (horaActual >= 12 && horaActual < 18) ACTIVE_TREATMENT = DATABASE_RESPIRATION.BLOQUE_TARDE;
-        else ACTIVE_TREATMENT = DATABASE_RESPIRATION.BLOQUE_NOCHE;
-        
-        console.log("🚀 MAY ROGA LLC: JSON integrados correctamente.");
-    } catch (error) {
-        console.error("❌ Error cargando los pilares JSON:", error);
-    }
-}
-
-document.addEventListener("DOMContentLoaded", inicializarEcosistemaJSON);
-</script>
-// --- CONTINUACIÓN DIRECTA DE LAS FUNCIONES DE CONTROL DE IDIOMA Y FLUJO ---
 
 function toggleLanguage() {
     currentLang = currentLang === 'ES' ? 'EN' : 'ES';
@@ -173,8 +235,12 @@ function toggleLanguage() {
 function transitionToService() {
     document.getElementById('screenLegal').style.display = 'none';
     document.getElementById('screenService').style.display = 'block';
+    const horaActual = new Date().getHours();
+    if (horaActual >= 6 && horaActual < 12) ACTIVE_TREATMENT = DATABASE_RESPIRATION.MANANA;
+    else if (horaActual >= 12 && horaActual < 18) ACTIVE_TREATMENT = DATABASE_RESPIRATION.TARDE;
+    else ACTIVE_TREATMENT = DATABASE_RESPIRATION.NOCHE;
     plausible('Servicio_Iniciado', { props: { idioma: currentLang } });
-    startClock(); 
+    startClock();
     renderActiveQuestion();
 }
 
@@ -223,18 +289,23 @@ function handleAnswerSelection(pts, route) {
 
 function actualizarTextosTratamiento() {
     if (!ACTIVE_TREATMENT) return;
-    document.getElementById('lblTreatmentTitle').innerText = currentLang === 'ES' ? ACTIVE_TREATMENT.tipo_tratamiento_es : ACTIVE_TREATMENT.tipo_treatment_en;
-    document.getElementById('lblTreatmentInstruction').innerText = currentLang === 'ES' ? ACTIVE_TREATMENT.guion_audio_es.introduccion : ACTIVE_TREATMENT.guion_audio_en.introduccion;
+    document.getElementById('lblTreatmentTitle').innerText = currentLang === 'ES' ? ACTIVE_TREATMENT.tecnica_es : ACTIVE_TREATMENT.tecnica_en;
+    document.getElementById('lblTreatmentInstruction').innerText = currentLang === 'ES' ? ACTIVE_TREATMENT.guion_es : ACTIVE_TREATMENT.guion_en;
 }
+// --- CONTINUACIÓN DIRECTA DE LA LOGICA DE TRATAMIENTO, RENDIMIENTO Y PASARELA PDF ---
 
 function startTreatmentPhase() {
     document.getElementById('wellnessTestBlock').style.display = 'none';
     document.getElementById('treatmentBlock').style.display = 'block';
     actualizarTextosTratamiento();
+    
     if (!localStorage.getItem('mayroga_vistos_adv')) localStorage.setItem('mayroga_vistos_adv', JSON.stringify([]));
     let vistosAdv = JSON.parse(localStorage.getItem('mayroga_vistos_adv')) || [];
+    
+    // 🛠️ INGENIERÍA ARREGLADA: SE CORRIGIÓ EL ERROR DE DEDO DE DATABASE_RIDDLES
     let disponibles = DATABASE_RIDDLES ? DATABASE_RIDDLES.filter(r => !vistosAdv.includes(r.id)) : [];
     if (disponibles.length === 0) { vistosAdv = []; disponibles = DATABASE_RIDDLES; }
+    
     let selectedRiddle = disponibles[Math.floor(Math.random() * disponibles.length)];
     if (selectedRiddle) {
         vistosAdv.push(selectedRiddle.id); 
@@ -254,30 +325,30 @@ function revealRiddleAnswer() {
 }
 
 function computeCRMFinal() {
-    let initialScore = userAnswers[0] + userAnswers[1] + userAnswers[2] + userAnswers[3];
+    let initialScore = userAnswers.reduce((a, b) => a + b, 0);
     currentTier = initialScore < 40 ? "ELITE" : (initialScore < 70 ? "PREMIUM" : "ASPI");
     let actualScore = (initialScore * 0.2) + (95 * 0.5) + (80 * 0.3); 
     let iev = actualScore - initialScore;
     let variant = "VAR2_IGUAL_ESTACIONARIO";
-    if (iev > 5) variant = (userAnswers[2] <= 5) ? "VAR1_MEJORIA_CREATIVA" : "VAR1_MEJORIA_GENERAL";
-    else if (iev >= -5 && iev <= 5) variant = (initialScore < 35) ? "VAR2_IGUAL_RIGIDEZ" : "VAR2_IGUAL_ESTACIONARIO";
-    else variant = (userAnswers[1] === 0) ? "VAR3_EMPEORAMIENTO_AGOTAMIENTO" : "VAR3_EMPEORAMIENTO_SATURACION";
+    
+    if (iev > 5) variant = "VAR1_MEJORIA_GENERAL";
+    else if (iev < -5) variant = "VAR3_EMPEORAMIENTO_SATURACION";
     
     let vData = DATABASE_EVALUATION[variant] || { color_hex: "#C5A059", status_es: "ESTACIONARIO", status_en: "STATIONARY" };
     let sil = document.getElementById('humanSilhouette'); 
     let lbl = document.getElementById('silhouetteLabel');
+    
     sil.style.background = `linear-gradient(180deg, ${vData.color_hex} 0%, #111115 100%)`;
     sil.style.boxShadow = `0 0 20px ${vData.color_hex}66`;
     lbl.innerText = currentLang === 'ES' ? vData.status_es : vData.status_en;
-// --- CONTINUACIÓN DIRECTA DE LA LOGICA DE EVALUACIÓN Y SELECCIÓN DE VIAJE ---
-
+    
     if (!localStorage.getItem('mayroga_vistos')) localStorage.setItem('mayroga_vistos', JSON.stringify([]));
     let listVistos = JSON.parse(localStorage.getItem('mayroga_vistos')) || [];
     let destinosDisponibles = DATABASE_DESTINATIONS.filter(d => d.tier === currentTier && !listVistos.includes(d.id));
     
     if (destinosDisponibles.length === 0) destinosDisponibles = DATABASE_DESTINATIONS.filter(d => d.tier === currentTier);
     let destinoElegido = destinosDisponibles[Math.floor(Math.random() * destinosDisponibles.length)] || { id: `HOT-${currentTier}-001` };
-
+    
     sessionData = {
         servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000), 
         lang: currentLang,
@@ -289,7 +360,7 @@ function computeCRMFinal() {
         variante: variant, 
         destino_id: destinoElegido.id
     };
-
+    
     document.getElementById('treatmentBlock').style.display = 'none';
     document.getElementById('screenResults').style.display = 'block';
     rerollCombinations();
@@ -301,12 +372,12 @@ function rerollCombinations() {
         listVistos.push(sessionData.destino_id); 
         localStorage.setItem('mayroga_vistos', JSON.stringify(listVistos)); 
     }
-
+    
     let targetDest = DATABASE_DESTINATIONS.find(d => d.id === sessionData.destino_id);
     let transportPool = DATABASE_TRANSPORT.filter(t => t.tier === currentTier);
     let airObj = transportPool.find(t => t.tipo === "AEREO") || { es: "Ruta aérea enlazada.", en: "Linked air route." };
     let seaObj = transportPool.find(t => t.tipo === "MARITIMO") || { es: "Travesía marítima.", en: "Sea voyage." };
-
+    
     if (currentLang === 'ES') {
         document.getElementById('resAirText').innerText = airObj.es; 
         document.getElementById('resSeaText').innerText = seaObj.es;
@@ -322,7 +393,7 @@ function triggerPDFDownload() {
     let btn = document.getElementById('btnDownloadPDF');
     btn.innerText = currentLang === 'ES' ? "Compilando..." : "Compiling..."; 
     btn.disabled = true;
-
+    
     fetch('/generate-pdf', { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' }, 
@@ -353,7 +424,6 @@ function triggerPDFDownload() {
 
 function terminateServiceEarly() {
     clearInterval(serviceTimer);
-    // 📈 MÉTRICA: Evaluar abandono específico en Tratamiento / Respiración antes del reload
     const bloqueTratamientoActivo = document.getElementById('treatmentBlock').style.display === 'block';
     
     if (bloqueTratamientoActivo) {
@@ -363,4 +433,3 @@ function terminateServiceEarly() {
     }
     location.reload();
 }
-
