@@ -322,25 +322,20 @@ TEXTOS_CRM = {
     from fastapi.responses import FileResponse
     return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
 
-# --- ENDPOINT INDEX HTML ---
+# --- ENDPOINT INDEX HTML OFICIAL DE PRODUCCIÓN ---
 from fastapi.responses import HTMLResponse
 
 @app.get("/", response_class=HTMLResponse)
 def index():
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>MAY ROGA LLC</title>
-        <style>
-            body { font-family: Arial, sans-serif; background-color: #0d0d0d; color: #ffffff; text-align: center; padding-top: 100px; }
-            h1 { color: #A3704C; }
-            p { color: #888; }
-        </style>
-    </head>
-    <body>
-        <h1>MAY ROGA LLC</h1>
-        <p>Production Web Service Core Engine Running via FastAPI</p>
-    </body>
-    </html>
-    """
+    # El servidor busca tu index.html real en la raíz y se lo entrega al usuario en Miami
+    ruta_html = os.path.join(os.path.dirname(__file__), "index.html")
+    if os.path.exists(ruta_html):
+        with open(ruta_html, "r", encoding="utf-8") as file:
+            return HTMLResponse(content=file.read(), status_code=200)
+    
+    # Respaldo de seguridad en caso de que olvides subir el index.html a GitHub
+    return HTMLResponse(
+        content="<h1>MAY ROGA LLC</h1><p>Error crítico: index.html no encontrado en la raíz del servidor.</p>", 
+        status_code=404
+    )
+
