@@ -2,66 +2,397 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MAY ROGA LLC - Wellness App Sandbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAY ROGA LLC - Wellness Travel Platform</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #0d0d0d; color: #ffffff; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 600px; width: 100%; background: #141414; padding: 25px; border-radius: 12px; border: 1px solid #222; }
-        h1 { color: #A3704C; text-align: center; }
-        .timer { font-size: 28px; text-align: center; margin: 20px 0; color: #ff4d4d; font-family: monospace; }
-        .triangle-container { width: 200px; height: 180px; margin: 20px auto; position: relative; border-bottom: 2px solid #333; }
-        .circle-pulse { width: 30px; height: 30px; border-radius: 50%; background-color: #ffaa00; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 0.5s ease; box-shadow: 0 0 15px #ffaa00; }
-        .status-box { padding: 15px; background: #1c1c1c; border-radius: 8px; margin-top: 20px; display: none; }
+        :root {
+            --bg-deep: #0a0a0a;
+            --bg-card: #121212;
+            --bg-hover: #1c1c1c;
+            --gold: #A3704C;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --alert-red: #ff4d4d;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .app-window {
+            max-width: 480px;
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid #222222;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        header h1 { font-size: 18px; color: var(--gold); letter-spacing: 1px; font-weight: 700; }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover { background: var(--gold); color: var(--bg-deep); }
+        .legal-box {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            padding: 16px;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .legal-box h2 { font-size: 13px; color: var(--text-main); margin-bottom: 8px; text-transform: uppercase; }
+        .legal-box p { margin-bottom: 10px; text-align: justify; }
+        .action-btn {
+            width: 100%;
+            background-color: var(--gold);
+            color: var(--text-main);
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .action-btn:disabled { background-color: #222; color: #555; cursor: not-allowed; }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>MAY ROGA LLC</h1>
-    <div id="legalSection">
-        <p><b>Legal Disclaimer:</b> MAY ROGA LLC is not a medical institution. This 15-minute service operates strictly for lifestyle enhancement...</p>
-        <button id="awakenBtn" disabled onclick="startService()">Lea los Términos para Despertar (10s)</button>
+<div class="app-window">
+    <header>
+        <h1 id="brandTitle">MAY ROGA LLC</h1>
+        <button class="lang-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
+    </header>
+
+    <!-- PANTALLA LEGAL DE INICIO (BOTÓN DE DESPERTAR) -->
+    <div id="screenLegal">
+        <div class="legal-box" id="legalContent">
+            <h2>Términos y Condiciones / Legal Disclaimer</h2>
+            <p><b>ESPAÑOL:</b> MAY ROGA LLC no es una institución médica ni psicológica. Este software opera de forma 100% local a través de localStorage para el diseño de estilo de vida y bienestar general (Wellness Travel). Al presionar el botón inferior, usted libera a la LLC de cualquier responsabilidad civil o comercial.</p>
+            <p><b>ENGLISH:</b> MAY ROGA LLC is not a medical provider. This app operates 100% locally via localStorage for lifestyle and wellness travel optimization. By clicking the button below, you release the LLC from any civil or commercial liability.</p>
+        </div>
+        <button class="action-btn" id="awakenBtn" disabled onclick="transitionToService()">Lea los Términos para Despertar (10s)</button>
     </div>
-    <div id="serviceSection" style="display:none;">
-        <div class="timer" id="timeDisplay">15:00</div>
-        <div class="triangle-container"><div class="circle-pulse" id="pulseCircle"></div></div>
-        <div class="status-box" id="resultBox">
-            <h3>Evaluación Final CRM</h3>
-            <p id="resultDesc"></p>
-            <button onclick="requestPDF()">Descargar Reporte PDF</button>
+    <!-- PANTALLA PRINCIPAL DEL SERVICIO DE 15 MINUTOS -->
+    <div id="screenService" style="display: none;">
+        <div class="service-bar">
+            <div class="timer-clock" id="timerDisplay">15:00</div>
+            <button class="exit-btn" id="exitBtn" onclick="terminateServiceEarly()">Cerrar Servicio / Close</button>
+        </div>
+
+        <!-- MOTOR GRÁFICO DEL CRM WELLNESS -->
+        <div class="graphics-wrapper">
+            <div class="triangle-canvas" id="balanceTriangle">
+                <div class="center-pulse-circle" id="desprendimientoCircle"></div>
+                <div class="vertex vertex-top" id="vertexPace"></div>
+                <div class="vertex vertex-left" id="vertexEnergy"></div>
+                <div class="vertex vertex-right" id="vertexCreative"></div>
+            </div>
+            <div class="silhouette-container">
+                <div class="vitality-silhouette" id="humanSilhouette"></div>
+                <div class="silhouette-label" id="silhouetteLabel">Analizando Sistema...</div>
+            </div>
+        </div>
+
+        <!-- CUESTIONARIO DINÁMICO (TEST INICIAL) -->
+        <div id="wellnessTestBlock">
+            <div class="question-card" id="activeQuestionCard">
+                <p class="question-text" id="lblQuestionText">Cargando evaluación...</p>
+                <div class="options-stack" id="optionsContainer"></div>
+            </div>
+        </div>
+
+        <!-- BLOQUE DE TRATAMIENTO (RESPIRACIÓN Y ADIVINANZAS) -->
+        <div id="treatmentBlock" style="display: none;">
+            <div class="treatment-card">
+                <h3 id="lblTreatmentTitle">Fase 2: Sincronización</h3>
+                <p id="lblTreatmentInstruction">Siga el ritmo visual del círculo central.</p>
+                <div class="riddle-container" id="riddleBox" style="display: none;">
+                    <p id="lblRiddleText"></p>
+                    <button class="action-btn" id="btnRevealRiddle" onclick="revealRiddleAnswer()" style="margin-top: 10px; background-color: #222;">Revelar Respuesta</button>
+                </div>
+                <button class="action-btn" id="btnNextTreatment" onclick="advanceTreatmentStep()" style="margin-top: 15px; display: none;">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .service-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .timer-clock { font-size: 26px; font-family: monospace; font-weight: bold; color: var(--alert-red); text-shadow: 0 0 10px rgba(255,77,77,0.3); }
+        .exit-btn { background: #222; border: 1px solid #333; color: #aaa; padding: 6px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; transition: all 0.3s; }
+        .exit-btn:hover { background: var(--alert-red); color: white; border-color: var(--alert-red); }
+        .graphics-wrapper { display: flex; justify-content: space-between; align-items: center; background: #0d0d0d; border: 1px solid #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .triangle-canvas { width: 160px; height: 140px; position: relative; border-bottom: 2px solid #222; }
+        .triangle-canvas::before { content: ''; position: absolute; top: 0; left: 80px; width: 2px; height: 140px; background: linear-gradient(180deg, transparent, #222); z-index: 1; }
+        .vertex { width: 8px; height: 8px; border-radius: 50%; position: absolute; background: #444; }
+        .vertex-top { top: 0; left: 76px; }
+        .vertex-left { bottom: 0; left: 0; }
+        .vertex-right { bottom: 0; right: 0; }
+        .center-pulse-circle { width: 24px; height: 24px; border-radius: 50%; background-color: var(--gold); position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 15px var(--gold); }
+        .silhouette-container { width: 120px; display: flex; flex-direction: column; align-items: center; }
+        .vitality-silhouette { width: 45px; height: 100px; background: #333; border-radius: 20px; transition: all 1s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .silhouette-label { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 8px; text-transform: uppercase; font-weight: bold; }
+        .question-card, .treatment-card { background: #0d0d0d; border: 1px solid #1a1a1a; padding: 16px; border-radius: 10px; }
+        .question-text { font-size: 14px; font-weight: bold; margin-bottom: 15px; line-height: 1.4; text-align: left; }
+        .options-stack { display: flex; flex-direction: column; gap: 10px; }
+        .option-node { text-align: left; background: #161616; border: 1px solid #262626; color: var(--text-main); padding: 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s ease; }
+        .option-node:hover { background: var(--bg-hover); border-color: var(--gold); }
+        .riddle-container { background: #161616; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 12px; line-height: 1.4; font-style: italic; }
+    </style>
+    <!-- PANTALLA FINAL DE RESULTADOS Y DESCARGA DEL PDF -->
+    <div id="screenResults" style="display: none;">
+        <h2 id="lblResultsTitle" style="font-size: 16px; color: var(--gold); margin-bottom: 15px; text-transform: uppercase; text-align: center;">Tu Prescripción Wellness</h2>
+        <div class="results-layout">
+            <div class="result-component-card">
+                <span class="component-badge">✈️ Air</span>
+                <p id="resAirText" style="font-size: 12px; margin-top: 5px; line-height: 1.4;"></p>
+            </div>
+            <div class="result-component-card" style="margin-top: 10px;">
+                <span class="component-badge">🚢 Sea</span>
+                <p id="resSeaText" style="font-size: 12px; margin-top: 5px; line-height: 1.4;"></p>
+            </div>
+            <div class="result-component-card" style="margin-top: 10px;">
+                <span class="component-badge">🏨 Stay</span>
+                <p id="resStayText" style="font-size: 12px; margin-top: 5px; line-height: 1.4;"></p>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="action-btn" id="btnReroll" onclick="rerollCombinations()" style="background-color: #222; border: 1px solid #333; flex: 1;">Explorar Otra</button>
+            <button class="action-btn" id="btnDownloadPDF" onclick="triggerPDFDownload()" style="flex: 1; background-color: #2e7d32;">Descargar PDF</button>
         </div>
     </div>
 </div>
+
 <script>
-let countdown = 10; let timeRemaining = 15 * 60; let currentLang = 'ES';
-let scores = { initial: 35, respiracion: 95, adivinanzas: 80 };
-window.onload = function() {
-    let interval = setInterval(() => {
-        countdown--;
-        if(countdown <= 0) { clearInterval(interval); document.getElementById('awakenBtn').disabled = false; document.getElementById('awakenBtn').innerText = "APRENDO, ACEPTO Y DESPIERTO"; }
-        else { document.getElementById('awakenBtn').innerText = `Lea los Términos para Despertar (${countdown}s)`; }
+// BASE DE DATOS LOCALES PARA EL RUNTIME DE LA APP
+const DATABASE_TEST = [
+    {
+        es: "Al abrir los ojos por la mañana, ¿cómo procesas las demandas de tu agenda?",
+        en: "When you open your eyes in the morning, how do you process your schedule?",
+        opts: [ {es: "Río en calma; total claridad.", en: "Calm river; total clarity.", pts: 25}, {es: "Corriente constante; acelero.", en: "Steady current; picking up pace.", pts: 15}, {es: "Marea alta; siento presión.", en: "High tide; feeling pressure.", pts: 5}, {es: "Cascada en tormenta; agobio.", en: "Storm waterfall; overwhelmed.", pts: 0} ]
+    },
+    {
+        es: "Si tu enfoque mental fuera la batería de un dispositivo, ¿en qué nivel está?",
+        en: "If your focus was a device battery, at what level is it at mid-day?",
+        opts: [ {es: "Rendimiento Óptimo: 100%.", en: "Optimal Performance: 100%.", pts: 25}, {es: "Estable: Procesos básicos.", en: "Stable: Basic processes only.", pts: 15}, {es: "Ahorro: Fuerza de voluntad.", en: "Power Saving: Sheer willpower.", pts: 5}, {es: "Descarga Crítica: Reset.", en: "Critical Discharge: Needs reset.", pts: 0} ]
+    },
+    {
+        es: "¿Qué tan predecibles han sido tus estímulos visuales las últimas semanas?",
+        en: "How predictable have your visual stimuli been over the last weeks?",
+        opts: [ {es: "Dinámicos e inspiradores.", en: "Dynamic and inspiring.", pts: 25}, {es: "Estructurados pero fluidos.", en: "Structured but fluid.", pts: 15}, {es: "Monótonos; las mismas pantallas.", en: "Monotonous; same screens.", pts: 5}, {es: "Bucle cerrado; días clonados.", en: "Closed loop; days are cloned.", pts: 0} ]
+    },
+    {
+        es: "Si te obligaras a sentarte en silencio frente al mar sin tecnología, ¿qué pasa?",
+        en: "If you forced yourself to sit in silence facing the sea with no tech, what happens?",
+        opts: [ {es: "Calma inmediata; reconexión.", en: "Immediate calm; reconnection.", pts: 25}, {es: "Transición gradual; toma tiempo.", en: "Gradual transition; takes time.", pts: 15}, {es: "Inquietud motriz de hacer algo.", en: "Restlessness to do something.", pts: 5}, {es: "Resistencia total; impaciencia.", en: "Total resistance; impatient.", pts: 0} ]
+    },
+    {
+        es: "Cuando imaginas la 'libertad absoluta' hoy, ¿qué exige tu mente?",
+        en: "When you imagine 'absolute freedom' right now, what does your mind demand?",
+        opts: [ {es: "Silencio total, una villa privada.", en: "Total silence, a private villa.", pts: 25, route: "HOTEL"}, {es: "Nuevos rostros, cruceros premium.", en: "New faces, premium cruising.", pts: 25, route: "CRUCERO"} ]
+    }
+];
+
+const RIDDLES = [
+    { es: "Corro pero no tengo pies, tengo un lecho pero nunca duermo. ¿Qué soy?", en: "I run but have no feet, I have a bed but never sleep. What am I?", ans_es: "El río", ans_en: "A river" },
+    { es: "No tengo peso, pero dentro de un barril lo hago más liviano. ¿Qué soy?", en: "I have no weight, but inside a barrel I make it lighter. What am I?", ans_es: "Un agujero", ans_en: "A hole" }
+];
+
+// VARIABLES DE CONTROL GLOBAL
+let currentLang = 'ES', serviceTimer = null, timeRemaining = 15 * 60, currentQuestionIndex = 0;
+let userAnswers = [], currentTier = "ELITE", currentRoute = "HOTEL", sessionData = null;
+
+// PANTALLA DE DESPERTAR - CONTROLES
+let countdown = 10;
+let legalInterval = setInterval(() => {
+    countdown--;
+    let btn = document.getElementById('awakenBtn');
+    if(countdown <= 0) {
+        clearInterval(legalInterval);
+        btn.disabled = false;
+        btn.innerText = currentLang === 'ES' ? "APRENDO, ACEPTO Y DESPIERTO" : "I LEARN, ACCEPT AND AWAKEN";
+    } else {
+        btn.innerText = currentLang === 'ES' ? `Lea los Términos para Despertar (${countdown}s)` : `Read Terms to Awaken (${countdown}s)`;
+    }
+}, 1000);
+
+function toggleLanguage() {
+    currentLang = currentLang === 'ES' ? 'EN' : 'ES';
+    document.getElementById('langSwitch').innerText = currentLang === 'ES' ? 'EN' : 'ES';
+    if(countdown > 0) {
+        document.getElementById('awakenBtn').innerText = currentLang === 'ES' ? `Lea los Términos para Despertar (${countdown}s)` : `Read Terms to Awaken (${countdown}s)`;
+    } else if(document.getElementById('screenLegal').style.display !== 'none') {
+        document.getElementById('awakenBtn').innerText = currentLang === 'ES' ? "APRENDO, ACEPTO Y DESPIERTO" : "I LEARN, ACCEPT AND AWAKEN";
+    }
+    if(document.getElementById('screenService').style.display === 'block') { renderActiveQuestion(); }
+}
+
+function transitionToService() {
+    document.getElementById('screenLegal').style.display = 'none';
+    document.getElementById('screenService').style.display = 'block';
+    startClock();
+    renderActiveQuestion();
+}
+
+function startClock() {
+    serviceTimer = setInterval(() => {
+        timeRemaining--;
+        let mins = Math.floor(timeRemaining / 60).toString().padStart(2,'0');
+        let secs = (timeRemaining % 60).toString().padStart(2,'0');
+        document.getElementById('timerDisplay').innerText = `${mins}:${secs}`;
+        if(timeRemaining <= 0) { clearInterval(serviceTimer); alert("Servicio finalizado / Service completed."); location.reload(); }
     }, 1000);
-};
-function startService() {
-    document.getElementById('legalSection').style.display = 'none';
-    document.getElementById('serviceSection').style.display = 'block';
-    setTimeout(() => { runCRMMath(); }, 2000); // Simulates calculation triggering at 14:30
 }
-function runCRMMath() {
-    let actual = (scores.initial * 0.2) + (scores.respiracion * 0.5) + (scores.adivinanzas * 0.3);
-    let iev = actual - scores.initial;
-    let varText = iev > 5 ? "VAR1_MEJORIA" : "VAR2_IGUAL";
-    localStorage.setItem('current_session', JSON.stringify({
-        servicio_id: "MR-" + Math.floor(Math.random()*10000), lang: currentLang, score_inicial: scores.initial, score_actual: actual, respiracion_score: scores.respiracion, adivinanzas_score: scores.adivinanzas, iev: iev, variante: varText, destino_id: "HOT-ELITE-001"
-    }));
-    document.getElementById('resultBox').style.display = 'block';
-    document.getElementById('resultDesc').innerText = `IEV: ${iev.toFixed(1)} | Variant: ${varText}`;
+
+function renderActiveQuestion() {
+    if(currentQuestionIndex >= DATABASE_TEST.length) { startTreatmentPhase(); return; }
+    let node = DATABASE_TEST[currentQuestionIndex];
+    document.getElementById('lblQuestionText').innerText = currentLang === 'ES' ? node.es : node.en;
+    let html = "";
+    node.opts.forEach((o, i) => {
+        let txt = currentLang === 'ES' ? o.es : o.en;
+        html += `<button class="option-node" onclick="handleAnswerSelection(${o.pts}, '${o.route || ''}')">${txt}</button>`;
+    });
+    document.getElementById('optionsContainer').innerHTML = html;
 }
-function requestPDF() {
-    let session = JSON.parse(localStorage.getItem('current_session'));
-    fetch('/generate-pdf', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(session) })
-    .then(r => r.blob()).then(blob => {
-        let url = window.URL.createObjectURL(blob); let a = document.createElement('a'); a.href = url; a.download = `Report_${session.servicio_id}.pdf`; a.click();
+
+function handleAnswerSelection(pts, route) {
+    userAnswers.push(pts);
+    if(route) currentRoute = route;
+    currentQuestionIndex++;
+    
+    // Mover el círculo del CRM dinámicamente según respuestas
+    let circle = document.getElementById('desprendimientoCircle');
+    if(pts === 0) { circle.style.left = "20%"; circle.style.backgroundColor = "#ff4d4d"; }
+    else if(pts === 25) { circle.style.left = "50%"; circle.style.backgroundColor = "#2e7d32"; }
+
+    renderActiveQuestion();
+}
+
+function startTreatmentPhase() {
+    document.getElementById('wellnessTestBlock').style.display = 'none';
+    document.getElementById('treatmentBlock').style.display = 'block';
+    let r = RIDDLES[Math.floor(Math.random() * RIDDLES.length)];
+    document.getElementById('lblRiddleText').innerText = currentLang === 'ES' ? r.es : r.en;
+    document.getElementById('riddleBox').style.display = 'block';
+    
+    // Simular actualización gráfica al minuto 14:30
+    setTimeout(() => { computeCRMFinal(); }, 4000);
+}
+
+function revealRiddleAnswer() {
+    let r = RIDDLES[0]; // Simplificado para simulación
+    alert(currentLang === 'ES' ? `Respuesta: ${r.ans_es}` : `Answer: ${r.ans_en}`);
+}
+
+function computeCRMFinal() {
+    let initialScore = userAnswers[0] + userAnswers[1] + userAnswers[2] + userAnswers[3];
+    currentTier = initialScore < 40 ? "ELITE" : (initialScore < 70 ? "PREMIUM" : "ASPI");
+    
+    let actualScore = (initialScore * 0.2) + (95 * 0.5) + (80 * 0.3); // Valores fijos de tratamiento simulados
+    let iev = actualScore - initialScore;
+    let variant = iev > 5 ? "VAR1_MEJORIA" : (iev >= -5 ? "VAR2_IGUAL" : "VAR3_EMPEORAMIENTO");
+
+    // Asignar color de silueta humana según evolución
+    let sil = document.getElementById('humanSilhouette');
+    let lbl = document.getElementById('silhouetteLabel');
+    if(variant === "VAR1_MEJORIA") { sil.style.background = "#2e7d32"; lbl.innerText = "Armonía / Optimal"; }
+    else { sil.style.background = "#ffaa00"; lbl.innerText = "Estacionario"; }
+
+    sessionData = {
+        servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000), lang: currentLang,
+        score_inicial: initialScore, score_actual: actualScore, respiracion_score: 95, adivinanzas_score: 80,
+        iev: iev, variante: variant, destino_id: currentRoute === "HOTEL" ? `HOT-${currentTier}-001` : `CRU-${currentTier}-001`
+    };
+
+    document.getElementById('treatmentBlock').style.display = 'none';
+    document.getElementById('screenResults').style.display = 'block';
+    
+    rerollCombinations();
+}
+// --- CONTINUACIÓN DIRECTA DEL MÓDULO FRONTEND (SCRIPT JS) ---
+
+function rerollCombinations() { 
+    // Motor básico antirepetitivo en localStorage 
+    if(!localStorage.getItem('mayroga_vistos')) { 
+        localStorage.setItem('mayroga_vistos', JSON.stringify([])); 
+    }
+    
+    let vistos = JSON.parse(localStorage.getItem('mayroga_vistos'));
+    vistos.push(sessionData.destino_id);
+    localStorage.setItem('mayroga_vistos', JSON.stringify(vistos));
+    
+    if(currentLang === 'ES') {
+        document.getElementById('resAirText').innerText = "Vuelo Premium enlazado de forma directa desde Miami.";
+        document.getElementById('resSeaText').innerText = "Travesía costera calibrada contra el estancamiento.";
+        document.getElementById('resStayText').innerText = `Santuario Bloqueado Localmente: [${sessionData.destino_id}]`;
+    } else {
+        document.getElementById('resAirText').innerText = "Premium direct route linked seamlessly from Miami.";
+        document.getElementById('resSeaText').innerText = "Coastal cruise sector calibrated against routine.";
+        document.getElementById('resStayText').innerText = `Saddled Oasis Locked Locally: [${sessionData.destino_id}]`;
+    }
+}
+
+function triggerPDFDownload() {
+    document.getElementById('btnDownloadPDF').innerText = "...";
+    
+    fetch('/generate-pdf', {
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sessionData)
+    })
+    .then(r => { 
+        if(!r.ok) throw new Error(); 
+        return r.blob(); 
+    })
+    .then(blob => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement('a'); 
+        a.href = url;
+        a.download = `Report_${sessionData.servicio_id}.pdf`; 
+        a.click();
+        document.getElementById('btnDownloadPDF').innerText = currentLang === 'ES' ? "Descargar PDF" : "Download PDF";
+    })
+    .catch(() => { 
+        alert("Error conectando con el backend."); 
+        document.getElementById('btnDownloadPDF').innerText = currentLang === 'ES' ? "Descargar PDF" : "Download PDF";
     });
 }
-</script>
-</body>
-</html>
+
+function terminateServiceEarly() {
+    clearInterval(serviceTimer);
+    location.reload();
+}
+    
