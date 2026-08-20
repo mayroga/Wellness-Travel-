@@ -1,0 +1,60 @@
+[
+  {
+    "id": "PRG-001",
+    "variable": "Ritmo_De_Vida",
+    "es": "Al abrir los ojos por la mañana, ¿cómo procesas las demandas de tu agenda actual?",
+    "en": "When you open your eyes in the morning, how do you process the demands of your current schedule?",
+    "opts": [
+      {"es": "Como un río en calma; avanzo con total claridad.", "en": "Like a calm river; I move forward with total clarity.", "pts": 25},
+      {"es": "Como una corriente constante; acelero el paso.", "en": "Like a steady current; I pick up the pace.", "pts": 15},
+      {"es": "Como una marea alta; siento la presión antes de levantarme.", "en": "Like a high tide; I feel the pressure before even getting up.", "pts": 5},
+      {"es": "Como una cascada en tormenta; mi mente ya ejecuta decisiones.", "en": "Like a storm waterfall; my mind is already executing decisions.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-002",
+    "variable": "Reserva_Energetica",
+    "es": "Si tu enfoque mental fuera la batería de un dispositivo premium, ¿en qué nivel estás a mitad de jornada?",
+    "en": "If your mental focus were the battery of a premium device, where are you at mid-day?",
+    "opts": [
+      {"es": "Rendimiento Óptimo: Brillo máximo y funciones activas.", "en": "Optimal Performance: Maximum brightness and active functions.", "pts": 25},
+      {"es": "Rendimiento Estable: Desactivé procesos secundarios.", "en": "Stable Performance: Deactivated secondary processes.", "pts": 15},
+      {"es": "Modo Ahorro: Sostengo la marcha solo por fuerza de voluntad.", "en": "Power Saving: Sustaining momentum by sheer willpower.", "pts": 5},
+      {"es": "Descarga Crítica: Alertas de saturación, necesito un reset.", "en": "Critical Discharge: Saturation alerts, in need of a reset.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-003",
+    "variable": "Flujo_Creativo",
+    "es": "Cuando analizas tus últimas semanas, ¿qué tan predecibles han sido tus estímulos visuales?",
+    "en": "When you analyze your last weeks, how predictable have your visual stimuli been?",
+    "opts": [
+      {"es": "Dinámicos e inspiradores; cada día trae nuevos horizontes.", "en": "Dynamic and inspiring; each day brings new horizons.", "pts": 25},
+      {"es": "Estructurados pero fluidos; encuentro espacios de exploración.", "en": "Structured but fluid; I find spaces for exploration.", "pts": 15},
+      {"es": "Monótonos; los mismos trayectos y las mismas pantallas.", "en": "Monotonous; the same commutes and the same screens.", "pts": 5},
+      {"es": "Bucle cerrado; siento que los días se clonan unos a otros.", "en": "Closed loop; I feel like days clone one another.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-004",
+    "variable": "Resistencia_Desconexion",
+    "es": "Si te obligaras a sentarte en silencio frente al mar sin tecnología por una hora, ¿qué pasaría?",
+    "en": "If you forced yourself to sit in silence facing the sea with no tech for an hour, what would happen?",
+    "opts": [
+      {"es": "Calma inmediata; me conecto con el entorno al instante.", "en": "Immediate calm; I connect with the environment instantly.", "pts": 25},
+      {"es": "Transición gradual; me tomaría unos minutos apagar el ruido mental.", "en": "Gradual transition; it would take a few minutes to quiet the mind.", "pts": 15},
+      {"es": "Inquietud motriz; sentiría la urgencia de revisar pendientes.", "en": "Motor restlessness; I would feel the urge to check pending tasks.", "pts": 5},
+      {"es": "Resistencia total; la falta de estímulo me generaría impaciencia.", "en": "Total resistance; the lack of stimulus would generate impatience.", "pts": 0}
+    ]
+  },
+  {
+    "id": "PRG-005",
+    "variable": "Enrutamiento_Destino",
+    "es": "Cuando imaginas el concepto de 'libertad absoluta' hoy, ¿qué exige tu mente?",
+    "en": "When you imagine the concept of 'absolute freedom' right now, what does your mind demand?",
+    "opts": [
+      {"es": "Silencio total, naturaleza virgen y una villa privada.", "en": "Total silence, untouched nature, and a private villa.", "pts": 25, "route": "HOTEL"},
+      {"es": "Nuevos rostros, alta gastronomía y explorar horizontes navegando.", "en": "New faces, fine dining, and exploring horizons sailing.", "pts": 25, "route": "CRUCERO"}
+    ]
+  }
+]
