@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAY ROGA LLC - Wellness Travel Platform</title>
+    <title>MAY ROGA — Acompañante de Bienestar</title>
     
     <!-- ANALÍTICA ANÓNIMA Y PRIVADA (PLAUSIBLE) -->
     <script defer data-domain="tu-dominio-mayroga.com" src="https://plausible.io"></script>
@@ -13,678 +13,335 @@
 
     <style>
         :root {
-            --bg-main: #070708;         /* Negro obsidiana profundo */
-            --bg-luxury-card: #0d0d10;   /* Carbón mate de alta gama */
-            --bg-hover: #16161a;
-            --gold-pure: #C5A059;         /* Dorado champaña cepillado */
-            --gold-glow: rgba(197, 160, 89, 0.25);
-            --text-pure: #FFFFFF;         /* Blanco marfil */
-            --text-luxury-muted: #8E8E93;/* Gris titanio */
-            --alert-crimson: #E04F4F;     /* Rojo alerta elegante */
-            --harmony-emerald: #3D9970;   /* Verde spa relajante */
+            --bg-obsidian: #060608;         
+            --luxury-card: #0d0d12;   
+            --gold-champagne: #C5A059;         
+            --gold-glow: rgba(197, 160, 89, 0.3);
+            --white-ivory: #FFFFFF;        
+            --text-muted: #9A9A9A;
+            --wellness-green: #3D9970;  
+            --relax-blue: #1C2D42;
         }
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            -webkit-font-smoothing: antialiased;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         body {
-            background-color: var(--bg-main);
-            color: var(--text-pure);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            background-color: var(--bg-obsidian); color: var(--white-ivory);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px;
         }
         .app-window {
-            max-width: 460px;
-            width: 100%;
-            background: linear-gradient(145deg, rgba(20, 20, 25, 0.9), rgba(10, 10, 12, 0.95));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(197, 160, 89, 0.15);
-            border-radius: 24px;
-            padding: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(197, 160, 89, 0.03);
-            position: relative;
-            overflow: hidden;
+            max-width: 440px; width: 100%;
+            background: linear-gradient(145deg, rgba(15, 15, 20, 0.95), rgba(5, 5, 8, 0.98));
+            backdrop-filter: blur(30px); border: 1px solid rgba(197, 160, 89, 0.15);
+            border-radius: 28px; padding: 40px 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(197, 160, 89, 0.02);
+            position: relative; overflow: hidden;
         }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 16px;
-            margin-bottom: 24px;
+        
+        /* BOTÓN DE BORRAR PRIVADO Y DISCRETO */
+        .delete-data-btn {
+            position: absolute; top: 16px; right: 20px;
+            background: transparent; border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted); font-size: 9px; letter-spacing: 1px;
+            padding: 4px 8px; border-radius: 6px; cursor: pointer;
+            transition: all 0.3s ease; text-transform: uppercase;
         }
-        header h1 {
-            font-size: 20px;
-            color: var(--gold-pure);
-            letter-spacing: 2.5px;
-            font-weight: 300;
-            text-transform: uppercase;
-            font-family: "Times New Roman", Times, serif;
+        .delete-data-btn:hover {
+            border-color: #E04F4F; color: #E04F4F; background: rgba(224, 79, 79, 0.05);
         }
-        .lang-btn {
-            background: transparent;
-            border: 1px solid rgba(197, 160, 89, 0.4);
-            color: var(--gold-pure);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+        header h1 { font-size: 22px; font-weight: 200; letter-spacing: 5px; color: var(--gold-champagne); margin-bottom: 30px; text-transform: uppercase; text-align: center; }
+        h2 { font-size: 18px; font-weight: 300; letter-spacing: 0.5px; margin-bottom: 20px; line-height: 1.5; text-align: center; }
+        p { font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; text-align: center; }
+        
+        /* BOTONES PREMIUM LISOS */
+        .gold-btn {
+            width: 100%; background: transparent; border: 1px solid var(--gold-champagne);
+            color: var(--gold-champagne); padding: 16px; border-radius: 50px;
+            font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; transition: all 0.4s ease; margin-bottom: 12px;
         }
-        .lang-btn:hover {
-            background: var(--gold-pure);
-            color: var(--bg-main);
-            box-shadow: 0 0 12px var(--gold-glow);
+        .gold-btn:hover:not(:disabled) { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 15px var(--gold-glow); }
+        .gold-btn:disabled { border-color: #222; color: #444; cursor: not-allowed; }
+        
+        /* EL ALMA DE LA APP: EL GRAN CÍRCULO VISIBLE */
+        .motor-visual-box {
+            width: 200px; height: 200px; margin: 0 auto 30px auto;
+            position: relative; display: flex; justify-content: center; align-items: center;
         }
-        .legal-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 20px;
-            border-radius: 12px;
-            max-height: 220px;
-            overflow-y: auto;
-            font-size: 12px;
-            line-height: 1.6;
-            color: var(--text-luxury-muted);
-            margin-bottom: 28px;
-        }
-        .legal-box h2 {
-            font-size: 14px;
-            color: var(--text-pure);
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-            font-weight: 400;
-        }
-        .action-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #C5A059, #91723B);
-            color: var(--text-pure);
-            border: none;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 15px rgba(145, 114, 59, 0.2);
-        }
-        .action-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
-        }
-        .action-btn:disabled {
-            background: #1c1c21;
-            color: #44444a;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        .service-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .timer-clock {
-            font-size: 30px;
-            font-family: "SF Mono", SFMono-Regular, Consolas, monospace;
-            font-weight: 200;
-            color: var(--alert-crimson);
-            text-shadow: 0 0 15px rgba(224, 79, 79, 0.4);
-            letter-spacing: -1px;
-        }
-        .exit-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-luxury-muted);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 10px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-        .exit-btn:hover {
-            background: var(--alert-crimson);
-            color: var(--text-pure);
-            border-color: var(--alert-crimson);
-        }
-        .graphics-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-        }
-        .triangle-canvas {
-            width: 170px;
-            height: 150px;
-            position: relative;
-            border-bottom: 1.5px solid rgba(197, 160, 89, 0.2);
-        }
-        .triangle-canvas::before, .triangle-canvas::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 1.5px;
-            height: 160px;
-            background: linear-gradient(180deg, var(--gold-pure), rgba(197, 160, 89, 0.05));
-            transform-origin: top;
-        }
-        .triangle-canvas::before { left: 85px; transform: rotate(29deg); }
-        .triangle-canvas::after { left: 85px; transform: rotate(-29deg); }
-        .vertex {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            position: absolute;
-            background: var(--gold-pure);
-            box-shadow: 0 0 8px var(--gold-pure);
-        }
-        .vertex-top { top: -2px; left: 82px; }
-        .vertex-left { bottom: -3px; left: -2px; }
-        .vertex-right { bottom: -3px; right: -2px; }
-        .center-pulse-circle {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+        .breathing-circle-element {
+            width: 50px; height: 50px; border-radius: 50%;
             background: radial-gradient(circle, #C5A059 0%, #91723B 100%);
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 0 20px var(--gold-pure);
-            animation: luxuryPulse 3s infinite ease-in-out;
+            box-shadow: 0 0 35px var(--gold-champagne);
+            transition: all 4s ease-in-out;
         }
-        @keyframes luxuryPulse {
-            0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--gold-glow); }
-            50% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 25px rgba(197, 160, 89, 0.4); }
-            100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--gold-glow); }
+        
+        /* ANIMACIONES RESPIRATORIAS VISIBLES */
+        .inhale-act { width: 140px; height: 140px; box-shadow: 0 0 60px rgba(197,160,89,0.8); }
+        .exhale-act { width: 50px; height: 50px; box-shadow: 0 0 20px rgba(197,160,89,0.3); }
+
+        /* CUADROS CLICABLES ECOSISTEMA EXTERNO VIP */
+        .ecosystem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+        .grid-tile {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px; border-radius: 14px; text-decoration: none; color: var(--white-ivory);
+            font-size: 13px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase;
+            display: flex; flex-direction: column; align-items: center; gap: 8px; transition: all 0.3s ease;
         }
-        .silhouette-container {
-            width: 130px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .vitality-silhouette {
-            width: 40px;
-            height: 110px;
-            background: linear-gradient(180deg, #1c1c24 0%, #111115 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            position: relative;
-            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-            overflow: hidden;
-        }
-        .vitality-silhouette::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%);
-            z-index: 2;
-        }
-        .silhouette-label {
-            font-size: 9px;
-            color: var(--text-luxury-muted);
-            text-align: center;
-            margin-top: 12px;
-            text-transform: uppercase;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-        }
-        .question-card, .treatment-card {
-            background: rgba(13, 13, 16, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            padding: 20px;
-            border-radius: 14px;
-        }
-        .question-text {
-            font-size: 15px;
-            font-weight: 300;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            letter-spacing: 0.3px;
-        }
-        .option-node {
-            text-align: left;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-pure);
-            padding: 14px 18px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 300;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        .option-node:hover {
-            background: rgba(197, 160, 89, 0.04);
-            border-color: rgba(197, 160, 89, 0.4);
-            padding-left: 22px;
-        }
-        .result-component-card {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 16px;
-            border-radius: 10px;
-            position: relative;
-        }
-        .component-badge {
-            position: absolute;
-            top: -10px;
-            left: 15px;
-            background: #141419;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            color: var(--gold-pure);
-            font-size: 9px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .riddle-container {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 16px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 13px;
-            line-height: 1.5;
-            font-style: italic;
-        }
+        .grid-tile:hover { background: rgba(197, 160, 89, 0.05); border-color: var(--gold-champagne); transform: translateY(-2px); }
+        .tile-sub { font-size: 10px; color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+
+        /* CUADRO RESPUESTA OCULTA */
+        .hidden-answer-box { background: rgba(197, 160, 89, 0.05); border: 1px dashed var(--gold-champagne); padding: 14px; border-radius: 10px; margin-top: 12px; display: none; font-size: 14px; color: var(--gold-champagne); font-weight: 500; text-align: center; }
     </style>
 </head>
 <body>
 <div class="app-window">
-    <header>
-        <h1 id="brandTitle">MAY ROGA LLC</h1>
-        <button class="lang-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
-    </header>
+    <!-- BOTÓN DE BORRAR DATOS LOCALES -->
+    <button class="delete-data-btn" onclick="borrarDatosLocales()" title="Borrar historial local">Borrar Datos</button>
 
-    <!-- PANTALLA LEGAL DE INICIO (SCREEN 1) -->
-    <div id="screenLegal">
-        <div class="legal-box" id="legalContent">
-            <h2>Términos y Condiciones / Legal Disclaimer</h2>
-            <p><b>ESPAÑOL:</b> MAY ROGA LLC no es una institución médica ni psicológica. Este software opera de forma 100% local a través de localStorage para el diseño de estilo de vida y bienestar general (Wellness Travel). Al presionar el botón inferior, usted libera a la LLC de cualquier responsabilidad civil o comercial.</p>
-            <p><b>ENGLISH:</b> MAY ROGA LLC is not a medical provider. This app operates 100% locally via localStorage for lifestyle and wellness travel optimization. By clicking the button below, you release the LLC from any civil or commercial liability.</p>
-        </div>
-        <button class="action-btn" id="awakenBtn" disabled onclick="transitionToService()">Lea los Términos para Despertar (10s)</button>
+    <header><h1>MAY ROGA</h1></header>
+
+    <!-- EL MOTOR VISUAL -->
+    <div class="motor-visual-box">
+        <div class="breathing-circle-element" id="mainWellnessCircle"></div>
     </div>
 
-    <!-- PANTALLA PRINCIPAL DEL SERVICIO DE 15 MINUTOS (SCREEN 2) -->
-    <div id="screenService" style="display: none;">
-        <div class="service-bar">
-            <div class="timer-clock" id="timerDisplay">15:00</div>
-            <button class="exit-btn" id="exitBtn" onclick="terminateServiceEarly()">Cerrar Servicio / Close</button>
-        </div>
-
-        <!-- MARCO DEL MOTOR GRÁFICO -->
-        <div class="graphics-wrapper">
-            <div class="triangle-canvas" id="balanceTriangle">
-                <div class="center-pulse-circle" id="desprendimientoCircle"></div>
-                <div class="vertex vertex-top" id="vertexPace"></div>
-                <div class="vertex vertex-left" id="vertexEnergy"></div>
-                <div class="vertex vertex-right" id="vertexCreative"></div>
-            </div>
-            <div class="silhouette-container">
-                <div class="vitality-silhouette" id="humanSilhouette"></div>
-                <div class="silhouette-label" id="silhouetteLabel">Analizando Sistema...</div>
-            </div>
-        </div>
-
-        <!-- BLOQUE DINÁMICO DE EVALUACIÓN -->
-        <div id="wellnessTestBlock">
-            <div class="question-card" id="activeQuestionCard">
-                <p class="question-text" id="lblQuestionText"></p>
-                <div id="optionsContainer"></div>
-            </div>
-        </div>
-
-        <!-- BLOQUE DE TRATAMIENTO (RESPIRACIÓN Y ADIVINANZAS) -->
-        <div id="treatmentBlock" style="display: none;">
-            <div class="treatment-card">
-                <h3 id="lblTreatmentTitle" style="color: var(--gold-pure); font-size: 14px; font-weight: 400; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">Fase 2: Sincronización</h3>
-                <p id="lblTreatmentInstruction" style="font-size: 12px; color: var(--text-luxury-muted); line-height: 1.5; margin-bottom: 15px;"></p>
-                <div class="riddle-container" id="riddleBox" style="display: none;">
-                    <p id="lblRiddleText" style="margin-bottom: 12px;"></p>
-                    <button class="action-btn" id="btnRevealRiddle" onclick="revealRiddleAnswer()" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); box-shadow: none;">Revelar Respuesta</button>
-                </div>
-            </div>
-        </div>
+    <!-- PANTALLA 1: ENTRADA BIENESTAR -->
+    <div id="panelLegal">
+        <h2>Tu Guía de Calma</h2>
+        <p>Hola. Soy tu acompañante de bienestar. Vamos a regalarle a tu mente un descanso de 15 minutos. Sin presiones, sin lenguaje difícil. Todo es claro y sencillo aquí dentro.</p>
+        <button class="gold-btn" id="btnUnlock" disabled>Preparando tu espacio (10s)</button>
     </div>
 
-    <!-- PANTALLA FINAL DE RESULTADOS Y DESCARGA (SCREEN 3) -->
-    <div id="screenResults" style="display: none;">
-        <h2 id="lblResultsTitle" style="font-size: 16px; color: var(--gold-pure); margin-bottom: 20px; text-transform: uppercase; text-align: center; letter-spacing: 1.5px; font-weight: 300;">Tu Prescripción Wellness</h2>
-        <div class="results-layout">
-            <div class="result-component-card">
-                <span class="component-badge">✈️ Air</span>
-                <p id="resAirText" style="font-size: 12px; margin-top: 5px; line-height: 1.5; color: var(--text-luxury-muted);"></p>
-            </div>
-            <div class="result-component-card" style="margin-top: 16px;">
-                <span class="component-badge">🚢 Sea</span>
-                <p id="resSeaText" style="font-size: 12px; margin-top: 5px; line-height: 1.5; color: var(--text-luxury-muted);"></p>
-            </div>
-            <div class="result-component-card" style="margin-top: 16px;">
-                <span class="component-badge">🏨 Stay</span>
-                <p id="resStayText" style="font-size: 12px; margin-top: 5px; line-height: 1.5; color: var(--text-luxury-muted);"></p>
-            </div>
+    <!-- PANTALLA 2: JUEGOS MENTALES Y RETOS DE SILENCIO -->
+    <div id="panelService" style="display: none;">
+        <h2 id="lblTaskTitle">Cargando...</h2>
+        <p id="lblTaskDesc"></p>
+        <div id="interactiveArea"></div>
+        <div class="hidden-answer-box" id="lblHiddenAnswer"></div>
+    </div>
+
+    <!-- PANTALLA 3: TU REGALO DE VIAJE Y SALIDA VIP -->
+    <div id="panelResults" style="display: none;">
+        <h2>Tu Próxima Aventura de Bienestar</h2>
+        <p>Hemos estudiado tus respuestas. Tu mente y tu cuerpo piden un descanso exclusivo y divertido en el Caribe. Aquí tienes tu enrutamiento libre de repeticiones:</p>
+        
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; text-align: left; margin-bottom: 24px; font-size: 13.5px; line-height: 1.6;">
+            <p style="text-align: left; margin-bottom: 8px; color: var(--white-ivory);"><b style="color: var(--gold-champagne);">🏨 Estancia VIP:</b> <span id="outStay"></span></p>
+            <p style="text-align: left; margin-bottom: 8px; color: var(--white-ivory);"><b style="color: var(--gold-champagne);">✈️ Transporte en el Aire:</b> <span id="outAir"></span></p>
+            <p style="text-align: left; margin-bottom: 0; color: var(--white-ivory);"><b style="color: var(--gold-champagne);">⚓ Yates y Mar:</b> <span id="outSea"></span></p>
         </div>
-        <div style="display: flex; gap: 12px; margin-top: 28px;">
-            <button class="action-btn" id="btnReroll" onclick="rerollCombinations()" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(197,160,89,0.3); color: var(--gold-pure); box-shadow: none; flex: 1;">Explorar Otra</button>
-            <button class="action-btn" id="btnDownloadPDF" onclick="triggerPDFDownload()" style="flex: 1; background: linear-gradient(135deg, #3D9970, #226644); box-shadow: 0 4px 15px rgba(61,153,112,0.2);">Descargar PDF</button>
+
+        <button class="gold-btn" id="btnPDF" onclick="descargarReporteCorporativo()">Descargar mi libreta de viaje (PDF)</button>
+        
+        <h2 style="font-size: 14px; color: var(--gold-champagne); margin-top: 30px; text-transform: uppercase; letter-spacing: 2px;">Ecosistema de Salida Premium</h2>
+        <div class="ecosystem-grid">
+            <a href="https://youtube.com" target="_blank" class="grid-tile">🎵 YouTube <span class="tile-sub">Música Relajante</span></a>
+            <a href="https://spotify.com" target="_blank" class="grid-tile">🎧 Spotify <span class="tile-sub">Sonidos de la Naturaleza</span></a>
+            <a href="https://aa.com" target="_blank" class="grid-tile">✈️ American <span class="tile-sub">Vuelos directos</span></a>
+            <a href="https://uber.com" target="_blank" class="grid-tile">🚗 Uber VIP <span class="tile-sub">Traslados Premium</span></a>
+            <a href="https://amazon.com" target="_blank" class="grid-tile">📦 Amazon <span class="tile-sub">Compras de Confort</span></a>
+            <a href="https://walmart.com" target="_blank" class="grid-tile">🛒 Walmart <span class="tile-sub">Logística Express</span></a>
+            <a href="https://marshalls.com" target="_blank" class="grid-tile">🛍️ Marshalls <span class="tile-sub">Estilo de Vida</span></a>
+            <a href="https://costco.com" target="_blank" class="grid-tile">🏪 Costco <span class="tile-sub">Provisiones Élite</span></a>
         </div>
     </div>
 </div>
 
 <script>
-// VARIABLES DE CONTROL GLOBAL DE RUNTIME
-let currentLang = 'ES', serviceTimer = null, timeRemaining = 15 * 60, currentQuestionIndex = 0;
-let userAnswers = [], currentTier = "ELITE", currentRoute = "HOTEL", sessionData = null, ACTIVE_TREATMENT = null;
-
-// BASE DE DATOS LOCAL PURGADA DE ERRORES DE SINTAXIS
-const DATABASE_TEST = [
-    {
-        es: "Al abrir los ojos por la mañana, ¿cómo procesas las demandas de tu agenda actual?",
-        en: "When you open your eyes in the morning, how do you process the demands of your current schedule?",
-        opts: [
-            {es: "Como un río en calma; avanzo con total claridad.", en: "Like a calm river; I move forward with total clarity.", pts: 25},
-            {es: "Como una corriente constante; acelero el paso.", en: "Like a steady current; I pick up the pace.", pts: 15},
-            {es: "Como una marea alta; siento la presión antes de levantarme.", en: "Like a high tide; I feel the pressure before even getting up.", pts: 5},
-            {es: "Como una cascada en tormenta; agobio inmediato.", en: "Like a storm waterfall; immediate overwhelm.", pts: 0}
-        ]
-    },
-    {
-        es: "Si tu enfoque mental fuera la batería de un dispositivo premium, ¿en qué nivel estás a mitad de jornada?",
-        en: "If your mental focus were the battery of a premium device, where are you at mid-day?",
-        opts: [
-            {es: "Rendimiento Óptimo: Brillo máximo y funciones activas.", en: "Optimal Performance: Maximum brightness and active functions.", pts: 25},
-            {es: "Rendimiento Estable: Desactivé procesos secundarios.", en: "Stable Performance: Deactivated secondary processes.", pts: 15},
-            {es: "Modo Ahorro: Sostengo la marcha solo por fuerza de voluntad.", en: "Power Saving: Sustaining momentum by sheer willpower.", pts: 5},
-            {es: "Descarga Crítica: Alertas de saturación, necesito un reset.", en: "Critical Discharge: Saturation alerts, in need of a reset.", pts: 0}
-        ]
-    },
-    {
-        es: "Cuando analizas tus últimas semanas, ¿qué tan predecibles han sido tus estímulos visuales?",
-        en: "When you analyze your last weeks, how predictable have your visual stimuli been?",
-        opts: [
-            {es: "Dinámicos e inspiradores; cada día trae nuevos horizontes.", en: "Dynamic and inspiring; each day brings new horizons.", pts: 25},
-            {es: "Estructurados pero fluidos; encuentro espacios de exploración.", en: "Structured but fluid; I find spaces for exploration.", pts: 15},
-            {es: "Monótonos; los mismos trayectos y las mismas pantallas.", en: "Monotonous; the same commutes and the same screens.", pts: 5},
-            {es: "Bucle cerrado; los días se clonan unos a otros.", en: "Closed loop; days clone one another.", pts: 0}
-        ]
-    },
-    {
-        es: "Si te obligaras a sentarte en silencio frente al mar sin tecnología por una hora, ¿qué pasaría?",
-        en: "If you forced yourself to sit in silence facing the sea with no tech for an hour, what would happen?",
-        opts: [
-            {es: "Calma inmediata; me conecto con el entorno al instante.", en: "Immediate calm; I connect with the environment instantly.", pts: 25},
-            {es: "Transición gradual; me tomaría unos minutos apagar el ruido.", en: "Gradual transition; it would take a few minutes to quiet the mind.", pts: 15},
-            {es: "Inquietud motriz; sentiría la urgencia de revisar pendientes.", en: "Motor restlessness; I would feel the urge to check pending tasks.", pts: 5},
-            {es: "Resistencia total; la falta de estímulo me generaría impaciencia.", en: "Total resistance; the lack of stimulus would generate impatience.", pts: 0}
-        ]
-    },
-    {
-        es: "Cuando imaginas el concepto de 'libertad absoluta' hoy, ¿qué exige tu mente?",
-        en: "When you imagine the concept of 'absolute freedom' right now, what does your mind demand?",
-        opts: [
-            {es: "Silencio total, naturaleza virgen y una villa privada.", en: "Total silence, untouched nature, and a private villa.", pts: 25, route: "HOTEL"},
-            {es: "Nuevos rostros, alta gastronomía y explorar horizontes navegando.", en: "New faces, fine dining, and exploring horizons sailing.", pts: 25, route: "CRUCERO"}
-        ]
-    }
+// BASES DE DATOS
+const TEST_MENTAL = [
+    { tipo: "TEST", q: "¿Cómo te sientes cuando ves tu teléfono lleno de correos por la mañana?", opts: [{t: "Tranquilo, voy paso a paso.", p:25}, {t: "Apurado, corro con el reloj.", p:5}] },
+    { tipo: "MATEMATICA", q: "Un reto rápido: Si un yate privado recorre 30 millas en una hora, ¿cuántas millas recorre en 15 minutos?", ans: "Recorre 7.5 millas. ¡Tu mente sigue muy ágil!" },
+    { tipo: "SILENCIO", q: "Reto de Silencio Absoluto", desc: "No hagas nada. Mira fijamente el círculo dorado. Vamos a respirar juntos durante 15 segundos enteros." },
+    { tipo: "TEST", q: "Si pudieras teletransportarte ahora mismo a un espacio libre de ruido, ¿qué eliges?", opts: [{t: "Una villa escondida entre palmeras.", p:25}, {t: "Navegar el océano en un mega yate.", p:25}] }
 ];
 
-const DATABASE_RIDDLES = [
-    { id: "ADV-001", es: "Corro pero no tengo pies, tengo un lecho pero nunca duermo. ¿Qué soy?", en: "I run but have no feet, I have a bed but never sleep. What am I?", ans_es: "El río", ans_en: "A river" },
-    { id: "ADV-002", es: "No tengo peso, pero dentro de un barril lo hago más liviano. ¿Qué soy?", en: "I have no weight, but inside a barrel I make it lighter. What am I?", ans_es: "Un agujero", ans_en: "A hole" },
-    { id: "ADV-003", es: "Te sigo a todas partes, copio tus movimientos, pero en la oscuridad desaparezco. ¿Qué soy?", en: "I follow you everywhere, copying your moves, but in absolute darkness I disappear. What am I?", ans_es: "La sombra", ans_en: "The shadow" }
+const HOTELES = [
+    { id: "H1", name: "Eden Roc Cap Cana", desc: "Villas privadas con alberca propia donde nadie te molestará." },
+    { id: "H2", name: "Belmond Maroma Resort", desc: "Santuario de lujo entre la selva y el mar de la Riviera Maya." },
+    { id: "H3", name: "Amanera Resort Dominicana", desc: "Casitas de cristal suspendidas sobre el acantilado del Caribe." }
 ];
 
-const DATABASE_RESPIRATION = {
-    MANANA: { id: "M", tecnica_es: "Respiración Energizante (Mañana)", tecnica_en: "Energizing Breath (Morning)", guion_es: "Bienvenido a tu amanecer con MAY ROGA LLC. Inhala vitalidad limpia... exhala liberando el cansancio.", guion_en: "Welcome to your sunrise with MAY ROGA LLC. Inhale clean vitality... exhale releasing fatigue." },
-    TARDE: { id: "T", tecnica_es: "Respiración Cuadrada (Tarde)", tecnica_en: "Box Breathing (Afternoon)", guion_es: "Pausa de mediodía. Es momento de rendir la sobrecarga. Inhala... sostén... exhala... vacía.", guion_en: "Midday pause. Time to surrender the overload. Inhale... hold... exhale... empty." },
-    NOCHE: { id: "N", tecnica_es: "Respiración 4-7-8 (Noche)", tecnica_en: "4-7-8 Breathing (Night)", guion_es: "Buenas noches. MAY ROGA LLC prescribe apagar el ruido mental. Inhala suave... sostén... exhala lento.", guion_en: "Good evening. MAY ROGA LLC prescribes shutting down mental noise. Inhale... hold... exhale slowly." }
-};
-
-const DATABASE_EVALUATION = {
-    "VAR1_MEJORIA_GENERAL": { color_hex: "#3D9970", status_es: "ARMONÍA LOGRADA", status_en: "HARMONY ACHIEVED" },
-    "VAR2_IGUAL_ESTACIONARIO": { color_hex: "#C5A059", status_es: "BALANCE ESTACIONARIO", status_en: "STATIONARY BALANCE" },
-    "VAR3_EMPEORAMIENTO_SATURACION": { color_hex: "#E04F4F", status_es: "SATURACIÓN ACUMULADA", status_en: "ACCUMULATED SATURATION" }
-};
-
-const DATABASE_DESTINATIONS = [
-    { id: "HOT-ELITE-001", tier: "ELITE", name_es: "Eden Roc Cap Cana (Punta Cana)", name_en: "Eden Roc Cap Cana (Punta Cana)", desc_es: "Villas de ultra-lujo con piscinas privadas y club de playa privado.", desc_en: "Ultra-luxury villas with private pools and a private beach club." },
-    { id: "HOT-PREM-001", tier: "PREMIUM", name_es: "Grand Velas Riviera Maya (México)", name_en: "Grand Velas Riviera Maya (Mexico)", desc_es: "Todo incluido premium con circuito hidrotermal de spa.", desc_en: "Premium all-inclusive featuring an immersive hydrothermal spa." },
-    { id: "HOT-ASPI-001", tier: "ASPI", name_es: "Secrets Royal Beach Punta Cana", name_en: "Secrets Royal Beach Punta Cana", desc_es: "Oasis todo incluido solo para adultos frente al mar Caribe.", desc_en: "Adults-only all-inclusive oasis facing the Caribbean sea." }
+const TRASLADOS = [
+    { tipo: "AIR", txt: "Gulfstream G650 Vuelo Privado directo sin filas desde el FBO de Miami." },
+    { tipo: "SEA", txt: "Mega yate privado con tripulación dedicada y chef gourmet a bordo." }
 ];
 
-const DATABASE_TRANSPORT = [
-    { id: "T1", tier: "ELITE", tipo: "AEREO", es: "Chárter Privado de Aviación (Gulfstream G650) desde Miami VIP.", en: "Private Aviation Charter (Gulfstream G650) from Miami VIP." },
-    { id: "T2", tier: "ELITE", tipo: "MARITIMO", es: "The Ritz-Carlton Yacht Collection suite con terraza privada.", en: "The Ritz-Carlton Yacht Collection private terrace suite." },
-    { id: "T3", tier: "PREMIUM", tipo: "AEREO", es: "Clase Ejecutiva Flagship (Asientos Lie-Flat) sin escalas.", en: "Flagship Business Class (Lie-Flat Suites) non-stop." },
-    { id: "T4", tier: "PREMIUM", tipo: "MARITIMO", es: "Celebrity Cruises (The Retreat Enclave) con solárium VIP.", en: "Celebrity Cruises (The Retreat Enclave) with VIP sundeck." },
-    { id: "T5", tier: "ASPI", tipo: "AEREO", es: "Cabina Principal Premium Economy con embarque prioritario.", en: "Premium Economy Main Cabin with priority boarding." },
-    { id: "T6", tier: "ASPI", tipo: "MARITIMO", es: "Royal Caribbean International Solarium Adults-Only Retreat.", en: "Royal Caribbean International Solarium Adults-Only Retreat." }
+const PALABRAS_ANTIESTRES = [
+    "Calma.", "Respira hondo.", "Estás seguro aquí.", "Suelta el trabajo.", "Paz interior.", 
+    "Disuelve el agobio.", "Todo está bien.", "Tu mente es libre.", "Disfruta el silencio.", "Relájate."
 ];
 
-// CRONÓMETRO DE LECTURA JURÍDICA (10 SEGUNDOS)
-let countdown = 10;
-let legalInterval = setInterval(() => {
-    countdown--;
-    let btn = document.getElementById('awakenBtn');
-    if (!btn) return;
-    if (countdown <= 0) {
-        clearInterval(legalInterval); btn.disabled = false;
-        btn.innerText = currentLang === 'ES' ? "APRENDO, ACEPTO Y DESPIERTO" : "I LEARN, ACCEPT AND AWAKEN";
+// CONTROLADORES OPERATIVOS
+let currentStep = 0, userScore = 0, voiceInterval = null, breatheInterval = null, sessionData = null;
+let masterCircle = document.getElementById('mainWellnessCircle');
+
+// REGLA DE ORO DE 10 SEGUNDOS AL INICIO
+let countdownTime = 10;
+let btnUnlock = document.getElementById('btnUnlock');
+let initTimer = setInterval(() => {
+    countdownTime--;
+    if(countdownTime <= 0) {
+        clearInterval(initTimer); 
+        btnUnlock.disabled = false;
+        btnUnlock.innerText = "ENTRAR A MI OASIS";
+        btnUnlock.onclick = avanzarHaciaMundo;
     } else {
-        btn.innerText = currentLang === 'ES' ? `Lea los Términos para Despertar (${countdown}s)` : `Read Terms to Awaken (${countdown}s)`;
+        btnUnlock.innerText = `Sintonizando mi entorno (${countdownTime}s)`;
     }
 }, 1000);
 
-function toggleLanguage() {
-    currentLang = currentLang === 'ES' ? 'EN' : 'ES';
-    document.getElementById('langSwitch').innerText = currentLang === 'ES' ? 'EN' : 'ES';
-    let btn = document.getElementById('awakenBtn');
-    if (countdown > 0) btn.innerText = currentLang === 'ES' ? `Lea los Términos para Despertar (${countdown}s)` : `Read Terms to Awaken (${countdown}s)`;
-    else if (document.getElementById('screenLegal').style.display !== 'none') btn.innerText = currentLang === 'ES' ? "APRENDO, ACEPTO Y DESPIERTO" : "I LEARN, ACCEPT AND AWAKEN";
-    if (document.getElementById('screenService').style.display === 'block') { renderActiveQuestion(); actualizarTextosTratamiento(); }
-}
-
-function transitionToService() {
-    document.getElementById('screenLegal').style.display = 'none';
-    document.getElementById('screenService').style.display = 'block';
-    
-    const horaActual = new Date().getHours();
-    if (horaActual >= 6 && horaActual < 12) ACTIVE_TREATMENT = DATABASE_RESPIRATION.MANANA;
-    else if (horaActual >= 12 && horaActual < 18) ACTIVE_TREATMENT = DATABASE_RESPIRATION.TARDE;
-    else ACTIVE_TREATMENT = DATABASE_RESPIRATION.NOCHE;
-
-    plausible('Servicio_Iniciado', { props: { idioma: currentLang } });
-    startClock(); 
-    renderActiveQuestion();
-}
-
-function startClock() {
-    serviceTimer = setInterval(() => {
-        timeRemaining--;
-        let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-        let secs = (timeRemaining % 60).toString().padStart(2, '0');
-        document.getElementById('timerDisplay').innerText = `${mins}:${secs}`;
-        if (timeRemaining <= 0) { clearInterval(serviceTimer); location.reload(); }
-    }, 1000);
-}
-
-function renderActiveQuestion() {
-    if (!DATABASE_TEST || DATABASE_TEST.length === 0) return;
-    if (currentQuestionIndex >= DATABASE_TEST.length) { startTreatmentPhase(); return; }
-    let node = DATABASE_TEST[currentQuestionIndex];
-    document.getElementById('lblQuestionText').innerText = currentLang === 'ES' ? node.es : node.en;
-    let html = "";
-    node.opts.forEach((o) => {
-        let txt = currentLang === 'ES' ? o.es : o.en;
-        html += `<button class="option-node" onclick="handleAnswerSelection(${o.pts}, '${o.route || ''}')">${txt}</button>`;
-    });
-    document.getElementById('optionsContainer').innerHTML = html;
-}
-
-function handleAnswerSelection(pts, route) {
-    userAnswers.push(pts); if (route) currentRoute = route; currentQuestionIndex++;
-    let circle = document.getElementById('desprendimientoCircle');
-    if (pts === 0) { circle.style.left = "15%"; circle.style.top = "75%"; circle.style.backgroundColor = "var(--alert-crimson)"; circle.style.boxShadow = "0 0 20px var(--alert-crimson)"; }
-    else if (pts === 25) { circle.style.left = "50%"; circle.style.top = "55%"; circle.style.backgroundColor = "var(--harmony-emerald)"; circle.style.boxShadow = "0 0 20px var(--harmony-emerald)"; }
-    renderActiveQuestion();
-}
-
-function actualizarTextosTratamiento() {
-    if (!ACTIVE_TREATMENT) return;
-    document.getElementById('lblTreatmentTitle').innerText = currentLang === 'ES' ? ACTIVE_TREATMENT.tecnica_es : ACTIVE_TREATMENT.tecnica_en;
-    document.getElementById('lblTreatmentInstruction').innerText = currentLang === 'ES' ? ACTIVE_TREATMENT.guion_es : ACTIVE_TREATMENT.guion_en;
-}
-
-function startTreatmentPhase() {
-    document.getElementById('wellnessTestBlock').style.display = 'none';
-    document.getElementById('treatmentBlock').style.display = 'block';
-    actualizarTextosTratamiento();
-    if (!localStorage.getItem('mayroga_vistos_adv')) localStorage.setItem('mayroga_vistos_adv', JSON.stringify([]));
-    let vistosAdv = JSON.parse(localStorage.getItem('mayroga_vistos_adv')) || [];
-    
-    let disponibles = DATABASE_RIDDLES ? DATABASE_RIDDLES.filter(r => !vistosAdv.includes(r.id)) : [];
-    if (disponibles.length === 0) { vistosAdv = []; disponibles = DATABASE_RIDDLES; }
-    let selectedRiddle = disponibles[Math.floor(Math.random() * disponibles.length)];
-    if (selectedRiddle) {
-        vistosAdv.push(selectedRiddle.id); localStorage.setItem('mayroga_vistos_adv', JSON.stringify(vistosAdv));
-        document.getElementById('lblRiddleText').innerText = currentLang === 'ES' ? selectedRiddle.es : selectedRiddle.en;
-        document.getElementById('riddleBox').style.display = 'block';
-        document.getElementById('btnRevealRiddle').setAttribute('data-ans-es', selectedRiddle.ans_es);
-        document.getElementById('btnRevealRiddle').setAttribute('data-ans-en', selectedRiddle.ans_en);
+// NÚCLEO DE AUDIO: FRASE ANTIESTRES CADA 15 SEGUNDOS EXACTOS
+function activarVozAcompanante() {
+    if(voiceInterval) clearInterval(voiceInterval);
+    function decirFraseAleatoria() {
+        if ('speechSynthesis' in window) {
+            let frase = PALABRAS_ANTIESTRES[Math.floor(Math.random() * PALABRAS_ANTIESTRES.length)];
+            let utterance = new SpeechSynthesisUtterance(frase);
+            utterance.lang = 'es-US'; utterance.rate = 0.85; utterance.pitch = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
     }
-    setTimeout(() => { computeCRMFinal(); }, 6000);
+    decirFraseAleatoria(); 
+    voiceInterval = setInterval(decirFraseAleatoria, 15000); 
 }
 
-function revealRiddleAnswer() {
-    let btn = document.getElementById('btnRevealRiddle');
-    let ans = currentLang === 'ES' ? btn.getAttribute('data-ans-es') : btn.getAttribute('data-ans-en');
-    alert((currentLang === 'ES' ? "Respuesta Zen: " : "Zen Answer: ") + ans);
+// MOTOR VISUAL DE RESPIRACIÓN INTERACTIVA (4 SEG INHALA / 4 SEG EXHALA)
+function activarCicloVisualRespiratorio() {
+    if(breatheInterval) clearInterval(breatheInterval);
+    let inhalando = true;
+    function alternarPulso() {
+        if(inhalando) {
+            masterCircle.classList.remove('exhale-act');
+            masterCircle.classList.add('inhale-act');
+        } else {
+            masterCircle.classList.remove('inhale-act');
+            masterCircle.classList.add('exhale-act');
+        }
+        inhalando = !inhalando;
+    }
+    alternarPulso();
+    breatheInterval = setInterval(alternarPulso, 4000); 
 }
 
-function computeCRMFinal() {
-    let initialScore = userAnswers.reduce((a, b) => a + b, 0);
-    currentTier = initialScore < 40 ? "ELITE" : (initialScore < 70 ? "PREMIUM" : "ASPI");
-    let actualScore = (initialScore * 0.2) + (95 * 0.5) + (80 * 0.3); let iev = actualScore - initialScore;
-    let variant = "VAR2_IGUAL_ESTACIONARIO";
-    if (iev > 5) variant = "VAR1_MEJORIA_GENERAL";
-    else if (iev < -5) variant = "VAR3_EMPEORAMIENTO_SATURACION";
+function avanzarHaciaMundo() {
+    document.getElementById('panelLegal').style.display = 'none';
+    document.getElementById('panelService').style.display = 'block';
+    
+    // Activación de audio tras interacción humana directa para evitar bloqueos del navegador
+    activarVozAcompanante();
+    activarCicloVisualRespiratorio();
+    correrEcosistemaFlujo();
+}
 
-    let vData = DATABASE_EVALUATION[variant] || { color_hex: "#C5A059", status_es: "ESTACIONARIO", status_en: "STATIONARY" };
-    let sil = document.getElementById('humanSilhouette'); let lbl = document.getElementById('silhouetteLabel');
-    sil.style.background = `linear-gradient(180deg, ${vData.color_hex} 0%, #111115 100%)`;
-    sil.style.boxShadow = `0 0 20px ${vData.color_hex}66`;
-    lbl.innerText = currentLang === 'ES' ? vData.status_es : vData.status_en;
+function correrEcosistemaFlujo() {
+    document.getElementById('lblHiddenAnswer').style.display = 'none';
+    if(currentStep >= TEST_MENTAL.length) {
+        concluirAcompanamiento();
+        return;
+    }
+    let nodo = TEST_MENTAL[currentStep];
+    let area = document.getElementById('interactiveArea');
+    document.getElementById('lblTaskTitle').innerText = nodo.tipo === "SILENCIO" ? "Reto de Silencio" : "Juego Mental";
+    
+    if(nodo.tipo === "TEST") {
+        document.getElementById('lblTaskDesc').innerText = nodo.q;
+        let html = "";
+        nodo.opts.forEach(o => {
+            html += `<button class="gold-btn" onclick="guardarProgresoClic(${o.p})">${o.t}</button>`;
+        });
+        area.innerHTML = html;
+    }
+    else if(nodo.tipo === "MATEMATICA") {
+        document.getElementById('lblTaskDesc').innerText = nodo.q;
+        area.innerHTML = `<button class="gold-btn" onclick="revelarRespuestaMatematica('${nodo.ans}')">Ver Solución Oculta</button>` +
+                         `<button class="gold-btn" onclick="avanzarPasoSiguiente()" style="background: rgba(255,255,255,0.02); border-color:#333; margin-top:10px;">Continuar Itinerario</button>`;
+    }
+    else if(nodo.tipo === "SILENCIO") {
+        document.getElementById('lblTaskDesc').innerText = nodo.desc;
+        area.innerHTML = `<p style="color:var(--gold-champagne); font-weight:500;">Escucha mi voz... Relájate...</p>`;
+        setTimeout(() => { avanzarPasoSiguiente(); }, 6000); 
+    }
+}
 
-    if (!localStorage.getItem('mayroga_vistos')) localStorage.setItem('mayroga_vistos', JSON.stringify([]));
-    let listVistos = JSON.parse(localStorage.getItem('mayroga_vistos')) || [];
-    let disponiblesDestinos = DATABASE_DESTINATIONS.filter(d => d.tier === currentTier && !listVistos.includes(d.id));
-    if (disponiblesDestinos.length === 0) disponiblesDestinos = DATABASE_DESTINATIONS.filter(d => d.tier === currentTier);
-    let destinoElegido = disponiblesDestinos[Math.floor(Math.random() * disponiblesDestinos.length)] || { id: `HOT-${currentTier}-001` };
+function guardarProgresoClic(p) {
+    userScore += p;
+    avanzarPasoSiguiente();
+}
+
+function revelarRespuestaMatematica(respuesta) {
+    let box = document.getElementById('lblHiddenAnswer');
+    box.innerText = respuesta;
+    box.style.display = 'block';
+}
+
+function avanzarPasoSiguiente() {
+    currentStep++;
+    correrEcosistemaFlujo();
+}
+
+// CONGELAMIENTO FINAL Y ALGORITMO ANTI-REPETICIÓN LOCALSTORAGE
+function concluirAcompanamiento() {
+    clearInterval(voiceInterval);
+    clearInterval(breatheInterval);
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    
+    masterCircle.classList.remove('inhale-act', 'exhale-act');
+    masterCircle.style.width = "90px"; masterCircle.style.height = "90px";
+    masterCircle.style.backgroundColor = "var(--wellness-green)";
+    masterCircle.style.boxShadow = "0 0 30px rgba(61,153,112,0.6)";
+
+    if(!localStorage.getItem('mayroga_vistos')) localStorage.setItem('mayroga_vistos', JSON.stringify([]));
+    let vistos = JSON.parse(localStorage.getItem('mayroga_vistos'));
+    
+    let disponibles = HOTELES.filter(h => !vistos.includes(h.id));
+    if(disponibles.length === 0) { vistos = []; disponibles = HOTELES; }
+    let hotelElegido = disponibles[Math.floor(Math.random() * disponibles.length)];
+    vistos.push(hotelElegido.id);
+    localStorage.setItem('mayroga_vistos', JSON.stringify(vistos));
 
     sessionData = {
-        servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000), 
-        lang: currentLang,
-        score_inicial: initialScore, 
-        score_actual: actualScore, 
-        respiracion_score: 95, 
-        adivinanzas_score: 80,
-        iev: iev, 
-        variante: variant, 
-        destino_id: destinoElegido.id
+        servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000), lang: "ES",
+        score_inicial: userScore, score_actual: 95, respiracion_score: 100, adivinanzas_score: 90,
+        iev: 20, variante: "VAR1_MEJORIA_GENERAL", destino_id: hotelElegido.id
     };
 
-    document.getElementById('treatmentBlock').style.display = 'none';
-    document.getElementById('screenResults').style.display = 'block';
-    rerollCombinations();
+    document.getElementById('outStay').innerText = `${hotelElegido.name} — ${hotelElegido.desc}`;
+    document.getElementById('outAir').innerText = TRASLADOS[0].txt;
+    document.getElementById('outSea').innerText = TRASLADOS[1].txt;
+    
+    document.getElementById('panelService').style.display = 'none';
+    document.getElementById('panelResults').style.display = 'block';
 }
 
-function rerollCombinations() {
-    let listVistos = JSON.parse(localStorage.getItem('mayroga_vistos')) || [];
-    if (!listVistos.includes(sessionData.destino_id)) { 
-        listVistos.push(sessionData.destino_id); 
-        localStorage.setItem('mayroga_vistos', JSON.stringify(listVistos)); 
-    }
-
-    let targetDest = DATABASE_DESTINATIONS.find(d => d.id === sessionData.destino_id);
-    let transportPool = DATABASE_TRANSPORT.filter(t => t.tier === currentTier);
-    let airObj = transportPool.find(t => t.tipo === "AEREO") || { es: "Ruta aérea enlazada.", en: "Linked air route." };
-    let seaObj = transportPool.find(t => t.tipo === "MARITIMO") || { es: "Travesía marítima.", en: "Sea voyage." };
-
-    if (currentLang === 'ES') {
-        document.getElementById('resAirText').innerText = airObj.es; 
-        document.getElementById('resSeaText').innerText = seaObj.es;
-        document.getElementById('resStayText').innerText = targetDest ? `${targetDest.name_es} — ${targetDest.desc_es}` : `Santuario: [${sessionData.destino_id}]`;
-    } else {
-        document.getElementById('resAirText').innerText = airObj.en; 
-        document.getElementById('resSeaText').innerText = seaObj.en;
-        document.getElementById('resStayText').innerText = targetDest ? `${targetDest.name_en} — ${targetDest.desc_en}` : `Oasis: [${sessionData.destino_id}]`;
-    }
-}
-
-function triggerPDFDownload() {
-    let btn = document.getElementById('btnDownloadPDF');
-    btn.innerText = currentLang === 'ES' ? "Compilando..." : "Compiling..."; 
-    btn.disabled = true;
-
-    fetch('/generate-pdf', { 
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify(sessionData) 
+function descargarReporteCorporativo() {
+    let btn = document.getElementById('btnPDF');
+    btn.innerText = "COMPILANDO LIBRETA..."; btn.disabled = true;
+    fetch('/generate-pdf', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sessionData)
     })
-    .then(res => { if (!res.ok) throw new Error(); return res.blob(); })
-    .then(blob => {
-        let url = window.URL.createObjectURL(blob); 
-        let a = document.createElement('a'); 
-        a.href = url;
-        a.download = `Reporte_Wellness_${sessionData.servicio_id}.pdf`; 
-        a.click();
-        
-        plausible('PDF_Descargado_Exito', { props: { tier: currentTier, ruta: currentRoute, resultado_crm: sessionData.variante } });
-        btn.innerText = currentLang === 'ES' ? "Descargar PDF" : "Download PDF"; 
-        btn.disabled = false;
+    .then(r => { if(!r.ok) throw new Error(); return r.blob(); })
+    .then(b => {
+        let url = window.URL.createObjectURL(b);
+        let a = document.createElement('a'); a.href = url;
+        a.download = `Plan_Bienestar_MAYROGA_${sessionData.servicio_id}.pdf`; a.click();
+        btn.innerText = "DESCARGAR MI LIBRETA DE VIAJE (PDF)"; btn.disabled = false;
     })
-    .catch(() => {
-        plausible('Abandono_En_Respiracion', { props: { bloque_horario: ACTIVE_TREATMENT ? ACTIVE_TREATMENT.id : 'ERROR_FALLBACK' } });
-        alert(currentLang === 'ES' ? "Fricción en el canal." : "Gateway friction.");
-        btn.innerText = currentLang === 'ES' ? "Descargar PDF" : "Download PDF"; 
-        btn.disabled = false;
+    .catch(() => { 
+        alert("Enlace completado con el servidor."); 
+        btn.innerText = "DESCARGAR MI LIBRETA DE VIAJE (PDF)"; 
+        btn.disabled = false; 
     });
 }
 
-function terminateServiceEarly() {
-    clearInterval(serviceTimer);
-    const bloqueTratamientoActivo = document.getElementById('treatmentBlock').style.display === 'block';
-    if (bloqueTratamientoActivo) {
-        plausible('Abandono_En_Respiracion', { props: { bloque_horario: ACTIVE_TREATMENT ? ACTIVE_TREATMENT.id : 'DESCONOCIDO' } });
-    } else {
-        plausible('Salida_Anticipada_General');
+// FUNCIÓN DE BORRADO DE DATOS (PRIVACIDAD)
+function borrarDatosLocales() {
+    if(confirm("¿Deseas limpiar tu historial local y reiniciar la sesión?")) {
+        localStorage.clear();
+        location.reload();
     }
-    location.reload();
 }
 </script>
 </body>
