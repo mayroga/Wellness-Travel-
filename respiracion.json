@@ -1,0 +1,26 @@
+{
+  "MANANA": {
+    "rango_horas": "06:00-11:59",
+    "tecnica_es": "Respiración Energizante (Foco Activo)",
+    "tecnica_en": "Energizing Breath (Active Focus)",
+    "tiempos": { "inhalar": 3, "retener": 1, "exhalar": 3, "vacio": 0 },
+    "guion_es": "Bienvenido a tu amanecer con MAY ROGA LLC. Vamos a despertar tu enfoque matutino sacudiendo la inercia del sueño. Inhala vitalidad limpia... exhala con fuerza liberando el cansancio.",
+    "guion_en": "Welcome to your sunrise with MAY ROGA LLC. Let us awaken your morning focus, shaking off sleep inertia. Inhale clean vitality... exhale with power, releasing fatigue."
+  },
+  "TARDE": {
+    "rango_horas": "12:00-17:59",
+    "tecnica_es": "Respiración Cuadrada (Anti-Agobio)",
+    "tecnica_en": "Box Breathing (Decompression)",
+    "tiempos": { "inhalar": 4, "retener": 4, "exhalar": 4, "vacio": 4 },
+    "guion_es": "Pausa de mediodía. Es momento de rendir la sobrecarga laboral acumulada. Sigue el ritmo perfecto del cuadrado: inhala... sostén... exhala... vacía. Recupera el control de tu tiempo.",
+    "guion_en": "Midday pause. It is time to surrender the accumulated corporate overload. Follow the perfect rhythm of the box: inhale... hold... exhale... empty. Regain control of your time."
+  },
+  "NOCHE": {
+    "rango_horas": "18:00-05:59",
+    "tecnica_es": "Respiración 4-7-8 (Desconexión y Sueño)",
+    "tecnica_en": "4-7-8 Breathing (Deep Sleep Induction)",
+    "tiempos": { "inhalar": 4, "retener": 7, "exhalar": 8, "vacio": 0 },
+    "guion_es": "Buenas noches. Tu jornada de negocios ha concluido. MAY ROGA LLC prescribe apagar el ruido mental. Inhala suavemente... sostén el aire permitiendo la calma profunda... exhala lento, disolviendo la ansiedad.",
+    "guion_en": "Good evening. Your business day has concluded. MAY ROGA LLC prescribes shutting down the mental noise. Inhale gently... hold allowing deep calm... exhale slowly, dissolving anxiety."
+  }
+}
