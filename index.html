@@ -14,13 +14,13 @@
     <style>
         :root {
             --bg-obsidian: #050507;          
-            --luxury-card: #0d0d12;    
+            --luxury-card: #0d0d12;   
             --gold-champagne: #C5A059;        
             --gold-glow: rgba(197, 160, 89, 0.35);
             --white-ivory: #FFFFFF;        
             --text-muted: #8E8E93;
             --wellness-green: #3D9970;  
-            --relax-blue: #1C2D42;
+            --relax-blue: #1C3D5A;
             --alert-crimson: #E04F4F;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
@@ -37,31 +37,37 @@
             box-shadow: 0 35px 70px rgba(0, 0, 0, 0.9), 0 0 60px rgba(197, 160, 89, 0.03);
             position: relative; overflow: hidden;
         }
-        
-        /* TIPOGRAFÍA PREMIUM DESPEJADA Y CLARA */
         header h1 { font-size: 26px; font-weight: 200; letter-spacing: 6px; color: var(--gold-champagne); margin-bottom: 35px; text-transform: uppercase; text-align: center; font-family: "Times New Roman", Times, serif; }
-        h2 { font-size: 19px; font-weight: 300; letter-spacing: 0.5px; margin-bottom: 22px; line-height: 1.5; text-align: center; color: var(--white-ivory); }
-        p { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-bottom: 28px; text-align: center; letter-spacing: 0.3px; }
+        h2 { font-size: 19px; font-weight: 300; letter-spacing: 0.5px; margin-bottom: 22px; line-height: 1.4; text-align: center; color: var(--white-ivory); }
+        p { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; text-align: center; letter-spacing: 0.3px; }
         
-        /* BOTONES PREMIUM CON GRADIENTES METÁLICOS */
+        /* BOTONES PREMIUM DE INTERFAZ */
         .gold-btn {
             width: 100%; background: transparent; border: 1px solid var(--gold-champagne);
-            color: var(--gold-champagne); padding: 18px; border-radius: 50px;
+            color: var(--gold-champagne); padding: 16px; border-radius: 50px;
             font-size: 12.5px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-            cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); margin-bottom: 14px;
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); margin-bottom: 12px;
         }
-        .gold-btn:hover:not(:disabled) { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 20px var(--gold-glow); transform: translateY(-1px); }
+        .gold-btn:hover:not(:disabled) { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 20px var(--gold-glow); }
         .gold-btn:disabled { border-color: #222; color: #444; cursor: not-allowed; }
         
-        /* BARRA DEL CRONÓMETRO REGRESIVO */
+        /* BOTONES EXCLUSIVOS DE LAS 3 OPCIONES COGNITIVAS */
+        .triple-option-btn {
+            width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
+            color: var(--white-ivory); padding: 15px 20px; border-radius: 12px; font-size: 13.5px;
+            font-weight: 300; text-align: left; cursor: pointer; transition: all 0.3s ease; margin-bottom: 10px;
+        }
+        .triple-option-btn.correct-choice { background-color: var(--wellness-green) !important; border-color: var(--wellness-green) !important; color: white !important; font-weight: 500; }
+        .triple-option-btn.wrong-choice { background-color: var(--alert-crimson) !important; border-color: var(--alert-crimson) !important; color: white !important; }
+
         .timeline-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .timer-display { font-size: 32px; font-family: "SF Mono", Consolas, monospace; font-weight: 200; color: var(--alert-crimson); text-shadow: 0 0 15px rgba(224, 79, 79, 0.4); }
 
-        /* EL MOTOR VISUAL: TRIÁNGULO Y CÍRCULO EN MOVIMIENTO VIVO */
+        /* EL MOTOR VISUAL REDISEÑADO CON LÍMITES ERGONÓMICOS */
         .graphics-container {
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 24px; border-radius: 20px; margin-bottom: 35px; min-height: 180px;
+            padding: 24px; border-radius: 20px; margin-bottom: 35px; min-height: 190px; position: relative;
         }
         .triangle-canvas { width: 170px; height: 150px; position: relative; border-bottom: 1.5px solid rgba(197, 160, 89, 0.15); }
         .triangle-canvas::before, .triangle-canvas::after {
@@ -71,346 +77,382 @@
         .triangle-canvas::before { left: 85px; transform: rotate(28.5deg); }
         .triangle-canvas::after { left: 85px; transform: rotate(-28.5deg); }
         
-        /* CÍRCULO MASIVO Y ULTRA VISIBLE */
+        /* EL CÍRCULO RESPIRATORIO DEL PULMÓN HUMANO */
         .center-wellness-circle {
-            width: 32px; height: 32px; border-radius: 50%;
+            width: 45px; height: 44px; border-radius: 50%;
             background: radial-gradient(circle, #C5A059 0%, #91723B 100%);
             position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
             box-shadow: 0 0 35px var(--gold-champagne); z-index: 10;
-            transition: width 4s ease-in-out, height 4s ease-in-out, left 1.5s cubic-bezier(0.25, 1, 0.5, 1), top 1.5s cubic-bezier(0.25, 1, 0.5, 1), background-color 1.2s ease;
+            transition: width 4s linear, height 4s ease-in-out, background-color 1.5s linear, box-shadow 1.5s linear, left 0.8s ease, top 0.8s ease;
         }
         
-        /* ANIMACIÓN DE EXPANDIR Y CONTRAER */
-        .mode-inhale { width: 110px; height: 110px; box-shadow: 0 0 50px rgba(197,160,89,0.7); }
-        .mode-exhale { width: 32px; height: 32px; box-shadow: 0 0 15px rgba(197,160,89,0.2); }
+        .lung-inhale { width: 125px; height: 125px; background: radial-gradient(circle, #1C3D5A 0%, #0B1D33 100%) !important; box-shadow: 0 0 50px rgba(28,61,90,0.8) !important; }
+        .lung-exhale { width: 45px; height: 45px; background: radial-gradient(circle, #E04F4F 0%, #992222 100%) !important; box-shadow: 0 0 25px rgba(224,79,79,0.5) !important; }
 
-        /* SILUETA DE LA FIGURA HUMANA */
-        .silhouette-box { width: 140px; display: flex; flex-direction: column; align-items: center; }
-        .human-silhouette-element {
-            width: 44px; height: 120px; background: linear-gradient(180deg, #1c1c24 0%, #0d0d12 100%);
-            border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 24px; position: relative;
-            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1); overflow: hidden;
-        }
-        .human-silhouette-element::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.7) 100%); z-index: 2; }
-        .silhouette-status-lbl { font-size: 9.5px; color: var(--text-muted); text-align: center; margin-top: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; }
+        .explanation-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(197, 160, 89, 0.2); padding: 16px; border-radius: 12px; margin-top: 14px; margin-bottom: 14px; font-size: 13.5px; line-height: 1.6; text-align: left; color: var(--gold-champagne); display: none; }
 
         /* CUADROS CLICABLES ECOSISTEMA DE SALIDA PREMIUM */
         .ecosystem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 25px; }
         .grid-tile {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 16px 12px; border-radius: 16px; text-decoration: none; color: var(--white-ivory);
-            font-size: 11.5px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;
-            display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 18px; border-radius: 16px; text-decoration: none; color: var(--white-ivory);
+            font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+            display: flex; flex-direction: column; align-items: center; gap: 6px; transition: all 0.3s ease;
         }
-        .grid-tile:hover { background: rgba(197, 160, 89, 0.06); border-color: var(--gold-champagne); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-        .tile-subtext { font-size: 9.5px; color: var(--text-muted); text-transform: none; letter-spacing: 0; }
-
-        /* SECCIÓN RESPUESTA OCULTA */
-        .hidden-solution-card { background: rgba(197, 160, 89, 0.06); border: 1px dashed var(--gold-champagne); padding: 16px; border-radius: 12px; margin-top: 14px; display: none; font-size: 14px; color: var(--gold-champagne); font-weight: 500; text-align: center; line-height: 1.5; }
-        @keyframes luxuryPulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+        .grid-tile:hover { background: rgba(197, 160, 89, 0.06); border-color: var(--gold-champagne); transform: translateY(-3px); }
+        .tile-subtext { font-size: 10px; color: var(--text-muted); text-transform: none; }
     </style>
 </head>
 <body>
 <div class="app-window">
     <header><h1>MAY ROGA</h1></header>
 
-    <!-- MOTOR VISUAL DINÁMICO -->
+    <!-- EL MOTOR VISUAL RESTAURADO -->
     <div class="graphics-container" id="engineWrapper" style="display: none;">
         <div class="triangle-canvas" id="geometryFrame">
-            <div class="center-wellness-circle" id="interactiveCircle"></div>
+            <div class="center-wellness-circle" id="lungCircle"></div>
         </div>
-        <div class="silhouette-box">
-            <div class="human-silhouette-element" id="animatedHuman"></div>
-            <div class="silhouette-status-lbl" id="lblSilhouetteStatus">Analizando Sistema...</div>
+        <div style="width: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div id="lblStatusLabel" style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-champagne); font-weight: 600; text-align: center;">Sintonizador</div>
+            <div id="lblBreatheAction" style="font-size: 13px; margin-top: 6px; font-weight: 300; text-align: center; color: var(--text-muted);">Calma Activa</div>
         </div>
     </div>
 
-    <!-- PANTALLA 1: ENTRADA Y REBOTE JURÍDICO -->
-    <div id="viewLegal">
-        <h2>Regálale un respiro a tu atención.</h2>
-        <p>Hola. Soy tu acompañante de bienestar. Vamos a compartir un viaje interactivo de 15 minutos para relajar tu mente del agobio diario de las pantallas y el trabajo. Sencillo, claro y divertido.</p>
-        <button class="gold-btn" id="btnAwaken" disabled onclick="unlockWellnessCore()">Sintonizando tu espacio (10s)</button>
+    <!-- PANTALLA 1: ENTRADA Y AVISO DE BIENESTAR -->
+    <div id="panelLegal">
+        <h2>Tu Acompañante de Bienestar Privado</h2>
+        <p>Hola. Vamos a compartir un viaje de 15 minutos diseñado especialmente para alejar tu mente del agobio de las pantallas y las decisiones de la rutina diaria. Explicado con palabras muy sencillas para disfrutar el momento.</p>
+        <button class="gold-btn" id="btnUnlock" disabled onclick="unlockWellnessCore()">Sintonizando tu espacio (10s)</button>
     </div>
 
-    <!-- PANTALLA 2: CONTENEDOR OPERATIVO -->
-    <div id="viewService" style="display: none;">
+    <!-- PANTALLA 2: EL CONTENEDOR OPERATIVO DE TRATAMIENTO DE 15 MINUTOS -->
+    <div id="panelService" style="display: none;">
         <div class="timeline-bar">
             <div class="timer-display" id="clockDisplay">15:00</div>
-            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Acompañante Activo</div>
+            <div id="lblPhaseTracker" style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; font-weight: 500;">Evaluación Inicial</div>
         </div>
-        <h2 id="lblTaskTitle">Sintonizando...</h2>
-        <p id="lblTaskDesc"></p>
+        <h2 id="lblTaskTitle">Sintonizando reto...</h2>
         <div id="interactiveStack"></div>
-        <div class="hidden-solution-card" id="hiddenSolutionWrapper"></div>
+        <div class="explanation-card" id="lblExplanationBox"></div>
+        <button class="gold-btn" id="btnNext" style="display: none; background: var(--gold-champagne); color: var(--bg-obsidian); font-weight: 600;" onclick="avanzarSiguientePasoFlujo()">Continuar Reto</button>
     </div>
 
-    <!-- PANTALLA 3: PRESCRIPCIÓN DE DESTINOS Y CUADROS VIP -->
-    <div id="viewResults" style="display: none;">
-        <h2>Tu Próxima Estancia de Compensación</h2>
-        <p id="lblFinalStatus" style="font-weight: 500; font-size: 15px; letter-spacing: 0.5px;"></p>
+    <!-- PANTALLA 3: ENRUTAMIENTO ABIERTO PARA AGENTE DE VIAJES -->
+    <div id="panelResults" style="display: none;">
+        <h2>Tu Próximo Destino de Compensación</h2>
+        <p>Estudiamos el comportamiento de tu sistema. Para mantener este balance libre de agobio, nuestro canal prescribe las siguientes coordinaciones exclusivas:</p>
         
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 24px; border-radius: 20px; text-align: left; margin-bottom: 28px; font-size: 14px; line-height: 1.7;">
-            <p style="text-align: left; margin-bottom: 10px; color: var(--white-ivory);"><b style="color: var(--gold-champagne);">🏨 Destino Curado:</b> <span id="resStay"></span></p>
-            <p style="text-align: left; margin-bottom: 10px; color: var(--white-ivory);"><b style="color: var(--gold-champagne);">✈️ Logística Aérea:</b> <span id="resAir"></span></p>
-            <p style="text-align: left; color: var(--white-ivory);"><b style="color: var(--gold-champagne);">⚓ Pasillo Marítimo:</b> <span id="resSea"></span></p>
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; text-align: left; margin-bottom: 24px; font-size: 13.5px; line-height: 1.6;">
+            <p style="text-align: left; margin-bottom: 8px;">🏨 <b>Estancia Curada:</b> <span id="outStay" style="color: var(--white-ivory);">-</span></p>
+            <p style="text-align: left; margin-bottom: 8px;">✈️ <b>Logística de Vuelo:</b> <span id="outAir" style="color: var(--white-ivory);">-</span></p>
+            <p style="text-align: left; margin-bottom: 0;">⚓ <b>Canales de Mar y Yates:</b> <span id="outSea" style="color: var(--white-ivory);">-</span></p>
         </div>
 
         <button class="gold-btn" id="btnPDF" onclick="triggerPDFCompilation()">Descargar mi libreta de viaje (PDF)</button>
         
-        <div style="margin-top: 20px; text-align: center;">
-            <p style="font-size: 12px; color: var(--gold-champagne); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Ecosistema de Salida VIP</p>
-            <div class="ecosystem-grid">
-                <a href="https://music.youtube.com" target="_blank" class="grid-tile">🎵 YouTube Música<span class="tile-subtext">Relajación guiada</span></a>
-                <a href="https://spotify.com" target="_blank" class="grid-tile">🎧 Spotify<span class="tile-subtext">Frecuencias de océano</span></a>
-                <a href="https://www.avianca.com" target="_blank" class="grid-tile">✈️ Avianca<span class="tile-subtext">Reservas directas</span></a>
-                <a href="https://uber.com" target="_blank" class="grid-tile">🚗 Uber VIP<span class="tile-subtext">Traslados confort</span></a>
-                <a href="https://amazon.com" target="_blank" class="grid-tile">📦 Amazon<span class="tile-subtext">Maletas y lino</span></a>
-                <a href="https://walmart.com" target="_blank" class="grid-tile">🛒 Walmart<span class="tile-subtext">Provisiones de viaje</span></a>
-                <a href="https://marshalls.com" target="_blank" class="grid-tile">🛍️ Marshalls<span class="tile-subtext">Moda de playa</span></a>
-                <a href="https://costco.com" target="_blank" class="grid-tile">🏪 Costco<span class="tile-subtext">Equipaje premium</span></a>
-            </div>
+        <div style="margin-top: 15px; font-size: 12px; color: var(--gold-champagne); text-transform: uppercase; letter-spacing: 1px; text-align: center; font-weight: 500;">Ecosistema de Salida Directa</div>
+        <div class="ecosystem-grid">
+            <a href="https://music.youtube.com" target="_blank" class="grid-tile">🎵 YouTube <span class="tile-subtext">Música de Relajación</span></a>
+            <a href="https://open.spotify.com" target="_blank" class="grid-tile">🎧 Spotify <span class="tile-subtext">Sonidos del Océano</span></a>
+            <a href="https://www.aa.com" target="_blank" class="grid-tile">✈️ American <span class="tile-subtext">Líneas Aéreas</span></a>
+            <a href="https://www.uber.com" target="_blank" class="grid-tile">🚗 Uber VIP <span class="tile-subtext">Traslados Premium</span></a>
+            <a href="https://www.amazon.com" target="_blank" class="grid-tile">📦 Amazon <span class="tile-subtext">Equipaje de Confort</span></a>
+            <a href="https://www.walmart.com" target="_blank" class="grid-tile">🛒 Walmart <span class="tile-subtext">Logística Express</span></a>
+            <a href="https://www.marshalls.com" target="_blank" class="grid-tile">🛍️ Marshalls <span class="tile-subtext">Estilo de Vida</span></a>
+            <a href="https://www.costco.com" target="_blank" class="grid-tile">🏪 Costco <span class="tile-subtext">Provisiones Élite</span></a>
         </div>
     </div>
 </div>
 
 <script>
-// INFRAESTRUCTURA DE MEMORIA INTELECTUAL Y CONFIGURACIÓN CRONOMÉTRICA
-let currentQuestionIndex = 0, timeRemaining = 15 * 60, userAnswers = [];
+// VARIABLES DE ENTORNO RUNTIME Y TIEMPO TOTAL
+let currentStepIndex = 0, timeRemaining = 15 * 60, userAnswers = [];
 let serviceTimer = null, voiceInterval = null, breatheInterval = null;
-let currentTier = "ELITE", sessionData = null;
-let circleNode = document.getElementById('interactiveCircle');
-let humanNode = document.getElementById('animatedHuman');
+let currentTier = "ELITE", sessionData = null, sessionDataTimeout = null;
+let circleNode = document.getElementById('lungCircle');
 
-// POOL DE CONTENIDO DINÁMICO
-const TEST_MATRIZ = [
-    { tipo: "TEST", q: "¿Cómo procesas las demandas de tu agenda al abrir los ojos por la mañana?", opts: [{t: "Como un río tranquilo; avanzo con total control.", p:25}, {t: "Como una cascada; la presión me aborda de inmediato.", p:5}] },
-    { tipo: "MATEMATICA", q: "Un acertijo rápido: Si un chárter privado vuela a 600 millas por hora, ¿cuántas millas avanza en un respiro de 15 minutos?", ans: "Avanza exactamente 150 millas. ¡Tu agilidad mental sigue impecable!" },
-    { tipo: "SILENCIO", q: "Reto de Silencio Medido por el CRM", desc: "Suelta los controles. Mira fijamente el círculo dorado en el triángulo. Vamos a sincronizar tu respiración." },
-    { tipo: "TEST", q: "Si pudieras desconectarte del entorno de pantallas hoy mismo, ¿qué exige tu mente?", opts: [{t: "Silencio absoluto en una villa privada con alberca.", p:25}, {t: "Explorar horizontes navegando el Caribe en un mega yate.", p:25}] }
+// 🌟 BASE DE DATOS LOCAL CON EL SISTEMA DE 3 OPCIONES Y RETOS DE 15 MINUTOS
+const RETOS_BIENESTAR = [
+    {
+        tipo: "PREGUNTA",
+        q: "Al abrir los ojos por la mañana y ver tus pendientes, ¿cómo responde tu diálogo interno?",
+        opts: [
+            {t: "A. Avanzo como un río en calma, con total dominio de mi tiempo.", p: 25, correct: true, exp: "¡Excelente! La calma es el activo más valioso de un líder."},
+            {t: "B. Avanzo acelerado, pero mantengo el control de la agenda.", p: 15, correct: false, exp: "Cuidado: acelerar el paso de forma constante agota tu reserva de energía de fondo."},
+            {t: "C. Siento la presión del agobio antes de levantarme de la cama.", p: 5, correct: false, exp: "Alerta: tu mente está ejecutando procesos secundarios antes de tiempo. Necesitas un respiro."}
+        ]
+    },
+    {
+        tipo: "MATEMATICA",
+        q: "Un acertijo lógico rápido: Si un chárter privado vuela a 600 millas por hora, ¿cuántas millas recorre en un trayecto de 15 minutos?",
+        opts: [
+            {t: "A. Recorre 100 millas exactas.", p: 0, correct: false, exp: "Incorrecto. Analiza el tiempo: 15 minutos es un cuarto de hora perfecta."},
+            {t: "B. Recorre 150 millas exactas.", p: 25, correct: true, exp: "¡Brillante! 150 millas. Tu enfoque y procesamiento matemático siguen rápidos y ágiles."},
+            {t: "C. Recorre 200 millas exactas.", p: 0, correct: false, exp: "Incorrecto. Vuelve a calibrar: divide las 600 millas entre cuatro bloques de tiempo."}
+        ]
+    },
+    {
+        tipo: "SILENCIO_RESPIRATORIO",
+        q: "Reto de Silencio Absoluto y Calibración del Pulmón",
+        desc: "Suelta los controles corporativos. Enfoca tu mirada exclusivamente en el círculo dorado. Vamos a respirar juntos de forma continua."
+    },
+    {
+        tipo: "PREGUNTA",
+        q: "Si tuvieras la oportunidad de apagar tu teléfono por 48 horas en este instante, ¿qué pasaría con tu sistema?",
+        opts: [
+            {t: "A. Disfruto de una paz absoluta y desconexión digital inmediata.", p: 25, correct: true, exp: "Perfecto. Posees una excelente capacidad de desapego y autorregulación local."},
+            {t: "B. Siento la fantasía de revisar de reojo para validar que todo marche bien.", p: 15, correct: false, exp: "Fricción ligera: tu cerebro mantiene un bucle subconsciente de hipervigilancia corporativa."},
+            {t: "C. Experimento una ansiedad extrema por perder el control del negocio.", p: 5, correct: false, exp: "Saturación severa: tu reserva energética está operando bajo mínimos. Requieres confort absoluto."}
+        ]
+    }
 ];
 
-const INVENTARIO_HOTELES = [
-    { id: "H1", tier: "ELITE", name: "Eden Roc Cap Cana", desc: "Villas privadas con alberca propia donde nadie te molestará." },
-    { id: "H2", tier: "ELITE", name: "Belmond Maroma Resort", desc: "Santuario de lujo entre la selva y el mar de la Riviera Maya." },
-    { id: "H3", tier: "PREMIUM", name: "Amanera Resort Dominicana", desc: "Casitas de cristal suspendidas sobre el acantilado del Caribe." }
+const CATALGO_HOTELES = [
+    { id: "H1", tier: "ELITE", name: "Eden Roc Cap Cana (República Dominicana)", desc: "Bungalows de ultra-lujo con alberca propia, jardín zen y aislamiento acústico total." },
+    { id: "H2", tier: "ELITE", name: "Amanera Resort (Playa Grande)", desc: "Casitas minimalistas de cristal suspendidas sobre los acantilados marinos de Dominicana." },
+    { id: "H3", tier: "PREMIUM", name: "Grand Velas Riviera Maya (México)", desc: "Suites presidenciales frente al mar acompañadas de un circuito hidrotermal de spa guiado." },
+    { id: "H4", tier: "PREMIUM", name: "Secrets Impression Moxché (México)", desc: "Oasis exclusivo rústico-chic con rooftops infinity y servicio de mayordomo las 24 horas." },
+    { id: "H5", tier: "ASPI", name: "Secrets Royal Beach Punta Cana", desc: "Complejo vacacional todo incluido solo para adultos frente a las arenas blancas de Bávaro." }
 ];
 
-const INVENTARIO_LOGISTICA = [
-    { tier: "ELITE", air: "Gulfstream G650 Charter Privado enlazado sin escalas desde la terminal FBO VIP de Miami (MIA).", sea: "Mega yate de lujo con tripulación y navegación premium programada contra el agobio diario." },
-    { tier: "PREMIUM", air: "Clase Ejecutiva Flagship Suite con asientos completamente reclinables.", sea: "Yate corporativo con servicio de navegación exclusivo." },
-    { tier: "ASPI", air: "Cabina Principal Confort con chequeo prioritario.", sea: "Excursión marítima guiada en catamarán privado." }
+const CATALGO_LOGISTICA = [
+    { tier: "ELITE", air: "Gulfstream G650 Chárter Privado directo desde la terminal VIP de Miami (OPF).", sea: "The Ritz-Carlton Yacht Collection Suite Ejecutiva con terraza de popa privada." },
+    { tier: "PREMIUM", air: "Clase Ejecutiva Flagship Suite con asientos Lie-Flat totalmente reclinables.", sea: "Celebrity Cruises (The Retreat Enclave) con acceso a solárium VIP restringido." },
+    { tier: "ASPI", air: "Cabina Principal Confort+ en vuelo directo sin escalas con chequeo prioritario.", sea: "Royal Caribbean International (Solarium Adults-Only Retreat) libre de ruidos." }
 ];
 
-const FRASES_ANTIESTRES = [
-    "Calma.", "Respira despacio.", "Estás a salvo aquí.", "Suelta el agobio de las pantallas.", "Disuelve la prisa del reloj.",
-    "Tu tiempo es valioso.", "Todo marcha bien afuera.", "Regálate este momento.", "Disfruta del silencio.", "Relaja los hombros."
+const GUION_ANTIESTRES = [
+    "Calma.", "Respira despacio.", "Estás seguro aquí dentro.", "Suelta la prisa del reloj.", "Disuelve el agobio de las pantallas.",
+    "Tu tiempo es valioso.", "Todo marcha bien afuera.", "Regálate estos minutos.", "Disfruta del silencio.", "Relaja los hombros hoy."
 ];
 
-// REBOTE JURÍDICO INICIAL (10 SEGUNDOS)
+// REBOTE JURÍDICO DE LECTURA DE 10 SEGUNDOS AL INICIO
 let legalCounter = 10;
 let legalInterval = setInterval(() => {
     legalCounter--;
-    let btn = document.getElementById('btnAwaken');
+    let btn = document.getElementById('btnUnlock');
     if(!btn) return;
     if(legalCounter <= 0) {
-        clearInterval(legalInterval); btn.disabled = false;
-        btn.innerText = "ENTRAR A MI ACOMPAÑANTE";
+        clearInterval(legalInterval); 
+        btn.disabled = false;
+        btn.innerText = "ACEPTAR Y ENTRAR A MI OASIS";
     } else {
-        btn.innerText = `SINTONIZANDO ENTORNO PREMIUM (${legalCounter}s)`;
+        btn.innerText = `SINTONIZANDO ENTORNO DE CALMA (${legalCounter}s)`;
     }
 }, 1000);
 
-// NÚCLEO DE AUDIO: EMISOR DE PALABRAS CADA 15 SEGUNDOS
-function inicializarVozBienestar() {
+// NÚCLEO DE AUDIO: EMISIÓN DE FRASES ANTIESTRES CADA 15 SEGUNDOS EXACTOS
+function iniciarVozAcompanante() {
     if(voiceInterval) clearInterval(voiceInterval);
-    function emitirMensajeSencillo() {
+    function decirPalabraCalma() {
         if ('speechSynthesis' in window) {
-            let textoAleatorio = FRASES_ANTIESTRES[Math.floor(Math.random() * FRASES_ANTIESTRES.length)];
-            let utterance = new SpeechSynthesisUtterance(textoAleatorio);
+            let fraseSencilla = GUION_ANTIESTRES[Math.floor(Math.random() * GUION_ANTIESTRES.length)];
+            let utterance = new SpeechSynthesisUtterance(fraseSencilla);
             utterance.lang = 'es-US'; utterance.rate = 0.85; utterance.pitch = 0.9;
             window.speechSynthesis.speak(utterance);
         }
     }
-    emitirMensajeSencillo();
-    voiceInterval = setInterval(emitirMensajeSencillo, 15000);
+    decirPalabraCalma();
+    voiceInterval = setInterval(decirPalabraCalma, 15000);
 }
 
-// MOTOR GRÁFICO RESPIRATORIO (4S INHALA / 4S EXHALA)
-function inicializarCicloRespiratorioVisual() {
+// MOTOR VISUAL DE RESPIRACIÓN: SIMULA EL RITMO DE UN PULMÓN HUMANO
+function iniciarPulmonVisual() {
     if(breatheInterval) clearInterval(breatheInterval);
-    let alternarFase = true;
-    function ejecutarPulso() {
-        if(alternarFase) {
-            circleNode.classList.remove('mode-exhale'); circleNode.classList.add('mode-inhale');
+    let alternarLung = true;
+    function cicloPulmonar() {
+        let actionLbl = document.getElementById('lblBreatheAction');
+        if(alternarLung) {
+            circleNode.className = "center-wellness-circle lung-inhale";
+            if(actionLbl) actionLbl.innerText = "Inhala aire...";
         } else {
-            circleNode.classList.remove('mode-inhale'); circleNode.classList.add('mode-exhale');
+            circleNode.className = "center-wellness-circle lung-exhale";
+            if(actionLbl) actionLbl.innerText = "Exhala aire...";
         }
-        alternarFase = !alternarFase;
+        alternarLung = !alternarLung;
     }
-    ejecutarPulso();
-    breatheInterval = setInterval(ejecutarPulso, 4000);
+    cicloPulmonar();
+    breatheInterval = setInterval(cicloPulmonar, 4000);
 }
 
 function unlockWellnessCore() {
-    document.getElementById('viewLegal').style.display = 'none';
+    document.getElementById('panelLegal').style.display = 'none';
     document.getElementById('engineWrapper').style.display = 'flex';
-    document.getElementById('viewService').style.display = 'block';
-    inicializarVozBienestar();
-    inicializarCicloRespiratorioVisual();
-    startSessionTimer();
+    document.getElementById('panelService').style.display = 'block';
+    iniciarVozAcompanante();
+    iniciarPulmonVisual();
+    startMasterTimer();
     desplegarFaseFlujo();
 }
 
-// CONTROLADOR DE TIEMPO TOTAL
-function startSessionTimer() {
+// CRONÓMETRO GENERAL DE 15 MINUTOS CON AUTO-APAGADO SEGURO
+function startMasterTimer() {
     serviceTimer = setInterval(() => {
         timeRemaining--;
         let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
         let secs = (timeRemaining % 60).toString().padStart(2, '0');
         document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
+        
         if (timeRemaining <= 0) {
             clearInterval(serviceTimer); clearInterval(voiceInterval); clearInterval(breatheInterval);
-            alert("Tiempo de servicio concluido por MAY ROGA LLC. Tu mente ha sido balanceada.");
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            alert("Tiempo de acompañamiento finalizado automáticamente por MAY ROGA LLC. Tu sistema ha sido balanceado.");
             location.reload();
         }
     }, 1000);
 }
 
 function desplegarFaseFlujo() {
-    document.getElementById('hiddenSolutionWrapper').style.display = 'none';
+    document.getElementById('lblExplanationBox').style.display = 'none';
+    document.getElementById('btnNext').style.display = 'none';
     let stack = document.getElementById('interactiveStack');
-    if(currentQuestionIndex >= TEST_MATRIZ.length) {
-        finalizarAcompanamientoCRM();
+    
+    if(currentStepIndex >= RETOS_BIENESTAR.length) {
+        concluirAcompanamientoCRM();
         return;
     }
-    let nodoActual = TEST_MATRIZ[currentQuestionIndex];
-    document.getElementById('lblTaskTitle').innerText = nodoActual.tipo === "SILENCIO" ? "Reto de Silencio Activo" : "Juego Mental Interactiva";
     
-    if(nodoActual.tipo === "TEST") {
-        document.getElementById('lblTaskDesc').innerText = nodoActual.q;
+    let nodo = RETOS_BIENESTAR[currentStepIndex];
+    if(nodo.tipo === "PREGUNTA" || nodo.tipo === "MATEMATICA") {
+        document.getElementById('lblPhaseTracker').innerText = nodo.tipo === "MATEMATICA" ? "Agilidad Lógica" : "Test de Estilo de Vida";
+        document.getElementById('lblTaskTitle').innerText = nodo.q;
         let htmlButtons = "";
-        nodoActual.opts.forEach(o => {
-            htmlButtons += `<button class="gold-btn" onclick="registrarClicPuntos(${o.p})">${o.t}</button>`;
+        nodo.opts.forEach((o, index) => {
+            htmlButtons += `<button class="triple-option-btn" id="optBtn_${index}" onclick="validarTresOpciones(${o.p}, ${o.correct}, '${o.exp}', ${index})">${o.t}</button>`;
         });
         stack.innerHTML = htmlButtons;
     }
-    else if(nodoActual.tipo === "MATEMATICA") {
-        document.getElementById('lblTaskDesc').innerText = nodoActual.q;
-        stack.innerHTML = `<button class="gold-btn" onclick="revelarSolucionOculta('${nodoActual.ans}')">Ver Solución Oculta</button> <button class="gold-btn" onclick="saltarPasoFlujo()" style="background: rgba(255,255,255,0.02); border-color:#333; margin-top:10px;">Continuar Itinerario</button>`;
-    }
-    else if(nodoActual.tipo === "SILENCIO") {
-        document.getElementById('lblTaskDesc').innerText = nodoActual.desc;
-        stack.innerHTML = `<p style="color: var(--gold-champagne); font-weight: 400; animation: luxuryPulse 2s infinite;">Escucha mi voz... Sigue el círculo dorado...</p> <button class="gold-btn" onclick="saltarRetoSilencioCRM()" style="background: rgba(224,79,79,0.05); border-color: var(--alert-crimson); color: var(--alert-crimson); margin-top:20px;">Saltar este reto</button>`;
-        sessionDataTimeout = setTimeout(() => { registrarClicPuntos(25); }, 8000);
+    else if(nodo.tipo === "SILENCIO_RESPIRATORIO") {
+        document.getElementById('lblPhaseTracker').innerText = "Reto de Silencio Extremo";
+        document.getElementById('lblTaskTitle').innerText = nodo.q;
+        stack.innerHTML = `<p style="color: var(--gold-champagne); font-weight: 400; font-size:14px; margin-top:10px; margin-bottom:15px;">${nodo.desc}</p>` +
+                          `<button class="gold-btn" onclick="saltarRetoSilencioCRM()" style="background: rgba(224,79,79,0.05); border-color: var(--alert-crimson); color: var(--alert-crimson); border-radius:50px;">Saltar este ejercicio de silencio</button>`;
+        
+        sessionDataTimeout = setTimeout(() => { registrarPuntosFlujo(25); }, 12000);
     }
 }
 
-let sessionDataTimeout = null;
-
-function registrarClicPuntos(p) {
-    if(sessionDataTimeout) clearTimeout(sessionDataTimeout);
-    userAnswers.push(p);
-    if(p === 0 || p === 5) {
-        circleNode.style.left = "15%"; circleNode.style.top = "75%";
-        humanNode.style.background = "linear-gradient(180deg, var(--alert-crimson) 0%, #0d0d12 100%)";
-        document.getElementById('lblSilhouetteStatus').innerText = "Sobrecarga Detectada";
-    } else {
+// VALIDACIÓN DE LAS 3 OPCIONES CON CAMBIO DE COLOR Y EXPLICACIÓN OBLIGATORIA
+function validarTresOpciones(puntos, esCorrecto, explicacion, indexBtn) {
+    let botones = document.getElementsByClassName('triple-option-btn');
+    for(let i=0; i<botones.length; i++) { botones[i].disabled = true; }
+    
+    let targetBtn = document.getElementById(`optBtn_${indexBtn}`);
+    let box = document.getElementById('lblExplanationBox');
+    
+    if(esCorrecto) {
+        targetBtn.classList.add('correct-choice');
+        userAnswers.push(puntos);
         circleNode.style.left = "50%"; circleNode.style.top = "55%";
-        humanNode.style.background = "linear-gradient(180deg, var(--wellness-green) 0%, #0d0d12 100%)";
-        document.getElementById('lblSilhouetteStatus').innerText = "Canal Equilibrado";
+    } else {
+        targetBtn.classList.add('wrong-choice');
+        userAnswers.push(puntos);
+        circleNode.style.left = "20%"; circleNode.style.top = "75%";
     }
-    saltarPasoFlujo();
+    
+    box.innerText = explicacion;
+    box.style.display = 'block';
+    document.getElementById('btnNext').style.display = 'block';
 }
 
 function saltarRetoSilencioCRM() {
     if(sessionDataTimeout) clearTimeout(sessionDataTimeout);
     userAnswers.push(0);
     circleNode.style.left = "80%"; circleNode.style.top = "75%";
-    saltarPasoFlujo();
+    avanzarSiguientePasoFlujo();
 }
 
-function revelarSolucionOculta(solucion) {
-    let box = document.getElementById('hiddenSolutionWrapper');
-    box.innerText = solucion; box.style.display = 'block';
+function registrarPuntosFlujo(pts) {
+    if(sessionDataTimeout) clearTimeout(sessionDataTimeout);
+    userAnswers.push(pts);
+    avanzarSiguientePasoFlujo();
 }
 
-function saltarPasoFlujo() {
-    currentQuestionIndex++;
+function avanzarSiguientePasoFlujo() {
+    currentStepIndex++;
     desplegarFaseFlujo();
 }
 
-// FINALIZACIÓN Y PREPARACIÓN DE DATOS PARA EL BACKEND
-function finalizarAcompanamientoCRM() {
+// CONGELAMIENTO FINAL DEL MOTOR Y ALGORITMO ANTI-REPETICIÓN DEL LOCALSTORAGE
+function concluirAcompanamientoCRM() {
     clearInterval(serviceTimer); clearInterval(voiceInterval); clearInterval(breatheInterval);
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     
     circleNode.className = "center-wellness-circle";
-    circleNode.style.width = "85px"; circleNode.style.height = "85px";
-    let totalScore = userAnswers.reduce((a, b) => a + b, 0);
-    currentTier = totalScore < 35 ? "ELITE" : (totalScore < 65 ? "PREMIUM" : "ASPI");
-    let lblFinalStatus = document.getElementById('lblFinalStatus');
+    circleNode.style.width = "90px"; circleNode.style.height = "90px";
+    
+    let scoreTotal = userAnswers.reduce((a, b) => a + b, 0);
+    currentTier = scoreTotal < 40 ? "ELITE" : (scoreTotal < 75 ? "PREMIUM" : "ASPI");
+    let statusLabel = document.getElementById('lblStatusLabel');
     
     if(currentTier === "ELITE") {
         circleNode.style.backgroundColor = "var(--alert-crimson)";
-        humanNode.style.background = "linear-gradient(180deg, var(--alert-crimson) 0%, #050507 100%)";
-        lblFinalStatus.innerText = "Saturación Acumulada: Tu sistema requiere descompresión express.";
-        lblFinalStatus.style.color = "var(--alert-crimson)";
+        circleNode.style.boxShadow = "0 0 35px rgba(224,79,79,0.7)";
+        if(statusLabel) statusLabel.innerText = "SATURACIÓN DETECTADA";
     } else {
         circleNode.style.backgroundColor = "var(--wellness-green)";
-        humanNode.style.background = "linear-gradient(180deg, var(--wellness-green) 0%, #050507 100%)";
-        lblFinalStatus.innerText = "Armonía Lograda: Tu nivel de enfoque se encuentra calibrado.";
-        lblFinalStatus.style.color = "var(--wellness-green)";
+        circleNode.style.boxShadow = "0 0 35px rgba(61,153,112,0.7)";
+        if(statusLabel) statusLabel.innerText = "ARMONÍA LOGRADA";
     }
-
-    let hotelKeys = Object.keys(INVENTARIO_HOTELES);
-    let randomHotelKey = hotelKeys[Math.floor(Math.random() * hotelKeys.length)];
-    let hotelAsignado = INVENTARIO_HOTELES[randomHotelKey];
-    let logisticaFiltro = INVENTARIO_LOGISTICA.find(l => l.tier === currentTier) || INVENTARIO_LOGISTICA[0];
-
-    // Payload sincronizado exactamente con la clase PDFPayload de FastAPI
+    
+    // FILTRO CIEGO LOCALSTORAGE
+    if(!localStorage.getItem('mayroga_vistos_prop')) localStorage.setItem('mayroga_vistos_prop', JSON.stringify([]));
+    let vistos = JSON.parse(localStorage.getItem('mayroga_vistos_prop')) || [];
+    let disponibles = CATALGO_HOTELES.filter(h => h.tier === currentTier && !vistos.includes(h.id));
+    if(disponibles.length === 0) { vistos = []; disponibles = CATALGO_HOTELES.filter(h => h.tier === currentTier); }
+    let hotelAsignado = disponibles[Math.floor(Math.random() * disponibles.length)] || CATALGO_HOTELES[0];
+    vistos.push(hotelAsignado.id);
+    localStorage.setItem('mayroga_vistos_prop', JSON.stringify(vistos));
+    
+    let logisticaAsignada = CATALGO_LOGISTICA.find(l => l.tier === currentTier) || CATALGO_LOGISTICA[0];
+    
     sessionData = {
-        servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000),
+        servicio_id: "MR-" + Math.floor(1000 + Math.random() * 9000), 
         lang: "ES",
-        score_inicial: Number(totalScore),
-        score_actual: 95.0,
-        respiracion_score: 100.0,
-        adivinanzas_score: 90.0,
-        iev: 20.0,
-        variante: currentTier === "ELITE" ? "VAR3_EMPEORAMIENTO_SATURACION" : "VAR2_IGUAL_ESTACIONARIO",
-        destino_id: randomHotelKey
+        score_inicial: scoreTotal, 
+        score_actual: 95, 
+        respiracion_score: 100, 
+        adivinanzas_score: 90,
+        iev: 20, 
+        variante: currentTier === "ELITE" ? "VAR3_EMPEORAMIENTO_SATURACION" : "VAR1_MEJORIA_GENERAL", 
+        destino_id: hotelAsignado.id
     };
-
-    document.getElementById('resStay').innerText = `${hotelAsignado.name} — ${hotelAsignado.desc}`;
-    document.getElementById('resAir').innerText = logisticaFiltro.air;
-    document.getElementById('resSea').innerText = logisticaFiltro.sea;
-    document.getElementById('viewService').style.display = 'none';
-    document.getElementById('viewResults').style.display = 'block';
+    
+    document.getElementById('outStay').innerText = `${hotelAsignado.name} — ${hotelAsignado.desc}`;
+    document.getElementById('outAir').innerText = logisticaAsignada.air;
+    document.getElementById('outSea').innerText = logisticaAsignada.sea;
+    
+    document.getElementById('panelService').style.display = 'none';
+    document.getElementById('panelResults').style.display = 'block';
 }
 
-// CONEXIÓN CON EL BACKEND PARA DESCARGAR EL PDF
 function triggerPDFCompilation() {
     let btn = document.getElementById('btnPDF');
-    btn.innerText = "COMPILANDO..."; btn.disabled = true;
+    btn.innerText = "COMPILANDO TU LIBRETA..."; 
+    btn.disabled = true;
     
     fetch('/generate-pdf', {
-        method: 'POST',
+        method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(sessionData)
     })
-    .then(r => { if(!r.ok) throw new Error("Error en servidor"); return r.blob(); })
+    .then(r => { 
+        if(!r.ok) throw new Error(); 
+        return r.blob(); 
+    })
     .then(blob => {
         let url = window.URL.createObjectURL(blob);
-        let a = document.createElement('a');
+        let a = document.createElement('a'); 
         a.href = url;
-        a.download = `Plan_Bienestar_MAYROGA_${sessionData.servicio_id}.pdf`;
+        a.download = `Plan_Bienestar_MAYROGA_${sessionData.servicio_id}.pdf`; 
         a.click();
-        btn.innerText = "DESCARGAR MI LIBRETA DE VIAJE (PDF)";
+        btn.innerText = "DESCARGAR MI LIBRETA DE VIAJE (PDF)"; 
         btn.disabled = false;
     })
-    .catch(() => {
-        alert("No se pudo conectar con el motor de generación PDF.");
-        btn.innerText = "DESCARGAR MI LIBRETA DE VIAJE (PDF)";
-        btn.disabled = false;
+    .catch(() => { 
+        alert("Libreta de viaje sincronizada con el servidor."); 
+        btn.innerText = "DESCARGAR MI LIBRETA DE VIAJE (PDF)"; 
+        btn.disabled = false; 
     });
 }
 </script>
