@@ -9,7 +9,7 @@
     "id": "RESP-MAN-001",
     "rango_horas": "06:00-11:59",
     "tipo_tratamiento_es": "Alineación Matutina: Foco Activo y Sacudida de Inercia",
-    "tipo_tratamiento_en": "Morning Alignment: Active Focus and Inertia Release",
+    "tipo_treatment_en": "Morning Alignment: Active Focus and Inertia Release",
     "tecnica_es": "Respiración Energizante (Proporción Dinámica 3-1-3-0)",
     "tecnica_en": "Energizing Breath (Dynamic Ratio 3-1-3-0)",
     "parametros_animacion_circulo": {
@@ -36,8 +36,7 @@
       "ciclo_vacio": "Flow immediately into the next cycle without stopping the momentum.",
       "cierre_transicion": "Your autonomous system has awakened harmoniously. Your morning energy reserves are calibrated and primed for the day's decisions. It is time to unlock your creative flow with our logical matrix."
     }
-  }
-}
+  },
   "BLOQUE_TARDE": {
     "id": "RESP-TAR-002",
     "rango_horas": "12:00-17:59",
@@ -67,7 +66,7 @@
       "ciclo_exhalar": "Exhale slowly, releasing the clutter of tasks and screens... One... Two... Three... Four.",
       "ciclo_vacio": "Pause in emptiness, enjoying the absolute silence of the present moment... One... Two... Three... Four."
     }
-  }
+  },
   "BLOQUE_NOCHE": {
     "id": "RESP-NOC-003",
     "rango_horas": "18:00-05:59",
@@ -95,7 +94,7 @@
       "ciclo_inhalar": "Inhale gently through your nose, filling yourself with peace... One... Two... Three... Four.",
       "ciclo_retener": "Hold your breath, allowing tranquility to flood every single cell... One... Two... Three... Four... Five... Six... Seven.",
       "ciclo_exhalar": "Exhale slowly and completely through your mouth, pushing away all routine anxiety... One... Two... Three... Four... Five... Six... Seven... Eight.",
-      "ciclo_vacio": "Flow immediately into the calm of the next inhalation."
+      "ciclo_vacio": "Flow immediately into the next cycle without stopping the momentum."
     }
   }
 }
