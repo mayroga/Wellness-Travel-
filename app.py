@@ -3,8 +3,7 @@
 #                       Wellness Travel Architecture & Lifestyle Optimization
 #                                    Miami, Florida | USA
 #                                 PRODUCTION BACKEND - AUDITED
-# ====================================================================================================
-
+# ========================================================================================
 import os
 import json
 from fastapi import FastAPI
@@ -27,15 +26,48 @@ if os.path.exists("static"):
 
 # RESPALDO INTERNO (FALLBACK) EN CASO DE DISCREPANCIAS EN LOS JSON
 BACKEND_EVALUATION = {
-    "VAR1_MEJORIA_GENERAL": { "color": "#3D9970", "es": "ARMONÍA LOGRADA", "en": "HARMONY ACHIEVED", "body_es": "Tu Figura Humana muestra una respuesta excepcional al estímulo de bienestar de 15 minutos. El Círculo de Desprendimiento ha regresado al centro geométrico del Triángulo de Balance.", "body_en": "Your Vitality Silhouette displays an exceptional response to the 15-minute wellness alignment. The Center Circle has successfully anchored back into the core of your Balance Triangle." },
-    "VAR2_IGUAL_ESTACIONARIO": { "color": "#C5A059", "es": "BALANCE ESTACIONARIO", "en": "STATIONARY BALANCE", "body_es": "Tu Figura Humana se mantiene en una meseta de energía adaptativa. Tras los 15 minutos de servicio, el Círculo de Desprendimiento sigue inclinado hacia uno de los vértices del Triángulo.", "body_en": "Your Vitality Silhouette remains on an adaptive energy plateau. Following the 15-minute service, the Center Circle remains tilted toward one of the Triangle's vertices." },
-    "VAR3_EMPEORAMIENTO_SATURACION": { "color": "#E04F4F", "es": "SATURACIÓN ACUMULADA", "en": "ACCUMULATED SATURATION", "body_es": "Tu Figura Humana refleja una resistencia activa a la desconexión digital. Los datos recolectados localmente muestran que el Círculo de Desprendimiento ha sido desplazado con fuerza.", "body_en": "Your Vitality Silhouette reflects an active resistance to digital disconnection. The local metrics indicate that the Center Circle has been forcefully pushed to the outer edge." }
+    "VAR1_MEJORIA_GENERAL": {
+        "color": "#3D9970",
+        "es": "ARMONÍA LOGRADA",
+        "en": "HARMONY ACHIEVED",
+        "body_es": "Tu Figura Humana muestra una respuesta excepcional al estímulo de bienestar de 15 minutos. El Círculo de Desprendimiento ha regresado al centro geométrico del Triángulo de Balance.",
+        "body_en": "Your Vitality Silhouette displays an exceptional response to the 15-minute wellness alignment. The Center Circle has successfully anchored back into the core of your Balance Triangle."
+    },
+    "VAR2_IGUAL_ESTACIONARIO": {
+        "color": "#C5A059",
+        "es": "BALANCE ESTACIONARIO",
+        "en": "STATIONARY BALANCE",
+        "body_es": "Tu Figura Humana se mantiene en una meseta de energía adaptativa. Tras los 15 minutos de servicio, el Círculo de Desprendimiento sigue inclinado hacia uno de los vértices del Triángulo.",
+        "body_en": "Your Vitality Silhouette remains on an adaptive energy plateau. Following the 15-minute service, the Center Circle remains tilted toward one of the Triangle's vertices."
+    },
+    "VAR3_EMPEORAMIENTO_SATURACION": {
+        "color": "#E04F4F",
+        "es": "SATURACIÓN ACUMULADA",
+        "en": "ACCUMULATED SATURATION",
+        "body_es": "Tu Figura Humana refleja una resistencia activa a la desconexión digital. Los datos recolectados localmente muestran que el Círculo de Desprendimiento ha sido desplazado con fuerza.",
+        "body_en": "Your Vitality Silhouette reflects an active resistance to digital disconnection. The local metrics indicate that the Center Circle has been forcefully pushed to the outer edge."
+    }
 }
 
 BACKEND_DESTINATIONS = {
-    "HOT-ELITE-001": {"es": "Eden Roc Cap Cana (Punta Cana)", "en": "Eden Roc Cap Cana (Punta Cana)", "desc_es": "Villas de ultra-lujo con piscinas privadas y club de playa privado.", "desc_en": "Ultra-luxury villas with private pools and a private beach club."},
-    "HOT-PREM-001": {"es": "Grand Velas Riviera Maya (México)", "en": "Grand Velas Riviera Maya (Mexico)", "desc_es": "Todo incluido premium con circuito hidrotermal de spa.", "desc_en": "Premium all-inclusive featuring an immersive hydrothermal spa."},
-    "HOT-ASPI-001": {"es": "Secrets Royal Beach Punta Cana", "en": "Secrets Royal Beach Punta Cana", "desc_es": "Oasis todo incluido solo para adultos frente al mar Caribe.", "desc_en": "Adults-only all-inclusive oasis facing the Caribbean sea."}
+    "HOT-ELITE-001": {
+        "es": "Eden Roc Cap Cana (Punta Cana)",
+        "en": "Eden Roc Cap Cana (Punta Cana)",
+        "desc_es": "Villas de ultra-lujo con piscinas privadas y club de playa privado.",
+        "desc_en": "Ultra-luxury villas with private pools and a private beach club."
+    },
+    "HOT-PREM-001": {
+        "es": "Grand Velas Riviera Maya (México)",
+        "en": "Grand Velas Riviera Maya (Mexico)",
+        "desc_es": "Todo incluido premium con circuito hidrotermal de spa.",
+        "desc_en": "Premium all-inclusive featuring an immersive hydrothermal spa."
+    },
+    "HOT-ASPI-001": {
+        "es": "Secrets Royal Beach Punta Cana",
+        "en": "Secrets Royal Beach Punta Cana",
+        "desc_es": "Oasis todo incluido solo para adultos frente al mar Caribe.",
+        "desc_en": "Adults-only all-inclusive oasis facing the Caribbean sea."
+    }
 }
 
 class PDFPayload(BaseModel):
@@ -62,7 +94,7 @@ def generate_pdf(payload: PDFPayload):
     )
     styles = getSampleStyleSheet()
     
-    color_primary = colors.HexColor("#1A1A1A")   
+    color_primary = colors.HexColor("#1A1A1A")    
     color_gold = colors.HexColor("#A3704C")      
     color_text = colors.HexColor("#333333")      
     color_legal = colors.HexColor("#777777")     
@@ -111,7 +143,7 @@ def generate_pdf(payload: PDFPayload):
     story.append(metrics_table)
     story.append(Spacer(1, 12))
     
-    # 🌟 CORRECCIÓN DE EXCEPCIÓN: MAPEO COMPLETO
+    # MAPEO DE EVALUACIÓN
     var_key = payload.variante if payload.variante in BACKEND_EVALUATION else "VAR2_IGUAL_ESTACIONARIO"
     fallback_node = BACKEND_EVALUATION[var_key]
     titulo_estado = fallback_node["es"] if is_es else fallback_node["en"]
@@ -154,15 +186,14 @@ def generate_pdf(payload: PDFPayload):
                 data_dest = json.load(f)
                 target_dest = next((d for d in data_dest if d["id"] == payload.destino_id), None)
                 if target_dest:
-                    dest_name = target_dest["name_es"] if is_es else target_dest["name_en"]
-                    dest_desc = target_dest["desc_es"] if is_es else target_dest["desc_en"]
+                    dest_name = target_dest["name_es" if is_es else "name_en"]
+                    dest_desc = target_dest["desc_es" if is_es else "desc_en"]
         except Exception:
             pass
     
     dest_html = f"<b>Santuario Asignado / Curated Oasis:</b> {dest_name}<br/>"
     dest_html += f"<b>Detalle del Entorno / Wellness Profile:</b> {dest_desc}<br/><br/>"
-    # Continuación de la Sección 2 (Itinerario Turístico)
-    dest_html += "<br/><br/>• <b>Logística Aérea / Air Travel:</b> Premium routing synchronized from Miami Int. (MIA). Flight details locked against friction protocols."
+    dest_html += "• <b>Logística Aérea / Air Travel:</b> Premium routing synchronized from Miami Int. (MIA). Flight details locked against friction protocols."
     dest_html += "<br/>• <b>Estatus de Reserva / Consortium Privileges:</b> Eligible for Virtuoso/Signature luxury benefits ($100 resort credits and priority room upgrades processed locally via credentials)."
     
     story.append(Paragraph(dest_html, body_style))
@@ -179,7 +210,7 @@ def generate_pdf(payload: PDFPayload):
     story.append(Paragraph("<b>4. AVISO LEGAL Y EXENCIÓN DE RESPONSABILIDAD / LEGAL DISCLAIMER</b>", ParagraphStyle('LegHeader', parent=styles['Normal'], fontSize=8, leading=11, textColor=color_primary, spaceAfter=6)))
     
     disc_es = "<b>ESPAÑOL:</b> Este documento es emitido exclusivamente por MAY ROGA LLC como una herramienta de orientación para el estilo de vida, el bienestar general y la consultoría de viajes premium. No constituye, ni reemplaza, un diagnóstico médico, psiquiátrico, psicológico o clínico de ninguna índole. MAY ROGA LLC no es una institución de salud ni un proveedor médico. Los datos utilizados para generar este reporte se procesan de forma estrictamente local y anónima en el dispositivo del usuario mediante algoritmos de comportamiento digital (localStorage). El usuario asume total responsabilidad sobre las decisiones de viaje y actividades derivadas de este reporte."
-    disc_en = "<b>ENGLISH:</b> This document is issued exclusively by MAY ROGA LLC as a guidance tool for lifestyle enhancement, general wellness, and premium travel consulting. It does not constitute, nor does it replace, a medical, psychiatric, psychological, or clinical diagnosis of any kind. MAY ROGA LLC is not a healthcare institution nor a medical provider. Los datos utilizados para generar este reporte se procesan de forma estrictamente local y anónima en el dispositivo del usuario mediante algoritmos de comportamiento digital (localStorage). El usuario asume el total y único control sobre las decisiones de viaje."
+    disc_en = "<b>ENGLISH:</b> This document is issued exclusively by MAY ROGA LLC as a guidance tool for lifestyle enhancement, general wellness, and premium travel consulting. It does not constitute, nor does it replace, a medical, psychiatric, psychological, or clinical diagnosis of any kind. MAY ROGA LLC is not a healthcare institution nor a medical provider. The data used to generate this report is processed strictly locally and anonymously on the user's device through digital behavioral algorithms (localStorage). The user assumes total and sole control over travel decisions."
     
     story.append(Paragraph(disc_es, disclaimer_style))
     story.append(Spacer(1, 6))
@@ -197,7 +228,6 @@ def generate_pdf(payload: PDFPayload):
 # --- ENDPOINT INDEX HTML ---
 @app.get("/", response_class=HTMLResponse)
 def index():
-    # 🛠️ INGENIERÍA ARREGLADA: Se restauró la variable reservada de Python __file__ con sus guiones bajos
     base_dir = os.path.dirname(__file__)
     ruta_html = os.path.join(base_dir, "index.html")
     
