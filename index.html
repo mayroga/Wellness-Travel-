@@ -13,16 +13,15 @@
 
     <style>
         :root {
-            /* Paleta de Colores Exclusiva MAY ROGA */
-            --bg-main: #070708;          /* Negro obsidiana profundo */
+            --bg-main: #070708;         /* Negro obsidiana profundo */
             --bg-luxury-card: #0d0d10;   /* Carbón mate de alta gama */
             --bg-hover: #16161a;
-            --gold-pure: #C5A059;        /* Dorado champaña cepillado */
+            --gold-pure: #C5A059;         /* Dorado champaña cepillado */
             --gold-glow: rgba(197, 160, 89, 0.25);
-            --text-pure: #FFFFFF;        /* Blanco marfil */
+            --text-pure: #FFFFFF;         /* Blanco marfil */
             --text-luxury-muted: #8E8E93;/* Gris titanio */
-            --alert-crimson: #E04F4F;    /* Rojo alerta elegante */
-            --harmony-emerald: #3D9970;  /* Verde spa relajante */
+            --alert-crimson: #E04F4F;     /* Rojo alerta elegante */
+            --harmony-emerald: #3D9970;   /* Verde spa relajante */
         }
         * { 
             box-sizing: border-box; 
@@ -40,7 +39,6 @@
             min-height: 100vh;
             padding: 20px;
         }
-        /* CONTENEDOR PRINCIPAL: EFECTO DE CRISTAL DE ULTRA-LUJO */
         .app-window {
             max-width: 460px;
             width: 100%;
@@ -54,7 +52,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* ENCABEZADO CORPORATIVO */
         header {
             display: flex;
             justify-content: space-between;
@@ -88,7 +85,6 @@
             color: var(--bg-main);
             box-shadow: 0 0 12px var(--gold-glow);
         }
-        /* CAJA DE TEXTO LEGAL E INFORMACIÓN */
         .legal-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.03);
@@ -108,7 +104,6 @@
             letter-spacing: 1px;
             font-weight: 400;
         }
-        /* BOTONES DE ACCIÓN PRINCIPALES / PREMIUM ACTION BUTTONS */
         .action-btn {
             width: 100%;
             background: linear-gradient(135deg, #C5A059, #91723B);
@@ -135,8 +130,6 @@
             box-shadow: none;
             cursor: not-allowed;
         }
-
-        /* BARRA DE CONTROL DE SERVICIO / SERVICE HEADER TIMELINE */
         .service-bar {
             display: flex;
             justify-content: space-between;
@@ -168,8 +161,6 @@
             color: var(--text-pure);
             border-color: var(--alert-crimson);
         }
-
-        /* ECOSISTEMA GRÁFICO / MOTOR DE BIENESTAR GRAPHICS */
         .graphics-wrapper {
             display: flex;
             justify-content: space-between;
@@ -197,7 +188,6 @@
         }
         .triangle-canvas::before { left: 85px; transform: rotate(29deg); }
         .triangle-canvas::after { left: 85px; transform: rotate(-29deg); }
-        
         .vertex {
             width: 6px;
             height: 6px;
@@ -209,7 +199,6 @@
         .vertex-top { top: -2px; left: 82px; }
         .vertex-left { bottom: -3px; left: -2px; }
         .vertex-right { bottom: -3px; right: -2px; }
-
         .center-pulse-circle {
             width: 20px;
             height: 20px;
@@ -228,7 +217,6 @@
             50% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 25px rgba(197, 160, 89, 0.4); }
             100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--gold-glow); }
         }
-
         .silhouette-container {
             width: 130px;
             display: flex;
@@ -261,8 +249,6 @@
             font-weight: 500;
             letter-spacing: 1.5px;
         }
-
-        /* TARJETAS INTERACTIVAS / CARD INTERFACES */
         .question-card, .treatment-card {
             background: rgba(13, 13, 16, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.02);
@@ -368,6 +354,11 @@
         <!-- BLOQUE DINÁMICO DE EVALUACIÓN -->
         <div id="wellnessTestBlock">
             <div class="question-card" id="activeQuestionCard">
+                <p class="question-text" id="lblQuestionText"></p>
+                <div id="optionsContainer"></div>
+            </div>
+        </div>
+
         <!-- BLOQUE DE TRATAMIENTO (RESPIRACIÓN Y ADIVINANZAS) -->
         <div id="treatmentBlock" style="display: none;">
             <div class="treatment-card">
@@ -467,6 +458,7 @@ const DATABASE_RIDDLES = [
     { id: "ADV-002", es: "No tengo peso, pero dentro de un barril lo hago más liviano. ¿Qué soy?", en: "I have no weight, but inside a barrel I make it lighter. What am I?", ans_es: "Un agujero", ans_en: "A hole" },
     { id: "ADV-003", es: "Te sigo a todas partes, copio tus movimientos, pero en la oscuridad desaparezco. ¿Qué soy?", en: "I follow you everywhere, copying your moves, but in absolute darkness I disappear. What am I?", ans_es: "La sombra", ans_en: "The shadow" }
 ];
+
 const DATABASE_RESPIRATION = {
     MANANA: { id: "M", tecnica_es: "Respiración Energizante (Mañana)", tecnica_en: "Energizing Breath (Morning)", guion_es: "Bienvenido a tu amanecer con MAY ROGA LLC. Inhala vitalidad limpia... exhala liberando el cansancio.", guion_en: "Welcome to your sunrise with MAY ROGA LLC. Inhale clean vitality... exhale releasing fatigue." },
     TARDE: { id: "T", tecnica_es: "Respiración Cuadrada (Tarde)", tecnica_en: "Box Breathing (Afternoon)", guion_es: "Pausa de mediodía. Es momento de rendir la sobrecarga. Inhala... sostén... exhala... vacía.", guion_en: "Midday pause. Time to surrender the overload. Inhale... hold... exhale... empty." },
@@ -694,3 +686,6 @@ function terminateServiceEarly() {
     }
     location.reload();
 }
+</script>
+</body>
+</html>
