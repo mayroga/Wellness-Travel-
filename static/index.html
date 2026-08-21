@@ -625,88 +625,82 @@
             const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
             localStorage.setItem("mayroga_last_folio", uuid);
             
-            // Reemplazamos el contenedor raíz original por tu pasarela VIP de cobro de alta sociedad
+            // Buscamos el contenedor principal de tu app nativa
             const targetRoot = document.getElementById('open-than-go-root');
             if(targetRoot) {
                 targetRoot.innerHTML = `
-                    <div class="luxury-checkout-dock" style="width:100%; color:#fff; padding:20px 0;">
-        // Reemplazamos el contenedor raíz original por tu pasarela VIP de cobro de alta sociedad 
-        const targetRoot = document.getElementById('open-than-go-root'); 
-        if(targetRoot) { 
-            targetRoot.innerHTML = ` 
-                <div class="luxury-checkout-dock" style="width:100%; color:#fff; padding:20px 0; text-align:center;"> 
-                    <h1 style="font-family:'Times New Roman',serif; letter-spacing:6px; font-size:30px; margin-bottom:4px; color:#C5A059; text-transform:uppercase;">MAY ROGA</h1>
-                    <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div>
-                    
-                    <div style="border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.01); padding:8px 12px; display:inline-block; border-radius:20px; font-size:11px; margin-bottom:20px; font-weight:600;">
-                        INTERVENCIÓN AUTÓNOMA DE 15 MINUTOS COMPLETADA
-                    </div>
-                    
-                    <p style="font-size:13.5px; line-height:1.6; text-align:justify; margin-bottom:12px; color:#E1E1E1;">
-                        Tu pasaporte de desintoxicación digital ha sido compilado localmente de forma privada en el Folio <b>${uuid}</b>. Para romper definitivamente el bucle operativo de la rutina diaria, el sistema prescribe el aislamiento físico inmediato en un santuario premium de nuestra Host Agency.
-                    </p>
-                    <p style="font-size:11.5px; line-height:1.6; text-align:justify; margin-bottom:30px; color:#8E8E93; font-weight:300;">
-                        Your private digital detox passport has been locally compiled under Folio <b>${uuid}</b>. To break the operational loop of daily routine, the system prescribes immediate physical isolation within our premium Host Agency sanctuaries.
-                    </p>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px;">
-                        <!-- ENLACE OPERATIVO SINGLE RESET ($200) -->
-                        <div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" style="border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:14px; text-align:left; cursor:pointer; background:rgba(255,255,255,0.02); transition: all 0.3s ease;">
-                            <div style="font-size:11px; color:#8E8E93; letter-spacing:1px; text-transform:uppercase;">SINGLE RESET</div>
-                            <div style="font-size:32px; font-weight:200; margin:4px 0; color:#fff;">$200</div>
-                            <p style="font-size:11.5px; line-height:1.4; color:#8E8E93; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico vía BNT IATA Partner.</p>
+                    <div class="luxury-checkout-dock" style="width:100%; color:#fff; padding:20px 0; text-align:center;">
+                        <h1 style="font-family:'Times New Roman',serif; letter-spacing:6px; font-size:30px; margin-bottom:4px; color:#C5A059; text-transform:uppercase;">MAY ROGA</h1>
+                        <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div>
+                        
+                        <div style="border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.01); padding:8px 12px; display:inline-block; border-radius:20px; font-size:11px; margin-bottom:20px; font-weight:600;">
+                            INTERVENCIÓN AUTÓNOMA DE 15 MINUTOS COMPLETADA
                         </div>
                         
-                        <!-- ENLACE OPERATIVO CONCIERGE 24/7 ($399) -->
-                        <div class="tier-card-elite" onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" style="border:1px solid #C5A059; padding:20px; border-radius:14px; text-align:left; cursor:pointer; background:rgba(197,160,89,0.02); position:relative; transition: all 0.3s ease;">
-                            <div style="position:absolute; top:-10px; left:16px; background:#C5A059; color:#030305; font-size:9px; padding:2px 8px; border-radius:10px; font-weight:bold; letter-spacing:1px;">RECOMENDADO</div>
-                            <div style="font-size:11px; color:#C5A059; letter-spacing:1px; text-transform:uppercase; margin-top:4px;">CONCIERGE 24/7</div>
-                            <div style="font-size:32px; font-weight:200; margin:4px 0; color:#fff;">$399<span style="font-size:13px; color:#8E8E93;">/mes</span></div>
-                            <p style="font-size:11.5px; line-height:1.4; color:#E1E1E1; margin:0;">Soporte de desintoxicación y pausas activas 24 horas + Conserjería Ilimitada de Viajes de Ultra-Lujo con beneficios automáticos de créditos de cortesía Virtuoso ($100 USD).</p>
+                        <p style="font-size:13.5px; line-height:1.6; text-align:justify; margin-bottom:12px; color:#E1E1E1;">
+                            Tu pasaporte de desintoxicación digital ha sido compilado localmente de forma privada en el Folio <b>${uuid}</b>. Para romper definitivamente el bucle operativo de la rutina diaria, el sistema prescribe el aislamiento físico inmediato en un santuario premium de nuestra Host Agency.
+                        </p>
+                        <p style="font-size:11.5px; line-height:1.6; text-align:justify; margin-bottom:30px; color:#8E8E93; font-weight:300;">
+                            Your private digital detox passport has been locally compiled under Folio <b>${uuid}</b>. To break the operational loop of daily routine, the system prescribes immediate physical isolation within our premium Host Agency sanctuaries.
+                        </p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px;">
+                            <!-- ENLACE OPERATIVO SINGLE RESET ($200) -->
+                            <div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" style="border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:14px; text-align:left; cursor:pointer; background:rgba(255,255,255,0.02); transition: all 0.3s ease;">
+                                <div style="font-size:11px; color:#8E8E93; letter-spacing:1px; text-transform:uppercase;">SINGLE RESET</div>
+                                <div style="font-size:32px; font-weight:200; margin:4px 0; color:#fff;">$200</div>
+                                <p style="font-size:11.5px; line-height:1.4; color:#8E8E93; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico vía BNT IATA Partner.</p>
+                            </div>
+                            
+                            <!-- ENLACE OPERATIVO CONCIERGE 24/7 ($399) -->
+                            <div class="tier-card-elite" onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" style="border:1px solid #C5A059; padding:20px; border-radius:14px; text-align:left; cursor:pointer; background:rgba(197,160,89,0.02); position:relative; transition: all 0.3s ease;">
+                                <div style="position:absolute; top:-10px; left:16px; background:#C5A059; color:#030305; font-size:9px; padding:2px 8px; border-radius:10px; font-weight:bold; letter-spacing:1px;">RECOMENDADO</div>
+                                <div style="font-size:11px; color:#C5A059; letter-spacing:1px; text-transform:uppercase; margin-top:4px;">CONCIERGE 24/7</div>
+                                <div style="font-size:32px; font-weight:200; margin:4px 0; color:#fff;">$399<span style="font-size:13px; color:#8E8E93;">/mes</span></div>
+                                <p style="font-size:11.5px; line-height:1.4; color:#E1E1E1; margin:0;">Soporte de desintoxicación y pausas activas 24 horas + Conserjería Ilimitada de Viajes de Ultra-Lujo con beneficios automáticos de créditos de cortesía Virtuoso ($100 USD).</p>
+                            </div>
+                        </div>
+                        
+                        <div style="font-size:9px; color:rgba(255,255,255,0.15); letter-spacing:1px; text-transform:uppercase;">
+                            🔒 DISEÑO PROTEGIDO BAJO PRIVACIDAD EXTREMA - MAY ROGA LLC GLOBAL COMPLIANCE
                         </div>
                     </div>
-                    
-                    <div style="font-size:9px; color:rgba(255,255,255,0.15); letter-spacing:1px; text-transform:uppercase;">
-                        🔒 DISEÑO PROTEGIDO BAJO PRIVACIDAD EXTREMA - MAY ROGA LLC GLOBAL COMPLIANCE
-                    </div>
-                </div>
-            `; 
+                `;
+            }
+        },
+
+        /**
+         * DISPARADOR DE CHECKOUT DE STRIPE INTEGRADO CON TU APP.PY DE RENDER
+         */
+        procesarPagoStripe: function(tier, folio) {
+            document.body.style.cursor = "wait";
+            
+            fetch("/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    tier: tier,
+                    folio: folio
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Falla del backend.");
+                return response.json();
+            })
+            .then(data => {
+                if (data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else {
+                    document.body.style.cursor = "default";
+                    alert("Error al inicializar la pasarela.");
+                }
+            })
+            .catch(error => {
+                document.body.style.cursor = "default";
+                console.error("[Stripe Error]:", error);
+                alert("Error de conexión con los servidores de pago.");
+            });
         }
-    }, 
-
-    /** 
-     * DISPARADOR DE CHECKOUT DE STRIPE INTEGRADO CON TU APP.PY DE RENDER 
-     */ 
-    procesarPagoStripe: function(tier, folio) { 
-        document.body.style.cursor = "wait"; 
-        
-        fetch("/create-checkout-session", { 
-            method: "POST", 
-            headers: { 
-                "Content-Type": "application/json" 
-            }, 
-            body: JSON.stringify({ 
-                tier: tier, 
-                folio: folio 
-            }) 
-        }) 
-        .then(response => { 
-            if (!response.ok) throw new Error("Falla del backend."); 
-            return response.json(); 
-        }) 
-        .then(data => { 
-            if (data.checkout_url) { 
-                window.location.href = data.checkout_url; 
-            } else { 
-                document.body.style.cursor = "default"; 
-                alert("Error al inicializar la pasarela."); 
-            } 
-        }) 
-        .catch(error => { 
-            document.body.style.cursor = "default"; 
-            console.error("[Stripe Error]:", error); 
-            alert("Error de conexión con los servidores de pago."); 
-        }); 
-    } 
-};
-
+    };
