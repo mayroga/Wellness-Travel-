@@ -708,11 +708,13 @@
     <!-- ==================================================================================== 
          BLOQUE DE CARGA DE SCRIPTS - CORRECCIÓN DE RUTAS ESTÁTICAS PARA RENDER
          ==================================================================================== -->
-    <script src="/static/data_pools.js"></script>
-    <script src="/static/script.js"></script>
+    <!-- ==================================================================================== 
+         BLOQUE DE CARGA DE SCRIPTS - SOLUCIÓN DEFINITIVA DE RUTAS EN LA RAÍZ
+         ==================================================================================== -->
+    <script src="data_pools.js"></script>
+    <script src="script.js"></script>
     
     <script>
-        // Inicialización del motor dinámico respetando tu chasis original
         document.addEventListener("DOMContentLoaded", () => {
             if (typeof initializeEliteSession === "function") {
                 initializeEliteSession(
