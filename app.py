@@ -128,19 +128,19 @@ class CheckoutPayload(BaseModel):
     tier: str
     folio: str
 
-# ====================================================================================
-# ACTUALIZACIÓN INTEGRADA: ENDPOINT DE VALIDACIÓN DE CREDENCIALES (DEV VARIABLES)
-# ====================================================================================
+# ==================================================================================== 
+# ACTUALIZACIÓN INTEGRADA: ENDPOINT DE VALIDACIÓN DE CREDENCIALES (DEV VARIABLES) 
+# ==================================================================================== 
 class DevAuthPayload(BaseModel):
     user: str
-    pass: str
+    dev_pass: str  # CORREGIDO: Cambiado de 'pass' a 'dev_pass' para evitar el SyntaxError
 
 @app.post("/verify-dev-access")
 def verify_dev_access(payload: DevAuthPayload):
     system_dev_user = os.getenv("DEV_USER")
     system_dev_pass = os.getenv("DEV_PASS")
     
-    if payload.user == system_dev_user and payload.pass == system_dev_pass:
+    if payload.user == system_dev_user and payload.dev_pass == system_dev_pass:
         return {"authenticated": True}
     
     raise HTTPException(status_code=401, detail="Unauthorized developer credentials.")
