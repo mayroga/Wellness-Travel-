@@ -17,18 +17,26 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
+# ... [Viene de tus declaraciones de importación al inicio de app.py] ...
+
 app = FastAPI(
     title="MAY ROGA LLC - Wellness Travel App Production Backend",
-    version="1.0.0"
+    version="1.0.3"
 )
 
-if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+# ====================================================================================
+# CONFIGURACIÓN CRÍTICA DE ARCHIVOS ESTÁTICOS (HTML, CSS, JS, DATA_POOLS)
+# ====================================================================================
+# Le ordenamos a FastAPI mapear y servir de forma pública todo el contenido de la carpeta static
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Inicialización segura de Stripe leyendo las variables de entorno de Render
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PRICE_ID1 = os.getenv("STRIPE_PRICE_ID1")  # ID de precio para el plan de $200
 STRIPE_PRICE_ID2 = os.getenv("STRIPE_PRICE_ID2")  # ID de precio para el plan de $399
+
+# ... [Continúa con tu DICTIONARY_BILINGUAL y el resto de tu código intacto] ...
+
 
 DICTIONARY_BILINGUAL = {
     "ES": {
