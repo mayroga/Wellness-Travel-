@@ -674,7 +674,6 @@
          */
         procesarPagoStripe: function(tier, folio) {
             document.body.style.cursor = "wait";
-            
             fetch("/create-checkout-session", {
                 method: "POST",
                 headers: {
@@ -703,4 +702,27 @@
                 alert("Error de conexión con los servidores de pago.");
             });
         }
-    };
+    }; // Cierre seguro del objeto window.KERNEL
+    </script> <!-- 🧯 CORRECCIÓN CRÍTICA: Cerramos la etiqueta script nativa aquí -->
+
+    <!-- ==================================================================================== 
+         BLOQUE DE CARGA DE SCRIPTS - CORRECCIÓN DE RUTAS ESTÁTICAS PARA RENDER
+         ==================================================================================== -->
+    <script src="/static/data_pools.js"></script>
+    <script src="/static/script.js"></script>
+    
+    <script>
+        // Inicialización del motor dinámico respetando tu chasis original
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof initializeEliteSession === "function") {
+                initializeEliteSession(
+                    RAW_RIDDLES_DATABASE, 
+                    RAW_RIDDLES_DATABASE, 
+                    RAW_HOTELS_INVENTORY, 
+                    RAW_TRANSPORTS_INVENTORY
+                );
+            }
+        });
+    </script>
+</body>
+</html>
