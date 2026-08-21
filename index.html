@@ -332,65 +332,93 @@
         en: { unlock_ready: "INICIAR", phase_silence: "Absolute Silence Ritual" } 
     };
 
-    // Declaración del Objeto KERNEL Maestro para control lógico global de UI
-    window.KERNEL = { 
-        setLanguage: function(lang) { 
-            currentLang = lang; 
-            const btnES = document.getElementById('btnLangES');
-            const btnEN = document.getElementById('btnLangEN');
-            if (btnES) btnES.className = lang === "ES" ? "giant-lang-btn active-lang" : "giant-lang-btn"; 
-            if (btnEN) btnEN.className = lang === "EN" ? "giant-lang-btn active-lang" : "giant-lang-btn"; 
-            
-            const legalTitle = document.getElementById('lblLegalTitle');
-            if (legalTitle) legalTitle.innerText = currentLang === "ES" ? "Tu espacio privado de sintonía" : "Your private tuning residency"; 
-            
-            const btnUnlock = document.getElementById('btnUnlock');
-            if (btnUnlock) btnUnlock.innerText = TEXTOS_INTERFAZ[currentLang.toLowerCase()].unlock_ready;
-            
-            const panelLegal = document.getElementById('panelLegal');
-            if (panelLegal) panelLegal.style.display = 'block';
-            
-            this.hablar(); 
-        },
-        init: function() { 
-            const giantBox = document.getElementById('giantLangBox');
-            if (giantBox) giantBox.style.display = 'none';
-            
-            const panelLegal = document.getElementById('panelLegal');
-            if (panelLegal) panelLegal.style.display = 'none';
-            
-            const panelService = document.getElementById('panelService');
-            if (panelService) panelService.style.display = 'block';
-            
-            let engine = document.getElementById('engineWrapper'); 
-            if (engine) engine.style.display = 'flex'; 
-            setTimeout(() => { if(engine) engine.style.display = 'none'; }, 20000); 
-            
-            this.hablar(); 
-            this.iniciarPulmonVisual(); 
-            this.cargarFlujoSiguienteLocalStorage(); 
+<script>
+// 1. Initialize KERNEL on window immediately so button onclick handlers never fail
+window.KERNEL = {
+    setLanguage: function(lang) {
+        currentLang = lang;
+        const btnES = document.getElementById('btnLangES');
+        const btnEN = document.getElementById('btnLangEN');
+        if (btnES) btnES.className = lang === "ES" ? "giant-lang-btn active-lang" : "giant-lang-btn";
+        if (btnEN) btnEN.className = lang === "EN" ? "giant-lang-btn active-lang" : "giant-lang-btn";
 
-            serviceTimer = window.setInterval(() => { 
-                timeRemaining--; 
-                let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0'); 
-                let secs = (timeRemaining % 60).toString().padStart(2, '0'); 
-                const clock = document.getElementById('clockDisplay');
-                if (clock) clock.innerText = `${mins}:${secs}`; 
+        const legalTitle = document.getElementById('lblLegalTitle');
+        if (legalTitle) legalTitle.innerText = currentLang === "ES" ? "Tu espacio privado de sintonía" : "Your private tuning residency";
 
-                if (timeRemaining === (7 * 60 + 30) || timeRemaining === randomMoment1 || timeRemaining === randomMoment2) { 
-                    if (engine) engine.style.display = 'flex'; 
-                    setTimeout(() => { if(engine) engine.style.display = 'none'; }, 20000); 
-                } 
+        const btnUnlock = document.getElementById('btnUnlock');
+        if (btnUnlock) btnUnlock.innerText = (typeof TEXTOS_INTERFAZ !== "undefined" && TEXTOS_INTERFAZ[currentLang.toLowerCase()])
+            ? TEXTOS_INTERFAZ[currentLang.toLowerCase()].unlock_ready
+            : "INICIAR";
 
-                if (timeRemaining === 240) {
-                    this.inyectarPortalInteractivodeEscape();
-                }
+        const panelLegal = document.getElementById('panelLegal');
+        if (panelLegal) panelLegal.style.display = 'block';
 
-                if (timeRemaining <= 0) { 
-                    this.finalizarAcompanamientoCRM(); 
-                } 
-            }, 1000); 
-        }, 
+        if (typeof this.hablar === "function") {
+            this.hablar();
+        }
+    }
+};
+
+// 2. Global state definitions
+let currentLang = "ES";
+let serviceTimer = null;
+let voiceInterval = null;
+let breatheInterval = null;
+let currentQuestionIndex = 0;
+let timeRemaining = 15 * 60;
+let userAnswers = [];
+let currentTier = "ELITE";
+let sessionData = null;
+let silenceTimeout = null;
+let detectedMood = "tranquilidad";
+let devClickCount = 0;
+
+let randomMoment1 = Math.floor(Math.random() * (13 * 60 - 9 * 60) + 9 * 60);
+let randomMoment2 = Math.floor(Math.random() * (6 * 60 - 2 * 60) + 2 * 60);
+
+// 3. Attach all other methods to window.KERNEL below...
+Object.assign(window.KERNEL, {
+    init: function() {
+        const giantBox = document.getElementById('giantLangBox');
+        if (giantBox) giantBox.style.display = 'none';
+
+        const panelLegal = document.getElementById('panelLegal');
+        if (panelLegal) panelLegal.style.display = 'none';
+
+        const panelService = document.getElementById('panelService');
+        if (panelService) panelService.style.display = 'block';
+
+        let engine = document.getElementById('engineWrapper');
+        if (engine) engine.style.display = 'flex';
+        setTimeout(() => { if (engine) engine.style.display = 'none'; }, 20000);
+
+        this.hablar();
+        this.iniciarPulmonVisual();
+        this.cargarFlujoSiguienteLocalStorage();
+
+        serviceTimer = window.setInterval(() => {
+            timeRemaining--;
+            let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            let secs = (timeRemaining % 60).toString().padStart(2, '0');
+            const clock = document.getElementById('clockDisplay');
+            if (clock) clock.innerText = `${mins}:${secs}`;
+
+            if (timeRemaining === (7 * 60 + 30) || timeRemaining === randomMoment1 || timeRemaining === randomMoment2) {
+                if (engine) engine.style.display = 'flex';
+                setTimeout(() => { if (engine) engine.style.display = 'none'; }, 20000);
+            }
+
+            if (timeRemaining === 240) {
+                this.inyectarPortalInteractivodeEscape();
+            }
+
+            if (timeRemaining <= 0) {
+                this.finalizarAcompanamientoCRM();
+            }
+        }, 1000);
+    },
+    // Add the rest of your methods (hablar, iniciarPulmonVisual, etc.) here
+});
 
         hablar: function() { 
             if (voiceInterval) window.clearInterval(voiceInterval); 
