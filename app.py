@@ -17,26 +17,15 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
-# ... [Viene de tus declaraciones de importación al inicio de app.py] ...
-
 app = FastAPI(
     title="MAY ROGA LLC - Wellness Travel App Production Backend",
-    version="1.0.3"
+    version="1.0.4"
 )
-
-# ====================================================================================
-# CONFIGURACIÓN CRÍTICA DE ARCHIVOS ESTÁTICOS (HTML, CSS, JS, DATA_POOLS)
-# ====================================================================================
-# Le ordenamos a FastAPI mapear y servir de forma pública todo el contenido de la carpeta static
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Inicialización segura de Stripe leyendo las variables de entorno de Render
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PRICE_ID1 = os.getenv("STRIPE_PRICE_ID1")  # ID de precio para el plan de $200
 STRIPE_PRICE_ID2 = os.getenv("STRIPE_PRICE_ID2")  # ID de precio para el plan de $399
-
-# ... [Continúa con tu DICTIONARY_BILINGUAL y el resto de tu código intacto] ...
-
 
 DICTIONARY_BILINGUAL = {
     "ES": {
@@ -278,25 +267,31 @@ def generate_pdf(payload: PDFPayload):
 # ==================================================================================== 
 # SERVIDOR EN ENTRADA RAÍZ (SERVIDOR DE TU HTML INTERACTIVO)
 # ==================================================================================== 
+# ==================================================================================== 
+# ENRUTADORES EXPLICITOS DE INTERFAZ (DESPACHO DE ARCHIVOS DIRECTO DESDE LA RAÍZ)
+# ==================================================================================== 
+
 @app.get("/", response_class=HTMLResponse)
 def read_index():
-    # Buscamos la ruta física de tu archivo index.html dentro de la carpeta static
-    index_path = os.path.join("static", "index.html")
-    
-    # Si el archivo existe, el servidor lo abre y lo envía al navegador del cliente
-    if os.path.exists(index_path):
-        with open(index_path, "r", encoding="utf-8") as f:
+    if os.path.exists("index.html"):
+        with open("index.html", "r", encoding="utf-8") as f:
             return f.read()
-            
-    # Si olvidaste meter el archivo en la carpeta static, muestra esta alerta de seguridad
-    return """
-    <style>
-        body { background:#030305; color:#C5A059; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
-        div { text-align:center; border:1px solid rgba(197,160,89,0.2); padding:40px; border-radius:20px; background:#0a0a0e; }
-    </style>
-    <div>
-        <h2>MAY ROGA LLC</h2>
-        <p style="color:#8E8E93;">Estructura de archivos en Render incompleta.</p>
-        <p style="font-size:12px; color:#666;">Asegúrate de que 'index.html' esté dentro de la carpeta 'static' en tu GitHub.</p>
-    </div>
-    """
+    return "<h3>MAY ROGA LLC - index.html no encontrado en la raíz</h3>"
+
+@app.get("/script.js")
+def read_script():
+    if os.path.exists("script.js"):
+        return FileResponse("script.js", media_type="application/javascript")
+    raise HTTPException(status_code=404, detail="script.js no encontrado")
+
+@app.get("/style.css")
+def read_style():
+    if os.path.exists("style.css"):
+        return FileResponse("style.css", media_type="text/css")
+    raise HTTPException(status_code=404, detail="style.css no encontrado")
+
+@app.get("/data_pools.js")
+def read_data_pools():
+    if os.path.exists("data_pools.js"):
+        return FileResponse("data_pools.js", media_type="application/javascript")
+    raise HTTPException(status_code=404, detail="data_pools.js no encontrado")
