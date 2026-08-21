@@ -577,67 +577,35 @@
                     alert("Error al inicializar la pasarela."); 
                 } 
             })
-            .catch(error => { 
-                document.body.style.cursor = "default"; 
-                console.error("[Stripe Error]:", error); 
-                alert("Error de conexión con los servidores de pago."); 
-            });
-        }
-    };
-
-    // REDIRECTION RETURNEE HOOK FOR REPORTLAB GENERATOR
-    document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('status') === 'success') {
-            const paidFolio = urlParams.get('folio');
-            const targetRoot = document.getElementById('open-than-go-root');
-            if (targetRoot) {
-                targetRoot.innerHTML = `
-                    <div class="luxury-checkout-dock" style="width:100%; color:#fff; padding:20px 0; text-align:center;">
-                        <h1 style="font-family:'Times New Roman',serif; letter-spacing:6px; font-size:30px; margin-bottom:4px; color:#C5A059; text-transform:uppercase;">MAY ROGA</h1>
-                        <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div>
-                        <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1;">Pago verificado para el Folio: <b>\${paidFolio}</b>. Tu pasaporte digital de alta gama está listo para descargar.</p>
-                        <button class="gold-btn" id="btnDownloadPDF" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('\${paidFolio}')">Descargar Pasaporte (PDF)</button>
-                    </div>
-                `;
-            }
-        }
-    });
-
-    window.KERNEL.descargarPasaportePDF = function(folio) {
-        document.body.style.cursor = "wait";
-        const selectedHotel = localStorage.getItem('mayroga_intent') || "H1";
-        
-        fetch("/generate-pdf", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                servicio_id: folio,
-                lang: currentLang,
-                score_inicial: 45.0,
-                score_actual: 70.0,
-                respiracion_score: 100.0,
-                adivinanzas_score: 100.0,
-                iev: 85.0,
-                variante: "ELITE_RECONEXION",
-                destino_id: selectedHotel
-            })
-        })
-        .then(response => { if (!response.ok) throw new Error("Falla al armar PDF."); return response.blob(); })
-        .then(blob => {
-            document.body.style.cursor = "default";
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `MayRoga_Passport_\${folio}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        })
         .catch(err => { 
             document.body.style.cursor = "default"; 
             console.error(err); 
             alert("Error al despachar tu libreta."); 
         });
-    };
+    }; // Cerramos la función descargarPasaportePDF
 
+    // ====================================================================================
+    // CRITICAL CORRECTION: Closing window.KERNEL cleanly so it compiles at launch
+    // ====================================================================================
+    
+    // Trigger baseline default parameters immediately at page compilation time
+    window.currentLang = "ES";
+    
+</script> <!-- Cerramos el bloque de código nativo aquí -->
+
+<!-- CARGA DE ARCHIVOS COMPLEMENTARIOS DE ENRUTAMIENTO (Mantenido en la raíz) -->
+<script>
+    // Automatic system initialization hook
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("[MAY ROGA LLC] System environment fully compiled.");
+        
+        // Fail-safe initialization to prevent early execution undefined errors
+        if (window.KERNEL && typeof window.KERNEL.setLanguage === "function") {
+            // Keep your initial language containers safely visible for selection
+            const langBox = document.getElementById('giantLangBox');
+            if (langBox) langBox.style.display = 'flex';
+        }
+    });
+</script>
+</body>
+</html>
