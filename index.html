@@ -615,19 +615,19 @@
         },
 
         /**
-         * 🚨 CIERRA CORPORATIVO SOBERANO INTEGRADO DE ALTA GAMA (STRIPE EMBEDDED)
+         * 🚨 CIERRE CORPORATIVO SOBERANO INTEGRADO DE ALTA GAMA (STRIPE EMBEDDED)
          */
         finalizarAcompanamientoCRM: function() { 
-            window.clearInterval(serviceTimer); 
-            window.clearInterval(voiceInterval);
-            if(breatheInterval) window.clearInterval(breatheInterval);
+            if (serviceTimer) window.clearInterval(serviceTimer); 
+            if (voiceInterval) window.clearInterval(voiceInterval);
+            if (breatheInterval) window.clearInterval(breatheInterval);
             
             const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
             localStorage.setItem("mayroga_last_folio", uuid);
             
-            // Buscamos el contenedor principal de tu app nativa
+            // Reemplazo visual directo en el contenedor raíz
             const targetRoot = document.getElementById('open-than-go-root');
-            if(targetRoot) {
+            if (targetRoot) {
                 targetRoot.innerHTML = `
                     <div class="luxury-checkout-dock" style="width:100%; color:#fff; padding:20px 0; text-align:center;">
                         <h1 style="font-family:'Times New Roman',serif; letter-spacing:6px; font-size:30px; margin-bottom:4px; color:#C5A059; text-transform:uppercase;">MAY ROGA</h1>
@@ -676,13 +676,8 @@
             document.body.style.cursor = "wait";
             fetch("/create-checkout-session", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    tier: tier,
-                    folio: folio
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tier: tier, folio: folio })
             })
             .then(response => {
                 if (!response.ok) throw new Error("Falla del backend.");
@@ -703,28 +698,6 @@
             });
         }
     }; // Cierre seguro del objeto window.KERNEL
-    </script> <!-- 🧯 CORRECCIÓN CRÍTICA: Cerramos la etiqueta script nativa aquí -->
-
-    <!-- ==================================================================================== 
-         BLOQUE DE CARGA DE SCRIPTS - CORRECCIÓN DE RUTAS ESTÁTICAS PARA RENDER
-         ==================================================================================== -->
-    <!-- ==================================================================================== 
-         BLOQUE DE CARGA DE SCRIPTS - SOLUCIÓN DEFINITIVA DE RUTAS EN LA RAÍZ
-         ==================================================================================== -->
-    <script src="data_pools.js"></script>
-    <script src="script.js"></script>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (typeof initializeEliteSession === "function") {
-                initializeEliteSession(
-                    RAW_RIDDLES_DATABASE, 
-                    RAW_RIDDLES_DATABASE, 
-                    RAW_HOTELS_INVENTORY, 
-                    RAW_TRANSPORTS_INVENTORY
-                );
-            }
-        });
     </script>
 </body>
 </html>
