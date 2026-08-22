@@ -152,8 +152,8 @@ def create_checkout_session(payload: CheckoutPayload):
             }],
             # Determina de forma dinámica si es un pago único comercial o una suscripción ilimitada mensual
             mode='payment' if payload.tier == "SINGLE_200" else 'subscription',
-            success_url=f"https://wellness-travel.onrender.com{payload.folio}",
-            cancel_url="https://wellness-travel.onrender.com",
+            success_url=f"https://onrender.com{payload.folio}",
+            cancel_url="https://onrender.com",
             metadata={
                 'folio_crm': payload.folio,
                 'billing_tier': payload.tier
@@ -181,90 +181,179 @@ def generate_pdf(payload: PDFPayload):
     color_text = colors.HexColor("#333333")      
     color_legal = colors.HexColor("#777777")     
     
-    title_style = ParagraphStyle('CorpTitle', parent=styles['Heading1'], fontSize=26, leading=30, textColor=color_primary, alignment=1)
-    subtitle_style = ParagraphStyle('CorpSub', parent=styles['Normal'], fontSize=9, leading=13, textColor=color_legal, alignment=1)
-    h2_style = ParagraphStyle('SectionHeader', parent=styles['Heading2'], fontSize=12, leading=16, textColor=color_gold, spaceBefore=18, spaceAfter=8)
-    body_style = ParagraphStyle('CorpBody', parent=styles['Normal'], fontSize=10, leading=14, textColor=color_text)
-    disclaimer_style = ParagraphStyle('LegalText', parent=styles['Normal'], fontSize=7.5, leading=10.5, textColor=color_legal, alignment=4)
-    
+    title_style = ParagraphStyle(
+        'CorpTitle',
+        parent=styles['Heading1'],
+        fontSize=26,
+        leading=30,
+        textColor=color_primary,
+        alignment=1,
+    )
+    subtitle_style = ParagraphStyle(
+        'CorpSub',
+        parent=styles['Normal'],
+        fontSize=9,
+        leading=13,
+        textColor=color_legal,
+        alignment=1,
+    )
+    h2_style = ParagraphStyle(
+        'SectionHeader',
+        parent=styles['Heading2'],
+        fontSize=12,
+        leading=16,
+        textColor=color_gold,
+        spaceBefore=18,
+        spaceAfter=8,
+    )
+    body_style = ParagraphStyle(
+        'CorpBody',
+        parent=styles['Normal'],
+        fontSize=10,
+        leading=14,
+        textColor=color_text,
+    )
+    disclaimer_style = ParagraphStyle(
+        'LegalText',
+        parent=styles['Normal'],
+        fontSize=7.5,
+        leading=10.5,
+        textColor=color_legal,
+        alignment=4,
+    )
+
     story = []
     lang_key = "EN" if payload.lang.upper() == "EN" else "ES"
     lang_map = DICTIONARY_BILINGUAL[lang_key]
-    
+
     story.append(Paragraph("MAY ROGA LLC", title_style))
-    story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization<br/>Miami, Florida | USA", subtitle_style))
+    story.append(
+        Paragraph(
+            "Wellness Travel Architecture & Lifestyle Optimization<br/>Miami,"
+            " Florida | USA",
+            subtitle_style,
+        )
+    )
     story.append(Spacer(1, 15))
-    story.append(Paragraph(f"{lang_map['doc_title']}", ParagraphStyle('RepTitle', parent=styles['Heading3'], fontSize=11, leading=14, alignment=1, textColor=color_primary, spaceAfter=15)))
-    
-    meta_text = f"{lang_map['folio']}: {payload.servicio_id} | {lang_map['status']}"
+    story.append(
+        Paragraph(
+            f"{lang_map['doc_title']}",
+            ParagraphStyle(
+                'RepTitle',
+                parent=styles['Heading3'],
+                fontSize=11,
+                leading=14,
+                alignment=1,
+                textColor=color_primary,
+                spaceAfter=15,
+            ),
+        )
+    )
+
+    meta_text = (
+        f"{lang_map['folio']}: {payload.servicio_id} | {lang_map['status']}"
+    )
     story.append(Paragraph(meta_text, body_style))
     story.append(Spacer(1, 12))
-    
     story.append(Paragraph(lang_map['sec1_title'], h2_style))
+
     metrics_data = [
-        [Paragraph(f"{lang_map['m1']}", body_style), Paragraph(f"{lang_map['m2']}", body_style), Paragraph(f"{lang_map['m3']}", body_style)],
-        [Paragraph(lang_map['m_pace'], body_style), f"{payload.score_inicial}%", f"{payload.score_actual}%"],
-        [Paragraph(lang_map['m_breathe'], body_style), "0%", f"{payload.respiracion_score}%"],
-        [Paragraph(lang_map['m_logic'], body_style), "0%", f"{payload.adivinanzas_score}%"]
+        [
+            Paragraph(f"{lang_map['m1']}", body_style),
+            Paragraph(f"{lang_map['m2']}", body_style),
+            Paragraph(f"{lang_map['m3']}", body_style),
+        ],
+        [
+            Paragraph(lang_map['m_pace'], body_style),
+            f"{payload.score_inicial}%",
+            f"{payload.score_actual}%",
+        ],
+        [
+            Paragraph(lang_map['m_breathe'], body_style),
+            "0%",
+            f"{payload.respiracion_score}%",
+        ],
+        [
+            Paragraph(lang_map['m_logic'], body_style),
+            "0%",
+            f"{payload.adivinanzas_score}%",
+        ],
     ]
-    metrics_table = Table(metrics_data, colWidths=[200, 110, 110])
-    metrics_table.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
-        ('PADDING', (0,0), (-1,-1), 6),
-        ('ALIGN', (1,1), (-1,-1), 'CENTER'),
-        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-    ]))
+
+    metrics_table = Table(metrics_data)
+    metrics_table.setStyle(
+        TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#F9F9F9")),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#E5E5E5")),
+            ('PADDING', (0, 0), (-1, -1), 6),
+            ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ])
+    )
     story.append(metrics_table)
     story.append(Spacer(1, 12))
-    
     story.append(Paragraph(lang_map['sec2_title'], h2_style))
+
     hotel_id = payload.destino_id
     if hotel_id in BACKEND_HOTELES:
-        h_name = BACKEND_HOTELES[hotel_id][lang_key.lower()]["name"]
-        h_desc = BACKEND_HOTELES[hotel_id][lang_key.lower()]["desc"]
+      h_name = BACKEND_HOTELES[hotel_id][lang_key.lower()]["name"]
+      h_desc = BACKEND_HOTELES[hotel_id][lang_key.lower()]["desc"]
     else:
-        h_name = "Eden Roc Cap Cana (Punta Cana)"
-        h_desc = "Villas de ultra-lujo con alberca propia y aislamiento acústico absoluto."
-        
-    tier_key = "ELITE" if "ELITE" in payload.variante or payload.score_inicial < 45 else "PREMIUM"
-    logistica = BACKEND_LOGISTICA.get(tier_key, BACKEND_LOGISTICA["ELITE"])[lang_key.lower()]
-    
+      h_name = "Eden Roc Cap Cana (Punta Cana)"
+      h_desc = (
+          "Villas de ultra-lujo con alberca propia y aislamiento acústico"
+          " absoluto."
+      )
+
+    tier_key = (
+        "ELITE"
+        if "ELITE" in payload.variante or payload.score_inicial < 45
+        else "PREMIUM"
+    )
+    logistica = BACKEND_LOGISTICA.get(tier_key, BACKEND_LOGISTICA["ELITE"])[
+        lang_key.lower()
+    ]
+
     dest_html = f"• {lang_map['stay_lbl']}: {h_name}<br/>"
     dest_html += f"• {lang_map['desc_lbl']}: {h_desc}<br/>"
     dest_html += f"• {lang_map['air_lbl']}: {logistica['air']}<br/>"
-    dest_html += f"• {lang_map['sea_lbl']}: {logistica['sea']}<br/><br/>"
+    dest_html += f"• {lang_map['sea_lbl']}: {logistica['sea']}<br/>"
     dest_html += f"{lang_map['consorcio']}"
+
     story.append(Paragraph(dest_html, body_style))
     story.append(Spacer(1, 15))
-    
     story.append(Paragraph(lang_map['sec3_title'], h2_style))
     story.append(Paragraph(lang_map['cta'], body_style))
     story.append(Spacer(1, 15))
-    
     story.append(Paragraph(lang_map['sec4_title'], h2_style))
     story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
     story.append(Spacer(1, 10))
     story.append(Paragraph(lang_map['ai_foot'], disclaimer_style))
-    
+
     doc.build(story)
-    return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
+    return FileResponse(
+        pdf_path, media_type='application/pdf', filename=pdf_filename
+    )
+
 
 @app.get("/", response_class=HTMLResponse)
 def read_index():
-    if os.path.exists("index.html"):
-        with open("index.html", "r", encoding="utf-8") as f:
-            return f.read()
-    return "MAY ROGA LLC - index.html no encontrado en la raíz"
+  if os.path.exists("index.html"):
+    with open("index.html", "r", encoding="utf-8") as f:
+      return f.read()
+  return "MAY ROGA LLC - index.html no encontrado en la raíz"
+
 
 @app.get("/script.js")
 def read_script():
-    return FileResponse("script.js", media_type="application/javascript")
+  return FileResponse("script.js", media_type="application/javascript")
+
 
 @app.get("/style.css")
 def read_style():
-    return FileResponse("style.css", media_type="text/css")
+  return FileResponse("style.css", media_type="text/css")
+
 
 @app.get("/data_pools.js")
 def read_data_pools():
-    return FileResponse("data_pools.js", media_type="application/javascript")
+  return FileResponse("data_pools.js", media_type="application/javascript")
