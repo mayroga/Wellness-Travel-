@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAY ROGA | Premium Travel Architecture</title>
+    <title>MAY ROGA LLC| Premium Travel Architecture</title>
     <!-- ANALÍTICA ANÓNIMA Y PRIVADA (PLAUSIBLE) -->
     <script defer data-domain="tu-dominio-mayroga.com" src="https://plausible.io"></script>
     <script>
@@ -309,10 +309,9 @@
         let serviceTimer = null, voiceInterval = null, breatheInterval = null;
         let timeRemaining = 15 * 60, userAnswers = [], devClickCount = 0;
         
-        // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
-        let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); // Al azar en bloque 1
-        let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120); // Al azar en bloque 2
-        const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos de interrupción
+        let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540);
+        let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120);
+        const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2];
 
         window.KERNEL.init = function() {
             document.getElementById('giantLangBox').style.display = 'none';
@@ -322,7 +321,6 @@
             this.cargarFlujoSiguienteLocalStorage();
             this.hablar();
             
-            // 🎰 MOTOR NO-LINEAL: Decide por entropía aleatoria si inicia por el cuestionario o por impacto del triángulo
             if (Math.random() > 0.5) {
                 window.KERNEL.desplegarTrianguloCinematico();
             }
@@ -333,7 +331,6 @@
                 let secs = (timeRemaining % 60).toString().padStart(2, '0');
                 document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
                 
-                // INTERCEPCIÓN DEL RELOJ: Frena la pantalla y despliega el triángulo con sus partículas flotantes
                 if (CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
                     window.KERNEL.desplegarTrianguloCinematico();
                 }
@@ -350,7 +347,7 @@
             let engine = document.getElementById('engineWrapper');
             if (engine) {
                 engine.style.display = 'flex';
-                setTimeout(() => { engine.style.display = 'none'; }, 20000); // 20 segundos de duración exacta en pantalla
+                setTimeout(() => { engine.style.display = 'none'; }, 20000);
             }
         };
 
@@ -366,7 +363,7 @@
                 if (pasoSincronizado === 0) circle.className = "center-wellness-circle lung-inhale";
                 else if (pasoSincronizado === 2) circle.className = "center-wellness-circle lung-exhale";
                 pasoSincronizado = (pasoSincronizado + 1) % 4;
-            }, 4000); // Guía Box Breathing: 4 segundos por etapa
+            }, 4000);
         };
 
         window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
@@ -402,7 +399,6 @@
         window.KERNEL.inyectarPortalInteractivodeEscape = function() {
             const trayDock = document.getElementById('interactiveStack');
             if (trayDock) {
-                // CRM DE ENRUTAMIENTO VIP REAL: Redirección inmediata a Google Maps de los Hoteles Curados
                 trayDock.innerHTML = `<div class="premium-portal-panel"><span class="badge-red-alert" style="color:var(--alert-crimson); font-weight:bold; font-size:11px; letter-spacing:1px;">PASILLO DE ACCESO VIP ACTIVADO</span><p style="font-size:12px; margin:12px 0; color:#fff;">Coherencia cardíaca lograda. Selecciona tu ubicación física de escape en el mapa:</p><div style="display:flex; gap:10px; justify-content:center; margin-top:15px;"><span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H1'); window.open('https://google.com', '_blank');">🏨 Ver Eden Roc</span><span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H2'); window.open('https://google.com', '_blank');">🏖️ Ver Amanera</span></div></div>`;
             }
         };
@@ -427,7 +423,6 @@
             window.clearInterval(voiceInterval);
             const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
             
-            // MATRIZ TARIFARIA HIGH-TICKET ASOCIADA A TUS PRICE IDS DE RENDER ($200 / $399)
             document.getElementById('open-than-go-root').innerHTML = `<div class="luxury-checkout-dock"><h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1><div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div><p style="font-size:14px; text-align:justify; margin-bottom:25px; line-height:1.6; color:#E1E1E1;"> Tu pasaporte Élite ha sido compilado de forma privada bajo el Folio <b>${uuid}</b>. Prescribimos aislamiento inmediato en nuestros santuarios de Host Agency. </p><div class="premium-pricing-deck"><div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" class="luxury-card-price"><div style="font-size:11px; color:#888; text-transform:uppercase;">PAGO ÚNICO (SINGLE RESET)</div><div style="font-size:32px; font-weight:bold; margin:6px 0;">$200</div><p style="font-size:11.5px; color:#aaa; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico.</p></div><div onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" class="luxury-card-price tier-card-elite"><div class="card-ribbon-gold">RECOMENDADO</div><div style="font-size:11px; color:#C5A059; margin-top:5px; text-transform:uppercase;">ACCESO MENSUAL ILIMITADO</div><div style="font-size:32px; font-weight:bold; margin:6px 0;">$399<span style="font-size:12px; color:#888;">/mes</span></div><p style="font-size:11.5px; color:#fff; margin:0;">Entra todas las veces que quieras al mes. Soporte 24/7 + Conserjería Ilimitada con créditos Virtuoso ($100).</p></div></div></div>`;
         };
 
@@ -440,6 +435,38 @@
             })
             .then(res => res.json())
             .then(data => { if (data.checkout_url) window.location.href = data.checkout_url; })
+            .catch(() => { document.body.style.cursor = "default"; });
+        };
+
+        // 🔗 INTEGRACIÓN DE LA SEGUNDA PARTE (PARÁMETROS DE RETORNO Y DESCARGA DE PDF)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'success') {
+            const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
+            const rootNode = document.getElementById('open-than-go-root');
+            if (rootNode) {
+                rootNode.innerHTML = `<div class="luxury-checkout-dock" style="text-align:center; padding:20px;"> <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1> <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div> <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1;">Pago verificado para el Folio: <b>${paidFolio}</b>. Tu pasaporte digital está listo.</p> <button class="gold-btn" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">Descargar Pasaporte (PDF)</button> </div>`;
+            }
+        }
+
+        window.KERNEL.descargarPasaportePDF = function(folio) {
+            document.body.style.cursor = "wait";
+            fetch("/generate-pdf", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    servicio_id: folio, lang: window.currentLang,
+                    score_inicial: 45.0, score_actual: 75.0, respiracion_score: 100.0,
+                    adivinanzas_score: 100.0, iev: 85.0, variante: "ELITE_RECONEXION", destino_id: "H1"
+                })
+            })
+            .then(res => res.blob())
+            .then(blob => {
+                document.body.style.cursor = "default";
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = `MayRoga_Passport_${folio}.pdf`;
+                document.body.appendChild(a); a.click(); a.remove();
+            })
             .catch(() => { document.body.style.cursor = "default"; });
         };
 
@@ -458,38 +485,11 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.authenticated) {
-                        // Redirección directa al bypass simulando éxito sin costo
                         window.location.href = "https://wellness-travel.onrender.com";
                     } else { alert("Credenciales incorrectas."); }
                 });
             }
         });
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('status') === 'success') {
-const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
-const rootNode = document.getElementById('open-than-go-root');
-if (rootNode) {
-rootNode.innerHTML = `<div class="luxury-checkout-dock" style="text-align:center; padding:20px;"> <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1> <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div> <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1;">Pago verificado para el Folio: <b>${paidFolio}</b>. Tu pasaporte digital está listo.</p> <button class="gold-btn" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">Descargar Pasaporte (PDF)</button> </div>`;
-}
-}
-window.KERNEL.descargarPasaportePDF = function(folio) {
-document.body.style.cursor = "wait";
-fetch("/generate-pdf", {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
-servicio_id: folio, lang: window.currentLang,
-score_inicial: 45.0, score_actual: 75.0, respiracion_score: 100.0,
-adivinanzas_score: 100.0, iev: 85.0, variante: "ELITE_RECONEXION", destino_id: "H1"
-})
-})
-.then(res => res.blob())
-.then(blob => {
-document.body.style.cursor = "default";
-const url = window.URL.createObjectURL(blob);
-const a = document.createElement('a');
-a.href = url; a.download = `MayRoga_Passport_${folio}.pdf`;
-document.body.appendChild(a); a.click(); a.remove();
-})
-.catch(() => { document.body.style.cursor = "default"; });
-};
+    </script>
+</body>
+</html>
