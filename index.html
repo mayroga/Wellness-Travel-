@@ -425,7 +425,6 @@
         window.currentLang = "EN";
         let userChoices = [];
         let devClickCount = 0;
-        let voiceInterval = null;
         let serviceTimer = null;
         let pulseInterval = null;
         let timeRemaining = 15 * 60;
@@ -484,18 +483,21 @@
             document.getElementById('lblBrandSub').innerText = lang === "ES" ? "Santuario de Radiografía y Ocio Élite" : "Elite Radiography & Leisure Sanctuary";
             
             const splashText = document.getElementById('splashDesc');
-            const userLbl = document.getElementById('lblUser');
-            const passLbl = document.getElementById('lblPass');
-            const unlockBtn = document.getElementById('btnUnlock');
+            const startBtn = document.getElementById('btnStartTriangle');
             
             if (splashText) {
                 splashText.innerText = lang === "ES" 
-                    ? "Plataforma privada de acceso libre e ilimitado mediante credenciales."
-                    : "Private platform with free and unlimited access via credentials.";
+                    ? "Inicie su experiencia de radiografía interna y externa de ultra-lujo."
+                    : "Begin your ultra-luxury internal and external radiography experience.";
             }
+            if (startBtn) startBtn.innerText = lang === "ES" ? "INICIAR RADIOGRAFÍA" : "START RADIOGRAPHY";
+
+            const userLbl = document.getElementById('lblUser');
+            const passLbl = document.getElementById('lblPass');
+            const unlockBtn = document.getElementById('btnUnlock');
             if (userLbl) userLbl.innerText = lang === "ES" ? "Usuario / Identificador Élite" : "Username / Elite Identifier";
             if (passLbl) passLbl.innerText = lang === "ES" ? "Clave de Acceso Privada" : "Private Access Key";
-            if (unlockBtn) unlockBtn.innerText = lang === "ES" ? "INICIAR RADIOGRAFÍA" : "START RADIOGRAPHY";
+            if (unlockBtn) unlockBtn.innerText = lang === "ES" ? "ACCEDER AL SISTEMA" : "ACCESS SYSTEM";
 
             const timerTitle = document.getElementById('lblTimerTitle');
             if (timerTitle) {
@@ -528,12 +530,16 @@
             <button id="btnLangES" class="lang-btn" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
         </div>
 
-        <!-- PANTALLA 1: ENTRADA DE USERNAME Y PASSWORD GRATIS E ILIMITADA DESDE EL PRINCIPIO -->
-        <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
-            <p id="splashDesc" style="font-size:12.5px; color:var(--text-muted); line-height:1.45; text-align:center;">
-                Private platform with free and unlimited access via credentials.
+        <!-- PANTALLA 1: INICIO DIRECTO (EL ENGANCHE: EL PRIMER TRIÁNGULO APARECE SIN PEDIR USERNAME NI PASSWORD) -->
+        <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:14px; margin-top:15px; text-align:center;">
+            <p id="splashDesc" style="font-size:13px; color:var(--text-muted); line-height:1.5;">
+                Begin your ultra-luxury internal and external radiography experience.
             </p>
-            
+            <button class="gold-action-btn" id="btnStartTriangle" onclick="window.KERNEL.iniciarPrimerTrianguloCinematico()" style="margin-top:15px;">START RADIOGRAPHY</button>
+        </div>
+
+        <!-- PANTALLA DE LOGIN SECUNDARIA (SOLO SI SE ACCEDE VÍA DESARROLLADOR O CREDENCIALES) -->
+        <div id="loginPanel" style="display:none; flex-direction:column; gap:12px; margin-top:8px;">
             <div class="input-group">
                 <label id="lblUser">Username / Elite Identifier</label>
                 <input type="text" id="userInput" class="elite-input" placeholder="Enter elite identifier...">
@@ -544,10 +550,10 @@
                 <input type="password" id="passInput" class="elite-input" placeholder="Enter access key...">
             </div>
 
-            <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.iniciarPrimerTrianguloCinematico()">START RADIOGRAPHY</button>
+            <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.validarCredencialesDev()">ACCESS SYSTEM</button>
         </div>
 
-        <!-- PANTALLA 2: PASARELA DE PAGO DE LA APP ($200 Y $399) QUE APARECE EXACTAMENTE AL CONCLUIR EL PRIMER TRIÁNGULO -->
+        <!-- PANTALLA 2: PASARELA DE PAGO ($200 Y $399) QUE APARECE EXACTAMENTE DESPUÉS DE QUE CONCLUYE EL PRIMER TRIÁNGULO -->
         <div id="paymentWallPanel" style="display:none; flex-direction:column; text-align:center; padding:5px 0;">
             <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:17px; letter-spacing:2px; margin-bottom:6px;" id="payTitle">ACTIVACIÓN DE SERVICIO DE APP</h2>
             <p style="font-size:12px; color:var(--text-muted); line-height:1.45; margin-bottom:12px;" id="payDesc">
@@ -595,7 +601,7 @@
         </div>
     </div>
 
-    <!-- OVERLAY CINEMÁTICO (PRIMER TRIÁNGULO QUE SE EJECUTA DESPUÉS DE USER/PASS E INICIA EL FLUJO) -->
+    <!-- OVERLAY CINEMÁTICO (EL PRIMER TRIÁNGULO DE ENGANCHE SIN PEDIR USER/PASS ANTES) -->
     <div class="cinematic-overlay" id="engineWrapper">
         <div class="triangle-frame">
             <div class="triangle-node t-top"></div>
@@ -613,23 +619,11 @@
         let randomSec2 = Math.floor(Math.random() * (350 - 180)) + 180;
         const CRONOGRAMAS_TRIANGULO_FIJOS = [900, 460, 50, randomSec1, randomSec2];
 
-        // Paso 1: Usuario ingresa Username y Password (gratis e ilimitado al principio) y da clic en iniciar
+        // 1. EL PRIMER TRIÁNGULO APARECE SIN PONER USERNAME NI PASSWORD (ES EL ENGANCHE)
         window.KERNEL.iniciarPrimerTrianguloCinematico = function() {
-            const user = document.getElementById('userInput').value.trim();
-            const pass = document.getElementById('passInput').value.trim();
-
-            if (!user || !pass) {
-                alert(window.currentLang === "ES" ? "Por favor ingrese su usuario y clave de acceso." : "Please enter your username and access key.");
-                return;
-            }
-
-            localStorage.setItem('mayroga_user', user);
-
-            // Ocultar pantalla de inicio
             document.getElementById('initialSplashPanel').style.display = 'none';
             document.getElementById('langSwitchDock').style.display = 'none';
 
-            // Mostrar el primer triángulo cinemático exactamente como se solicitó
             let engine = document.getElementById('engineWrapper');
             if (engine) {
                 engine.style.display = 'flex';
@@ -639,16 +633,15 @@
                     document.getElementById('triText').innerText = "INTERNAL & EXTERNAL RADIOGRAPHY IN PROGRESS";
                 }
 
-                // Al concluir el primer triángulo (exactamente desde cero), se abre la caja de pago o se avanza
+                // 2. EXACTAMENTE AL CONCLUIR EL PRIMER TRIÁNGULO, APARECE LA CAJA DE PAGO ($200 Y $399)
                 setTimeout(() => {
                     engine.style.display = 'none';
-                    window.KERNEL.mostrarPasarelaPagoOContinuar();
+                    window.KERNEL.mostrarPasarelaPago();
                 }, 4000);
             }
         };
 
-        // Al concluir el primer triángulo, arranca la caja de pago de $200 y $399
-        window.KERNEL.mostrarPasarelaPagoOContinuar = function() {
+        window.KERNEL.mostrarPasarelaPago = function() {
             if (window.currentLang === "ES") {
                 document.getElementById('payTitle').innerText = "ACTIVACIÓN DE SERVICIO DE APP";
                 document.getElementById('payDesc').innerText = "El primer triángulo radiográfico ha concluido. Para desplegar la plataforma completa de 15 minutos de análisis interno y externo, seleccione su nivel de activación:";
@@ -690,20 +683,34 @@
             });
         };
 
-        // Acceso especial por el título (3 toques): acceso total de principio a fin como el pase ilimitado de $399
+        // 3. TRES TOQUES SOBRE EL TÍTULO: MUESTRA EL PANEL PARA PONER USERNAME Y PASSWORD (ACCESO DEV / ILIMITADO)
         window.KERNEL.handleTitleClick = function() {
             devClickCount++;
             if (devClickCount === 3) {
                 devClickCount = 0;
                 document.getElementById('initialSplashPanel').style.display = 'none';
                 document.getElementById('paymentWallPanel').style.display = 'none';
-                document.getElementById('langSwitchDock').style.display = 'none';
-                window.KERNEL.arrancarSesionCompletaApp();
+                document.getElementById('engineWrapper').style.display = 'none';
+                document.getElementById('loginPanel').style.display = 'flex';
             }
+        };
+
+        window.KERNEL.validarCredencialesDev = function() {
+            const u = document.getElementById('userInput').value.trim();
+            const p = document.getElementById('passInput').value.trim();
+            if (!u || !p) {
+                alert(window.currentLang === "ES" ? "Por favor ingrese usuario y contraseña." : "Please enter username and password.");
+                return;
+            }
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('langSwitchDock').style.display = 'none';
+            window.KERNEL.arrancarSesionCompletaApp();
         };
 
         window.KERNEL.arrancarSesionCompletaApp = function() {
             document.getElementById('paymentWallPanel').style.display = 'none';
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('initialSplashPanel').style.display = 'none';
             window.sessionStarted = true;
             document.getElementById('activeSessionDock').style.display = 'flex';
 
