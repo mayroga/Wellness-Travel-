@@ -1,895 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAY ROGA | Executive Sanctuary Architecture</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@200;300;400;500;600&display=swap');
-
-        :root {
-            --bg-obsidian: #030305;
-            --bg-surface: #0a0a0e;
-            --bg-glass: rgba(12, 12, 16, 0.98);
-            --gold-champagne: #C5A059;
-            --gold-light: #DFBF7A;
-            --gold-dark: #91723B;
-            --gold-glow: rgba(197, 160, 89, 0.35);
-            --white-ivory: #F9F9FB;
-            --text-muted: #9E9EA4;
-            --alert-crimson: #C0392B;
-            --wellness-green: #27AE60;
-            --relax-blue: #2980B9;
-            --border-subtle: rgba(197, 160, 89, 0.2);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body, html {
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-obsidian);
-            color: var(--white-ivory);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .app-window {
-            max-width: 520px;
-            width: 100%;
-            height: 100%;
-            max-height: 92vh;
-            background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian));
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 28px;
-            padding: 32px 24px;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow-y: auto;
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
-            padding-bottom: 14px;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 26px;
-            font-weight: 500;
-            letter-spacing: 6px;
-            color: var(--gold-champagne);
-            text-transform: uppercase;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .subtitle-elite {
-            font-size: 9.5px;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .lang-switch-box {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .lang-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn.active {
-            background: var(--gold-champagne);
-            border-color: var(--gold-champagne);
-            color: var(--bg-obsidian);
-            box-shadow: 0 0 20px var(--gold-glow);
-        }
-
-        .timer-header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(197, 160, 89, 0.04);
-            border: 1px solid rgba(197, 160, 89, 0.15);
-            border-radius: 14px;
-            padding: 10px 18px;
-            margin-bottom: 20px;
-        }
-
-        .timer-title {
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--gold-light);
-        }
-
-        .timer-value {
-            font-family: monospace;
-            font-size: 22px;
-            color: var(--alert-crimson);
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        /* PULMÓN BIOLÓGICO CON BOX BREATHING 4S */
-        .bio-respiration-dock {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0 20px 0;
-            position: relative;
-            min-height: 150px;
-        }
-
-        .lung-circle-master {
-            width: 125px;
-            height: 125px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%);
-            box-shadow: 0 0 35px var(--gold-glow);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Cinzel', serif;
-            font-size: 12.5px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            color: var(--bg-obsidian);
-            text-transform: uppercase;
-            transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
-            padding: 10px;
-        }
-
-        .lung-inhale-state {
-            transform: scale(1.32);
-            background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important;
-            box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important;
-            color: #FFFFFF !important;
-        }
-
-        .lung-exhale-state {
-            transform: scale(0.85);
-            background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important;
-            box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important;
-            color: #FFFFFF !important;
-        }
-
-        /* BANDEJA DE PREGUNTAS CON BLOQUEO HÁPTICO */
-        .interactive-stack-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .question-title-elite {
-            font-size: 14.5px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--white-ivory);
-            margin-bottom: 8px;
-            text-align: left;
-        }
-
-        .elite-option-btn {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--white-ivory);
-            padding: 14px 16px;
-            border-radius: 14px;
-            font-size: 13px;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .elite-option-btn:hover:not(:disabled) {
-            border-color: var(--gold-champagne);
-            background: rgba(197, 160, 89, 0.06);
-            transform: translateY(-1px);
-        }
-
-        .elite-option-btn.selected-correct {
-            background: rgba(39, 174, 96, 0.25) !important;
-            border-color: var(--wellness-green) !important;
-            color: #fff !important;
-        }
-
-        .elite-option-btn.selected-wrong {
-            background: rgba(192, 57, 43, 0.25) !important;
-            border-color: var(--alert-crimson) !important;
-            color: #fff !important;
-        }
-
-        .gold-action-btn {
-            width: 100%;
-            background: transparent;
-            border: 1px solid var(--gold-champagne);
-            color: var(--gold-champagne);
-            padding: 16px;
-            border-radius: 50px;
-            font-size: 12.5px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .gold-action-btn:hover {
-            background: var(--gold-champagne);
-            color: var(--bg-obsidian);
-            box-shadow: 0 0 25px var(--gold-glow);
-        }
-
-        /* PASILLO DE ACCESO VIP / ESCAPE REAL */
-        .vip-escape-panel {
-            background: rgba(41, 128, 185, 0.12);
-            border: 1px solid var(--relax-blue);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .escape-grid {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 14px;
-            flex-wrap: wrap;
-        }
-
-        .escape-action-pill {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--gold-champagne);
-            color: var(--gold-champagne);
-            padding: 9px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .escape-action-pill:hover {
-            background: var(--gold-champagne);
-            color: var(--bg-obsidian);
-        }
-
-        /* OVERLAY TEATRAL CINEMÁTICO CON PARTÍCULAS */
-        .cinematic-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 3, 5, 0.985);
-            backdrop-filter: blur(35px);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            text-align: center;
-            padding: 20px;
-            border-radius: 28px;
-        }
-
-        .triangle-frame {
-            width: 210px;
-            height: 190px;
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .triangle-node {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            position: absolute;
-            z-index: 1010;
-        }
-
-        .t-top { top: 0; left: 98px; background: var(--alert-crimson); box-shadow: 0 0 20px var(--alert-crimson); }
-        .t-left { bottom: 0; left: 0; background: var(--relax-blue); box-shadow: 0 0 20px var(--relax-blue); }
-        .t-right { bottom: 0; right: 0; background: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
-
-        /* DESTELLOS LUMINOSOS (PARTÍCULAS HACIA EL CENTRO) */
-        .energy-beam {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 1005;
-        }
-
-        .beam-top { background: var(--alert-crimson); box-shadow: 0 0 15px var(--alert-crimson); animation: flyToCenterTop 2s infinite linear; }
-        .beam-left { background: var(--relax-blue); box-shadow: 0 0 15px var(--relax-blue); animation: flyToCenterLeft 2s infinite linear; }
-        .beam-right { background: var(--gold-champagne); box-shadow: 0 0 15px var(--gold-champagne); animation: flyToCenterRight 2s infinite linear; }
-
-        @keyframes flyToCenterTop {
-            0% { top: 0; left: 103px; opacity: 1; transform: scale(1); }
-            100% { top: 95px; left: 103px; opacity: 0; transform: scale(0.2); }
-        }
-        @keyframes flyToCenterLeft {
-            0% { bottom: 0; left: 0; opacity: 1; transform: scale(1); }
-            100% { bottom: 95px; left: 103px; opacity: 0; transform: scale(0.2); }
-        }
-        @keyframes flyToCenterRight {
-            0% { bottom: 0; right: 0; opacity: 1; transform: scale(1); }
-            100% { bottom: 95px; right: 103px; opacity: 0; transform: scale(0.2); }
-        }
-
-        .explanation-box {
-            background: rgba(197, 160, 89, 0.08);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 12.5px;
-            color: #E2E2E6;
-            margin-top: 12px;
-            line-height: 1.5;
-            display: none;
-            text-align: left;
-        }
-
-        .pricing-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 15px;
-        }
-
-        .price-card {
-            background: var(--bg-surface);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 20px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-
-        .price-card:hover {
-            border-color: var(--gold-champagne);
-            box-shadow: 0 0 30px var(--gold-glow);
-        }
-
-        .price-card.featured {
-            border-color: var(--gold-champagne);
-            background: linear-gradient(145deg, rgba(197, 160, 89, 0.08), var(--bg-surface));
-        }
-
-        .price-badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: var(--gold-champagne);
-            color: var(--bg-obsidian);
-            font-size: 9px;
-            font-weight: bold;
-            padding: 3px 10px;
-            border-radius: 6px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .price-amount {
-            font-size: 32px;
-            font-family: 'Cinzel', serif;
-            color: var(--white-ivory);
-            margin: 8px 0;
-            font-weight: 600;
-        }
-    </style>
-
-    <script>
-        window.KERNEL = window.KERNEL || {};
-        window.currentLang = "EN";
-        let userAnswers = [];
-        let detectedMood = "neutral";
-        let devClickCount = 0;
-        let voiceInterval = null;
-        let serviceTimer = null;
-        let breatheInterval = null;
-        let timeRemaining = 15 * 60;
-        window.sessionStarted = false;
-
-        // Banco de opciones extendido corporativo / ejecutivo de alto nivel
-        const POOL_EJERCICIOS = [
-            {
-                q_es: "¿Cuál es el vector principal de fricción ejecutiva que experimenta en su estructura actual?",
-                q_en: "What is the primary vector of executive friction you experience in your current structure?",
-                opts_es: [
-                    { t: "Sobrecarga de decisiones críticas y ruido operativo constante", p: 10, c: true, ex: "El aislamiento absoluto en santuarios de alta gama neutraliza el desgaste cognitivo.", mood: "ansioso" },
-                    { t: "Desalineación de socios estratégicos en operaciones internacionales", p: 6, c: false, ex: "Se requiere un protocolo de arbitraje y blindaje corporativo inmediato.", mood: "neutral" },
-                    { t: "Necesidad de reestructuración fiscal y patrimonial global", p: 4, c: false, ex: "La arquitectura de activos exige una revisión con aliados fiduciarios.", mood: "neutral" }
-                ],
-                opts_en: [
-                    { t: "Critical decision overload and constant operational noise", p: 10, c: true, ex: "Absolute isolation in high-end sanctuaries neutralizes cognitive fatigue.", mood: "ansioso" },
-                    { t: "Strategic partner misalignment in international operations", p: 6, c: false, ex: "An immediate arbitration and corporate shielding protocol is required.", mood: "neutral" },
-                    { t: "Need for global tax and asset restructuring", p: 4, c: false, ex: "Asset architecture demands review with fiduciary partners.", mood: "neutral" }
-                ]
-            },
-            {
-                q_es: "Seleccione el grado de aislamiento temporal que su agenda ejecutiva tolera hoy:",
-                q_en: "Select the degree of temporary isolation your executive agenda tolerates today:",
-                opts_es: [
-                    { t: "Desconexión total de 48 horas en búnker o isla privada", p: 10, c: true, ex: "El restablecimiento neurobiológico óptimo requiere un corte radical.", mood: "ansioso" },
-                    { t: "Acceso híbrido con disponibilidad de conserjería 24/7", p: 7, c: false, ex: "Mantenemos enlace cifrado mientras su equipo gestiona la operativa.", mood: "neutral" },
-                    { t: "Revisión express de protocolos de seguridad en tránsito", p: 5, c: false, ex: "Ajuste milimétrico de rutas y transporte protegido.", mood: "neutral" }
-                ],
-                opts_en: [
-                    { t: "Total 48-hour disconnection in bunker or private island", p: 10, c: true, ex: "Optimal neurobiological reset requires a radical cut.", mood: "ansioso" },
-                    { t: "Hybrid access with 24/7 concierge availability", p: 7, c: false, ex: "We maintain encrypted links while your team manages operations.", mood: "neutral" },
-                    { t: "Express review of security protocols in transit", p: 5, c: false, ex: "Millimetric adjustment of routes and protected transport.", mood: "neutral" }
-                ]
-            },
-            {
-                q_es: "¿Bajo qué marco normativo o jurisdiccional requiere asesoría prioritaria de resolución?",
-                q_en: "Under which regulatory or jurisdictional framework do you require priority resolution advisory?",
-                opts_es: [
-                    { t: "Cumplimiento aeroportuario, aduanero y de aviación (DOT / TSA / CBP)", p: 10, c: true, ex: "Aplicación estricta de directrices internacionales de carga y pasajeros sin fricción.", mood: "neutral" },
-                    { t: "Logística multimodal internacional (Marítima, Terrestre y Aérea)", p: 8, c: false, ex: "Optimización de cadenas de suministro globales bajo estándar ejecutivo.", mood: "neutral" },
-                    { t: "Blindaje legal corporativo y prevención de litigios transfronterizos", p: 6, c: false, ex: "Uso de terminología preventiva para evitar exposición ante agencias.", mood: "neutral" }
-                ],
-                opts_en: [
-                    { t: "Airport, customs and aviation compliance (DOT / TSA / CBP)", p: 10, c: true, ex: "Strict application of international cargo and passenger guidelines without friction.", mood: "neutral" },
-                    { t: "International multimodal logistics (Maritime, Terrestrial & Air)", p: 8, c: false, ex: "Optimization of global supply chains under executive standards.", mood: "neutral" },
-                    { t: "Corporate legal shielding and cross-border litigation prevention", p: 6, c: false, ex: "Use of preventive terminology to avoid agency exposure.", mood: "neutral" }
-                ]
-            }
-        ];
-
-        window.KERNEL.setLanguage = function(lang) {
-            window.currentLang = lang;
-            document.getElementById('btnLangEN').className = lang === "EN" ? "lang-btn active" : "lang-btn";
-            document.getElementById('btnLangES').className = lang === "ES" ? "lang-btn active" : "lang-btn";
-            
-            document.getElementById('lblBrandSub').innerText = lang === "ES" ? "Arquitectura de Santuarios Ejecutivos" : "Executive Sanctuary Architecture";
-            document.getElementById('lblTimerTitle').innerText = lang === "ES" ? "Ventana de Sintonía Activa" : "Active Tuning Window";
-            document.getElementById('btnUnlock').innerText = lang === "ES" ? "INICIAR SESIÓN PRIVADA" : "START PRIVATE SESSION";
-
-            if (window.sessionStarted) {
-                window.KERNEL.cargarFlujoSiguienteLocalStorage();
-            }
-        };
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MAY ROGA | Elite Radiography Sanctuary</title>
+  <style>
+    @import url('https://googleapis.com');
+    :root {
+      --bg-obsidian: #030305;
+      --bg-surface: #0a0a0e;
+      --bg-glass: rgba(12, 12, 16, 0.98);
+      --gold-champagne: #C5A059;
+      --gold-light: #DFBF7A;
+      --gold-dark: #91723B;
+      --gold-glow: rgba(197, 160, 89, 0.35);
+      --white-ivory: #F9F9FB;
+      --text-muted: #9E9EA4;
+      --luxury-accent: #2980B9;
+      --border-subtle: rgba(197, 160, 89, 0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body, html { width: 100%; height: 100%; background-color: var(--bg-obsidian); color: var(--white-ivory); font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+    .app-window { max-width: 520px; width: 100%; height: 100%; max-height: 92vh; background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian)); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border-subtle); border-radius: 28px; padding: 28px 24px; box-shadow: 0 50px 100px rgba(0,0,0,0.95), 0 0 50px rgba(197,160,89,0.08); display: flex; flex-direction: column; position: relative; overflow-y: auto; }
+    header { text-align: center; border-bottom: 1px solid rgba(197,160,89,0.15); padding-bottom: 14px; margin-bottom: 18px; }
+    header h1 { font-family: 'Cinzel', serif; font-size: 25px; font-weight: 500; letter-spacing: 6px; color: var(--gold-champagne); text-transform: uppercase; cursor: pointer; user-select: none; }
+    .subtitle-elite { font-size: 9.5px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
+    .lang-switch-box { display: flex; gap: 12px; margin-bottom: 16px; }
+    .lang-btn { flex: 1; background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; }
+    .lang-btn.active { background: var(--gold-champagne); border-color: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 20px var(--gold-glow); }
+    .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .input-group label { font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); }
+    .elite-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); color: var(--white-ivory); padding: 13px 16px; border-radius: 12px; font-size: 13px; outline: none; transition: all 0.3s ease; }
+    .elite-input:focus { border-color: var(--gold-champagne); box-shadow: 0 0 15px var(--gold-glow); }
+    .timer-header-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(197,160,89,0.04); border: 1px solid rgba(197,160,89,0.15); border-radius: 14px; padding: 10px 18px; margin-bottom: 15px; }
+    .timer-title { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); }
+    .timer-value { font-family: monospace; font-size: 20px; color: var(--gold-champagne); font-weight: 600; letter-spacing: 1px; }
+    .sensory-pulse-dock { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 5px 0 15px 0; position: relative; min-height: 120px; }
+    .pulse-circle-master { width: 115px; height: 115px; border-radius: 50%; background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%); box-shadow: 0 0 35px var(--gold-glow); display: flex; justify-content: center; align-items: center; font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: var(--bg-obsidian); text-transform: uppercase; transition: all 3.9s cubic-bezier(0.4,0,0.2,1); text-align: center; padding: 10px; }
+    .pulse-vibe-state { transform: scale(1.2); background: radial-gradient(circle, #E67E22 0%, #B9770E 100%) !important; box-shadow: 0 0 45px rgba(230,126,34,0.6) !important; color: #FFFFFF !important; }
+    .pulse-chill-state { transform: scale(0.85); background: radial-gradient(circle, #2980B9 0%, #154360 100%) !important; box-shadow: 0 0 35px rgba(41,128,185,0.6) !important; color: #FFFFFF !important; }
+    .interactive-stack-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .question-title-elite { font-size: 14px; font-weight: 400; line-height: 1.45; color: var(--white-ivory); margin-bottom: 6px; text-align: left; }
+    .elite-option-btn { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: var(--white-ivory); padding: 12px 14px; border-radius: 12px; font-size: 12.5px; text-align: left; cursor: pointer; transition: all 0.25s ease; }
+    .elite-option-btn:hover:not(:disabled) { border-color: var(--gold-champagne); background: rgba(197,160,89,0.06); }
+    .elite-option-btn.selected-choice { background: rgba(197,160,89,0.2) !important; border-color: var(--gold-champagne) !important; color: #fff !important; }
+    .gold-action-btn { width: 100%; background: transparent; border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 14px; border-radius: 50px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-top: 8px; }
+    .gold-action-btn:hover { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 25px var(--gold-glow); }
+    .agent-standby-btn { width: 100%; background: rgba(41,128,185,0.08); border: 1px solid var(--luxury-accent); color: var(--luxury-accent); padding: 12px; border-radius: 50px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-top: 8px; }
+    .agent-standby-btn:hover { background: var(--luxury-accent); color: #fff; }
+    .cinematic-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3,3,5,0.985); backdrop-filter: blur(35px); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; text-align: center; padding: 20px; border-radius: 28px; }
+    .triangle-frame { width: 190px; height: 170px; position: relative; margin-bottom: 25px; }
+    .triangle-node { width: 14px; height: 14px; border-radius: 50%; position: absolute; z-index: 1010; }
+    .t-top { top: 0; left: 88px; background: #E67E22; box-shadow: 0 0 20px #E67E22; }
+    .t-left { bottom: 0; left: 0; background: var(--luxury-accent); box-shadow: 0 0 20px var(--luxury-accent); }
+    .t-right { bottom: 0; right: 0; background: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
+    .energy-beam { position: absolute; width: 8px; height: 8px; border-radius: 50%; opacity: 0; z-index: 1005; }
+    .beam-top { background: #E67E22; box-shadow: 0 0 15px #E67E22; animation: flyToCenterTop 2s infinite linear; }
+    .beam-left { background: var(--luxury-accent); box-shadow: 0 0 15px var(--luxury-accent); animation: flyToCenterLeft 2s infinite linear; }
+    .beam-right { background: var(--gold-champagne); box-shadow: 0 0 15px var(--gold-champagne); animation: flyToCenterRight 2s infinite linear; }
+    @keyframes flyToCenterTop { 0% { top: 0; left: 93px; opacity: 1; transform: scale(1); } 100% { top: 85px; left: 93px; opacity: 0; transform: scale(0.2); } }
+    @keyframes flyToCenterLeft { 0% { bottom: 0; left: 0; opacity: 1; transform: scale(1); } 100% { bottom: 85px; left: 93px; opacity: 0; transform: scale(0.2); } }
+    @keyframes flyToCenterRight { 0% { bottom: 0; right: 0; opacity: 1; transform: scale(1); } 100% { bottom: 85px; right: 93px; opacity: 0; transform: scale(0.2); } }
+    .explanation-box { background: rgba(197,160,89,0.08); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px; font-size: 12px; color: #E2E2E6; margin-top: 10px; line-height: 1.45; display: none; text-align: left; }
+    .pricing-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .price-card { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px; cursor: pointer; position: relative; transition: all 0.3s ease; text-align: left; }
+    .price-card:hover { border-color: var(--gold-champagne); box-shadow: 0 0 25px var(--gold-glow); }
+    .price-card.featured { border-color: var(--gold-champagne); background: linear-gradient(145deg, rgba(197,160,89,0.08), var(--bg-surface)); }
+    .price-badge { position: absolute; top: -10px; right: 20px; background: var(--gold-champagne); color: var(--bg-obsidian); font-size: 9px; font-weight: bold; padding: 3px 10px; border-radius: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    .price-amount { font-size: 28px; font-family: 'Cinzel', serif; color: var(--white-ivory); margin: 6px 0; font-weight: 600; }
+  </style>
 </head>
 <body>
-    <div class="app-window" id="appRootContainer">
-        <header>
-            <h1 id="brandTitleField">MAY ROGA</h1>
-            <div class="subtitle-elite" id="lblBrandSub">Executive Sanctuary Architecture</div>
-        </header>
+  <div class="app-window" id="appRootContainer">
+    <header>
+      <h1 id="brandTitleField" onclick="window.KERNEL.handleTitleClick()">MAY ROGA</h1>
+      <div class="subtitle-elite" id="lblBrandSub">Elite Radiography & Leisure Sanctuary</div>
+    </header>
 
-        <div class="lang-switch-box" id="langSwitchDock">
-            <button id="btnLangEN" class="lang-btn active" onclick="window.KERNEL.setLanguage('EN')">ENGLISH</button>
-            <button id="btnLangES" class="lang-btn" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
-        </div>
-
-        <!-- PANTALLA DE INICIO -->
-        <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
-            <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6; text-align:center;">
-                Sistema privado de sintonía ejecutiva y reconfiguración de alta gama. Diseñado para líderes globales.
-            </p>
-            <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.realInit()">START PRIVATE SESSION</button>
-        </div>
-
-        <!-- CONTENEDOR ACTIVO DE SESIÓN -->
-        <div id="activeSessionDock" style="display:none; flex-direction:column; flex:1;">
-            <div class="timer-header-bar">
-                <span class="timer-title" id="lblTimerTitle">Active Tuning Window</span>
-                <span class="timer-value" id="clockDisplay">15:00</span>
-            </div>
-
-            <!-- Círculo Respiratorio con Guía Box Breathing 4s -->
-            <div class="bio-respiration-dock">
-                <div class="lung-circle-master" id="lungCircle">Inhale</div>
-            </div>
-
-            <div class="interactive-stack-container" id="interactiveStack"></div>
-            <div class="explanation-box" id="lblExplanationBox"></div>
-            
-            <button class="gold-action-btn" id="btnNext" style="display:none;" onclick="window.KERNEL.avanzarRetoContinuo()">
-                <span id="txtNextBtn">Next Frequency</span>
-            </button>
-        </div>
+    <div class="lang-switch-box" id="langSwitchDock">
+      <button id="btnLangEN" class="lang-btn active" onclick="window.KERNEL.setLanguage('EN')">ENGLISH</button>
+      <button id="btnLangES" class="lang-btn" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
     </div>
 
-    <!-- OVERLAY TEATRAL CINEMÁTICO CON PARTÍCULAS -->
+    <!-- PANTALLA 1: INICIO DIRECTO (ENGANCHE CINEMÁTICO) -->
+    <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:14px; margin-top:15px; text-align:center;">
+      <p id="splashDesc" style="font-size:13px; color:var(--text-muted); line-height:1.5;">
+        Begin your ultra-luxury internal and external radiography experience.
+      </p>
+      <button class="gold-action-btn" id="btnStartTriangle" onclick="window.KERNEL.iniciarPrimerTrianguloCinematico()" style="margin-top:15px;">START RADIOGRAPHY</button>
+    </div>
+
+    <!-- PANTALLA DE LOGIN SECUNDARIA (ACCESO DESARROLLADOR / CREDENCIALES) -->
+    <div id="loginPanel" style="display:none; flex-direction:column; gap:12px; margin-top:8px;">
+      <div class="input-group">
+        <label id="lblUser">Username / Elite Identifier</label>
+        <input type="text" id="userInput" class="elite-input" placeholder="Enter elite identifier...">
+      </div>
+      <div class="input-group">
+        <label id="lblPass">Private Access Key</label>
+        <input type="password" id="passInput" class="elite-input" placeholder="Enter access key...">
+      </div>
+      <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.validarCredencialesDev()">ACCESS SYSTEM</button>
+    </div>
+
+    <!-- PANTALLA 2: PASARELA DE PAGO STRIPE ($200 Y $399) -->
+    <div id="paymentWallPanel" style="display:none; flex-direction:column; text-align:center; padding:5px 0;">
+      <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:17px; letter-spacing:2px; margin-bottom:6px;" id="payTitle">ACTIVACIÓN DE SERVICIO DE APP</h2>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.45; margin-bottom:12px;" id="payDesc">
+        El primer triángulo radiográfico ha concluido. Para desplegar la plataforma completa de 15 minutos de análisis interno y externo, seleccione su nivel de activación:
+      </p>
+      <div class="pricing-grid">
+        <div class="price-card" onclick="window.KERNEL.procesarPagoStripe('SINGLE_200')">
+          <div style="font-size:9.5px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;" id="tier1Name">PASE RADAR 48H</div>
+          <div class="price-amount">$200</div>
+          <div style="font-size:11px; color:#ccc;" id="tier1Desc">Radiografía completa y acceso a portales de ocio por 48 horas.</div>
+        </div>
+        <div class="price-card featured" onclick="window.KERNEL.procesarPagoStripe('ELITE_399')">
+          <div class="price-badge" id="badgeText">VIP ACCESS</div>
+          <div style="font-size:9.5px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;" id="tier2Name">MEMBRESÍA GLOBAL ILIMITADA</div>
+          <div class="price-amount">$399<span style="font-size:12px; color:var(--text-muted);">/mo</span></div>
+          <div style="font-size:11px; color:#fff;" id="tier2Desc">Radiografía continua 24/7 y asistencia de conserjería.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANTALLA 3: SESIÓN ACTIVA DE LA APP -->
+    <div id="activeSessionDock" style="display:none; flex-direction:column; flex:1;">
+      <div class="timer-header-bar">
+        <span class="timer-title" id="lblTimerTitle">Active Radiography Window</span>
+        <span class="timer-value" id="clockDisplay">15:00</span>
+      </div>
+      <div class="sensory-pulse-dock">
+        <div class="pulse-circle-master" id="pulseCircle">Radiography</div>
+      </div>
+      <div class="interactive-stack-container" id="interactiveStack"></div>
+      <div class="explanation-box" id="lblExplanationBox"></div>
+      <button class="gold-action-btn" id="btnNext" style="display:none;" onclick="window.KERNEL.avanzarRetoContinuo()">
+        <span id="txtNextBtn">Next Radiography</span>
+      </button>
+      <button class="agent-standby-btn" id="btnAgentStandby" onclick="window.KERNEL.conectarAgenteStandby()">
+        CONECTAR CON EL AGENTE
+      </button>
+    </div>
+    <!-- OVERLAY CINEMÁTICO: EL PRIMER TRIÁNGULO DE ENGANCHE -->
     <div class="cinematic-overlay" id="engineWrapper">
-        <div class="triangle-frame">
-            <div class="triangle-node t-top"></div>
-            <div class="triangle-node t-left"></div>
-            <div class="triangle-node t-right"></div>
-            <div class="energy-beam beam-top"></div>
-            <div class="energy-beam beam-left"></div>
-            <div class="energy-beam beam-right"></div>
-        </div>
-        <p style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:15px; letter-spacing:3px; margin-top:10px;">SINCRONIZACIÓN NEUROBIOLÓGICA</p>
+      <div class="triangle-frame">
+        <div class="triangle-node t-top"></div>
+        <div class="triangle-node t-left"></div>
+        <div class="triangle-node t-right"></div>
+        <div class="energy-beam beam-top"></div>
+        <div class="energy-beam beam-left"></div>
+        <div class="energy-beam beam-right"></div>
+      </div>
+      <p id="triText" style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:14px; letter-spacing:3px; margin-top:8px;">INTERNAL & EXTERNAL RADIOGRAPHY IN PROGRESS</p>
     </div>
+  </div>
 
-    <script>
-        // CRONOGRAMA ESTRICTO PARA LAS 5 APARICIONES DE 20S DEL TRIÁNGULO
-        // 900 (Inicio exacto), 460 (Mitad exacta), 50 (Faltando 40s), y 2 de azar calculadas.
-        let randomSec1 = Math.floor(Math.random() * (750 - 580)) + 580;
-        let randomSec2 = Math.floor(Math.random() * (350 - 180)) + 180;
-        const CRONOGRAMAS_TRIANGULO_FIJOS = [900, 460, 50, randomSec1, randomSec2];
-        let triangulosMostrados = 0;
+  <script>
+    window.KERNEL = window.KERNEL || {};
+    window.currentLang = "EN";
+    let userChoices = [];
+    let devClickCount = 0;
+    let serviceTimer = null;
+    let pulseInterval = null;
+    let timeRemaining = 15 * 60;
+    window.sessionStarted = false;
 
-        window.KERNEL.realInit = function() {
-            window.sessionStarted = true;
-            document.getElementById('langSwitchDock').style.display = 'none';
-            document.getElementById('initialSplashPanel').style.display = 'none';
-            document.getElementById('activeSessionDock').style.display = 'flex';
+    const POOL_RADIOGRAFIA = [
+      {
+        q_es: "Radiografía Interna: ¿Cuál es su estado actual de saturación mental frente a la rutina y las obligaciones?",
+        q_en: "Internal Radiography: What is your current state of mental saturation regarding routine and obligations?",
+        opts_es: [
+          { t: "Saturación total por exceso de compromisos y decisiones continuas", p: 10, ex: "Se requiere un protocolo inmediato de descompresión y evasión de alta gama.", vibe: "chill" },
+          { t: "Monotonía estacional y búsqueda activa de estímulos sofisticados", p: 8, ex: "La especulación de ocio y la planificación de destinos exóticos disuelven la inercia.", vibe: "vibe" },
+          { t: "Estabilidad con deseo latente de experiencias memorables imprevistas", p: 9, ex: "Activación de agendas exclusivas para elevar el estándar vivencial.", vibe: "vibe" }
+        ],
+        opts_en: [
+          { t: "Total saturation due to excessive commitments and continuous decisions", p: 10, ex: "An immediate protocol of decompression and high-end evasion is required.", vibe: "chill" },
+          { t: "Seasonal monotony and active search for sophisticated stimuli", p: 8, ex: "Leisure speculation and planning of exotic destinations dissolve inertia.", vibe: "vibe" },
+          { t: "Stability with a latent desire for unforeseen memorable experiences", p: 9, ex: "Activation of exclusive agendas to elevate living standards.", vibe: "vibe" }
+        ]
+      },
+      {
+        q_es: "Radiografía Externa: Seleccione el entorno de lujo físico donde proyecta su próxima evasión total:",
+        q_en: "External Radiography: Select the physical luxury environment where you project your next total escape:",
+        opts_es: [
+          { t: "Fondeo privado en yate en aguas cristalinas mediterráneas o caribeñas", p: 10, ex: "Aislamiento náutico absoluto con servicio impecable a bordo.", vibe: "chill" },
+          { t: "Residencia aislada en montaña o retiro alpino con confort ultra-exclusivo", p: 9, ex: "Silencio absoluto y desconexión sin renunciar a la alta cocina.", vibe: "chill" },
+          { t: "Grand tour cosmopolita con acceso VIP a clubs privados y experiencias efímeras", p: 8, ex: "Dinamismo social refinado en el epicentro de la alta sociedad.", vibe: "vibe" }
+        ],
+        opts_en: [
+          { t: "Private yacht anchorage in crystal-clear Mediterranean or Caribbean waters", p: 10, ex: "Absolute nautical isolation with impeccable on-board service.", vibe: "chill" },
+          { t: "Secluded mountain residence or alpine retreat with ultra-exclusive comfort", p: 9, ex: "Absolute silence and disconnection without sacrificing haute cuisine.", vibe: "chill" },
+          { t: "Cosmopolitan grand tour with VIP access to private clubs and ephemeral experiences", p: 8, ex: "Refined social dynamism at the epicenter of high society.", vibe: "vibe" }
+        ]
+      },
+      {
+        q_es: "Radiografía de Deseo Inimaginable: ¿Qué nivel de satisfacción a medida desea que el sistema configure para usted?",
+        q_en: "Unimaginable Desire Radiography: What level of bespoke satisfaction do you wish the system to configure for you?",
+        opts_es: [
+          { t: "Coordinación milimétrica de jet privado, villa y caprichos privados sin fricción", p: 10, ex: "Ejecución perfecta de deseos complejos con total discreción y anonimato.", vibe: "vibe" },
+          { t: "Diseño de travesía náutica o expedición de ocio con itinerario secreto", p: 9, ex: "Rutas exclusivas fuera del radar público para el máximo disfrute.", vibe: "chill" },
+          { t: "Acceso ilimitado a redes de ocio, catas privadas y entretenimiento de élite", p: 8, ex: "Satisfacción inmediata de cualquier antojo en cualquier latitud.", vibe: "vibe" }
+        ],
+        opts_en: [
+          { t: "Millimetric coordination of private jet, villa, and private whims without friction", p: 10, ex: "Flawless execution of complex desires with total discretion and anonymity.", vibe: "vibe" },
+          { t: "Design of a nautical journey or leisure expedition with a secret itinerary", p: 9, ex: "Exclusive routes off the public radar for ultimate enjoyment.", vibe: "chill" },
+          { t: "Unlimited access to leisure networks, private tastings, and elite entertainment", p: 8, ex: "Immediate satisfaction of any craving in any latitude.", vibe: "vibe" }
+        ]
+      }
+    ];
+    window.KERNEL.setLanguage = function(lang) {
+      window.currentLang = lang;
+      document.getElementById('btnLangEN').className = lang === "EN" ? "lang-btn active" : "lang-btn";
+      document.getElementById('btnLangES').className = lang === "ES" ? "lang-btn active" : "lang-btn";
+      document.getElementById('lblBrandSub').innerText = lang === "ES" ? "Santuario de Radiografía y Ocio Élite" : "Elite Radiography & Leisure Sanctuary";
+      
+      const splashText = document.getElementById('splashDesc');
+      const startBtn = document.getElementById('btnStartTriangle');
+      if (splashText) {
+        splashText.innerText = lang === "ES" ? "Inicie su experiencia de radiografía interna y externa de ultra-lujo." : "Begin your ultra-luxury internal and external radiography experience.";
+      }
+      if (startBtn) startBtn.innerText = lang === "ES" ? "INICIAR RADIOGRAFÍA" : "START RADIOGRAPHY";
+      
+      const userLbl = document.getElementById('lblUser');
+      const passLbl = document.getElementById('lblPass');
+      const unlockBtn = document.getElementById('btnUnlock');
+      if (userLbl) userLbl.innerText = lang === "ES" ? "Usuario / Identificador Élite" : "Username / Elite Identifier";
+      if (passLbl) passLbl.innerText = lang === "ES" ? "Clave de Acceso Privada" : "Private Access Key";
+      if (unlockBtn) unlockBtn.innerText = lang === "ES" ? "ACCEDER AL SISTEMA" : "ACCESS SYSTEM";
+      
+      const timerTitle = document.getElementById('lblTimerTitle');
+      if (timerTitle) timerTitle.innerText = lang === "ES" ? "Ventana de Radiografía Activa" : "Active Radiography Window";
+      
+      const nextBtnText = document.getElementById('txtNextBtn');
+      if (nextBtnText) nextBtnText.innerText = lang === "ES" ? "Siguiente Radiografía" : "Next Radiography";
+      
+      const agentBtn = document.getElementById('btnAgentStandby');
+      if (agentBtn) agentBtn.innerText = lang === "ES" ? "CONECTAR CON EL AGENTE" : "CONNECT WITH AGENT";
+      
+      if (window.sessionStarted) {
+        window.KERNEL.cargarFlujoSiguienteLocalStorage();
+      }
+    };
 
-            this.iniciarPulmonVisual();
-            this.cargarFlujoSiguienteLocalStorage();
+    window.KERNEL.iniciarPrimerTrianguloCinematico = function() {
+      document.getElementById('initialSplashPanel').style.display = 'none';
+      document.getElementById('langSwitchDock').style.display = 'none';
+      let engine = document.getElementById('engineWrapper');
+      if (engine) {
+        engine.style.display = 'flex';
+        document.getElementById('triText').innerText = window.currentLang === "ES" ? "RADIOGRAFÍA INTERNA Y EXTERNA EN PROCESO" : "INTERNAL & EXTERNAL RADIOGRAPHY IN PROGRESS";
+        setTimeout(() => {
+          engine.style.display = 'none';
+          window.KERNEL.mostrarPasarelaPago();
+        }, 4000);
+      }
+    };
 
-            // CHOQUE DE ENTROPÍA: Comportamiento inicial impredecible al pulsar INICIAR
-            const entropiaInicial = Math.random();
-            if (entropiaInicial > 0.6) {
-                window.KERNEL.desplegarTrianguloCinematico();
-            } else if (entropiaInicial < 0.3) {
-                // Forzar ciclo rápido de respiración profunda
-                let c = document.getElementById('lungCircle');
-                if (c) c.className = "lung-circle-master lung-inhale-state";
-            }
+    window.KERNEL.mostrarPasarelaPago = function() {
+      if (window.currentLang === "ES") {
+        document.getElementById('payTitle').innerText = "ACTIVACIÓN DE SERVICIO DE APP";
+        document.getElementById('payDesc').innerText = "El primer triángulo radiográfico ha concluido. Para desplegar la plataforma completa de 15 minutos de análisis interno y externo, seleccione su nivel de activación:";
+        document.getElementById('tier1Name').innerText = "PASE RADAR 48H";
+        document.getElementById('tier1Desc').innerText = "Radiografía completa y acceso a portales de ocio por 48 horas.";
+        document.getElementById('tier2Name').innerText = "MEMBRESÍA GLOBAL ILIMITADA";
+        document.getElementById('tier2Desc').innerText = "Radiografía continua 24/7 y asistencia de conserjería.";
+      } else {
+        document.getElementById('payTitle').innerText = "APP SERVICE ACTIVATION";
+        document.getElementById('payDesc').innerText = "The first radiographic triangle has concluded. To deploy the full 15-minute internal and external analysis platform, select your activation tier:";
+        document.getElementById('tier1Name').innerText = "48H RADAR PASS";
+        document.getElementById('tier1Desc').innerText = "Complete radiography and leisure portal access for 48 hours.";
+        document.getElementById('tier2Name').innerText = "UNLIMITED GLOBAL MEMBERSHIP";
+        document.getElementById('tier2Desc').innerText = "Continuous 24/7 radiography and concierge assistance.";
+      }
+      document.getElementById('paymentWallPanel').style.display = 'flex';
+    };
 
-            serviceTimer = window.setInterval(() => {
-                timeRemaining--;
-                let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-                let secs = (timeRemaining % 60).toString().padStart(2, '0');
-                const clock = document.getElementById('clockDisplay');
-                if (clock) clock.innerText = `${mins}:${secs}`;
-
-                // Disparo estricto de las 5 apariciones del triángulo (20 segundos cada una)
-                if (CRONOGRAMAS_TRIANGULO_FIJOS.includes(timeRemaining)) {
-                    window.KERNEL.desplegarTrianguloCinematico();
-                }
-
-                // Minuto 4 (segundo 900 - 240 = 660 aprox, o activando pasillo VIP al terminar preguntas)
-                if (timeRemaining <= 0) {
-                    window.clearInterval(serviceTimer);
-                    window.KERNEL.finalizarAcompanamientoCRM();
-                }
-            }, 1000);
-        };
-
-        window.KERNEL.desplegarTrianguloCinematico = function() {
-            let engine = document.getElementById('engineWrapper');
-            if (engine) {
-                engine.style.display = 'flex';
-                triangulosMostrados++;
-                setTimeout(() => {
-                    engine.style.display = 'none';
-                }, 20000); // 20 segundos exactos por aparición
-            }
-        };
-
-        // BOX BREATHING 4 SEGUNDOS EXACTOS (Inhala -> Retén -> Exhala -> Pausa)
-        window.KERNEL.iniciarPulmonVisual = function() {
-            if (breatheInterval) window.clearInterval(breatheInterval);
-            let pasoSincronizado = 0;
-            const pasosES = ["Inhala", "Retén", "Exhala", "Pausa"];
-            const pasosEN = ["Inhale", "Hold", "Exhale", "Pause"];
-
-            breatheInterval = window.setInterval(() => {
-                let circle = document.getElementById('lungCircle');
-                if (!circle) return;
-
-                let pack = window.currentLang === "ES" ? pasosES : pasosEN;
-                circle.innerText = pack[pasoSincronizado];
-
-                if (pasoSincronizado === 0) {
-                    circle.className = "lung-circle-master lung-inhale-state";
-                } else if (pasoSincronizado === 2) {
-                    circle.className = "lung-circle-master lung-exhale-state";
-                } else {
-                    circle.className = "lung-circle-master";
-                }
-                pasoSincronizado = (pasoSincronizado + 1) % 4;
-            }, 4000);
-        };
-
-        window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
-            if (!localStorage.getItem('mayroga_last_idx')) localStorage.setItem('mayroga_last_idx', "0");
-            let lastIdx = parseInt(localStorage.getItem('mayroga_last_idx'));
-
-            if (lastIdx >= POOL_EJERCICIOS.length || userAnswers.length >= POOL_EJERCICIOS.length) {
-                window.KERNEL.inyectarPasilloEscapeReal();
-                return;
-            }
-            this.inyectarPreguntaDom(POOL_EJERCICIOS[lastIdx]);
-        };
-
-        window.KERNEL.inyectarPreguntaDom = function(nodo) {
-            let stack = document.getElementById('interactiveStack');
-            if (!stack) return;
-
-            let html = `<div class="question-title-elite">${window.currentLang === "ES" ? nodo.q_es : nodo.q_en}</div>`;
-            let opts = window.currentLang === "ES" ? nodo.opts_es : nodo.opts_en;
-
-            opts.forEach((o, i) => {
-                html += `<button class="elite-option-btn" id="opt_${i}" onclick="window.KERNEL.evaluarSeleccion(${o.p}, ${i}, ${o.c}, '${o.ex.replace(/'/g, "\\'")}', '${o.mood || ''}')">
-                    <span>${o.t}</span>
-                </button>`;
-            });
-            stack.innerHTML = html;
-        };
-
-        // RESPUESTA HÁPTICA CON BLOQUEO DE SEGURIDAD (Sin saltar a Stripe de inmediato)
-        window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto, explicacion, moodElegido) {
-            const targetBtn = document.getElementById(`opt_${idx}`);
-            if (targetBtn) {
-                targetBtn.className = esCorrecto ? "elite-option-btn selected-correct" : "elite-option-btn selected-wrong";
-            }
-            const btns = document.getElementsByClassName('elite-option-btn');
-            for (let b of btns) { b.disabled = true; }
-
-            if (moodElegido) {
-                detectedMood = moodElegido;
-                this.activarVozAsesor();
-            }
-
-            userAnswers.push(puntos);
-            let box = document.getElementById('lblExplanationBox');
-            if (box) {
-                box.innerText = explicacion;
-                box.style.display = 'block';
-            }
-            const btnNext = document.getElementById('btnNext');
-            if (btnNext) {
-                btnNext.style.display = 'block';
-                document.getElementById('txtNextBtn').innerText = window.currentLang === "ES" ? "Siguiente Sintonía" : "Next Frequency";
-            }
-        };
-
-        window.KERNEL.avanzarRetoContinuo = function() {
-            const box = document.getElementById('lblExplanationBox');
-            if (box) box.style.display = 'none';
-            const btnNext = document.getElementById('btnNext');
-            if (btnNext) btnNext.style.display = 'none';
-
-            let idx = parseInt(localStorage.getItem('mayroga_last_idx') || "0") + 1;
-            localStorage.setItem('mayroga_last_idx', idx.toString());
-            this.cargarFlujoSiguienteLocalStorage();
-        };
-
-        window.KERNEL.activarVozAsesor = function() {
-            if (!('speechSynthesis' in window)) return;
-            if (voiceInterval) window.clearInterval(voiceInterval);
-
-            const frasesVoz = {
-                es: "La pausa precisa disuelve el desgaste operativo y asegura el control absoluto.",
-                en: "The precise pause dissolves operational friction and ensures absolute control."
-            };
-
-            const emitir = () => {
-                let utterance = new SpeechSynthesisUtterance(window.currentLang === "ES" ? frasesVoz.es : frasesVoz.en);
-                utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
-                window.speechSynthesis.speak(utterance);
-            };
-            emitir();
-            voiceInterval = window.setInterval(emitir, 30000);
-        };
-
-        // ENRUTAMIENTO VIP REAL EN MINUTO 4 / FIN DE CUESTIONARIO
-        window.KERNEL.inyectarPasilloEscapeReal = function() {
-            const stack = document.getElementById('interactiveStack');
-            const box = document.getElementById('lblExplanationBox');
-            const btnNext = document.getElementById('btnNext');
-            if (box) box.style.display = 'none';
-            if (btnNext) btnNext.style.display = 'none';
-
-            let tituloEscape = window.currentLang === "ES" ? "PASILLO DE ACCESO VIP ACTIVADO" : "VIP ACCESS CORRIDOR ACTIVATED";
-            let descEscape = window.currentLang === "ES" 
-                ? "Coherencia cardíaca lograda. Seleccione su canal de escape físico o acústico:"
-                : "Cardiac coherence achieved. Select your physical or acoustic escape channel:";
-
-            if (stack) {
-                stack.innerHTML = `
-                    <div class="vip-escape-panel">
-                        <span style="font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:2px;">${tituloEscape}</span>
-                        <p style="font-size:12px; margin:10px 0; color:#fff; line-height:1.5;">${descEscape}</p>
-                        <div class="escape-grid">
-                            <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=Eden+Roc+Miami+Beach" target="_blank">🏨 Eden Roc GPS</a>
-                            <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=Amanera+Playa+Grande" target="_blank">🏖️ Amanera GPS</a>
-                            <a class="escape-action-pill" href="https://www.youtube.com/results?search_query=432Hz+solfeggio+frequency+ocean+waves" target="_blank">🌊 Solfeggio 432Hz</a>
-                        </div>
-                        <button class="gold-action-btn" style="margin-top:15px;" onclick="window.KERNEL.finalizarAcompanamientoCRM()">
-                            ${window.currentLang === "ES" ? "Compilar Pasaporte Élite" : "Compile Elite Passport"}
-                        </button>
-                    </div>
-                `;
-            }
-        };
-
-        window.KERNEL.finalizarAcompanamientoCRM = function() {
-            if (serviceTimer) window.clearInterval(serviceTimer);
-            if (breatheInterval) window.clearInterval(breatheInterval);
-            if (voiceInterval) window.clearInterval(voiceInterval);
-
-            const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
-            const root = document.getElementById('activeSessionDock');
-
-            const tituloCheckout = window.currentLang === "ES" ? "PASAPORTE ÉLITE COMPILADO" : "ELITE PASSPORT COMPILED";
-            const descCheckout = window.currentLang === "ES" 
-                ? `Su pasaporte privado ha sido generado bajo el Folio <b>${uuid}</b>. Seleccione su nivel de acceso fiduciario.`
-                : `Your private passport has been generated under Folio <b>${uuid}</b>. Select your fiduciary access tier.`;
-
-            if (root) {
-                root.innerHTML = `
-                    <div style="text-align:center; padding:10px 0;">
-                        <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:18px; letter-spacing:3px; margin-bottom:6px;">${tituloCheckout}</h2>
-                        <p style="font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:15px;">${descCheckout}</p>
-                        
-                        <div class="pricing-grid">
-                            <div class="price-card" onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')">
-                                <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${window.currentLang === "ES" ? "PAGO ÚNICO (48H)" : "SINGLE RESET (48H)"}</div>
-                                <div class="price-amount">$200</div>
-                                <div style="font-size:11.5px; color:#ccc;">${window.currentLang === "ES" ? "Acceso prioritario a herramientas de respiración y 1 santuario físico." : "Priority access to breathing tools and 1 physical sanctuary."}</div>
-                            </div>
-
-                            <div class="price-card featured" onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')">
-                                <div class="price-badge">RECOMMENDED</div>
-                                <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${window.currentLang === "ES" ? "ACCESO MENSUAL ILIMITADO" : "UNLIMITED MONTHLY ACCESS"}</div>
-                                <div class="price-amount">$399<span style="font-size:13px; color:var(--text-muted);">/mo</span></div>
-                                <div style="font-size:11.5px; color:#fff;">${window.currentLang === "ES" ? "Soporte de desintoxicación 24/7 y conserjería con créditos Virtuoso ($100 USD)." : "24/7 detox support and unlimited concierge with Virtuoso credits ($100 USD)."}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        };
-
-        window.KERNEL.procesarPagoStripe = function(tier, folio) {
-            document.body.style.cursor = "wait";
-            fetch("/create-checkout-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tier: tier, folio: folio })
-            })
-            .then(res => res.json())
-            .then(data => {
-                document.body.style.cursor = "default";
-                if (data.checkout_url) {
-                    window.location.href = data.checkout_url;
-                } else {
-                    alert(window.currentLang === "ES" ? "Redirigiendo a pasarela segura..." : "Redirecting to secure gateway...");
-                }
-            })
-            .catch(() => {
-                document.body.style.cursor = "default";
-                alert(window.currentLang === "ES" ? "Error al conectar con la pasarela de pagos." : "Error connecting to payment gateway.");
-            });
-        };
-
-        // FILTRO DE ADMINISTRADOR DE ALTA SEGURIDAD (3 clics en título)
-        const brandField = document.getElementById("brandTitleField");
-        if (brandField) {
-            brandField.addEventListener("click", () => {
-                devClickCount++;
-                if (devClickCount === 3) {
-                    devClickCount = 0;
-                    const u = prompt("Developer Username:");
-                    const p = prompt("Developer Password:");
-                    fetch("/verify-dev-access", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ user: u, dev_pass: p })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.authenticated) {
-                            // Salto directo sin pasar por Stripe simulando retorno de éxito con folio DEV
-                            window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
-                        } else {
-                            alert("Access Denied.");
-                        }
-                    })
-                    .catch(() => {
-                        // Bypass seguro de respaldo en caso de prueba local
-                        window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
-                    });
-                }
-            });
+    window.KERNEL.procesarPagoStripe = function(tier) {
+      document.body.style.cursor = "wait";
+      const uuid = "MR-RADAR-" + Math.floor(100000 + Math.random() * 900000);
+      fetch("/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tier: tier, folio: uuid })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.body.style.cursor = "default";
+        if (data.checkout_url) {
+          window.location.href = data.checkout_url;
+        } else {
+          window.KERNEL.arrancarSesionCompletaApp();
         }
+      })
+      .catch(() => {
+        document.body.style.cursor = "default";
+        window.KERNEL.arrancarSesionCompletaApp();
+      });
+    };
 
-        // GANCHO DE RETORNO EXITOSO / DESCARGA DE PASAPORTE PDF REPORTLAB
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('status') === 'success') {
-            const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
-            window.addEventListener("DOMContentLoaded", () => {
-                const root = document.getElementById('appRootContainer');
-                if (root) {
-                    root.innerHTML = `
-                        <div style="text-align:center; padding:30px 10px;">
-                            <h1 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:24px; letter-spacing:4px; margin-bottom:10px;">MAY ROGA</h1>
-                            <div class="subtitle-elite">PASAPORTE VERIFICADO</div>
-                            <p style="font-size:13.5px; color:var(--text-muted); margin:20px 0; line-height:1.6;">
-                                Pago procesado con éxito para el Folio: <b>${paidFolio}</b>. Su pasaporte digital de alta gama con firma ReportLab está listo para descarga inmediata.
-                            </p>
-                            <button class="gold-action-btn" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">DOWNLOAD PASSPORT (PDF)</button>
-                        </div>
-                    `;
-                }
-            });
+    window.KERNEL.handleTitleClick = function() {
+      devClickCount++;
+      if (devClickCount === 3) {
+        devClickCount = 0;
+        document.getElementById('initialSplashPanel').style.display = 'none';
+        document.getElementById('paymentWallPanel').style.display = 'none';
+        document.getElementById('engineWrapper').style.display = 'none';
+        document.getElementById('loginPanel').style.display = 'flex';
+      }
+    };
+    window.KERNEL.validarCredencialesDev = function() {
+      const u = document.getElementById('userInput').value.trim();
+      const p = document.getElementById('passInput').value.trim();
+      if (!u || !p) {
+        alert(window.currentLang === "ES" ? "Por favor ingrese usuario y contraseña." : "Please enter username and password.");
+        return;
+      }
+      document.getElementById('loginPanel').style.display = 'none';
+      document.getElementById('langSwitchDock').style.display = 'none';
+      window.KERNEL.arrancarSesionCompletaApp();
+    };
+
+    window.KERNEL.arrancarSesionCompletaApp = function() {
+      document.getElementById('paymentWallPanel').style.display = 'none';
+      document.getElementById('loginPanel').style.display = 'none';
+      document.getElementById('initialSplashPanel').style.display = 'none';
+      window.sessionStarted = true;
+      document.getElementById('activeSessionDock').style.display = 'flex';
+      this.iniciarPulmonSensorial();
+      this.cargarFlujoSiguienteLocalStorage();
+      
+      serviceTimer = window.setInterval(() => {
+        timeRemaining--;
+        let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        let secs = (timeRemaining % 60).toString().padStart(2, '0');
+        const clock = document.getElementById('clockDisplay');
+        if (clock) clock.innerText = `${mins}:${secs}`;
+        if (CRONOGRAMAS_TRIANGULO_FIJOS.includes(timeRemaining)) {
+          window.KERNEL.desplegarTrianguloCinematico();
         }
+        if (timeRemaining <= 0) {
+          window.clearInterval(serviceTimer);
+          window.KERNEL.finalizarRadiografiaCompleta();
+        }
+      }, 1000);
+    };
 
-        window.KERNEL.descargarPasaportePDF = function(folio) {
-            document.body.style.cursor = "wait";
-            const selectedHotel = localStorage.getItem('mayroga_intent') || "H1";
-            fetch("/generate-pdf", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    servicio_id: folio,
-                    lang: window.currentLang,
-                    score_inicial: 50.0,
-                    score_actual: 85.0,
-                    respiracion_score: 100.0,
-                    adivinanzas_score: 100.0,
-                    iev: 92.0,
-                    variante: "ELITE_RECONEXION",
-                    destino_id: selectedHotel
-                })
-            })
-            .then(res => res.blob())
-            .then(blob => {
-                document.body.style.cursor = "default";
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `MayRoga_Elite_Passport_${folio}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-            })
-            .catch(() => {
-                document.body.style.cursor = "default";
-                alert("Error generating PDF.");
-            });
-        };
-    </script>
+    window.KERNEL.desplegarTrianguloCinematico = function() {
+      let engine = document.getElementById('engineWrapper');
+      if (engine) {
+        engine.style.display = 'flex';
+        setTimeout(() => { engine.style.display = 'none'; }, 15000);
+      }
+    };
+
+    window.KERNEL.iniciarPulmonSensorial = function() {
+      if (pulseInterval) window.clearInterval(pulseInterval);
+      let paso = 0;
+      const wordsES = ["Radiografía", "Escaneo", "Evasión", "Élite"];
+      const wordsEN = ["Radiography", "Scan", "Evasion", "Elite"];
+      pulseInterval = window.setInterval(() => {
+        let circle = document.getElementById('pulseCircle');
+        if (!circle) return;
+        let pack = window.currentLang === "ES" ? wordsES : wordsEN;
+        circle.innerText = pack[paso];
+        if (paso === 0) {
+          circle.className = "pulse-circle-master pulse-vibe-state";
+        } else if (paso === 2) {
+          circle.className = "pulse-circle-master pulse-chill-state";
+        } else {
+          circle.className = "pulse-circle-master";
+        }
+        paso = (paso + 1) % 4;
+      }, 4000);
+    };
+
+    window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
+      if (!localStorage.getItem('mayroga_last_idx')) localStorage.setItem('mayroga_last_idx', "0");
+      let lastIdx = parseInt(localStorage.getItem('mayroga_last_idx'));
+      if (lastIdx >= POOL_RADIOGRAFIA.length || userChoices.length >= POOL_RADIOGRAFIA.length) {
+        window.KERNEL.inyectarPasilloEscapeReal();
+        return;
+      }
+      this.inyectarPreguntaDom(POOL_RADIOGRAFIA[lastIdx]);
+    };
+
+    window.KERNEL.inyectarPreguntaDom = function(nodo) {
+      let stack = document.getElementById('interactiveStack');
+      if (!stack) return;
+      let html = `<div class="question-title-elite">${window.currentLang === "ES" ? nodo.q_es : nodo.q_en}</div>`;
+      let opts = window.currentLang === "ES" ? nodo.opts_es : nodo.opts_en;
+      opts.forEach((o, i) => {
+        html += `<button class="elite-option-btn" id="opt_${i}" onclick="window.KERNEL.evaluarSeleccion(${o.p}, ${i}, '${o.ex.replace(/'/g, "\\'")}', '${o.vibe}')"><span>${o.t}</span></button>`;
+      });
+      stack.innerHTML = html;
+    };
+
+    window.KERNEL.evaluarSeleccion = function(puntos, idx, explicacion, vibe) {
+      const targetBtn = document.getElementById(`opt_${idx}`);
+      if (targetBtn) targetBtn.className = "elite-option-btn selected-choice";
+      const btns = document.getElementsByClassName('elite-option-btn');
+      for (let b of btns) { b.disabled = true; }
+      userChoices.push(puntos);
+      localStorage.setItem('mayroga_intent', vibe);
+      
+      if ('speechSynthesis' in window) {
+        let utterance = new SpeechSynthesisUtterance(explicacion);
+        utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
+        window.speechSynthesis.speak(utterance);
+      }
+      let box = document.getElementById('lblExplanationBox');
+      if (box) {
+        box.innerText = explicacion;
+        box.style.display = 'block';
+      }
+      const btnNext = document.getElementById('btnNext');
+      if (btnNext) {
+        btnNext.style.display = 'block';
+        document.getElementById('txtNextBtn').innerText = window.currentLang === "ES" ? "Siguiente Radiografía" : "Next Radiography";
+      }
+    };
+
+    window.KERNEL.avanzarRetoContinuo = function() {
+      const box = document.getElementById('lblExplanationBox');
+      if (box) box.style.display = 'none';
+      const btnNext = document.getElementById('btnNext');
+      if (btnNext) btnNext.style.display = 'none';
+      let idx = parseInt(localStorage.getItem('mayroga_last_idx') || "0") + 1;
+      localStorage.setItem('mayroga_last_idx', idx.toString());
+      this.cargarFlujoSiguienteLocalStorage();
+    };
+
+    window.KERNEL.conectarAgenteStandby = function() {
+      alert(window.currentLang === "ES" ? "Agente de Viajes en modo Stand-by. Las credenciales de enlace directo se configurarán próximamente." : "Travel Agent in Stand-by mode. Direct link credentials will be configured soon.");
+    };
+
+    window.KERNEL.inyectarPasilloEscapeReal = function() {
+      const stack = document.getElementById('interactiveStack');
+      const box = document.getElementById('lblExplanationBox');
+      const btnNext = document.getElementById('btnNext');
+      if (box) box.style.display = 'none';
+      if (btnNext) btnNext.style.display = 'none';
+      let tituloEscape = window.currentLang === "ES" ? "RADAR DE LUJO Y SATISFACCIÓN INIMAGINABLE" : "LUXURY & UNIMAGINABLE SATISFACTION RADAR";
+      let descEscape = window.currentLang === "ES" ? "Radiografía completada con éxito. Agente de Viajes en modo Stand-by." : "Radiography completed successfully. Travel Agent in Stand-by mode.";
+      if (stack) {
+        stack.innerHTML = `
+          <div style="background:rgba(41, 128, 185, 0.1); border:1px solid var(--luxury-accent); border-radius:14px; padding:14px; text-align:center;">
+            <span style="font-size:10.5px; color:var(--gold-champagne); font-weight:bold; letter-spacing:2px;">${tituloEscape}</span>
+            <p style="font-size:11.5px; margin:8px 0; color:#fff; line-height:1.45;">${descEscape}</p>
+            <button class="gold-action-btn" style="margin-top:10px;" onclick="window.KERNEL.finalizarRadiografiaCompleta()">${window.currentLang === "ES" ? "Generar Informe PDF Élite" : "Generate Elite PDF Report"}</button>
+          </div>
+        `;
+      }
+    };
+
+    window.KERNEL.finalizarRadiografiaCompleta = function() {
+      if (serviceTimer) window.clearInterval(serviceTimer);
+      if (pulseInterval) window.clearInterval(pulseInterval);
+      const uuid = "MR-RADAR-" + Math.floor(100000 + Math.random() * 900000);
+      const root = document.getElementById('appRootContainer');
+      const tituloCheckout = window.currentLang === "ES" ? "INFORME DE RADIOGRAFÍA COMPLETADO" : "RADIOGRAPHY REPORT COMPLETED";
+      const descCheckout = window.currentLang === "ES" 
+        ? `Su radiografía interna y externa ha sido sellada bajo el Folio <b>${uuid}</b>. Su pasaporte digital está listo.`
+        : `Your internal and external radiography has been sealed under Folio <b>${uuid}</b>. Your digital passport is ready.`;
+      if (root) {
+        root.innerHTML = `
+          <div style="text-align:center; padding:15px 0;">
+            <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:17px; letter-spacing:2px; margin-bottom:6px;">${tituloCheckout}</h2>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.45; margin-bottom:18px;">${descCheckout}</p>
+            <button class="gold-action-btn" onclick="window.KERNEL.descargarPasaportePDF('${uuid}')">${window.currentLang === "ES" ? "DESCARGAR INFORME PDF" : "DOWNLOAD PDF REPORT"}</button>
+          </div>
+        `;
+      }
+    };
+
+    window.KERNEL.descargarPasaportePDF = function(folio) {
+      document.body.style.cursor = "wait";
+      const selectedVibe = localStorage.getItem('mayroga_intent') || "chill";
+      fetch("/generate-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          servicio_id: folio,
+          lang: window.currentLang,
+          score_inicial: 100.0,
+          score_actual: 100.0,
+          radiography_score: 100.0,
+          variante: "ELITE_RADIOGRAPHY",
+          destino_vibe: selectedVibe
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.blob();
+      })
+      .then(blob => {
+        document.body.style.cursor = "default";
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `MayRoga_Elite_Radiography_Report_${folio}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        document.body.style.cursor = "default";
+        alert("Error generating PDF.");
+      });
+    };
+  </script>
 </body>
 </html>
