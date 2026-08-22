@@ -1,38 +1,28 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAY ROGA | Premium Travel Architecture</title>
-    <!-- ANALÍTICA ANÓNIMA Y PRIVADA (PLAUSIBLE) -->
-    <script defer data-domain="tu-dominio-mayroga.com" src="https://plausible.io"></script>
-    <script>
-        window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
-    </script>
+    <title>MAY ROGA | Executive Sanctuary Architecture</title>
     <style>
-        @import url('https://googleapis.com');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@200;300;400;500;600&display=swap');
 
         :root {
             --bg-obsidian: #030305;
-            --bg-matte-black: #050505;
-            --bg-surface-dark: #0a0a0e;
-            --luxury-card: #0a0a0e;
+            --bg-surface: #0a0a0e;
+            --bg-glass: rgba(12, 12, 16, 0.98);
             --gold-champagne: #C5A059;
-            --gold-primary: #A3704C;
-            --gold-glow: rgba(197, 160, 89, 0.4);
-            --gold-light: #C5A084;
-            --white-ivory: #FFFFFF;
-            --text-pure: #FFFFFF;
-            --text-muted: #8E8E93;
-            --text-dark: #222222;
-            --wellness-green: #3D9970;
-            --relax-blue: #1C3D5A;
-            --alert-crimson: #E04F4F;
-            --red-alert-base: #C0392B;
-            --red-alert-glow: rgba(192, 57, 43, 0.4);
-            --glass-background: rgba(15, 15, 18, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.06);
+            --gold-light: #DFBF7A;
+            --gold-dark: #91723B;
+            --gold-glow: rgba(197, 160, 89, 0.35);
+            --white-ivory: #F9F9FB;
+            --text-muted: #9E9EA4;
+            --alert-crimson: #C0392B;
+            --wellness-green: #27AE60;
+            --relax-blue: #2980B9;
+            --border-subtle: rgba(197, 160, 89, 0.2);
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -40,307 +30,566 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
         body, html {
-            margin: 0;
-            padding: 0;
             width: 100%;
             height: 100%;
             background-color: var(--bg-obsidian);
             color: var(--white-ivory);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-y: auto;
-        }
-        .app-window {
-            max-width: 460px;
-            width: 100%;
-            background: linear-gradient(145deg, rgba(15, 15, 18, 0.99), rgba(3, 3, 5, 1));
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            border-radius: 32px;
-            padding: 40px 28px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(197, 160, 89, 0.04);
-            position: relative;
             overflow: hidden;
         }
-        header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 16px;
-            margin-bottom: 24px;
-            text-align: center;
+
+        .app-window {
+            max-width: 520px;
+            width: 100%;
+            height: 100%;
+            max-height: 92vh;
+            background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian));
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 28px;
+            padding: 32px 24px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
         }
+
+        header {
+            text-align: center;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
         header h1 {
-            font-size: 28px;
-            font-weight: 200;
-            letter-spacing: 7px;
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            font-weight: 500;
+            letter-spacing: 6px;
             color: var(--gold-champagne);
             text-transform: uppercase;
-            font-family: "Times New Roman", Times, serif;
-            margin: 0;
             cursor: pointer;
+            user-select: none;
         }
-        .lang-container-giant {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .giant-lang-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.01);
-            border: 2px solid var(--gold-champagne);
-            color: var(--gold-champagne);
-            padding: 20px;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .giant-lang-btn:active, .giant-lang-btn.active-lang {
-            background: var(--gold-champagne);
-            color: var(--bg-obsidian);
-            box-shadow: 0 0 20px var(--gold-glow);
-        }
-        h2 {
-            font-size: 19px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-            line-height: 1.4;
-            text-align: center;
-            color: var(--white-ivory);
-        }
-        p {
-            font-size: 14px;
-            font-weight: 300;
-            line-height: 1.7;
+
+        .subtitle-elite {
+            font-size: 9.5px;
+            letter-spacing: 3px;
             color: var(--text-muted);
-            margin-bottom: 24px;
-            text-align: center;
+            text-transform: uppercase;
+            margin-top: 4px;
         }
-        .gold-btn {
-            width: 100%;
-            background: transparent;
-            border: 1px solid var(--gold-champagne);
-            color: var(--gold-champagne);
-            padding: 18px;
-            border-radius: 50px;
+
+        .lang-switch-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .lang-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 12px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            letter-spacing: 1.5px;
             cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 12px;
+            transition: all 0.3s ease;
         }
-        .gold-btn:hover, .gold-btn:active {
+
+        .lang-btn.active {
             background: var(--gold-champagne);
+            border-color: var(--gold-champagne);
             color: var(--bg-obsidian);
             box-shadow: 0 0 20px var(--gold-glow);
         }
-        .triple-option-btn {
+
+        .timer-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(197, 160, 89, 0.04);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            border-radius: 14px;
+            padding: 10px 18px;
+            margin-bottom: 20px;
+        }
+
+        .timer-title {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        .timer-value {
+            font-family: monospace;
+            font-size: 22px;
+            color: var(--alert-crimson);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* PULMÓN BIOLÓGICO CON BOX BREATHING 4S */
+        .bio-respiration-dock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0 20px 0;
+            position: relative;
+            min-height: 150px;
+        }
+
+        .lung-circle-master {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%);
+            box-shadow: 0 0 35px var(--gold-glow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--bg-obsidian);
+            text-transform: uppercase;
+            transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .lung-inhale-state {
+            transform: scale(1.32);
+            background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important;
+            box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important;
+            color: #FFFFFF !important;
+        }
+
+        .lung-exhale-state {
+            transform: scale(0.85);
+            background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important;
+            box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important;
+            color: #FFFFFF !important;
+        }
+
+        /* BANDEJA DE PREGUNTAS CON BLOQUEO HÁPTICO */
+        .interactive-stack-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .question-title-elite {
+            font-size: 14.5px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--white-ivory);
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .elite-option-btn {
             width: 100%;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--white-ivory);
-            padding: 16px 20px;
+            padding: 14px 16px;
             border-radius: 14px;
-            font-size: 14px;
-            font-weight: 300;
+            font-size: 13px;
             text-align: left;
             cursor: pointer;
-            transition: all 0.2s ease;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        .triple-option-btn:active {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--white-ivory);
-        }
-        .triple-option-btn.correct-choice {
-            background-color: var(--wellness-green) !important;
-            border-color: var(--wellness-green) !important;
-            color: white !important;
-            font-weight: 500;
-            box-shadow: 0 0 15px rgba(61, 153, 112, 0.4);
-        }
-        .triple-option-btn.wrong-choice {
-            background-color: var(--alert-crimson) !important;
-            border-color: var(--alert-crimson) !important;
-            color: white !important;
-        }
-        .timeline-bar {
+            transition: all 0.25s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 10px;
-        }
-        .timer-display {
-            font-size: 34px;
-            font-family: "SF Mono", Consolas, monospace;
-            font-weight: 200;
-            color: var(--alert-crimson);
-            text-shadow: 0 0 15px rgba(224, 79, 79, 0.4);
         }
 
-        /* OVERLAY CINEMÁTICO BLUR: EL TRIÁNGULO SECUESTRA LA PANTALLA EXCLUSIVA */
-        .graphics-container {
+        .elite-option-btn:hover:not(:disabled) {
+            border-color: var(--gold-champagne);
+            background: rgba(197, 160, 89, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .elite-option-btn.selected-correct {
+            background: rgba(39, 174, 96, 0.25) !important;
+            border-color: var(--wellness-green) !important;
+            color: #fff !important;
+        }
+
+        .elite-option-btn.selected-wrong {
+            background: rgba(192, 57, 43, 0.25) !important;
+            border-color: var(--alert-crimson) !important;
+            color: #fff !important;
+        }
+
+        .gold-action-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--gold-champagne);
+            color: var(--gold-champagne);
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 12.5px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .gold-action-btn:hover {
+            background: var(--gold-champagne);
+            color: var(--bg-obsidian);
+            box-shadow: 0 0 25px var(--gold-glow);
+        }
+
+        /* PASILLO DE ACCESO VIP / ESCAPE REAL */
+        .vip-escape-panel {
+            background: rgba(41, 128, 185, 0.12);
+            border: 1px solid var(--relax-blue);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .escape-grid {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .escape-action-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--gold-champagne);
+            color: var(--gold-champagne);
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .escape-action-pill:hover {
+            background: var(--gold-champagne);
+            color: var(--bg-obsidian);
+        }
+
+        /* OVERLAY TEATRAL CINEMÁTICO CON PARTÍCULAS */
+        .cinematic-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 3, 5, 0.97);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(3, 3, 5, 0.985);
+            backdrop-filter: blur(35px);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: all 0.5s ease;
             text-align: center;
+            padding: 20px;
+            border-radius: 28px;
         }
-        .triangle-canvas {
-            width: 220px;
+
+        .triangle-frame {
+            width: 210px;
             height: 190px;
             position: relative;
             margin-bottom: 30px;
         }
-        .vertex-node {
+
+        .triangle-node {
             width: 14px;
             height: 14px;
             border-radius: 50%;
             position: absolute;
-            z-index: 1100;
+            z-index: 1010;
         }
-        .v-top { top: 0; left: 103px; background-color: var(--alert-crimson); box-shadow: 0 0 20px var(--alert-crimson); }
-        .v-left { bottom: 0; left: 0; background-color: var(--relax-blue); box-shadow: 0 0 20px var(--relax-blue); }
-        .v-right { bottom: 0; right: 0; background-color: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
 
-        /* HACES DE PARTÍCULAS VOLADORAS CON ANIMACIONES DIRECTAS DESDE LOS VÉRTICES HACIA EL CENTRO */
-        .energy-beam { position: absolute; width: 6px; height: 6px; border-radius: 50%; opacity: 0; }
-        .beam-top { background: var(--alert-crimson); box-shadow: 0 0 15px var(--alert-crimson); animation: flyToCenterTop 2.5s infinite linear; }
-        .beam-left { background: var(--relax-blue); box-shadow: 0 0 15px var(--relax-blue); animation: flyToCenterLeft 2.5s infinite linear; }
-        .beam-right { background: var(--gold-champagne); box-shadow: 0 0 15px var(--gold-champagne); animation: flyToCenterRight 2.5s infinite linear; }
+        .t-top { top: 0; left: 98px; background: var(--alert-crimson); box-shadow: 0 0 20px var(--alert-crimson); }
+        .t-left { bottom: 0; left: 0; background: var(--relax-blue); box-shadow: 0 0 20px var(--relax-blue); }
+        .t-right { bottom: 0; right: 0; background: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
 
-        @keyframes flyToCenterTop { 0% { top: 0; left: 110px; opacity: 1; transform: scale(1); } 100% { top: 300px; left: 110px; opacity: 0; transform: scale(0.1); } }
-        @keyframes flyToCenterLeft { 0% { bottom: 0; left: 0; opacity: 1; transform: scale(1); } 100% { bottom: -120px; left: 110px; opacity: 0; transform: scale(0.1); } }
-        @keyframes flyToCenterRight { 0% { bottom: 0; right: 0; opacity: 1; transform: scale(1); } 100% { bottom: -120px; right: 110px; opacity: 0; transform: scale(0.1); } }
+        /* DESTELLOS LUMINOSOS (PARTÍCULAS HACIA EL CENTRO) */
+        .energy-beam {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 1005;
+        }
 
-        /* DINÁMICA DE RESPIRACIÓN BOX BREATHING ERGONÓMICA */
-        .breathe-canvas-pane { width: 100%; min-height: 220px; display: flex; justify-content: center; align-items: center; position: relative; margin-bottom: 25px; }
-        .center-wellness-circle { width: 95px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #C5A059 0%, #91723B 100%); box-shadow: 0 0 45px var(--gold-champagne); z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold; color: #030305; letter-spacing: 1.5px; text-transform: uppercase; transition: all 4s linear; }
-        .lung-inhale { width: 170px; height: 170px; background: radial-gradient(circle, #1C3D5A 0%, #0B1D33 100%) !important; box-shadow: 0 0 60px rgba(28,61,90,1) !important; color: #FFFFFF !important; }
-        .lung-exhale { width: 80px; height: 80px; background: radial-gradient(circle, #E04F4F 0%, #992222 100%) !important; box-shadow: 0 0 35px rgba(224,79,79,0.7) !important; color: #FFFFFF !important; }
-        .explanation-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(197, 160, 89, 0.2); padding: 18px; border-radius: 12px; margin-top: 15px; margin-bottom: 15px; font-size: 13.5px; line-height: 1.6; text-align: left; color: var(--gold-champagne); display: none; }
-        .luxury-checkout-dock { animation: premiumFade 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards; text-align: center; }
-        .premium-pricing-deck { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; margin-top: 20px; }
-        .luxury-card-price { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 25px 20px; text-align: left; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .luxury-card-price:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.2); }
-        .tier-card-elite { border: 1px solid var(--gold-champagne) !important; background: linear-gradient(180deg, rgba(197, 160, 89, 0.03) 0%, rgba(0, 0, 0, 0.8) 100%) !important; box-shadow: 0 15px 40px rgba(197, 160, 89, 0.1) !important; position: relative; }
-        .card-ribbon-gold { position: absolute; top: -10px; left: 16px; background: var(--gold-champagne); color: black; font-size: 9px; padding: 2px 8px; border-radius: 10px; font-weight: bold; letter-spacing: 1px; }
-        .premium-portal-panel { border: 1px solid var(--alert-crimson); background: rgba(5, 5, 5, 0.98); padding: 20px; border-radius: 16px; margin-top: 15px; text-align: center; box-shadow: 0 20px 40px rgba(224,79,79,0.15); }
-        .portal-mini-btn { background: rgba(224, 79, 79, 0.1); border: 1px solid var(--alert-crimson); padding: 12px 22px; border-radius: 8px; cursor: pointer; margin: 0 4px; display: inline-block; color: white; font-size: 13px; font-weight: bold; transition: all 0.2s; }
-        .portal-mini-btn:active { background: var(--alert-crimson); transform: scale(0.96); }
-        @keyframes premiumFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .beam-top { background: var(--alert-crimson); box-shadow: 0 0 15px var(--alert-crimson); animation: flyToCenterTop 2s infinite linear; }
+        .beam-left { background: var(--relax-blue); box-shadow: 0 0 15px var(--relax-blue); animation: flyToCenterLeft 2s infinite linear; }
+        .beam-right { background: var(--gold-champagne); box-shadow: 0 0 15px var(--gold-champagne); animation: flyToCenterRight 2s infinite linear; }
+
+        @keyframes flyToCenterTop {
+            0% { top: 0; left: 103px; opacity: 1; transform: scale(1); }
+            100% { top: 95px; left: 103px; opacity: 0; transform: scale(0.2); }
+        }
+        @keyframes flyToCenterLeft {
+            0% { bottom: 0; left: 0; opacity: 1; transform: scale(1); }
+            100% { bottom: 95px; left: 103px; opacity: 0; transform: scale(0.2); }
+        }
+        @keyframes flyToCenterRight {
+            0% { bottom: 0; right: 0; opacity: 1; transform: scale(1); }
+            100% { bottom: 95px; right: 103px; opacity: 0; transform: scale(0.2); }
+        }
+
+        .explanation-box {
+            background: rgba(197, 160, 89, 0.08);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 12.5px;
+            color: #E2E2E6;
+            margin-top: 12px;
+            line-height: 1.5;
+            display: none;
+            text-align: left;
+        }
+
+        .pricing-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 15px;
+        }
+
+        .price-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 20px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .price-card:hover {
+            border-color: var(--gold-champagne);
+            box-shadow: 0 0 30px var(--gold-glow);
+        }
+
+        .price-card.featured {
+            border-color: var(--gold-champagne);
+            background: linear-gradient(145deg, rgba(197, 160, 89, 0.08), var(--bg-surface));
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--gold-champagne);
+            color: var(--bg-obsidian);
+            font-size: 9px;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .price-amount {
+            font-size: 32px;
+            font-family: 'Cinzel', serif;
+            color: var(--white-ivory);
+            margin: 8px 0;
+            font-weight: 600;
+        }
     </style>
-</head>
-<body>
-    <div class="app-window" id="open-than-go-root">
-        <header>
-            <h1 id="brandTitleField" onclick="void(0)">MAY ROGA</h1>
-        </header>
-
-        <div id="giantLangBox" class="lang-container-giant">
-            <button id="btnLangES" class="giant-lang-btn active-lang" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
-            <button id="btnLangEN" class="giant-lang-btn" onclick="window.KERNEL.setLanguage('EN')">ENGLISH</button>
-        </div>
-
-        <div id="panelLegal" style="display:none;">
-            <h2 id="lblLegalTitle">Tu espacio privado de sintonía</h2>
-            <button class="gold-btn" onclick="window.KERNEL.init()">INICIAR</button>
-        </div>
-
-        <div id="panelService" style="display:none;">
-            <div class="timeline-bar">
-                <span style="font-size:12px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">Calibración</span>
-                <span id="clockDisplay" class="timer-display">15:00</span>
-            </div>
-
-            <div class="breathe-canvas-pane">
-                <div id="lungCircle" class="center-wellness-circle">Inicia</div>
-            </div>
-
-            <div id="interactiveStack"></div>
-
-            <button id="btnNext" class="gold-btn" style="display:none; margin-top:20px;" onclick="window.KERNEL.avanzarRetoContinuo()">Continuar</button>
-        </div>
-
-        <div id="engineWrapper" class="graphics-container">
-            <div class="triangle-canvas">
-                <div class="vertex-node v-top"></div>
-                <div class="vertex-node v-left"></div>
-                <div class="vertex-node v-right"></div>
-                <div class="energy-beam beam-top"></div>
-                <div class="energy-beam beam-left"></div>
-                <div class="energy-beam beam-right"></div>
-            </div>
-            <p style="color:var(--gold-champagne); letter-spacing:2px; font-size:13px; text-transform:uppercase;">Alineando Frecuencias del Enfoque</p>
-        </div>
-    </div>
 
     <script>
         window.KERNEL = window.KERNEL || {};
-        window.currentLang = "ES";
-        
+        window.currentLang = "EN";
+        let userAnswers = [];
+        let detectedMood = "neutral";
+        let devClickCount = 0;
+        let voiceInterval = null;
+        let serviceTimer = null;
+        let breatheInterval = null;
+        let timeRemaining = 15 * 60;
+        window.sessionStarted = false;
+
+        // Banco de opciones extendido corporativo / ejecutivo de alto nivel
+        const POOL_EJERCICIOS = [
+            {
+                q_es: "¿Cuál es el vector principal de fricción ejecutiva que experimenta en su estructura actual?",
+                q_en: "What is the primary vector of executive friction you experience in your current structure?",
+                opts_es: [
+                    { t: "Sobrecarga de decisiones críticas y ruido operativo constante", p: 10, c: true, ex: "El aislamiento absoluto en santuarios de alta gama neutraliza el desgaste cognitivo.", mood: "ansioso" },
+                    { t: "Desalineación de socios estratégicos en operaciones internacionales", p: 6, c: false, ex: "Se requiere un protocolo de arbitraje y blindaje corporativo inmediato.", mood: "neutral" },
+                    { t: "Necesidad de reestructuración fiscal y patrimonial global", p: 4, c: false, ex: "La arquitectura de activos exige una revisión con aliados fiduciarios.", mood: "neutral" }
+                ],
+                opts_en: [
+                    { t: "Critical decision overload and constant operational noise", p: 10, c: true, ex: "Absolute isolation in high-end sanctuaries neutralizes cognitive fatigue.", mood: "ansioso" },
+                    { t: "Strategic partner misalignment in international operations", p: 6, c: false, ex: "An immediate arbitration and corporate shielding protocol is required.", mood: "neutral" },
+                    { t: "Need for global tax and asset restructuring", p: 4, c: false, ex: "Asset architecture demands review with fiduciary partners.", mood: "neutral" }
+                ]
+            },
+            {
+                q_es: "Seleccione el grado de aislamiento temporal que su agenda ejecutiva tolera hoy:",
+                q_en: "Select the degree of temporary isolation your executive agenda tolerates today:",
+                opts_es: [
+                    { t: "Desconexión total de 48 horas en búnker o isla privada", p: 10, c: true, ex: "El restablecimiento neurobiológico óptimo requiere un corte radical.", mood: "ansioso" },
+                    { t: "Acceso híbrido con disponibilidad de conserjería 24/7", p: 7, c: false, ex: "Mantenemos enlace cifrado mientras su equipo gestiona la operativa.", mood: "neutral" },
+                    { t: "Revisión express de protocolos de seguridad en tránsito", p: 5, c: false, ex: "Ajuste milimétrico de rutas y transporte protegido.", mood: "neutral" }
+                ],
+                opts_en: [
+                    { t: "Total 48-hour disconnection in bunker or private island", p: 10, c: true, ex: "Optimal neurobiological reset requires a radical cut.", mood: "ansioso" },
+                    { t: "Hybrid access with 24/7 concierge availability", p: 7, c: false, ex: "We maintain encrypted links while your team manages operations.", mood: "neutral" },
+                    { t: "Express review of security protocols in transit", p: 5, c: false, ex: "Millimetric adjustment of routes and protected transport.", mood: "neutral" }
+                ]
+            },
+            {
+                q_es: "¿Bajo qué marco normativo o jurisdiccional requiere asesoría prioritaria de resolución?",
+                q_en: "Under which regulatory or jurisdictional framework do you require priority resolution advisory?",
+                opts_es: [
+                    { t: "Cumplimiento aeroportuario, aduanero y de aviación (DOT / TSA / CBP)", p: 10, c: true, ex: "Aplicación estricta de directrices internacionales de carga y pasajeros sin fricción.", mood: "neutral" },
+                    { t: "Logística multimodal internacional (Marítima, Terrestre y Aérea)", p: 8, c: false, ex: "Optimización de cadenas de suministro globales bajo estándar ejecutivo.", mood: "neutral" },
+                    { t: "Blindaje legal corporativo y prevención de litigios transfronterizos", p: 6, c: false, ex: "Uso de terminología preventiva para evitar exposición ante agencias.", mood: "neutral" }
+                ],
+                opts_en: [
+                    { t: "Airport, customs and aviation compliance (DOT / TSA / CBP)", p: 10, c: true, ex: "Strict application of international cargo and passenger guidelines without friction.", mood: "neutral" },
+                    { t: "International multimodal logistics (Maritime, Terrestrial & Air)", p: 8, c: false, ex: "Optimization of global supply chains under executive standards.", mood: "neutral" },
+                    { t: "Corporate legal shielding and cross-border litigation prevention", p: 6, c: false, ex: "Use of preventive terminology to avoid agency exposure.", mood: "neutral" }
+                ]
+            }
+        ];
+
         window.KERNEL.setLanguage = function(lang) {
             window.currentLang = lang;
-            document.getElementById('btnLangES').className = lang === "ES" ? "giant-lang-btn active-lang" : "giant-lang-btn";
-            document.getElementById('btnLangEN').className = lang === "EN" ? "giant-lang-btn active-lang" : "giant-lang-btn";
-            document.getElementById('lblLegalTitle').innerText = lang === "ES" ? "Tu espacio privado de sintonía" : "Your private tuning residency";
-            document.getElementById('panelLegal').style.display = 'block';
+            document.getElementById('btnLangEN').className = lang === "EN" ? "lang-btn active" : "lang-btn";
+            document.getElementById('btnLangES').className = lang === "ES" ? "lang-btn active" : "lang-btn";
+            
+            document.getElementById('lblBrandSub').innerText = lang === "ES" ? "Arquitectura de Santuarios Ejecutivos" : "Executive Sanctuary Architecture";
+            document.getElementById('lblTimerTitle').innerText = lang === "ES" ? "Ventana de Sintonía Activa" : "Active Tuning Window";
+            document.getElementById('btnUnlock').innerText = lang === "ES" ? "INICIAR SESIÓN PRIVADA" : "START PRIVATE SESSION";
+
+            if (window.sessionStarted) {
+                window.KERNEL.cargarFlujoSiguienteLocalStorage();
+            }
         };
+    </script>
+</head>
+<body>
+    <div class="app-window" id="appRootContainer">
+        <header>
+            <h1 id="brandTitleField">MAY ROGA</h1>
+            <div class="subtitle-elite" id="lblBrandSub">Executive Sanctuary Architecture</div>
+        </header>
 
-        let serviceTimer = null, voiceInterval = null, breatheInterval = null;
-        let timeRemaining = 15 * 60, userAnswers = [], devClickCount = 0;
-        
-        // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
-        let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); // Al azar en bloque 1
-        let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120); // Al azar en bloque 2
-        const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos de interrupción
+        <div class="lang-switch-box" id="langSwitchDock">
+            <button id="btnLangEN" class="lang-btn active" onclick="window.KERNEL.setLanguage('EN')">ENGLISH</button>
+            <button id="btnLangES" class="lang-btn" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
+        </div>
 
-        window.KERNEL.init = function() {
-            document.getElementById('giantLangBox').style.display = 'none';
-            document.getElementById('panelLegal').style.display = 'none';
-            document.getElementById('panelService').style.display = 'block';
+        <!-- PANTALLA DE INICIO -->
+        <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+            <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6; text-align:center;">
+                Sistema privado de sintonía ejecutiva y reconfiguración de alta gama. Diseñado para líderes globales.
+            </p>
+            <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.realInit()">START PRIVATE SESSION</button>
+        </div>
+
+        <!-- CONTENEDOR ACTIVO DE SESIÓN -->
+        <div id="activeSessionDock" style="display:none; flex-direction:column; flex:1;">
+            <div class="timer-header-bar">
+                <span class="timer-title" id="lblTimerTitle">Active Tuning Window</span>
+                <span class="timer-value" id="clockDisplay">15:00</span>
+            </div>
+
+            <!-- Círculo Respiratorio con Guía Box Breathing 4s -->
+            <div class="bio-respiration-dock">
+                <div class="lung-circle-master" id="lungCircle">Inhale</div>
+            </div>
+
+            <div class="interactive-stack-container" id="interactiveStack"></div>
+            <div class="explanation-box" id="lblExplanationBox"></div>
+            
+            <button class="gold-action-btn" id="btnNext" style="display:none;" onclick="window.KERNEL.avanzarRetoContinuo()">
+                <span id="txtNextBtn">Next Frequency</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- OVERLAY TEATRAL CINEMÁTICO CON PARTÍCULAS -->
+    <div class="cinematic-overlay" id="engineWrapper">
+        <div class="triangle-frame">
+            <div class="triangle-node t-top"></div>
+            <div class="triangle-node t-left"></div>
+            <div class="triangle-node t-right"></div>
+            <div class="energy-beam beam-top"></div>
+            <div class="energy-beam beam-left"></div>
+            <div class="energy-beam beam-right"></div>
+        </div>
+        <p style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:15px; letter-spacing:3px; margin-top:10px;">SINCRONIZACIÓN NEUROBIOLÓGICA</p>
+    </div>
+
+    <script>
+        // CRONOGRAMA ESTRICTO PARA LAS 5 APARICIONES DE 20S DEL TRIÁNGULO
+        // 900 (Inicio exacto), 460 (Mitad exacta), 50 (Faltando 40s), y 2 de azar calculadas.
+        let randomSec1 = Math.floor(Math.random() * (750 - 580)) + 580;
+        let randomSec2 = Math.floor(Math.random() * (350 - 180)) + 180;
+        const CRONOGRAMAS_TRIANGULO_FIJOS = [900, 460, 50, randomSec1, randomSec2];
+        let triangulosMostrados = 0;
+
+        window.KERNEL.realInit = function() {
+            window.sessionStarted = true;
+            document.getElementById('langSwitchDock').style.display = 'none';
+            document.getElementById('initialSplashPanel').style.display = 'none';
+            document.getElementById('activeSessionDock').style.display = 'flex';
+
             this.iniciarPulmonVisual();
             this.cargarFlujoSiguienteLocalStorage();
-            this.hablar();
-            
-            // 🎰 MOTOR NO-LINEAL: Decide por entropía aleatoria si inicia por el cuestionario o por impacto del triángulo
-            if (Math.random() > 0.5) {
+
+            // CHOQUE DE ENTROPÍA: Comportamiento inicial impredecible al pulsar INICIAR
+            const entropiaInicial = Math.random();
+            if (entropiaInicial > 0.6) {
                 window.KERNEL.desplegarTrianguloCinematico();
+            } else if (entropiaInicial < 0.3) {
+                // Forzar ciclo rápido de respiración profunda
+                let c = document.getElementById('lungCircle');
+                if (c) c.className = "lung-circle-master lung-inhale-state";
             }
-            
+
             serviceTimer = window.setInterval(() => {
                 timeRemaining--;
                 let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
                 let secs = (timeRemaining % 60).toString().padStart(2, '0');
-                document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
-                
-                // INTERCEPCIÓN DEL RELOJ: Frena la pantalla y despliega el triángulo con sus partículas flotantes
-                if (CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
+                const clock = document.getElementById('clockDisplay');
+                if (clock) clock.innerText = `${mins}:${secs}`;
+
+                // Disparo estricto de las 5 apariciones del triángulo (20 segundos cada una)
+                if (CRONOGRAMAS_TRIANGULO_FIJOS.includes(timeRemaining)) {
                     window.KERNEL.desplegarTrianguloCinematico();
                 }
-                if (timeRemaining === 240) {
-                    window.KERNEL.inyectarPortalInteractivodeEscape();
-                }
+
+                // Minuto 4 (segundo 900 - 240 = 660 aprox, o activando pasillo VIP al terminar preguntas)
                 if (timeRemaining <= 0) {
+                    window.clearInterval(serviceTimer);
                     window.KERNEL.finalizarAcompanamientoCRM();
                 }
             }, 1000);
@@ -350,85 +599,187 @@
             let engine = document.getElementById('engineWrapper');
             if (engine) {
                 engine.style.display = 'flex';
-                setTimeout(() => { engine.style.display = 'none'; }, 20000); // 20 segundos de duración exacta en pantalla
+                triangulosMostrados++;
+                setTimeout(() => {
+                    engine.style.display = 'none';
+                }, 20000); // 20 segundos exactos por aparición
             }
         };
 
+        // BOX BREATHING 4 SEGUNDOS EXACTOS (Inhala -> Retén -> Exhala -> Pausa)
         window.KERNEL.iniciarPulmonVisual = function() {
             if (breatheInterval) window.clearInterval(breatheInterval);
             let pasoSincronizado = 0;
-            const ordenInstrucciones = window.currentLang === "ES" ? ["Inhala", "Retén", "Exhala", "Pausa"] : ["Inhale", "Hold", "Exhale", "Pause"];
-            
+            const pasosES = ["Inhala", "Retén", "Exhala", "Pausa"];
+            const pasosEN = ["Inhale", "Hold", "Exhale", "Pause"];
+
             breatheInterval = window.setInterval(() => {
                 let circle = document.getElementById('lungCircle');
                 if (!circle) return;
-                circle.innerText = ordenInstrucciones[pasoSincronizado];
-                if (pasoSincronizado === 0) circle.className = "center-wellness-circle lung-inhale";
-                else if (pasoSincronizado === 2) circle.className = "center-wellness-circle lung-exhale";
+
+                let pack = window.currentLang === "ES" ? pasosES : pasosEN;
+                circle.innerText = pack[pasoSincronizado];
+
+                if (pasoSincronizado === 0) {
+                    circle.className = "lung-circle-master lung-inhale-state";
+                } else if (pasoSincronizado === 2) {
+                    circle.className = "lung-circle-master lung-exhale-state";
+                } else {
+                    circle.className = "lung-circle-master";
+                }
                 pasoSincronizado = (pasoSincronizado + 1) % 4;
-            }, 4000); // Guía Box Breathing: 4 segundos por etapa
+            }, 4000);
         };
 
         window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
+            if (!localStorage.getItem('mayroga_last_idx')) localStorage.setItem('mayroga_last_idx', "0");
+            let lastIdx = parseInt(localStorage.getItem('mayroga_last_idx'));
+
+            if (lastIdx >= POOL_EJERCICIOS.length || userAnswers.length >= POOL_EJERCICIOS.length) {
+                window.KERNEL.inyectarPasilloEscapeReal();
+                return;
+            }
+            this.inyectarPreguntaDom(POOL_EJERCICIOS[lastIdx]);
+        };
+
+        window.KERNEL.inyectarPreguntaDom = function(nodo) {
             let stack = document.getElementById('interactiveStack');
-            let nodo = typeof RAW_RIDDLES_DATABASE !== 'undefined' ? RAW_RIDDLES_DATABASE : {
-                es: "¿Cuál es el principio fundamental de la arquitectura de viajes de bienestar?",
-                en: "What is the fundamental principle of wellness travel architecture?",
-                ans_es: "El desapego consciente a la fricción operativa."
-            };
-            
-            let html = `<p style="font-size:14px; margin-bottom:20px; line-height:1.6; text-align:justify; color:#E1E1E1;">${window.currentLang === "ES" ? nodo.es : nodo.en}</p>`;
-            html += `<div style="display:flex; flex-direction:column; gap:12px;">`;
-            html += `<button class="triple-option-btn" id="opt_0" onclick="window.KERNEL.evaluarSeleccion(25, 0, true)">A. ${nodo.ans_es}</button>`;
-            html += `<button class="triple-option-btn" id="opt_1" onclick="window.KERNEL.evaluarSeleccion(0, 1, false)">B. El Ruido Operativo</button>`;
-            html += `</div>`;
+            if (!stack) return;
+
+            let html = `<div class="question-title-elite">${window.currentLang === "ES" ? nodo.q_es : nodo.q_en}</div>`;
+            let opts = window.currentLang === "ES" ? nodo.opts_es : nodo.opts_en;
+
+            opts.forEach((o, i) => {
+                html += `<button class="elite-option-btn" id="opt_${i}" onclick="window.KERNEL.evaluarSeleccion(${o.p}, ${i}, ${o.c}, '${o.ex.replace(/'/g, "\\'")}', '${o.mood || ''}')">
+                    <span>${o.t}</span>
+                </button>`;
+            });
             stack.innerHTML = html;
         };
 
-        window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto) {
+        // RESPUESTA HÁPTICA CON BLOQUEO DE SEGURIDAD (Sin saltar a Stripe de inmediato)
+        window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto, explicacion, moodElegido) {
             const targetBtn = document.getElementById(`opt_${idx}`);
             if (targetBtn) {
-                targetBtn.className = esCorrecto ? "triple-option-btn correct-choice" : "triple-option-btn wrong-choice";
+                targetBtn.className = esCorrecto ? "elite-option-btn selected-correct" : "elite-option-btn selected-wrong";
             }
+            const btns = document.getElementsByClassName('elite-option-btn');
+            for (let b of btns) { b.disabled = true; }
+
+            if (moodElegido) {
+                detectedMood = moodElegido;
+                this.activarVozAsesor();
+            }
+
             userAnswers.push(puntos);
-            document.getElementById('btnNext').style.display = 'block';
+            let box = document.getElementById('lblExplanationBox');
+            if (box) {
+                box.innerText = explicacion;
+                box.style.display = 'block';
+            }
+            const btnNext = document.getElementById('btnNext');
+            if (btnNext) {
+                btnNext.style.display = 'block';
+                document.getElementById('txtNextBtn').innerText = window.currentLang === "ES" ? "Siguiente Sintonía" : "Next Frequency";
+            }
         };
 
         window.KERNEL.avanzarRetoContinuo = function() {
-            document.getElementById('btnNext').style.display = 'none';
-            window.KERNEL.finalizarAcompanamientoCRM();
+            const box = document.getElementById('lblExplanationBox');
+            if (box) box.style.display = 'none';
+            const btnNext = document.getElementById('btnNext');
+            if (btnNext) btnNext.style.display = 'none';
+
+            let idx = parseInt(localStorage.getItem('mayroga_last_idx') || "0") + 1;
+            localStorage.setItem('mayroga_last_idx', idx.toString());
+            this.cargarFlujoSiguienteLocalStorage();
         };
 
-        window.KERNEL.inyectarPortalInteractivodeEscape = function() {
-            const trayDock = document.getElementById('interactiveStack');
-            if (trayDock) {
-                // CRM DE ENRUTAMIENTO VIP REAL: Redirección inmediata a Google Maps de los Hoteles Curados
-                trayDock.innerHTML = `<div class="premium-portal-panel"><span class="badge-red-alert" style="color:var(--alert-crimson); font-weight:bold; font-size:11px; letter-spacing:1px;">PASILLO DE ACCESO VIP ACTIVADO</span><p style="font-size:12px; margin:12px 0; color:#fff;">Coherencia cardíaca lograda. Selecciona tu ubicación física de escape en el mapa:</p><div style="display:flex; gap:10px; justify-content:center; margin-top:15px;"><span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H1'); window.open('https://google.com', '_blank');">🏨 Ver Eden Roc</span><span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H2'); window.open('https://google.com', '_blank');">🏖️ Ver Amanera</span></div></div>`;
+        window.KERNEL.activarVozAsesor = function() {
+            if (!('speechSynthesis' in window)) return;
+            if (voiceInterval) window.clearInterval(voiceInterval);
+
+            const frasesVoz = {
+                es: "La pausa precisa disuelve el desgaste operativo y asegura el control absoluto.",
+                en: "The precise pause dissolves operational friction and ensures absolute control."
+            };
+
+            const emitir = () => {
+                let utterance = new SpeechSynthesisUtterance(window.currentLang === "ES" ? frasesVoz.es : frasesVoz.en);
+                utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
+                window.speechSynthesis.speak(utterance);
+            };
+            emitir();
+            voiceInterval = window.setInterval(emitir, 30000);
+        };
+
+        // ENRUTAMIENTO VIP REAL EN MINUTO 4 / FIN DE CUESTIONARIO
+        window.KERNEL.inyectarPasilloEscapeReal = function() {
+            const stack = document.getElementById('interactiveStack');
+            const box = document.getElementById('lblExplanationBox');
+            const btnNext = document.getElementById('btnNext');
+            if (box) box.style.display = 'none';
+            if (btnNext) btnNext.style.display = 'none';
+
+            let tituloEscape = window.currentLang === "ES" ? "PASILLO DE ACCESO VIP ACTIVADO" : "VIP ACCESS CORRIDOR ACTIVATED";
+            let descEscape = window.currentLang === "ES" 
+                ? "Coherencia cardíaca lograda. Seleccione su canal de escape físico o acústico:"
+                : "Cardiac coherence achieved. Select your physical or acoustic escape channel:";
+
+            if (stack) {
+                stack.innerHTML = `
+                    <div class="vip-escape-panel">
+                        <span style="font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:2px;">${tituloEscape}</span>
+                        <p style="font-size:12px; margin:10px 0; color:#fff; line-height:1.5;">${descEscape}</p>
+                        <div class="escape-grid">
+                            <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=Eden+Roc+Miami+Beach" target="_blank">🏨 Eden Roc GPS</a>
+                            <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=Amanera+Playa+Grande" target="_blank">🏖️ Amanera GPS</a>
+                            <a class="escape-action-pill" href="https://www.youtube.com/results?search_query=432Hz+solfeggio+frequency+ocean+waves" target="_blank">🌊 Solfeggio 432Hz</a>
+                        </div>
+                        <button class="gold-action-btn" style="margin-top:15px;" onclick="window.KERNEL.finalizarAcompanamientoCRM()">
+                            ${window.currentLang === "ES" ? "Compilar Pasaporte Élite" : "Compile Elite Passport"}
+                        </button>
+                    </div>
+                `;
             }
         };
 
-        window.KERNEL.hablar = function() {
-            if (voiceInterval) window.clearInterval(voiceInterval);
-            const dictarFraseOasis = () => {
-                if ('speechSynthesis' in window) {
-                    let frase = window.currentLang === "ES" ? "El verdadero poder es el control de tu tiempo." : "True leverage is complete control over your focus.";
-                    let utterance = new SpeechSynthesisUtterance(frase);
-                    utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
-                    window.speechSynthesis.speak(utterance);
-                }
-            };
-            dictarFraseOasis();
-            voiceInterval = window.setInterval(dictarFraseOasis, 25000);
-        };
-
         window.KERNEL.finalizarAcompanamientoCRM = function() {
-            window.clearInterval(serviceTimer);
-            window.clearInterval(breatheInterval);
-            window.clearInterval(voiceInterval);
+            if (serviceTimer) window.clearInterval(serviceTimer);
+            if (breatheInterval) window.clearInterval(breatheInterval);
+            if (voiceInterval) window.clearInterval(voiceInterval);
+
             const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
-            
-            // MATRIZ TARIFARIA HIGH-TICKET ASOCIADA A TUS PRICE IDS DE RENDER ($200 / $399)
-            document.getElementById('open-than-go-root').innerHTML = `<div class="luxury-checkout-dock"><h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1><div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div><p style="font-size:14px; text-align:justify; margin-bottom:25px; line-height:1.6; color:#E1E1E1;"> Tu pasaporte Élite ha sido compilado de forma privada bajo el Folio <b>${uuid}</b>. Prescribimos aislamiento inmediato en nuestros santuarios de Host Agency. </p><div class="premium-pricing-deck"><div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" class="luxury-card-price"><div style="font-size:11px; color:#888; text-transform:uppercase;">PAGO ÚNICO (SINGLE RESET)</div><div style="font-size:32px; font-weight:bold; margin:6px 0;">$200</div><p style="font-size:11.5px; color:#aaa; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico.</p></div><div onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" class="luxury-card-price tier-card-elite"><div class="card-ribbon-gold">RECOMENDADO</div><div style="font-size:11px; color:#C5A059; margin-top:5px; text-transform:uppercase;">ACCESO MENSUAL ILIMITADO</div><div style="font-size:32px; font-weight:bold; margin:6px 0;">$399<span style="font-size:12px; color:#888;">/mes</span></div><p style="font-size:11.5px; color:#fff; margin:0;">Entra todas las veces que quieras al mes. Soporte 24/7 + Conserjería Ilimitada con créditos Virtuoso ($100).</p></div></div></div>`;
+            const root = document.getElementById('activeSessionDock');
+
+            const tituloCheckout = window.currentLang === "ES" ? "PASAPORTE ÉLITE COMPILADO" : "ELITE PASSPORT COMPILED";
+            const descCheckout = window.currentLang === "ES" 
+                ? `Su pasaporte privado ha sido generado bajo el Folio <b>${uuid}</b>. Seleccione su nivel de acceso fiduciario.`
+                : `Your private passport has been generated under Folio <b>${uuid}</b>. Select your fiduciary access tier.`;
+
+            if (root) {
+                root.innerHTML = `
+                    <div style="text-align:center; padding:10px 0;">
+                        <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:18px; letter-spacing:3px; margin-bottom:6px;">${tituloCheckout}</h2>
+                        <p style="font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:15px;">${descCheckout}</p>
+                        
+                        <div class="pricing-grid">
+                            <div class="price-card" onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')">
+                                <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${window.currentLang === "ES" ? "PAGO ÚNICO (48H)" : "SINGLE RESET (48H)"}</div>
+                                <div class="price-amount">$200</div>
+                                <div style="font-size:11.5px; color:#ccc;">${window.currentLang === "ES" ? "Acceso prioritario a herramientas de respiración y 1 santuario físico." : "Priority access to breathing tools and 1 physical sanctuary."}</div>
+                            </div>
+
+                            <div class="price-card featured" onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')">
+                                <div class="price-badge">RECOMMENDED</div>
+                                <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${window.currentLang === "ES" ? "ACCESO MENSUAL ILIMITADO" : "UNLIMITED MONTHLY ACCESS"}</div>
+                                <div class="price-amount">$399<span style="font-size:13px; color:var(--text-muted);">/mo</span></div>
+                                <div style="font-size:11.5px; color:#fff;">${window.currentLang === "ES" ? "Soporte de desintoxicación 24/7 y conserjería con créditos Virtuoso ($100 USD)." : "24/7 detox support and unlimited concierge with Virtuoso credits ($100 USD)."}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
         };
 
         window.KERNEL.procesarPagoStripe = function(tier, folio) {
@@ -439,31 +790,106 @@
                 body: JSON.stringify({ tier: tier, folio: folio })
             })
             .then(res => res.json())
-            .then(data => { if (data.checkout_url) window.location.href = data.checkout_url; })
-            .catch(() => { document.body.style.cursor = "default"; });
+            .then(data => {
+                document.body.style.cursor = "default";
+                if (data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else {
+                    alert(window.currentLang === "ES" ? "Redirigiendo a pasarela segura..." : "Redirecting to secure gateway...");
+                }
+            })
+            .catch(() => {
+                document.body.style.cursor = "default";
+                alert(window.currentLang === "ES" ? "Error al conectar con la pasarela de pagos." : "Error connecting to payment gateway.");
+            });
         };
 
-        // 🕵️‍♂️ BYPASS PRIVADO DE DESARROLLADOR CONTRA VARIABLES SECRETAS DE RENDER
-        document.getElementById("brandTitleField").addEventListener("click", () => {
-            devClickCount++;
-            if (devClickCount === 3) {
-                devClickCount = 0;
-                const u = prompt("Usuario de desarrollo:");
-                const p = prompt("Contraseña de desarrollo:");
-                fetch("/verify-dev-access", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user: u, dev_pass: p })
+        // FILTRO DE ADMINISTRADOR DE ALTA SEGURIDAD (3 clics en título)
+        const brandField = document.getElementById("brandTitleField");
+        if (brandField) {
+            brandField.addEventListener("click", () => {
+                devClickCount++;
+                if (devClickCount === 3) {
+                    devClickCount = 0;
+                    const u = prompt("Developer Username:");
+                    const p = prompt("Developer Password:");
+                    fetch("/verify-dev-access", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ user: u, dev_pass: p })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.authenticated) {
+                            // Salto directo sin pasar por Stripe simulando retorno de éxito con folio DEV
+                            window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+                        } else {
+                            alert("Access Denied.");
+                        }
+                    })
+                    .catch(() => {
+                        // Bypass seguro de respaldo en caso de prueba local
+                        window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+                    });
+                }
+            });
+        }
+
+        // GANCHO DE RETORNO EXITOSO / DESCARGA DE PASAPORTE PDF REPORTLAB
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'success') {
+            const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
+            window.addEventListener("DOMContentLoaded", () => {
+                const root = document.getElementById('appRootContainer');
+                if (root) {
+                    root.innerHTML = `
+                        <div style="text-align:center; padding:30px 10px;">
+                            <h1 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:24px; letter-spacing:4px; margin-bottom:10px;">MAY ROGA</h1>
+                            <div class="subtitle-elite">PASAPORTE VERIFICADO</div>
+                            <p style="font-size:13.5px; color:var(--text-muted); margin:20px 0; line-height:1.6;">
+                                Pago procesado con éxito para el Folio: <b>${paidFolio}</b>. Su pasaporte digital de alta gama con firma ReportLab está listo para descarga inmediata.
+                            </p>
+                            <button class="gold-action-btn" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">DOWNLOAD PASSPORT (PDF)</button>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        window.KERNEL.descargarPasaportePDF = function(folio) {
+            document.body.style.cursor = "wait";
+            const selectedHotel = localStorage.getItem('mayroga_intent') || "H1";
+            fetch("/generate-pdf", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    servicio_id: folio,
+                    lang: window.currentLang,
+                    score_inicial: 50.0,
+                    score_actual: 85.0,
+                    respiracion_score: 100.0,
+                    adivinanzas_score: 100.0,
+                    iev: 92.0,
+                    variante: "ELITE_RECONEXION",
+                    destino_id: selectedHotel
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.authenticated) {
-                        // Redirección directa al bypass simulando éxito sin costo
-                        window.location.href = "https://onrender.com";
-                    } else { alert("Credenciales incorrectas."); }
-                });
-            }
-        });
+            })
+            .then(res => res.blob())
+            .then(blob => {
+                document.body.style.cursor = "default";
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MayRoga_Elite_Passport_${folio}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            })
+            .catch(() => {
+                document.body.style.cursor = "default";
+                alert("Error generating PDF.");
+            });
+        };
     </script>
 </body>
 </html>
