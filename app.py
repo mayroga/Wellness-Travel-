@@ -131,8 +131,10 @@ class DevAuthPayload(BaseModel):
 
 @app.post("/verify-dev-access")
 def verify_dev_access(payload: DevAuthPayload):
-    system_dev_user = os.getenv("DEV_USER")
-    system_dev_pass = os.getenv("DEV_PASS")
+    # Valores por defecto de emergencia si no se cargaron en las variables de Render
+    system_dev_user = os.getenv("DEV_USER", "admin")
+    system_dev_pass = os.getenv("DEV_PASS", "mayroga2026")
+    
     if payload.user == system_dev_user and payload.dev_pass == system_dev_pass:
         return {"authenticated": True}
     raise HTTPException(status_code=401, detail="Unauthorized developer credentials.")
@@ -152,8 +154,8 @@ def create_checkout_session(payload: CheckoutPayload):
             }],
             # Determina de forma dinámica si es un pago único comercial o una suscripción ilimitada mensual
             mode='payment' if payload.tier == "SINGLE_200" else 'subscription',
-            success_url=f"https://wellness-travel.onrender.com{payload.folio}",
-            cancel_url="https://wellness-travel.onrender.com",
+success_url="https://wellness-travel.onrender.com/?status=success&folio=" + payload.folio,
+            cancel_url="https://wellness-travel.onrender.com/",
             metadata={
                 'folio_crm': payload.folio,
                 'billing_tier': payload.tier
