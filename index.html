@@ -274,16 +274,16 @@
         </div>
         <h2 id="lblLegalTitle">Tu espacio privado de sintonía</h2>
         
-        <div id="panelLegal">
-            <button class="gold-btn" id="btnUnlock" onclick="window.KERNEL.init()">INICIAR</button>
-            <div class="timeline-bar">
-                <div class="timer-display" id="clockDisplay">15:00</div>
-            </div>
-            <div id="interactiveStack"></div>
-            <button class="gold-btn" id="btnNext" style="display:none; margin-top:15px;" onclick="window.KERNEL.avanzarRetoContinuo()">Continuar</button>
-            <p id="lblStatus">Alineando Frecuencias del Enfoque</p>
-        </div>
+<div id="panelLegal" style="display:none; text-align:center;">
+    <h2 id="lblLegalTitle">Tu espacio privado de sintonía</h2>
+    <!-- FIXED: Removido onclick inline para evitar excepciones tempranas de carga -->
+    <button class="gold-btn" id="btnUnlock">INICIAR</button>
+    <div class="timeline-bar">
+        <div class="timer-display" id="clockDisplay">15:00</div>
     </div>
+    <div id="interactiveStack"></div>
+    <p id="lblStatus">Alineando Frecuencias del Enfoque</p>
+</div>
 
     <!-- CONTENEDOR DEL TRIÁNGULO CINEMÁTICO -->
     <div class="graphics-container" id="engineWrapper">
@@ -732,3 +732,28 @@ window.KERNEL.inyectarPortalInteractivodeEscape = function() {
             document.body.style.cursor = "default"; 
         });
     };
+    // ====================================================================================
+    // CIRCUITO DE CONEXIÓN SEGURO: Enlaza el botón una vez compilado todo el sistema
+    // ====================================================================================
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("[MAY ROGA LLC] Árbol de la vista listo. Vinculando disparador seguro...");
+        
+        const botonIniciar = document.getElementById("btnUnlock");
+        if (botonIniciar) {
+            botonIniciar.addEventListener("click", () => {
+                console.log("[MAY ROGA LLC] Clic verificado. Validando existencia del motor...");
+                
+                // Handshake blindado contra asincronía
+                if (window.KERNEL && typeof window.KERNEL.realInit === "function") {
+                    window.KERNEL.realInit();
+                } else if (window.KERNEL && typeof window.KERNEL.init === "function") {
+                    window.KERNEL.init();
+                } else {
+                    console.error("[MAY ROGA LLC Error] El motor KERNEL aún no está disponible en memoria.");
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
