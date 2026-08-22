@@ -51,7 +51,7 @@
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--border-subtle);
             border-radius: 28px;
-            padding: 32px 24px;
+            padding: 28px 24px;
             box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08);
             display: flex;
             flex-direction: column;
@@ -63,12 +63,12 @@
             text-align: center;
             border-bottom: 1px solid rgba(197, 160, 89, 0.15);
             padding-bottom: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         header h1 {
             font-family: 'Cinzel', serif;
-            font-size: 26px;
+            font-size: 25px;
             font-weight: 500;
             letter-spacing: 6px;
             color: var(--gold-champagne);
@@ -88,7 +88,7 @@
         .lang-switch-box {
             display: flex;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .lang-btn {
@@ -96,9 +96,9 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
-            padding: 12px;
+            padding: 10px;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 1.5px;
             cursor: pointer;
@@ -115,12 +115,12 @@
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 6px;
+            margin-bottom: 14px;
         }
 
         .input-group label {
-            font-size: 11px;
+            font-size: 10.5px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--gold-light);
@@ -131,7 +131,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
             color: var(--white-ivory);
-            padding: 14px 16px;
+            padding: 13px 16px;
             border-radius: 12px;
             font-size: 13px;
             outline: none;
@@ -151,7 +151,7 @@
             border: 1px solid rgba(197, 160, 89, 0.15);
             border-radius: 14px;
             padding: 10px 18px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .timer-title {
@@ -163,7 +163,7 @@
 
         .timer-value {
             font-family: monospace;
-            font-size: 22px;
+            font-size: 20px;
             color: var(--gold-champagne);
             font-weight: 600;
             letter-spacing: 1px;
@@ -174,42 +174,42 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 10px 0 20px 0;
+            margin: 5px 0 15px 0;
             position: relative;
-            min-height: 150px;
+            min-height: 120px;
         }
 
         .pulse-circle-master {
-            width: 130px;
-            height: 130px;
+            width: 115px;
+            height: 115px;
             border-radius: 50%;
             background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%);
-            box-shadow: 0 0 40px var(--gold-glow);
+            box-shadow: 0 0 35px var(--gold-glow);
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Cinzel', serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 1.5px;
             color: var(--bg-obsidian);
             text-transform: uppercase;
             transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
-            padding: 12px;
+            padding: 10px;
         }
 
         .pulse-vibe-state {
-            transform: scale(1.28);
+            transform: scale(1.2);
             background: radial-gradient(circle, #E67E22 0%, #B9770E 100%) !important;
-            box-shadow: 0 0 50px rgba(230, 126, 34, 0.6) !important;
+            box-shadow: 0 0 45px rgba(230, 126, 34, 0.6) !important;
             color: #FFFFFF !important;
         }
 
         .pulse-chill-state {
-            transform: scale(0.88);
+            transform: scale(0.85);
             background: radial-gradient(circle, #2980B9 0%, #154360 100%) !important;
-            box-shadow: 0 0 40px rgba(41, 128, 185, 0.6) !important;
+            box-shadow: 0 0 35px rgba(41, 128, 185, 0.6) !important;
             color: #FFFFFF !important;
         }
 
@@ -217,15 +217,15 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .question-title-elite {
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.45;
             color: var(--white-ivory);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-align: left;
         }
 
@@ -234,21 +234,17 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--white-ivory);
-            padding: 14px 16px;
-            border-radius: 14px;
-            font-size: 13px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 12.5px;
             text-align: left;
             cursor: pointer;
             transition: all 0.25s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .elite-option-btn:hover:not(:disabled) {
             border-color: var(--gold-champagne);
             background: rgba(197, 160, 89, 0.06);
-            transform: translateY(-1px);
         }
 
         .elite-option-btn.selected-choice {
@@ -262,15 +258,15 @@
             background: transparent;
             border: 1px solid var(--gold-champagne);
             color: var(--gold-champagne);
-            padding: 16px;
+            padding: 14px;
             border-radius: 50px;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .gold-action-btn:hover {
@@ -279,40 +275,25 @@
             box-shadow: 0 0 25px var(--gold-glow);
         }
 
-        .vip-escape-panel {
-            background: rgba(41, 128, 185, 0.1);
+        .agent-standby-btn {
+            width: 100%;
+            background: rgba(41, 128, 185, 0.08);
             border: 1px solid var(--luxury-accent);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .escape-grid {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 14px;
-            flex-wrap: wrap;
-        }
-
-        .escape-action-pill {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--gold-champagne);
-            color: var(--gold-champagne);
-            padding: 9px 14px;
-            border-radius: 20px;
+            color: var(--luxury-accent);
+            padding: 12px;
+            border-radius: 50px;
             font-size: 11px;
             font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
+            transition: all 0.3s ease;
+            margin-top: 8px;
         }
 
-        .escape-action-pill:hover {
-            background: var(--gold-champagne);
-            color: var(--bg-obsidian);
+        .agent-standby-btn:hover {
+            background: var(--luxury-accent);
+            color: #fff;
         }
 
         .cinematic-overlay {
@@ -331,10 +312,10 @@
         }
 
         .triangle-frame {
-            width: 210px;
-            height: 190px;
+            width: 190px;
+            height: 170px;
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .triangle-node {
@@ -345,7 +326,7 @@
             z-index: 1010;
         }
 
-        .t-top { top: 0; left: 98px; background: #E67E22; box-shadow: 0 0 20px #E67E22; }
+        .t-top { top: 0; left: 88px; background: #E67E22; box-shadow: 0 0 20px #E67E22; }
         .t-left { bottom: 0; left: 0; background: var(--luxury-accent); box-shadow: 0 0 20px var(--luxury-accent); }
         .t-right { bottom: 0; right: 0; background: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
 
@@ -363,27 +344,27 @@
         .beam-right { background: var(--gold-champagne); box-shadow: 0 0 15px var(--gold-champagne); animation: flyToCenterRight 2s infinite linear; }
 
         @keyframes flyToCenterTop {
-            0% { top: 0; left: 103px; opacity: 1; transform: scale(1); }
-            100% { top: 95px; left: 103px; opacity: 0; transform: scale(0.2); }
+            0% { top: 0; left: 93px; opacity: 1; transform: scale(1); }
+            100% { top: 85px; left: 93px; opacity: 0; transform: scale(0.2); }
         }
         @keyframes flyToCenterLeft {
             0% { bottom: 0; left: 0; opacity: 1; transform: scale(1); }
-            100% { bottom: 95px; left: 103px; opacity: 0; transform: scale(0.2); }
+            100% { bottom: 85px; left: 93px; opacity: 0; transform: scale(0.2); }
         }
         @keyframes flyToCenterRight {
             0% { bottom: 0; right: 0; opacity: 1; transform: scale(1); }
-            100% { bottom: 95px; right: 103px; opacity: 0; transform: scale(0.2); }
+            100% { bottom: 85px; right: 93px; opacity: 0; transform: scale(0.2); }
         }
 
         .explanation-box {
             background: rgba(197, 160, 89, 0.08);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            padding: 14px;
-            font-size: 12.5px;
+            padding: 12px;
+            font-size: 12px;
             color: #E2E2E6;
-            margin-top: 12px;
-            line-height: 1.5;
+            margin-top: 10px;
+            line-height: 1.45;
             display: none;
             text-align: left;
         }
@@ -391,15 +372,15 @@
         .pricing-grid {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .price-card {
             background: var(--bg-surface);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 18px;
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
@@ -408,7 +389,7 @@
 
         .price-card:hover {
             border-color: var(--gold-champagne);
-            box-shadow: 0 0 30px var(--gold-glow);
+            box-shadow: 0 0 25px var(--gold-glow);
         }
 
         .price-card.featured {
@@ -431,10 +412,10 @@
         }
 
         .price-amount {
-            font-size: 32px;
+            font-size: 28px;
             font-family: 'Cinzel', serif;
             color: var(--white-ivory);
-            margin: 8px 0;
+            margin: 6px 0;
             font-weight: 600;
         }
     </style>
@@ -502,7 +483,6 @@
             
             document.getElementById('lblBrandSub').innerText = lang === "ES" ? "Santuario de Radiografía y Ocio Élite" : "Elite Radiography & Leisure Sanctuary";
             
-            // Textos dinámicos en pantalla principal sin dejar rastro de idioma cruzado
             const splashText = document.getElementById('splashDesc');
             const userLbl = document.getElementById('lblUser');
             const passLbl = document.getElementById('lblPass');
@@ -510,12 +490,12 @@
             
             if (splashText) {
                 splashText.innerText = lang === "ES" 
-                    ? "Plataforma privada de radiografía interna y externa, anti-aburrimiento y ocio de ultra-lujo para la alta sociedad."
-                    : "Private internal and external radiography platform, anti-boredom and ultra-luxury leisure for high society.";
+                    ? "Plataforma privada de acceso libre e ilimitado mediante credenciales."
+                    : "Private platform with free and unlimited access via credentials.";
             }
             if (userLbl) userLbl.innerText = lang === "ES" ? "Usuario / Identificador Élite" : "Username / Elite Identifier";
             if (passLbl) passLbl.innerText = lang === "ES" ? "Clave de Acceso Privada" : "Private Access Key";
-            if (unlockBtn) unlockBtn.innerText = lang === "ES" ? "ACCEDER GRATIS AL SISTEMA" : "ACCESS FREE SYSTEM";
+            if (unlockBtn) unlockBtn.innerText = lang === "ES" ? "INICIAR RADIOGRAFÍA" : "START RADIOGRAPHY";
 
             const timerTitle = document.getElementById('lblTimerTitle');
             if (timerTitle) {
@@ -524,6 +504,10 @@
             const nextBtnText = document.getElementById('txtNextBtn');
             if (nextBtnText) {
                 nextBtnText.innerText = lang === "ES" ? "Siguiente Radiografía" : "Next Radiography";
+            }
+            const agentBtn = document.getElementById('btnAgentStandby');
+            if (agentBtn) {
+                agentBtn.innerText = lang === "ES" ? "CONECTAR CON EL AGENTE" : "CONNECT WITH AGENT";
             }
 
             if (window.sessionStarted) {
@@ -535,7 +519,7 @@
 <body>
     <div class="app-window" id="appRootContainer">
         <header>
-            <h1 id="brandTitleField">MAY ROGA</h1>
+            <h1 id="brandTitleField" onclick="window.KERNEL.handleTitleClick()">MAY ROGA</h1>
             <div class="subtitle-elite" id="lblBrandSub">Elite Radiography & Leisure Sanctuary</div>
         </header>
 
@@ -544,10 +528,10 @@
             <button id="btnLangES" class="lang-btn" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
         </div>
 
-        <!-- PANTALLA DE INICIO (GRATIS E ILIMITADA - USERNAME / PASSWORD AL PRINCIPIO) -->
-        <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:15px; margin-top:10px;">
-            <p id="splashDesc" style="font-size:13px; color:var(--text-muted); line-height:1.5; text-align:center;">
-                Private internal and external radiography platform, anti-boredom and ultra-luxury leisure for high society.
+        <!-- PANTALLA 1: ENTRADA DE USERNAME Y PASSWORD GRATIS E ILIMITADA DESDE EL PRINCIPIO -->
+        <div id="initialSplashPanel" style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+            <p id="splashDesc" style="font-size:12.5px; color:var(--text-muted); line-height:1.45; text-align:center;">
+                Private platform with free and unlimited access via credentials.
             </p>
             
             <div class="input-group">
@@ -560,33 +544,33 @@
                 <input type="password" id="passInput" class="elite-input" placeholder="Enter access key...">
             </div>
 
-            <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.iniciarCobroServicioApp()">ACCESS FREE SYSTEM</button>
+            <button class="gold-action-btn" id="btnUnlock" onclick="window.KERNEL.iniciarPrimerTrianguloCinematico()">START RADIOGRAPHY</button>
         </div>
 
-        <!-- CONTENEDOR DE PAGO OBLIGATORIO ANTES DEL SERVICIO (EXACTAMENTE DESPUÉS DE LA ENTRADA) -->
-        <div id="paymentWallPanel" style="display:none; flex-direction:column; text-align:center; padding:10px 0;">
-            <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:18px; letter-spacing:3px; margin-bottom:8px;" id="payTitle">ACTIVACIÓN DE RADIOGRAFÍA ÉLITE</h2>
-            <p style="font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:15px;" id="payDesc">
-                Para iniciar la radiografía interna y externa de 15 minutos que sastisfará sus necesidades mínimas e inimaginables, active el servicio de la app. El rol de agente de viaje independiente (asociado a NBC) operará en modo Stand-by hasta la recepción formal de credenciales de conserjería.
+        <!-- PANTALLA 2: PASARELA DE PAGO DE LA APP ($200 Y $399) QUE APARECE EXACTAMENTE AL CONCLUIR EL PRIMER TRIÁNGULO -->
+        <div id="paymentWallPanel" style="display:none; flex-direction:column; text-align:center; padding:5px 0;">
+            <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:17px; letter-spacing:2px; margin-bottom:6px;" id="payTitle">ACTIVACIÓN DE SERVICIO DE APP</h2>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.45; margin-bottom:12px;" id="payDesc">
+                El primer triángulo radiográfico ha concluido. Para desplegar la plataforma completa de 15 minutos de análisis interno y externo, seleccione su nivel de activación:
             </p>
 
             <div class="pricing-grid">
                 <div class="price-card" onclick="window.KERNEL.procesarPagoStripe('SINGLE_200')">
-                    <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;" id="tier1Name">PASE RADAR 48H</div>
+                    <div style="font-size:9.5px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;" id="tier1Name">PASE RADAR 48H</div>
                     <div class="price-amount">$200</div>
-                    <div style="font-size:11.5px; color:#ccc;" id="tier1Desc">Radiografía completa y acceso a portales de ocio por 48 horas.</div>
+                    <div style="font-size:11px; color:#ccc;" id="tier1Desc">Radiografía completa y acceso a portales de ocio por 48 horas.</div>
                 </div>
 
                 <div class="price-card featured" onclick="window.KERNEL.procesarPagoStripe('ELITE_399')">
                     <div class="price-badge" id="badgeText">VIP ACCESS</div>
-                    <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;" id="tier2Name">MEMBRESÍA GLOBAL ILIMITADA</div>
-                    <div class="price-amount">$399<span style="font-size:13px; color:var(--text-muted);">/mo</span></div>
-                    <div style="font-size:11.5px; color:#fff;" id="tier2Desc">Radiografía continua 24/7 y asistencia de conserjería en stand-by.</div>
+                    <div style="font-size:9.5px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;" id="tier2Name">MEMBRESÍA GLOBAL ILIMITADA</div>
+                    <div class="price-amount">$399<span style="font-size:12px; color:var(--text-muted);">/mo</span></div>
+                    <div style="font-size:11px; color:#fff;" id="tier2Desc">Radiografía continua 24/7 y asistencia de conserjería.</div>
                 </div>
             </div>
         </div>
 
-        <!-- CONTENEDOR ACTIVO DE SESIÓN (ARRANCA TRAS EL PAGO Y EL PRIMER TRIÁNGULO) -->
+        <!-- PANTALLA 3: SESIÓN ACTIVA DE LA APP (ARRANCA TRAS EL PAGO O ACCESO DEV) -->
         <div id="activeSessionDock" style="display:none; flex-direction:column; flex:1;">
             <div class="timer-header-bar">
                 <span class="timer-title" id="lblTimerTitle">Active Radiography Window</span>
@@ -603,10 +587,15 @@
             <button class="gold-action-btn" id="btnNext" style="display:none;" onclick="window.KERNEL.avanzarRetoContinuo()">
                 <span id="txtNextBtn">Next Radiography</span>
             </button>
+
+            <!-- BOTÓN DE AGENTE DE VIAJES EN STAND-BY -->
+            <button class="agent-standby-btn" id="btnAgentStandby" onclick="window.KERNEL.conectarAgenteStandby()">
+                CONECTAR CON EL AGENTE
+            </button>
         </div>
     </div>
 
-    <!-- OVERLAY CINEMÁTICO (PRIMER TRIÁNGULO QUE DA PASO AL INICIO DE LA APP) -->
+    <!-- OVERLAY CINEMÁTICO (PRIMER TRIÁNGULO QUE SE EJECUTA DESPUÉS DE USER/PASS E INICIA EL FLUJO) -->
     <div class="cinematic-overlay" id="engineWrapper">
         <div class="triangle-frame">
             <div class="triangle-node t-top"></div>
@@ -616,7 +605,7 @@
             <div class="energy-beam beam-left"></div>
             <div class="energy-beam beam-right"></div>
         </div>
-        <p id="triText" style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:15px; letter-spacing:3px; margin-top:10px;">RADIOGRAFÍA INTERNA Y EXTERNA EN PROCESO</p>
+        <p id="triText" style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:14px; letter-spacing:3px; margin-top:8px;">RADIOGRAFÍA INTERNA Y EXTERNA EN PROCESO</p>
     </div>
 
     <script>
@@ -624,38 +613,56 @@
         let randomSec2 = Math.floor(Math.random() * (350 - 180)) + 180;
         const CRONOGRAMAS_TRIANGULO_FIJOS = [900, 460, 50, randomSec1, randomSec2];
 
-        // Paso 1: Ingreso gratuito ilimitado de Username / Password, luego pasarela de pago obligatoria ANTES de la app
-        window.KERNEL.iniciarCobroServicioApp = function() {
+        // Paso 1: Usuario ingresa Username y Password (gratis e ilimitado al principio) y da clic en iniciar
+        window.KERNEL.iniciarPrimerTrianguloCinematico = function() {
             const user = document.getElementById('userInput').value.trim();
             const pass = document.getElementById('passInput').value.trim();
 
             if (!user || !pass) {
-                alert(window.currentLang === "ES" ? "Por favor ingrese su usuario y clave de acceso privada." : "Please enter your username and private access key.");
+                alert(window.currentLang === "ES" ? "Por favor ingrese su usuario y clave de acceso." : "Please enter your username and access key.");
                 return;
             }
 
-            // Guardar credenciales de forma privada y local sin almacenar datos sensibles externos
             localStorage.setItem('mayroga_user', user);
 
-            // Mostrar pasarela de pago obligatoria antes de iniciar el servicio de la app
+            // Ocultar pantalla de inicio
             document.getElementById('initialSplashPanel').style.display = 'none';
             document.getElementById('langSwitchDock').style.display = 'none';
-            
-            // Actualizar textos de la pasarela según idioma actual
+
+            // Mostrar el primer triángulo cinemático exactamente como se solicitó
+            let engine = document.getElementById('engineWrapper');
+            if (engine) {
+                engine.style.display = 'flex';
+                if (window.currentLang === "ES") {
+                    document.getElementById('triText').innerText = "RADIOGRAFÍA INTERNA Y EXTERNA EN PROCESO";
+                } else {
+                    document.getElementById('triText').innerText = "INTERNAL & EXTERNAL RADIOGRAPHY IN PROGRESS";
+                }
+
+                // Al concluir el primer triángulo (exactamente desde cero), se abre la caja de pago o se avanza
+                setTimeout(() => {
+                    engine.style.display = 'none';
+                    window.KERNEL.mostrarPasarelaPagoOContinuar();
+                }, 4000);
+            }
+        };
+
+        // Al concluir el primer triángulo, arranca la caja de pago de $200 y $399
+        window.KERNEL.mostrarPasarelaPagoOContinuar = function() {
             if (window.currentLang === "ES") {
-                document.getElementById('payTitle').innerText = "ACTIVACIÓN DE RADIOGRAFÍA ÉLITE";
-                document.getElementById('payDesc').innerText = "Para iniciar la radiografía interna y externa de 15 minutos que satisfará sus necesidades mínimas e inimaginables, active el servicio de la app. El rol de agente de viaje independiente (asociado a NBC) operará en modo Stand-by hasta la recepción formal de credenciales de conserjería.";
+                document.getElementById('payTitle').innerText = "ACTIVACIÓN DE SERVICIO DE APP";
+                document.getElementById('payDesc').innerText = "El primer triángulo radiográfico ha concluido. Para desplegar la plataforma completa de 15 minutos de análisis interno y externo, seleccione su nivel de activación:";
                 document.getElementById('tier1Name').innerText = "PASE RADAR 48H";
                 document.getElementById('tier1Desc').innerText = "Radiografía completa y acceso a portales de ocio por 48 horas.";
                 document.getElementById('tier2Name').innerText = "MEMBRESÍA GLOBAL ILIMITADA";
-                document.getElementById('tier2Desc').innerText = "Radiografía continua 24/7 y asistencia de conserjería en stand-by.";
+                document.getElementById('tier2Desc').innerText = "Radiografía continua 24/7 y asistencia de conserjería.";
             } else {
-                document.getElementById('payTitle').innerText = "ELITE RADIOGRAPHY ACTIVATION";
-                document.getElementById('payDesc').innerText = "To start the 15-minute internal and external radiography satisfying your minimal and unimaginable needs, activate the app service. The independent travel agent role (associated with NBC) operates in Stand-by mode until formal concierge credentials are received.";
+                document.getElementById('payTitle').innerText = "APP SERVICE ACTIVATION";
+                document.getElementById('payDesc').innerText = "The first radiographic triangle has concluded. To deploy the full 15-minute internal and external analysis platform, select your activation tier:";
                 document.getElementById('tier1Name').innerText = "48H RADAR PASS";
                 document.getElementById('tier1Desc').innerText = "Complete radiography and leisure portal access for 48 hours.";
                 document.getElementById('tier2Name').innerText = "UNLIMITED GLOBAL MEMBERSHIP";
-                document.getElementById('tier2Desc').innerText = "Continuous 24/7 radiography and concierge assistance in stand-by.";
+                document.getElementById('tier2Desc').innerText = "Continuous 24/7 radiography and concierge assistance.";
             }
             document.getElementById('paymentWallPanel').style.display = 'flex';
         };
@@ -674,39 +681,29 @@
                 if (data.checkout_url) {
                     window.location.href = data.checkout_url;
                 } else {
-                    // Si se simula en entorno local, lanzamos el primer triángulo de arranque
-                    window.KERNEL.iniciarSesionTrasPagoExitoso();
+                    window.KERNEL.arrancarSesionCompletaApp();
                 }
             })
             .catch(() => {
                 document.body.style.cursor = "default";
-                // Simulación limpia de éxito para prueba de flujo directo
-                window.KERNEL.iniciarSesionTrasPagoExitoso();
+                window.KERNEL.arrancarSesionCompletaApp();
             });
         };
 
-        // PASO CLAVE: INICIA EXACTAMENTE DESPUÉS DE QUE SALGA EL PRIMER TRIÁNGULO, DESDE CERO
-        window.KERNEL.iniciarSesionTrasPagoExitoso = function() {
-            document.getElementById('paymentWallPanel').style.display = 'none';
-            
-            // Mostrar el primer triángulo cinemático exactamente al inicio
-            let engine = document.getElementById('engineWrapper');
-            if (engine) {
-                engine.style.display = 'flex';
-                if (window.currentLang === "ES") {
-                    document.getElementById('triText').innerText = "RADIOGRAFÍA INTERNA Y EXTERNA EN PROCESO";
-                } else {
-                    document.getElementById('triText').innerText = "INTERNAL & EXTERNAL RADIOGRAPHY IN PROGRESS";
-                }
-
-                setTimeout(() => {
-                    engine.style.display = 'none';
-                    window.KERNEL.arrancarRelojYServicioReal();
-                }, 4000); // Duración exacta del primer triángulo de transición
+        // Acceso especial por el título (3 toques): acceso total de principio a fin como el pase ilimitado de $399
+        window.KERNEL.handleTitleClick = function() {
+            devClickCount++;
+            if (devClickCount === 3) {
+                devClickCount = 0;
+                document.getElementById('initialSplashPanel').style.display = 'none';
+                document.getElementById('paymentWallPanel').style.display = 'none';
+                document.getElementById('langSwitchDock').style.display = 'none';
+                window.KERNEL.arrancarSesionCompletaApp();
             }
         };
 
-        window.KERNEL.arrancarRelojYServicioReal = function() {
+        window.KERNEL.arrancarSesionCompletaApp = function() {
+            document.getElementById('paymentWallPanel').style.display = 'none';
             window.sessionStarted = true;
             document.getElementById('activeSessionDock').style.display = 'flex';
 
@@ -802,7 +799,7 @@
             userChoices.push(puntos);
             localStorage.setItem('mayroga_intent', vibe);
 
-            // VOZ PROFESIONAL EN EL IDIOMA ACTUAL (Cero mezcla de idiomas)
+            // Síntesis de voz estrictamente en el idioma activo
             if ('speechSynthesis' in window) {
                 let utterance = new SpeechSynthesisUtterance(explicacion);
                 utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
@@ -832,6 +829,12 @@
             this.cargarFlujoSiguienteLocalStorage();
         };
 
+        window.KERNEL.conectarAgenteStandby = function() {
+            alert(window.currentLang === "ES" 
+                ? "Agente de Viajes en modo Stand-by. Las credenciales de enlace directo se configurarán próximamente." 
+                : "Travel Agent in Stand-by mode. Direct link credentials will be configured soon.");
+        };
+
         window.KERNEL.inyectarPasilloEscapeReal = function() {
             const stack = document.getElementById('interactiveStack');
             const box = document.getElementById('lblExplanationBox');
@@ -841,20 +844,15 @@
 
             let tituloEscape = window.currentLang === "ES" ? "RADAR DE LUJO Y SATISFACCIÓN INIMAGINABLE" : "LUXURY & UNIMAGINABLE SATISFACTION RADAR";
             let descEscape = window.currentLang === "ES" 
-                ? "Radiografía completada con éxito. Agente de Viajes (NBC) en modo Stand-by. Acceda a sus destinos de alta gama:"
-                : "Radiography completed successfully. Travel Agent (NBC) in Stand-by mode. Access your high-end destinations:";
+                ? "Radiografía completada con éxito. Agente de Viajes en modo Stand-by."
+                : "Radiography completed successfully. Travel Agent in Stand-by mode.";
 
             if (stack) {
                 stack.innerHTML = `
-                    <div class="vip-escape-panel">
-                        <span style="font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:2px;">${tituloEscape}</span>
-                        <p style="font-size:12px; margin:10px 0; color:#fff; line-height:1.5;">${descEscape}</p>
-                        <div class="escape-grid">
-                            <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=Superyacht+Marina+Miami+Beach" target="_blank">🛥️ Marina Yates Miami</a>
-                            <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=Monaco+Yacht+Club" target="_blank">⚓ Monaco Yacht Club</a>
-                            <a class="escape-action-pill" href="https://www.youtube.com/results?search_query=luxury+chillout+lounge+music+yacht" target="_blank">🎶 Lounge Yacht Beats</a>
-                        </div>
-                        <button class="gold-action-btn" style="margin-top:15px;" onclick="window.KERNEL.finalizarRadiografiaCompleta()">
+                    <div style="background:rgba(41, 128, 185, 0.1); border:1px solid var(--luxury-accent); border-radius:14px; padding:14px; text-align:center;">
+                        <span style="font-size:10.5px; color:var(--gold-champagne); font-weight:bold; letter-spacing:2px;">${tituloEscape}</span>
+                        <p style="font-size:11.5px; margin:8px 0; color:#fff; line-height:1.45;">${descEscape}</p>
+                        <button class="gold-action-btn" style="margin-top:10px;" onclick="window.KERNEL.finalizarRadiografiaCompleta()">
                             ${window.currentLang === "ES" ? "Generar Informe PDF Élite" : "Generate Elite PDF Report"}
                         </button>
                     </div>
@@ -871,15 +869,15 @@
 
             const tituloCheckout = window.currentLang === "ES" ? "INFORME DE RADIOGRAFÍA COMPLETADO" : "RADIOGRAPHY REPORT COMPLETED";
             const descCheckout = window.currentLang === "ES" 
-                ? `Su radiografía interna y externa ha sido sellada bajo el Folio <b>${uuid}</b>. Su pasaporte digital de satisfacción inimaginable está listo.`
-                : `Your internal and external radiography has been sealed under Folio <b>${uuid}</b>. Your unimaginable satisfaction digital passport is ready.`;
+                ? `Su radiografía interna y externa ha sido sellada bajo el Folio <b>${uuid}</b>. Su pasaporte digital está listo.`
+                : `Your internal and external radiography has been sealed under Folio <b>${uuid}</b>. Your digital passport is ready.`;
 
             if (root) {
                 root.innerHTML = `
-                    <div style="text-align:center; padding:20px 0;">
-                        <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:18px; letter-spacing:3px; margin-bottom:6px;">${tituloCheckout}</h2>
-                        <p style="font-size:12.5px; color:var(--text-muted); line-height:1.5; margin-bottom:20px;">${descCheckout}</p>
-                        <button class="gold-action-btn" onclick="window.KERNEL.descargarPasaportePDF('${uuid}')">${window.currentLang === "ES" ? "DESCARGAR INFORME PDF (REPORTLAB)" : "DOWNLOAD PDF REPORT (REPORTLAB)"}</button>
+                    <div style="text-align:center; padding:15px 0;">
+                        <h2 style="font-family:'Cinzel',serif; color:var(--gold-champagne); font-size:17px; letter-spacing:2px; margin-bottom:6px;">${tituloCheckout}</h2>
+                        <p style="font-size:12px; color:var(--text-muted); line-height:1.45; margin-bottom:18px;">${descCheckout}</p>
+                        <button class="gold-action-btn" onclick="window.KERNEL.descargarPasaportePDF('${uuid}')">${window.currentLang === "ES" ? "DESCARGAR INFORME PDF" : "DOWNLOAD PDF REPORT"}</button>
                     </div>
                 `;
             }
@@ -917,35 +915,6 @@
                 alert("Error generating PDF.");
             });
         };
-
-        // FILTRO DE ACCESO ADMINISTRADOR (3 clics en título)
-        const brandField = document.getElementById("brandTitleField");
-        if (brandField) {
-            brandField.addEventListener("click", () => {
-                devClickCount++;
-                if (devClickCount === 3) {
-                    devClickCount = 0;
-                    const u = prompt("Developer Username:");
-                    const p = prompt("Developer Password:");
-                    fetch("/verify-dev-access", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ user: u, dev_pass: p })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.authenticated) {
-                            window.location.href = window.location.pathname + "?status=success&folio=RADAR-MASTER";
-                        } else {
-                            alert("Access Denied.");
-                        }
-                    })
-                    .catch(() => {
-                        window.location.href = window.location.pathname + "?status=success&folio=RADAR-MASTER";
-                    });
-                }
-            });
-        }
     </script>
 </body>
 </html>
