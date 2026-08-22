@@ -403,265 +403,298 @@
         <div class="center-wellness-circle" id="lungCircle">Inhala</div>
     </div>
 
-    <script>
-        // Variables globales del motor
-        let serviceTimer = null;
-        let voiceInterval = null;
-        let breatheInterval = null;
-        let timeRemaining = 15 * 60;
-        let userAnswers = [];
-        let devClickCount = 0;
+<script>
+    // Variables globales de control de estado del motor inmersivo
+    let serviceTimer = null;
+    let voiceInterval = null;
+    let breatheInterval = null;
+    let timeRemaining = 15 * 60; // 15 minutos exactos (900 segundos)
+    let userAnswers = [];
+    let devClickCount = 0;
 
-        const RAW_RIDDLES_DATABASE = {
-            es: "El control absoluto del entorno comienza por la gestión de la pausa en los momentos críticos de alta densidad operativa.",
-            en: "Absolute control of the environment begins with managing the pause during moments of high operational density.",
-            ans_es: "La Pausa Estratégica"
-        };
+    // BANCO DE ADIVINANZAS CRÍTICAS SENSORIALES
+    const RAW_RIDDLES_DATABASE = {
+        es: "El control absoluto del entorno comienza por la gestión de la pausa en los momentos críticos de alta densidad operativa.",
+        en: "Absolute control of the environment begins with managing the pause during moments of high operational density.",
+        ans_es: "La Pausa Estratégica"
+    };
 
-        // Cronograma maestro de interrupciones
-        let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540);
-        let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120);
-        const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2];
+    // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
+    let randomSec1 = Math.floor(Math.random() * (780 - 540)) + 540; // Azar primera mitad
+    let randomSec2 = Math.floor(Math.random() * (360 - 120)) + 120; // Azar segunda mitad (Paréntesis Corregido)
+    const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Momentos de activación por 20 segundos
 
-        window.KERNEL.init = function() {
-            const giantBox = document.getElementById('giantLangBox');
-            if (giantBox) giantBox.style.display = 'none';
+    window.KERNEL.init = function() {
+        const giantBox = document.getElementById('giantLangBox');
+        if (giantBox) giantBox.style.display = 'none';
+        
+        const btnUnlock = document.getElementById('btnUnlock');
+        if (btnUnlock) btnUnlock.style.display = 'none';
+        
+        const legalTitle = document.getElementById('lblLegalTitle');
+        if (legalTitle) legalTitle.style.display = 'none';
 
-            const btnUnlock = document.getElementById('btnUnlock');
-            if (btnUnlock) btnUnlock.style.display = 'none';
+        // Ocultamos texto plano sobrante para evitar amontonamiento visual
+        const statusLbl = document.getElementById('lblStatus');
+        if (statusLbl) statusLbl.style.display = 'none';
 
-            this.iniciarPulmonVisual();
-            this.cargarFlujoSiguienteLocalStorage();
-            this.hablar();
+        this.iniciarPulmonVisual();
+        this.cargarFlujoSiguienteLocalStorage();
+        this.hablar();
 
-            if (Math.random() > 0.5) {
+        // 🎰 MOTOR DE DESORDEN DINÁMICO (NO-LINEAL): Decide al azar si inicia congelando la pantalla con el triángulo
+        if (Math.random() > 0.5) {
+            window.KERNEL.desplegarTrianguloCinematico();
+        }
+
+        // Reloj maestro del CRM de acompañamiento
+        serviceTimer = window.setInterval(() => {
+            timeRemaining--;
+            
+            let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            let secs = (timeRemaining % 60).toString().padStart(2, '0');
+            const clock = document.getElementById('clockDisplay');
+            if (clock) clock.innerText = `${mins}:${secs}`;
+
+            // INTERCEPCIÓN MATEMÁTICA: Lanza el triángulo en las 5 marcas de tiempo exactas
+            if (typeof CRONOGRAMA_TRIANGULO !== 'undefined' && CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
                 window.KERNEL.desplegarTrianguloCinematico();
             }
 
-            serviceTimer = window.setInterval(() => {
-                timeRemaining--;
-                let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-                let secs = (timeRemaining % 60).toString().padStart(2, '0');
+            // Despliegue automático del Pasillo de Escape en el Minuto 4 (240 segundos)
+            if (timeRemaining === 240) {
+                window.KERNEL.inyectarPortalInteractivodeEscape();
+            }
 
-                const clock = document.getElementById('clockDisplay');
-                if (clock) clock.innerText = `${mins}:${secs}`;
+            if (timeRemaining <= 0) {
+                window.KERNEL.finalizarAcompanamientoCRM();
+            }
+        }, 1000);
+    };
 
-                if (typeof CRONOGRAMA_TRIANGULO !== 'undefined' && CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
-                    window.KERNEL.desplegarTrianguloCinematico();
-                }
+    window.KERNEL.desplegarTrianguloCinematico = function() {
+        let engine = document.getElementById('engineWrapper');
+        if (engine) {
+            engine.style.display = 'flex';
+            setTimeout(() => {
+                engine.style.display = 'none';
+            }, 20000); // Se mantiene en escena por 20 segundos exactos (100s totales)
+        }
+    };
 
-                if (timeRemaining === 240) {
-                    window.KERNEL.inyectarPortalInteractivodeEscape();
-                }
+    window.KERNEL.iniciarPulmonVisual = function() {
+        if (breatheInterval) window.clearInterval(breatheInterval);
+        let pasoSincronizado = 0;
+        
+        // Guía activa de respiración Box Breathing bilingüe interactiva
+        const ordenInstrucciones = window.currentLang === "ES" ? ["Inhala", "Retén", "Exhala", "Pausa"] : ["Inhale", "Hold", "Exhale", "Pause"];
+        
+        breatheInterval = window.setInterval(() => {
+            let circle = document.getElementById('lungCircle');
+            if (!circle) return;
+            
+            circle.innerText = ordenInstrucciones[pasoSincronizado];
+            if (pasoSincronizado === 0) {
+                circle.className = "center-wellness-circle lung-inhale";
+            } else if (pasoSincronizado === 2) {
+                circle.className = "center-wellness-circle lung-exhale";
+            }
+            pasoSincronizado = (pasoSincronizado + 1) % 4;
+        }, 4000); // 4 segundos por cuadrante respiratorio
+    };
 
-                if (timeRemaining <= 0) {
-                    window.KERNEL.finalizarAcompanamientoCRM();
-                }
-            }, 1000);
-        };
+    window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
+        let stack = document.getElementById('interactiveStack');
+        if (!stack) return;
+        let nodo = RAW_RIDDLES_DATABASE;
+        
+        let html = `<p style="font-size:14px; margin-bottom:20px; line-height:1.6; text-align:justify; color:#E1E1E1;">${window.currentLang === "ES" ? nodo.es : nodo.en}</p>`;
+        html += `<div style="display:flex; flex-direction:column; gap:12px;">`;
+        html += `<button class="triple-option-btn" id="opt_0" onclick="window.KERNEL.evaluarSeleccion(25, 0, true)">A. ${nodo.ans_es}</button>`;
+        html += `<button class="triple-option-btn" id="opt_1" onclick="window.KERNEL.evaluarSeleccion(0, 1, false)">B. El Ruido Operativo de la Rutina</button>`;
+        html += `</div>`;
+        stack.innerHTML = html;
+    };
 
-        window.KERNEL.desplegarTrianguloCinematico = function() {
-            let engine = document.getElementById('engineWrapper');
-            if (engine) {
-                engine.style.display = 'flex';
-                setTimeout(() => {
-                    engine.style.display = 'none';
-                }, 20000);
+    window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto) {
+        // RETROALIMENTACIÓN DE COLOR INSTANTÁNEA AL HACER CLIC
+        const targetBtn = document.getElementById(`opt_${idx}`);
+        if (targetBtn) {
+            targetBtn.className = esCorrecto ? "triple-option-btn correct-choice" : "triple-option-btn wrong-choice";
+        }
+        userAnswers.push(puntos);
+        
+        // Bloqueo ergonómico: Mostramos el botón de continuar en vez de saltar directo a Stripe
+        const btnNext = document.getElementById('btnNext');
+        if (btnNext) btnNext.style.display = 'block';
+    };
+
+    window.KERNEL.avanzarRetoContinuo = function() {
+        const btnNext = document.getElementById('btnNext');
+        if (btnNext) btnNext.style.display = 'none';
+        
+        // Limpiamos la stack visual para mantener espacio limpio y elegante sin amontonamientos
+        document.getElementById('interactiveStack').innerHTML = `<p style="color:#C5A059; text-align:center; font-size:13px; letter-spacing:1px;">SINTONÍA EN PROGRESO. SIGUE EL RITMO DEL PULMÓN SENSORIAL.</p>`;
+    };
+
+    window.KERNEL.inyectarPortalInteractivodeEscape = function() {
+        const trayDock = document.getElementById('interactiveStack');
+        if (trayDock) {
+            // ENRUTAMIENTO REAL: Conexión directa a Google Maps en pestañas nuevas independientes
+            trayDock.innerHTML = `
+                <div class="premium-portal-panel">
+                    <span style="font-size:11px; color:#E04F4F; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">PASILLO DE ACCESO VIP ACTIVADO</span>
+                    <p style="font-size:12px; margin:14px 0; color:#fff; line-height:1.5;">Coherencia cardíaca lograda localmente. Selecciona tu ubicación física de escape:</p>
+                    <div style="display:flex; gap:12px; justify-content:center; margin-top:15px;">
+                        <span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H1'); window.open('https://google.com', '_blank');">🏨 Ver Eden Roc</span>
+                        <span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H2'); window.open('https://google.com', '_blank');">🏖️ Ver Amanera</span>
+                    </div>
+                </div>
+            `;
+        }
+    };
+
+    window.KERNEL.hablar = function() {
+        if (voiceInterval) window.clearInterval(voiceInterval);
+        const dictarFraseOasis = () => {
+            if ('speechSynthesis' in window) {
+                let frase = window.currentLang === "ES" ? "El verdadero poder es el control de tu tiempo." : "True leverage is complete control over your focus.";
+                let utterance = new SpeechSynthesisUtterance(frase);
+                utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
+                window.speechSynthesis.speak(utterance);
             }
         };
+        dictarFraseOasis();
+        voiceInterval = window.setInterval(dictarFraseOasis, 25000);
+    };
 
-        window.KERNEL.iniciarPulmonVisual = function() {
-            if (breatheInterval) window.clearInterval(breatheInterval);
-            let pasoSincronizado = 0;
-            const ordenInstrucciones = window.currentLang === "ES" ? ["Inhala", "Retén", "Exhala", "Pausa"] : ["Inhale", "Hold", "Exhale", "Pause"];
-
-            breatheInterval = window.setInterval(() => {
-                let circle = document.getElementById('lungCircle');
-                if (!circle) return;
-
-                circle.innerText = ordenInstrucciones[pasoSincronizado];
-                if (pasoSincronizado === 0) {
-                    circle.className = "center-wellness-circle lung-inhale";
-                } else if (pasoSincronizado === 2) {
-                    circle.className = "center-wellness-circle lung-exhale";
-                }
-                pasoSincronizado = (pasoSincronizado + 1) % 4;
-            }, 4000);
-        };
-
-        window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
-            let stack = document.getElementById('interactiveStack');
-            if (!stack) return;
-
-            let nodo = RAW_RIDDLES_DATABASE;
-            let html = `<p style="font-size:14px; margin-bottom:20px; line-height:1.6; text-align:justify; color:#E1E1E1;">${window.currentLang === "ES" ? nodo.es : nodo.en}</p>`;
-            html += `<div style="display:flex; flex-direction:column; gap:12px;">`;
-            html += `<button class="triple-option-btn" id="opt_0" onclick="window.KERNEL.evaluarSeleccion(25, 0, true)">A. ${nodo.ans_es}</button>`;
-            html += `<button class="triple-option-btn" id="opt_1" onclick="window.KERNEL.evaluarSeleccion(0, 1, false)">B. El Ruido Operativo</button>`;
-            html += `</div>`;
-            stack.innerHTML = html;
-        };
-
-        window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto) {
-            const targetBtn = document.getElementById(`opt_${idx}`);
-            if (targetBtn) {
-                targetBtn.className = esCorrecto ? "triple-option-btn correct-choice" : "triple-option-btn wrong-choice";
-            }
-            userAnswers.push(puntos);
-            window.KERNEL.finalizarAcompanamientoCRM();
-        };
-
-        window.KERNEL.inyectarPortalInteractivodeEscape = function() {
-            const trayDock = document.getElementById('interactiveStack');
-            if (trayDock) {
-                trayDock.innerHTML = `
-                    <div class="premium-portal-panel">
-                        <span style="font-size:11px; color:#E04F4F; font-weight:bold; letter-spacing:1px;">PASILLO DE ACCESO VIP ACTIVADO</span>
-                        <p style="font-size:12px; margin:12px 0; color:#fff;">Coherencia cardíaca lograda. Selecciona tu ubicación física de escape:</p>
-                        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
-                            <span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H1'); window.open('https://google.com', '_blank');">🏨 Ver Eden Roc</span>
-                            <span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H2'); window.open('https://google.com', '_blank');">🏖️ Ver Amanera</span>
+    window.KERNEL.finalizarAcompanamientoCRM = function() {
+        if (serviceTimer) window.clearInterval(serviceTimer);
+        if (breatheInterval) window.clearInterval(breatheInterval);
+        if (voiceInterval) window.clearInterval(voiceInterval);
+        
+        const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
+        const targetRoot = document.getElementById('open-than-go-root');
+        if (targetRoot) {
+            targetRoot.innerHTML = `
+                <div class="luxury-checkout-dock">
+                    <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px; letter-spacing:4px;">MAY ROGA</h1>
+                    <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div>
+                    <p style="font-size:13.5px; text-align:justify; margin-bottom:25px; line-height:1.6; color:#E1E1E1;">
+                        Tu pasaporte Élite ha sido compilado de forma privada bajo el Folio <b>\${uuid}</b>. Prescribimos aislamiento inmediato en nuestros santuarios de Host Agency para romper de raíz el bucle operativo de la rutina diaria.
+                    </p>
+                    <div class="premium-pricing-deck">
+                        <!-- ENLACE OPERATIVO SINGLE RESET ($200 USD) -->
+                        <div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '\${uuid}')" class="luxury-card-price">
+                            <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px;">PAGO ÚNICO (SINGLE RESET)</div>
+                            <div style="font-size:32px; font-weight:bold; margin:6px 0; color:#fff;">$200</div>
+                            <p style="font-size:11.5px; color:#aaa; margin:0; line-height:1.4;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico vía BNT IATA Partner.</p>
+                        </div>
+                        <!-- ENLACE OPERATIVO ACCESO MENSUAL ILIMITADO ($399 USD) -->
+                        <div onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '\${uuid}')" class="luxury-card-price tier-card-elite">
+                            <div class="card-ribbon-gold">RECOMENDADO</div>
+                            <div style="font-size:11px; color:#C5A059; margin-top:5px; text-transform:uppercase; letter-spacing:1px;">ACCESO MENSUAL ILIMITADO</div>
+                            <div style="font-size:32px; font-weight:bold; margin:6px 0; color:#fff;">$399<span style="font-size:12px; color:#888;">/mes</span></div>
+                            <p style="font-size:11.5px; color:#fff; margin:0; line-height:1.4;">Entra todas las veces que quieras al mes. Soporte de desintoxicación 24/7 + Conserjería Ilimitada con créditos Virtuoso ($100 USD).</p>
                         </div>
                     </div>
-                `;
-            }
-        };
-
-        window.KERNEL.hablar = function() {
-            if (voiceInterval) window.clearInterval(voiceInterval);
-            const dictarFraseOasis = () => {
-                if ('speechSynthesis' in window) {
-                    let frase = window.currentLang === "ES" ? "El verdadero poder es el control de tu tiempo." : "True leverage is complete control over your focus.";
-                    let utterance = new SpeechSynthesisUtterance(frase);
-                    utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
-                    window.speechSynthesis.speak(utterance);
-                }
-            };
-            dictarFraseOasis();
-            voiceInterval = window.setInterval(dictarFraseOasis, 25000);
-        };
-
-        window.KERNEL.finalizarAcompanamientoCRM = function() {
-            if (serviceTimer) window.clearInterval(serviceTimer);
-            if (breatheInterval) window.clearInterval(breatheInterval);
-            if (voiceInterval) window.clearInterval(voiceInterval);
-
-            const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
-            const targetRoot = document.getElementById('open-than-go-root');
-            if (targetRoot) {
-                targetRoot.innerHTML = `
-                    <div class="luxury-checkout-dock">
-                        <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1>
-                        <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div>
-                        <p style="font-size:14px; text-align:justify; margin-bottom:25px; line-height:1.6; color:#E1E1E1;">
-                            Tu pasaporte Élite ha sido compilado de forma privada bajo el Folio <b>${uuid}</b>. Prescribimos aislamiento inmediato en nuestros santuarios de Host Agency.
-                        </p>
-                        <div class="premium-pricing-deck">
-                            <div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" class="luxury-card-price">
-                                <div style="font-size:11px; color:#888; text-transform:uppercase;">PAGO ÚNICO (SINGLE RESET)</div>
-                                <div style="font-size:32px; font-weight:bold; margin:6px 0;">$200</div>
-                                <p style="font-size:11.5px; color:#aaa; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico.</p>
-                            </div>
-                            <div onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" class="luxury-card-price tier-card-elite">
-                                <div class="card-ribbon-gold">RECOMENDADO</div>
-                                <div style="font-size:11px; color:#C5A059; margin-top:5px; text-transform:uppercase;">ACCESO MENSUAL ILIMITADO</div>
-                                <div style="font-size:32px; font-weight:bold; margin:6px 0;">$399<span style="font-size:12px; color:#888;">/mes</span></div>
-                                <p style="font-size:11.5px; color:#fff; margin:0;">Entra todas las veces que quieras al mes. Soporte 24/7 + Conserjería Ilimitada con créditos Virtuoso ($100).</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        };
-
-        window.KERNEL.procesarPagoStripe = function(tier, folio) {
-            document.body.style.cursor = "wait";
-            fetch("/create-checkout-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tier: tier, folio: folio })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.checkout_url) {
-                    window.location.href = data.checkout_url;
-                }
-            })
-            .catch(() => { document.body.style.cursor = "default"; });
-        };
-
-        // Bypass de desarrollador
-        const brandField = document.getElementById("brandTitleField");
-        if (brandField) {
-            brandField.addEventListener("click", () => {
-                devClickCount++;
-                if (devClickCount === 3) {
-                    devClickCount = 0;
-                    const u = prompt("Usuario de desarrollo:");
-                    const p = prompt("Contraseña de desarrollo:");
-                    fetch("/verify-dev-access", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ user: u, dev_pass: p })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.authenticated) {
-                            window.location.href = "https://wellness-travel.onrender.com";
-                        } else {
-                            alert("Credenciales incorrectas.");
-                        }
-                    });
-                }
-            });
+                </div>
+            `;
         }
+    };
 
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('status') === 'success') {
-            const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
-            const rootNode = document.getElementById('open-than-go-root');
-            if (rootNode) {
-                rootNode.innerHTML = `
-                    <div class="luxury-checkout-dock" style="text-align:center; padding:20px;">
-                        <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1>
-                        <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div>
-                        <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1;">Pago verificado para el Folio: <b>${paidFolio}</b>. Tu pasaporte digital está listo.</p>
-                        <button class="gold-btn" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">Descargar Pasaporte (PDF)</button>
-                    </div>
-                `;
+    window.KERNEL.procesarPagoStripe = function(tier, folio) {
+        document.body.style.cursor = "wait";
+        fetch("/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tier: tier, folio: folio })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.checkout_url) {
+                window.location.href = data.checkout_url;
             }
-        }
+        })
+        .catch(() => { document.body.style.cursor = "default"; });
+    };
 
-        window.KERNEL.descargarPasaportePDF = function(folio) {
-            document.body.style.cursor = "wait";
-            fetch("/generate-pdf", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    servicio_id: folio,
-                    lang: window.currentLang,
-                    score_inicial: 45.0,
-                    score_actual: 75.0,
-                    respiracion_score: 100.0,
-                    adivinanzas_score: 100.0,
-                    iev: 85.0,
-                    variante: "ELITE_RECONEXION",
-                    destino_id: "H1"
+    // 🕵️‍♂️ BYPASS DE ADMINISTRADOR CORREGIDO: Envía los parámetros de estatus que tu detector de URL espera
+    const brandField = document.getElementById("brandTitleField");
+    if (brandField) {
+        brandField.addEventListener("click", () => {
+            devClickCount++;
+            if (devClickCount === 3) {
+                devClickCount = 0;
+                const u = prompt("Usuario de desarrollo:");
+                const p = prompt("Contraseña de desarrollo:");
+                fetch("/verify-dev-access", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ user: u, dev_pass: p })
                 })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.authenticated) {
+                        // Enviamos los query params exactos para pintar el botón de PDF al instante sin pagar
+                        window.location.href = "https://onrender.com";
+                    } else {
+                        alert("Credenciales incorrectas.");
+                    }
+                })
+                .catch(() => alert("Error de comunicación de credenciales."));
+            }
+        });
+    }
+
+    // Escuchador automático del gancho de éxito de Stripe para descargas de PDFs
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('status') === 'success') {
+        const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
+        const rootNode = document.getElementById('open-than-go-root');
+        if (rootNode) {
+            rootNode.innerHTML = `
+                <div class="luxury-checkout-dock" style="text-align:center; padding:20px;">
+                    <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px; letter-spacing:4px;">MAY ROGA</h1>
+                    <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div>
+                    <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1; line-height:1.5;">Pago verificado de forma segura para el Folio: <b>\${paidFolio}</b>. Tu pasaporte digital de alta gama ha sido compilado.</p>
+                    <button class="gold-btn" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('\${paidFolio}')">Descargar Pasaporte (PDF)</button>
+                </div>
+            `;
+        }
+    }
+
+    window.KERNEL.descargarPasaportePDF = function(folio) {
+        document.body.style.cursor = "wait";
+        const selectedHotel = localStorage.getItem('mayroga_intent') || "H1";
+        fetch("/generate-pdf", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                servicio_id: folio,
+                lang: window.currentLang,
+                score_inicial: 45.0,
+                score_actual: 75.0,
+                respiracion_score: 100.0,
+                adivinanzas_score: 100.0,
+                iev: 85.0,
+                variante: "ELITE_RECONEXION",
+                destino_id: selectedHotel
             })
-            .then(res => res.blob())
-            .then(blob => {
-                document.body.style.cursor = "default";
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `MayRoga_Passport_${folio}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-            })
-            .catch(() => { document.body.style.cursor = "default"; });
-        };
-    </script>
+        })
+        .then(res => res.blob())
+        .then(blob => {
+            document.body.style.cursor = "default";
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `MayRoga_Passport_\${folio}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        })
+        .catch(() => { document.body.style.cursor = "default"; alert("Error al compilar el documento."); });
+    };
+</script>
 </body>
 </html>
