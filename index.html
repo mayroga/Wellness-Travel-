@@ -386,46 +386,33 @@
 </div>
 
 <script>
-  window.KERNEL = window.KERNEL || {};
-  window.currentLang = "ES";
+    // Variables globales de control del motor en producción
+    let serviceTimer = null;
+    let voiceInterval = null;
+    let breatheInterval = null;
+    let timeRemaining = 15 * 60;
+    let userAnswers = [];
+    let devClickCount = 0;
 
-  window.KERNEL.setLanguage = function(lang) {
-    window.currentLang = lang;
-    const btnES = document.getElementById('btnLangES');
-    const btnEN = document.getElementById('btnLangEN');
-    const legalTitle = document.getElementById('lblLegalTitle');
-    const panelLegal = document.getElementById('panelLegal');
+    // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
+    let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); // Al azar en bloque de la primera mitad
+    let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120); // Al azar en bloque de la segunda mitad
+    const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos exactos de interrupción
 
-    if (btnES) btnES.className = lang === "ES" ? "giant-lang-btn active-lang" : "giant-lang-btn";
-    if (btnEN) btnEN.className = lang === "EN" ? "giant-lang-btn active-lang" : "giant-lang-btn";
-    if (legalTitle) legalTitle.innerText = lang === "ES" ? "Tu espacio privado de sintonía" : "Your private tuning residency";
-    if (panelLegal) panelLegal.style.display = 'block';
-  };
-
-  let serviceTimer = null;
-  let voiceInterval = null;
-  let breatheInterval = null;
-  let timeRemaining = 15 * 60;
-  let userAnswers = [];
-  let devClickCount = 0;
-
-  // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
-  let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); // Al azar en bloque 1
-  let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120); // Al azar en bloque 2 (corregido paréntesis)
-  const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos de interrupción
-window.KERNEL.init = function() {
-  const giantBox = document.getElementById('giantLangBox');
-  if (giantBox) giantBox.style.display = 'none';
-
-  const panelLegal = document.getElementById('panelLegal');
-  if (panelLegal) panelLegal.style.display = 'none';
-
-  const panelService = document.getElementById('panelService');
-  if (panelService) panelService.style.display = 'block';
-
-  this.iniciarPulmonVisual();
-  this.cargarFlujoSiguienteLocalStorage();
-  this.hablar();
+    // Inicializador dinámico del trayecto interactivo
+    window.KERNEL.init = function() {
+        const giantBox = document.getElementById('giantLangBox');
+        if (giantBox) giantBox.style.display = 'none';
+        
+        const panelLegal = document.getElementById('panelLegal');
+        if (panelLegal) panelLegal.style.display = 'none';
+        
+        const panelService = document.getElementById('panelService');
+        if (panelService) panelService.style.display = 'block';
+        
+        this.iniciarPulmonVisual();
+        this.cargarFlujoSiguienteLocalStorage();
+        this.hablar();
 
   // 🎰 MOTOR NO-LINEAL: Decide por entropía aleatoria si inicia por el cuestionario o por impacto del triángulo
   if (Math.random() > 0.5) {
