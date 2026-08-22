@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAY ROGA LLC | Premium Travel Architecture</title>
+    <title>MAY ROGA | Premium Travel Architecture</title>
     <!-- ANALÍTICA ANÓNIMA Y PRIVADA (PLAUSIBLE) -->
     <script defer data-domain="tu-dominio-mayroga.com" src="https://plausible.io"></script>
     <script>
@@ -90,7 +90,7 @@
         }
         .giant-lang-btn {
             flex: 1;
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255,255,255,0.01);
             border: 2px solid var(--gold-champagne);
             color: var(--gold-champagne);
             padding: 20px;
@@ -145,8 +145,8 @@
         }
         .triple-option-btn {
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
             color: var(--white-ivory);
             padding: 16px 20px;
             border-radius: 14px;
@@ -179,7 +179,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             padding-bottom: 10px;
         }
         .timer-display {
@@ -222,6 +222,7 @@
         .v-left { bottom: 0; left: 0; background-color: var(--relax-blue); box-shadow: 0 0 20px var(--relax-blue); }
         .v-right { bottom: 0; right: 0; background-color: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
 
+        /* HACES DE PARTÍCULAS VOLADORAS CON ANIMACIONES DIRECTAS DESDE LOS VÉRTICES HACIA EL CENTRO */
         .energy-beam { position: absolute; width: 6px; height: 6px; border-radius: 50%; opacity: 0; }
         .beam-top { background: var(--alert-crimson); box-shadow: 0 0 15px var(--alert-crimson); animation: flyToCenterTop 2.5s infinite linear; }
         .beam-left { background: var(--relax-blue); box-shadow: 0 0 15px var(--relax-blue); animation: flyToCenterLeft 2.5s infinite linear; }
@@ -231,265 +232,457 @@
         @keyframes flyToCenterLeft { 0% { bottom: 0; left: 0; opacity: 1; transform: scale(1); } 100% { bottom: -120px; left: 110px; opacity: 0; transform: scale(0.1); } }
         @keyframes flyToCenterRight { 0% { bottom: 0; right: 0; opacity: 1; transform: scale(1); } 100% { bottom: -120px; right: 110px; opacity: 0; transform: scale(0.1); } }
 
-        /* DINÁMICA DE RESPIRACIÓN BOX BREATHING ERGONÓMICA */
-        .breathe-canvas-pane { width: 100%; min-height: 220px; display: flex; justify-content: center; align-items: center; position: relative; margin-bottom: 25px; }
-        .center-wellness-circle { width: 95px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #C5A059 0%, #91723B 100%); box-shadow: 0 0 45px var(--gold-champagne); z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold; color: #030305; letter-spacing: 1.5px; text-transform: uppercase; transition: all 4s linear; }
-        .lung-inhale { width: 170px; height: 170px; background: radial-gradient(circle, #1C3D5A 0%, #0B1D33 100%) !important; box-shadow: 0 0 60px rgba(28,61,90,1) !important; color: #FFFFFF !important; }
-        .lung-exhale { width: 80px; height: 80px; background: radial-gradient(circle, #E04F4F 0%, #992222 100%) !important; box-shadow: 0 0 35px rgba(224,79,79,0.7) !important; color: #FFFFFF !important; }
-        .explanation-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(197, 160, 89, 0.2); padding: 18px; border-radius: 12px; margin-top: 15px; margin-bottom: 15px; font-size: 13.5px; line-height: 1.6; text-align: left; color: var(--gold-champagne); display: none; }
-        .luxury-checkout-dock { animation: premiumFade 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards; text-align: center; }
-        .premium-pricing-deck { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; margin-top: 20px; }
-        .luxury-card-price { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 25px 20px; text-align: left; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .luxury-card-price:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.2); }
-        .tier-card-elite { border: 1px solid var(--gold-champagne) !important; background: linear-gradient(180deg, rgba(197, 160, 89, 0.03) 0%, rgba(0, 0, 0, 0.8) 100%) !important; box-shadow: 0 15px 40px rgba(197, 160, 89, 0.1) !important; position: relative; }
-        .card-ribbon-gold { position: absolute; top: -10px; left: 16px; background: var(--gold-champagne); color: black; font-size: 9px; padding: 2px 8px; border-radius: 10px; font-weight: bold; letter-spacing: 1px; }
-        .premium-portal-panel { border: 1px solid var(--alert-crimson); background: rgba(5, 5, 5, 0.98); padding: 20px; border-radius: 16px; margin-top: 15px; text-align: center; box-shadow: 0 20px 40px rgba(224,79,79,0.15); }
-        .portal-mini-btn { background: rgba(224, 79, 79, 0.1); border: 1px solid var(--alert-crimson); padding: 12px 22px; border-radius: 8px; cursor: pointer; margin: 0 4px; display: inline-block; color: white; font-size: 13px; font-weight: bold; transition: all 0.2s; }
-        .portal-mini-btn:active { background: var(--alert-crimson); transform: scale(0.96); }
-        @keyframes premiumFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body>
-    <div class="app-window" id="open-than-go-root">
-        <header>
-            <h1 id="brandTitleField" onclick="void(0)">MAY ROGA</h1>
-        </header>
+  .center-wellness-circle {
+    width: 95px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #C5A059 0%, #91723B 100%);
+    box-shadow: 0 0 45px var(--gold-champagne);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #030305;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 4s linear;
+  }
 
-        <div id="giantLangBox" class="lang-container-giant">
-            <button id="btnLangES" class="giant-lang-btn active-lang" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
-            <button id="btnLangEN" class="giant-lang-btn" onclick="window.KERNEL.setLanguage('EN')">ENGLISH</button>
+  .lung-inhale {
+    width: 170px;
+    height: 170px;
+    background: radial-gradient(circle, #1C3D5A 0%, #0B1D33 100%) !important;
+    box-shadow: 0 0 60px rgba(28, 61, 90, 1) !important;
+    color: #FFFFFF !important;
+  }
+
+  .lung-exhale {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #E04F4F 0%, #992222 100%) !important;
+    box-shadow: 0 0 35px rgba(224, 79, 79, 0.7) !important;
+    color: #FFFFFF !important;
+  }
+
+  .explanation-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    text-align: left;
+    color: var(--gold-champagne);
+    display: none;
+  }
+
+  .luxury-checkout-dock {
+    animation: premiumFade 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    text-align: center;
+  }
+
+  .premium-pricing-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+
+  .luxury-card-price {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 25px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .luxury-card-price:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .tier-card-elite {
+    border: 1px solid var(--gold-champagne) !important;
+    background: linear-gradient(180deg, rgba(197, 160, 89, 0.03) 0%, rgba(0, 0, 0, 0.8) 100%) !important;
+    box-shadow: 0 15px 40px rgba(197, 160, 89, 0.1) !important;
+    position: relative;
+  }
+
+  .card-ribbon-gold {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: var(--gold-champagne);
+    color: black;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .premium-portal-panel {
+    border: 1px solid var(--alert-crimson);
+    background: rgba(5, 5, 5, 0.98);
+    padding: 20px;
+    border-radius: 16px;
+    margin-top: 15px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(224, 79, 79, 0.15);
+  }
+
+  .portal-mini-btn {
+    background: rgba(224, 79, 79, 0.1);
+    border: 1px solid var(--alert-crimson);
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 4px;
+    display: inline-block;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+
+  .portal-mini-btn:active {
+    background: var(--alert-crimson);
+    transform: scale(0.96);
+  }
+
+  @keyframes premiumFade {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div class="lang-container-giant" id="giantLangBox">
+  <button id="btnLangES" class="giant-lang-btn active-lang" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
+  <button id="btnLangEN" class="giant-lang-btn" onclick="window.KERNEL.setLanguage('EN')">ENGLISH</button>
+</div>
+
+<h2 id="lblLegalTitle">Tu espacio privado de sintonía</h2>
+
+<div id="panelLegal" style="display: none;">
+  <button id="btnUnlock">INICIAR</button>
+  <div id="clockDisplay">15:00</div>
+  <h3>Calibración Inicia</h3>
+  <button id="btnContinue">Continuar</button>
+  <p id="lblStatus">Alineando Frecuencias del Enfoque</p>
+</div>
+
+<script>
+  window.KERNEL = window.KERNEL || {};
+  window.currentLang = "ES";
+
+  window.KERNEL.setLanguage = function(lang) {
+    window.currentLang = lang;
+    const btnES = document.getElementById('btnLangES');
+    const btnEN = document.getElementById('btnLangEN');
+    const legalTitle = document.getElementById('lblLegalTitle');
+    const panelLegal = document.getElementById('panelLegal');
+
+    if (btnES) btnES.className = lang === "ES" ? "giant-lang-btn active-lang" : "giant-lang-btn";
+    if (btnEN) btnEN.className = lang === "EN" ? "giant-lang-btn active-lang" : "giant-lang-btn";
+    if (legalTitle) legalTitle.innerText = lang === "ES" ? "Tu espacio privado de sintonía" : "Your private tuning residency";
+    if (panelLegal) panelLegal.style.display = 'block';
+  };
+
+  let serviceTimer = null;
+  let voiceInterval = null;
+  let breatheInterval = null;
+  let timeRemaining = 15 * 60;
+  let userAnswers = [];
+  let devClickCount = 0;
+
+  // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
+  let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); // Al azar en bloque 1
+  let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120); // Al azar en bloque 2 (corregido paréntesis)
+  const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos de interrupción
+window.KERNEL.init = function() {
+  const giantBox = document.getElementById('giantLangBox');
+  if (giantBox) giantBox.style.display = 'none';
+
+  const panelLegal = document.getElementById('panelLegal');
+  if (panelLegal) panelLegal.style.display = 'none';
+
+  const panelService = document.getElementById('panelService');
+  if (panelService) panelService.style.display = 'block';
+
+  this.iniciarPulmonVisual();
+  this.cargarFlujoSiguienteLocalStorage();
+  this.hablar();
+
+  // 🎰 MOTOR NO-LINEAL: Decide por entropía aleatoria si inicia por el cuestionario o por impacto del triángulo
+  if (Math.random() > 0.5) {
+    window.KERNEL.desplegarTrianguloCinematico();
+  }
+
+  serviceTimer = window.setInterval(() => {
+    timeRemaining--;
+    let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+    let secs = (timeRemaining % 60).toString().padStart(2, '0');
+    
+    const clock = document.getElementById('clockDisplay');
+    if (clock) clock.innerText = `${mins}:${secs}`;
+
+    // INTERCEPCIÓN DEL RELOJ: Frena la pantalla y despliega el triángulo con sus partículas flotantes
+    if (typeof CRONOGRAMA_TRIANGULO !== 'undefined' && CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
+      window.KERNEL.desplegarTrianguloCinematico();
+    }
+
+    if (timeRemaining === 240) {
+      window.KERNEL.inyectarPortalInteractivodeEscape();
+    }
+
+    if (timeRemaining <= 0) {
+      window.KERNEL.finalizarAcompanamientoCRM();
+    }
+  }, 1000);
+};
+
+window.KERNEL.desplegarTrianguloCinematico = function() {
+  let engine = document.getElementById('engineWrapper');
+  if (engine) {
+    engine.style.display = 'flex';
+    setTimeout(() => { 
+      engine.style.display = 'none'; 
+    }, 20000); // 20 segundos de duración exacta en pantalla
+  }
+};
+
+window.KERNEL.iniciarPulmonVisual = function() {
+  if (breatheInterval) window.clearInterval(breatheInterval);
+  let pasoSincronizado = 0;
+  const ordenInstrucciones = window.currentLang === "ES" ? ["Inhala", "Retén", "Exhala", "Pausa"] : ["Inhale", "Hold", "Exhale", "Pause"];
+
+  breatheInterval = window.setInterval(() => {
+    let circle = document.getElementById('lungCircle');
+    if (!circle) return;
+
+    circle.innerText = ordenInstrucciones[pasoSincronizado];
+    if (pasoSincronizado === 0) {
+      circle.className = "center-wellness-circle lung-inhale";
+    } else if (pasoSincronizado === 2) {
+      circle.className = "center-wellness-circle lung-exhale";
+    }
+    pasoSincronizado = (pasoSincronizado + 1) % 4;
+  }, 4000); // Guía Box Breathing: 4 segundos por etapa
+};
+
+window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
+  let stack = document.getElementById('interactiveStack');
+  if (!stack) return;
+
+  let nodo = typeof RAW_RIDDLES_DATABASE !== 'undefined' ? RAW_RIDDLES_DATABASE : { es: "", en: "", ans_es: "" };
+  let html = `<p style="font-size:14px; margin-bottom:20px; line-height:1.6; text-align:justify; color:#E1E1E1;">${window.currentLang === "ES" ? nodo.es : nodo.en}</p>`;
+  html += `<div style="display:flex; flex-direction:column; gap:12px;">`;
+  html += `<button class="triple-option-btn" id="opt_0" onclick="window.KERNEL.evaluarSeleccion(25, 0, true)">A. ${nodo.ans_es}</button>`;
+  html += `<button class="triple-option-btn" id="opt_1" onclick="window.KERNEL.evaluarSeleccion(0, 1, false)">B. El Ruido Operativo</button>`;
+  html += `</div>`;
+  stack.innerHTML = html;
+};
+
+window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto) {
+  const targetBtn = document.getElementById(`opt_${idx}`);
+  if (targetBtn) {
+    targetBtn.className = esCorrecto ? "triple-option-btn correct-choice" : "triple-option-btn wrong-choice";
+  }
+  userAnswers.push(puntos);
+  const btnNext = document.getElementById('btnNext');
+  if (btnNext) {
+    btnNext.style.display = 'block';
+  }
+};
+
+window.KERNEL.avanzarRetoContinuo = function() {
+  const btnNext = document.getElementById('btnNext');
+  if (btnNext) {
+    btnNext.style.display = 'none';
+  }
+  window.KERNEL.finalizarAcompanamientoCRM();
+};
+
+window.KERNEL.inyectarPortalInteractivodeEscape = function() {
+  const trayDock = document.getElementById('interactiveStack');
+  if (trayDock) {
+    // CRM DE ENRUTAMIENTO VIP REAL: Redirección inmediata a Google Maps de los Hoteles Curados
+    trayDock.innerHTML = `
+      <div class="premium-portal-panel">
+        <span class="badge-red-alert">PASILLO DE ACCESO VIP ACTIVADO</span>
+        <p style="font-size:12px; margin:12px 0; color:#fff;">Coherencia cardíaca lograda. Selecciona tu ubicación física de escape en el mapa:</p>
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+          <span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H1'); window.open('https://google.com', '_blank');">🏨 Ver Eden Roc</span>
+          <span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H2'); window.open('https://google.com', '_blank');">🏖️ Ver Amanera</span>
         </div>
+      </div>
+    `;
+  }
+};
+window.KERNEL.hablar = function() {
+  if (voiceInterval) window.clearInterval(voiceInterval);
+  
+  const dictarFraseOasis = () => {
+    if ('speechSynthesis' in window) {
+      let frase = window.currentLang === "ES" 
+        ? "El verdadero poder es el control de tu tiempo." 
+        : "True leverage is complete control over your focus.";
+      let utterance = new SpeechSynthesisUtterance(frase);
+      utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 
-        <div id="panelLegal" style="display:none;">
-            <h2 id="lblLegalTitle">Tu espacio privado de sintonía</h2>
-            <button class="gold-btn" onclick="window.KERNEL.init()">INICIAR</button>
+  dictarFraseOasis();
+  voiceInterval = window.setInterval(dictarFraseOasis, 25000);
+};
+
+window.KERNEL.finalizarAcompanamientoCRM = function() {
+  window.clearInterval(serviceTimer);
+  window.clearInterval(breatheInterval);
+  window.clearInterval(voiceInterval);
+
+  const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
+
+  // MATRIZ TARIFARIA HIGH-TICKET ASOCIADA A TUS PRICE IDS DE RENDER ($200 / $399)
+  const targetRoot = document.getElementById('open-than-go-root');
+  if (targetRoot) {
+    targetRoot.innerHTML = `
+      <div class="luxury-checkout-dock">
+        <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1>
+        <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div>
+        <p style="font-size:14px; text-align:justify; margin-bottom:25px; line-height:1.6; color:#E1E1E1;">
+          Tu pasaporte Élite ha sido compilado de forma privada bajo el Folio <b>${uuid}</b>. Prescribimos aislamiento inmediato en nuestros santuarios de Host Agency.
+        </p>
+        <div class="premium-pricing-deck">
+          <div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" class="luxury-card-price">
+            <div style="font-size:11px; color:#888; text-transform:uppercase;">PAGO ÚNICO (SINGLE RESET)</div>
+            <div style="font-size:32px; font-weight:bold; margin:6px 0;">$200</div>
+            <p style="font-size:11.5px; color:#aaa; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico.</p>
+          </div>
+          <div onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" class="luxury-card-price tier-card-elite">
+            <div class="card-ribbon-gold">RECOMENDADO</div>
+            <div style="font-size:11px; color:#C5A059; margin-top:5px; text-transform:uppercase;">ACCESO MENSUAL ILIMITADO</div>
+            <div style="font-size:32px; font-weight:bold; margin:6px 0;">$399<span style="font-size:12px; color:#888;">/mes</span></div>
+            <p style="font-size:11.5px; color:#fff; margin:0;">Entra todas las veces que quieras al mes. Soporte 24/7 + Conserjería Ilimitada con créditos Virtuoso ($100).</p>
+          </div>
         </div>
+      </div>
+    `;
+  }
+};
 
-        <div id="panelService" style="display:none;">
-            <div class="timeline-bar">
-                <span style="font-size:12px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">Calibración</span>
-                <span id="clockDisplay" class="timer-display">15:00</span>
-            </div>
+window.KERNEL.procesarPagoStripe = function(tier, folio) {
+  document.body.style.cursor = "wait";
 
-            <div class="breathe-canvas-pane">
-                <div id="lungCircle" class="center-wellness-circle">Inicia</div>
-            </div>
+  fetch("/create-checkout-session", {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json" 
+    },
+    body: JSON.stringify({ tier: tier, folio: folio })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.checkout_url) {
+      window.location.href = data.checkout_url;
+    }
+  })
+  .catch(() => { 
+    document.body.style.cursor = "default"; 
+  });
+};
 
-            <div id="interactiveStack"></div>
+// BYPASS PRIVADO DE DESARROLLADOR CONTRA VARIABLES SECRETAS DE RENDER
+const brandField = document.getElementById("brandTitleField");
+if (brandField) {
+  brandField.addEventListener("click", () => {
+    devClickCount++;
+    if (devClickCount === 3) {
+      devClickCount = 0;
+      const u = prompt("Usuario de desarrollo:");
+      const p = prompt("Contraseña de desarrollo:");
 
-            <button id="btnNext" class="gold-btn" style="display:none; margin-top:20px;" onclick="window.KERNEL.avanzarRetoContinuo()">Continuar</button>
-        </div>
-
-        <div id="engineWrapper" class="graphics-container">
-            <div class="triangle-canvas">
-                <div class="vertex-node v-top"></div>
-                <div class="vertex-node v-left"></div>
-                <div class="vertex-node v-right"></div>
-                <div class="energy-beam beam-top"></div>
-                <div class="energy-beam beam-left"></div>
-                <div class="energy-beam beam-right"></div>
-            </div>
-            <p style="color:var(--gold-champagne); letter-spacing:2px; font-size:13px; text-transform:uppercase;">Alineando Frecuencias del Enfoque</p>
-        </div>
-    </div>
-
-    <script>
-        // 🛡️ DEFINICIÓN GLOBAL COMPLETA DEL KERNEL Y SUS MÉTODOS
-        window.KERNEL = window.KERNEL || {};
-        window.currentLang = "ES";
-        
-        window.KERNEL.setLanguage = function(lang) {
-            window.currentLang = lang;
-            document.getElementById('btnLangES').className = lang === "ES" ? "giant-lang-btn active-lang" : "giant-lang-btn";
-            document.getElementById('btnLangEN').className = lang === "EN" ? "giant-lang-btn active-lang" : "giant-lang-btn";
-            document.getElementById('lblLegalTitle').innerText = lang === "ES" ? "Tu espacio privado de sintonía" : "Your private tuning residency";
-            document.getElementById('panelLegal').style.display = 'block';
-        };
-
-        let serviceTimer = null, voiceInterval = null, breatheInterval = null;
-        let timeRemaining = 15 * 60, userAnswers = [], devClickCount = 0;
-        
-        let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540);
-        let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120);
-        const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2];
-
-        window.KERNEL.init = function() {
-            document.getElementById('giantLangBox').style.display = 'none';
-            document.getElementById('panelLegal').style.display = 'none';
-            document.getElementById('panelService').style.display = 'block';
-            this.iniciarPulmonVisual();
-            this.cargarFlujoSiguienteLocalStorage();
-            this.hablar();
-            
-            if (Math.random() > 0.5) {
-                window.KERNEL.desplegarTrianguloCinematico();
-            }
-            
-            serviceTimer = window.setInterval(() => {
-                timeRemaining--;
-                let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-                let secs = (timeRemaining % 60).toString().padStart(2, '0');
-                document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
-                
-                if (CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
-                    window.KERNEL.desplegarTrianguloCinematico();
-                }
-                if (timeRemaining === 240) {
-                    window.KERNEL.inyectarPortalInteractivodeEscape();
-                }
-                if (timeRemaining <= 0) {
-                    window.KERNEL.finalizarAcompanamientoCRM();
-                }
-            }, 1000);
-        };
-
-        window.KERNEL.desplegarTrianguloCinematico = function() {
-            let engine = document.getElementById('engineWrapper');
-            if (engine) {
-                engine.style.display = 'flex';
-                setTimeout(() => { engine.style.display = 'none'; }, 20000);
-            }
-        };
-
-        window.KERNEL.iniciarPulmonVisual = function() {
-            if (breatheInterval) window.clearInterval(breatheInterval);
-            let pasoSincronizado = 0;
-            const ordenInstrucciones = window.currentLang === "ES" ? ["Inhala", "Retén", "Exhala", "Pausa"] : ["Inhale", "Hold", "Exhale", "Pause"];
-            
-            breatheInterval = window.setInterval(() => {
-                let circle = document.getElementById('lungCircle');
-                if (!circle) return;
-                circle.innerText = ordenInstrucciones[pasoSincronizado];
-                if (pasoSincronizado === 0) circle.className = "center-wellness-circle lung-inhale";
-                else if (pasoSincronizado === 2) circle.className = "center-wellness-circle lung-exhale";
-                pasoSincronizado = (pasoSincronizado + 1) % 4;
-            }, 4000);
-        };
-
-        window.KERNEL.cargarFlujoSiguienteLocalStorage = function() {
-            let stack = document.getElementById('interactiveStack');
-            let nodo = typeof RAW_RIDDLES_DATABASE !== 'undefined' ? RAW_RIDDLES_DATABASE : {
-                es: "¿Cuál es el principio fundamental de la arquitectura de viajes de bienestar?",
-                en: "What is the fundamental principle of wellness travel architecture?",
-                ans_es: "El desapego consciente a la fricción operativa."
-            };
-            
-            let html = `<p style="font-size:14px; margin-bottom:20px; line-height:1.6; text-align:justify; color:#E1E1E1;">${window.currentLang === "ES" ? nodo.es : nodo.en}</p>`;
-            html += `<div style="display:flex; flex-direction:column; gap:12px;">`;
-            html += `<button class="triple-option-btn" id="opt_0" onclick="window.KERNEL.evaluarSeleccion(25, 0, true)">A. ${nodo.ans_es}</button>`;
-            html += `<button class="triple-option-btn" id="opt_1" onclick="window.KERNEL.evaluarSeleccion(0, 1, false)">B. El Ruido Operativo</button>`;
-            html += `</div>`;
-            stack.innerHTML = html;
-        };
-
-        window.KERNEL.evaluarSeleccion = function(puntos, idx, esCorrecto) {
-            const targetBtn = document.getElementById(`opt_${idx}`);
-            if (targetBtn) {
-                targetBtn.className = esCorrecto ? "triple-option-btn correct-choice" : "triple-option-btn wrong-choice";
-            }
-            userAnswers.push(puntos);
-            document.getElementById('btnNext').style.display = 'block';
-        };
-
-        window.KERNEL.avanzarRetoContinuo = function() {
-            document.getElementById('btnNext').style.display = 'none';
-            window.KERNEL.finalizarAcompanamientoCRM();
-        };
-
-        window.KERNEL.inyectarPortalInteractivodeEscape = function() {
-            const trayDock = document.getElementById('interactiveStack');
-            if (trayDock) {
-                trayDock.innerHTML = `<div class="premium-portal-panel"><span class="badge-red-alert" style="color:var(--alert-crimson); font-weight:bold; font-size:11px; letter-spacing:1px;">PASILLO DE ACCESO VIP ACTIVADO</span><p style="font-size:12px; margin:12px 0; color:#fff;">Coherencia cardíaca lograda. Selecciona tu ubicación física de escape en el mapa:</p><div style="display:flex; gap:10px; justify-content:center; margin-top:15px;"><span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H1'); window.open('https://google.com', '_blank');">🏨 Ver Eden Roc</span><span class="portal-mini-btn" onclick="localStorage.setItem('mayroga_intent','H2'); window.open('https://google.com', '_blank');">🏖️ Ver Amanera</span></div></div>`;
-            }
-        };
-
-        window.KERNEL.hablar = function() {
-            if (voiceInterval) window.clearInterval(voiceInterval);
-            const dictarFraseOasis = () => {
-                if ('speechSynthesis' in window) {
-                    let frase = window.currentLang === "ES" ? "El verdadero poder es el control de tu tiempo." : "True leverage is complete control over your focus.";
-                    let utterance = new SpeechSynthesisUtterance(frase);
-                    utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
-                    window.speechSynthesis.speak(utterance);
-                }
-            };
-            dictarFraseOasis();
-            voiceInterval = window.setInterval(dictarFraseOasis, 25000);
-        };
-
-        window.KERNEL.finalizarAcompanamientoCRM = function() {
-            window.clearInterval(serviceTimer);
-            window.clearInterval(breatheInterval);
-            window.clearInterval(voiceInterval);
-            const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
-            
-            document.getElementById('open-than-go-root').innerHTML = `<div class="luxury-checkout-dock"><h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1><div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">WELLNESS TRAVEL ARCHITECTURE</div><p style="font-size:14px; text-align:justify; margin-bottom:25px; line-height:1.6; color:#E1E1E1;"> Tu pasaporte Élite ha sido compilado de forma privada bajo el Folio <b>${uuid}</b>. Prescribimos aislamiento inmediato en nuestros santuarios de Host Agency. </p><div class="premium-pricing-deck"><div onclick="window.KERNEL.procesarPagoStripe('SINGLE_200', '${uuid}')" class="luxury-card-price"><div style="font-size:11px; color:#888; text-transform:uppercase;">PAGO ÚNICO (SINGLE RESET)</div><div style="font-size:32px; font-weight:bold; margin:6px 0;">$200</div><p style="font-size:11.5px; color:#aaa; margin:0;">Acceso por 48h a herramientas de respiración + 1 Propuesta de Santuario Físico.</p></div><div onclick="window.KERNEL.procesarPagoStripe('ELITE_399', '${uuid}')" class="luxury-card-price tier-card-elite"><div class="card-ribbon-gold">RECOMENDADO</div><div style="font-size:11px; color:#C5A059; margin-top:5px; text-transform:uppercase;">ACCESO MENSUAL ILIMITADO</div><div style="font-size:32px; font-weight:bold; margin:6px 0;">$399<span style="font-size:12px; color:#888;">/mes</span></div><p style="font-size:11.5px; color:#fff; margin:0;">Entra todas las veces que quieras al mes. Soporte 24/7 + Conserjería Ilimitada con créditos Virtuoso ($100).</p></div></div></div>`;
-        };
-
-        window.KERNEL.procesarPagoStripe = function(tier, folio) {
-            document.body.style.cursor = "wait";
-            fetch("/create-checkout-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tier: tier, folio: folio })
-            })
-            .then(res => res.json())
-            .then(data => { if (data.checkout_url) window.location.href = data.checkout_url; })
-            .catch(() => { document.body.style.cursor = "default"; });
-        };
-
-        // 🔗 INTEGRACIÓN DE PARÁMETROS DE RETORNO Y DESCARGA DE PDF
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('status') === 'success') {
-            const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
-            const rootNode = document.getElementById('open-than-go-root');
-            if (rootNode) {
-                rootNode.innerHTML = `<div class="luxury-checkout-dock" style="text-align:center; padding:20px;"> <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1> <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div> <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1;">Pago verificado para el Folio: <b>${paidFolio}</b>. Tu pasaporte digital está listo.</p> <button class="gold-btn" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">Descargar Pasaporte (PDF)</button> </div>`;
-            }
+      fetch("/verify-dev-access", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({ user: u, dev_pass: p })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.authenticated) {
+          // Redirección directa al bypass simulando éxito sin costo
+          window.location.href = "https://onrender.com";
+        } else {
+          alert("Credenciales incorrectas.");
         }
+      });
+    }
+  });
+}
+const urlParams = new URLSearchParams(window.location.search);
 
-        window.KERNEL.descargarPasaportePDF = function(folio) {
-            document.body.style.cursor = "wait";
-            fetch("/generate-pdf", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    servicio_id: folio, lang: window.currentLang,
-                    score_inicial: 45.0, score_actual: 75.0, respiracion_score: 100.0,
-                    adivinanzas_score: 100.0, iev: 85.0, variante: "ELITE_RECONEXION", destino_id: "H1"
-                })
-            })
-            .then(res => res.blob())
-            .then(blob => {
-                document.body.style.cursor = "default";
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = `MayRoga_Passport_${folio}.pdf`;
-                document.body.appendChild(a); a.click(); a.remove();
-            })
-            .catch(() => { document.body.style.cursor = "default"; });
-        };
+if (urlParams.get('status') === 'success') {
+  const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
+  const rootNode = document.getElementById('open-than-go-root');
+  if (rootNode) {
+    rootNode.innerHTML = `
+      <div class="luxury-checkout-dock" style="text-align:center; padding:20px;">
+        <h1 style="font-family:'Times New Roman',serif; color:#C5A059; font-size:32px; margin-bottom:4px;">MAY ROGA</h1>
+        <div style="font-size:10px; color:#8E8E93; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;">PASAPORTE ADQUIRIDO</div>
+        <p style="font-size:14px; margin-bottom:30px; color:#E1E1E1;">Pago verificado para el Folio: <b>${paidFolio}</b>. Tu pasaporte digital está listo.</p>
+        <button class="gold-btn" style="max-width:320px; margin:0 auto;" onclick="window.KERNEL.descargarPasaportePDF('${paidFolio}')">Descargar Pasaporte (PDF)</button>
+      </div>
+    `;
+  }
+}
 
-        // 🕵️‍♂️ BYPASS PRIVADO DE DESARROLLADOR CONTRA VARIABLES SECRETAS DE RENDER
-        document.getElementById("brandTitleField").addEventListener("click", () => {
-            devClickCount++;
-            if (devClickCount === 3) {
-                devClickCount = 0;
-                const u = prompt("Usuario de desarrollo:");
-                const p = prompt("Contraseña de desarrollo:");
-                fetch("/verify-dev-access", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user: u, dev_pass: p })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.authenticated) {
-                        window.location.href = "https://wellness-travel.onrender.com";
-                    } else { alert("Credenciales incorrectas."); }
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+window.KERNEL.descargarPasaportePDF = function(folio) {
+  document.body.style.cursor = "wait";
+  fetch("/generate-pdf", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      servicio_id: folio, 
+      lang: window.currentLang,
+      score_inicial: 45.0, 
+      score_actual: 75.0, 
+      respiracion_score: 100.0,
+      adivinanzas_score: 100.0, 
+      iev: 85.0, 
+      variante: "ELITE_RECONEXION", 
+      destino_id: "H1"
+    })
+  })
+  .then(res => res.blob())
+  .then(blob => {
+    document.body.style.cursor = "default";
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; 
+    a.download = `MayRoga_Passport_${folio}.pdf`;
+    document.body.appendChild(a); 
+    a.click(); 
+    a.remove();
+  })
+  .catch(() => { 
+    document.body.style.cursor = "default"; 
+  });
+};
+
