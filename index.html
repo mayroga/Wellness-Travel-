@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAY ROGA LLC| Premium Travel Architecture</title>
+    <title>MAY ROGA LLC | Premium Travel Architecture</title>
     <!-- ANALÍTICA ANÓNIMA Y PRIVADA (PLAUSIBLE) -->
     <script defer data-domain="tu-dominio-mayroga.com" src="https://plausible.io"></script>
     <script>
@@ -222,7 +222,6 @@
         .v-left { bottom: 0; left: 0; background-color: var(--relax-blue); box-shadow: 0 0 20px var(--relax-blue); }
         .v-right { bottom: 0; right: 0; background-color: var(--gold-champagne); box-shadow: 0 0 20px var(--gold-champagne); }
 
-        /* HACES DE PARTÍCULAS VOLADORAS CON ANIMACIONES DIRECTAS DESDE LOS VÉRTICES HACIA EL CENTRO */
         .energy-beam { position: absolute; width: 6px; height: 6px; border-radius: 50%; opacity: 0; }
         .beam-top { background: var(--alert-crimson); box-shadow: 0 0 15px var(--alert-crimson); animation: flyToCenterTop 2.5s infinite linear; }
         .beam-left { background: var(--relax-blue); box-shadow: 0 0 15px var(--relax-blue); animation: flyToCenterLeft 2.5s infinite linear; }
@@ -295,6 +294,7 @@
     </div>
 
     <script>
+        // 🛡️ DEFINICIÓN GLOBAL COMPLETA DEL KERNEL Y SUS MÉTODOS
         window.KERNEL = window.KERNEL || {};
         window.currentLang = "ES";
         
@@ -438,7 +438,7 @@
             .catch(() => { document.body.style.cursor = "default"; });
         };
 
-        // 🔗 INTEGRACIÓN DE LA SEGUNDA PARTE (PARÁMETROS DE RETORNO Y DESCARGA DE PDF)
+        // 🔗 INTEGRACIÓN DE PARÁMETROS DE RETORNO Y DESCARGA DE PDF
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('status') === 'success') {
             const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
