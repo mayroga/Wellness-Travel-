@@ -2,7 +2,7 @@
 #                                         MAY ROGA LLC
 #                       Wellness Travel Architecture & Lifestyle Optimization
 #                                    Miami, Florida | USA
-#                                 PRODUCTION BACKEND - AUDITED
+#                             PRODUCTION BACKEND V3 - FULL COMPLIANT
 # ====================================================================================================
 
 import os
@@ -19,13 +19,13 @@ from reportlab.lib import colors
 
 app = FastAPI(
     title="MAY ROGA LLC - Wellness Travel App Production Backend",
-    version="1.0.4"
+    version="1.0.6"
 )
 
 # Inicialización segura de Stripe leyendo las variables de entorno de Render
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
-STRIPE_PRICE_ID1 = os.getenv("STRIPE_PRICE_ID1")  # ID de precio para el plan de $200
-STRIPE_PRICE_ID2 = os.getenv("STRIPE_PRICE_ID2")  # ID de precio para el plan de $399
+STRIPE_PRICE_ID1 = os.getenv("STRIPE_PRICE_ID1")  # Pago Único de Un Solo Servicio $200
+STRIPE_PRICE_ID2 = os.getenv("STRIPE_PRICE_ID2")  # Suscripción Mensual Ilimitada $399
 
 DICTIONARY_BILINGUAL = {
     "ES": {
@@ -125,43 +125,35 @@ class CheckoutPayload(BaseModel):
     tier: str
     folio: str
 
-# ==================================================================================== 
-# ACTUALIZACIÓN INTEGRADA: ENDPOINT DE VALIDACIÓN DE CREDENCIALES (DEV VARIABLES) 
-# ==================================================================================== 
 class DevAuthPayload(BaseModel):
     user: str
-    dev_pass: str  # CORREGIDO: Cambiado de 'pass' a 'dev_pass' para evitar el SyntaxError
+    dev_pass: str
 
 @app.post("/verify-dev-access")
 def verify_dev_access(payload: DevAuthPayload):
     system_dev_user = os.getenv("DEV_USER")
     system_dev_pass = os.getenv("DEV_PASS")
-    
     if payload.user == system_dev_user and payload.dev_pass == system_dev_pass:
         return {"authenticated": True}
-    
     raise HTTPException(status_code=401, detail="Unauthorized developer credentials.")
 
 @app.post("/create-checkout-session")
 def create_checkout_session(payload: CheckoutPayload):
-    # Asignación segura del Price ID configurado en las variables de Render
+    # Enrutamiento inteligente de cobros High-Ticket leyendo tus variables de Render
     price_id = STRIPE_PRICE_ID1 if payload.tier == "SINGLE_200" else STRIPE_PRICE_ID2
-    
     if not price_id:
         raise HTTPException(status_code=500, detail="Falta la configuración del Price ID de Stripe en Render.")
-
     try:
-        # Generación de la sesión de checkout blindada en servidores de Stripe
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
                 'price': price_id,
                 'quantity': 1,
             }],
+            # Determina de forma dinámica si es un pago único comercial o una suscripción ilimitada mensual
             mode='payment' if payload.tier == "SINGLE_200" else 'subscription',
-            # Redirección automática de regreso a tu dominio de Wellness-Travel-
-            success_url=f"https://wellness-travel.onrender.com{payload.folio}",
-            cancel_url="https://wellness-travel.onrender.com",
+            success_url=f"https://onrender.com{payload.folio}",
+            cancel_url="https://onrender.com",
             metadata={
                 'folio_crm': payload.folio,
                 'billing_tier': payload.tier
@@ -195,103 +187,84 @@ def generate_pdf(payload: PDFPayload):
     body_style = ParagraphStyle('CorpBody', parent=styles['Normal'], fontSize=10, leading=14, textColor=color_text)
     disclaimer_style = ParagraphStyle('LegalText', parent=styles['Normal'], fontSize=7.5, leading=10.5, textColor=color_legal, alignment=4)
     
-    # Bloque interno de generate_pdf: Asegurar 4 espacios de sangría al inicio de cada línea
-    story = [] 
-    lang_key = "EN" if payload.lang.upper() == "EN" else "ES" 
-    lang_map = DICTIONARY_BILINGUAL[lang_key] 
+    story = []
+    lang_key = "EN" if payload.lang.upper() == "EN" else "ES"
+    lang_map = DICTIONARY_BILINGUAL[lang_key]
     
-    story.append(Paragraph("<b>MAY ROGA LLC</b>", title_style)) 
-    story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization<br/>Miami, Florida | USA", subtitle_style)) 
-    story.append(Spacer(1, 15)) 
+    story.append(Paragraph("MAY ROGA LLC", title_style))
+    story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization<br/>Miami, Florida | USA", subtitle_style))
+    story.append(Spacer(1, 15))
+    story.append(Paragraph(f"{lang_map['doc_title']}", ParagraphStyle('RepTitle', parent=styles['Heading3'], fontSize=11, leading=14, alignment=1, textColor=color_primary, spaceAfter=15)))
     
-    story.append(Paragraph(f"<b>{lang_map['doc_title']}</b>", ParagraphStyle('RepTitle', parent=styles['Heading3'], fontSize=11, leading=14, alignment=1, textColor=color_primary, spaceAfter=15))) 
+    meta_text = f"{lang_map['folio']}: {payload.servicio_id} | {lang_map['status']}"
+    story.append(Paragraph(meta_text, body_style))
+    story.append(Spacer(1, 12))
     
-    meta_text = f"<b>{lang_map['folio']}:</b> {payload.servicio_id} | <b>{lang_map['status']}</b>"
-    story.append(Paragraph(meta_text, body_style)) 
-    story.append(Spacer(1, 12)) 
+    story.append(Paragraph(lang_map['sec1_title'], h2_style))
+    metrics_data = [
+        [Paragraph(f"{lang_map['m1']}", body_style), Paragraph(f"{lang_map['m2']}", body_style), Paragraph(f"{lang_map['m3']}", body_style)],
+        [Paragraph(lang_map['m_pace'], body_style), f"{payload.score_inicial}%", f"{payload.score_actual}%"],
+        [Paragraph(lang_map['m_breathe'], body_style), "0%", f"{payload.respiracion_score}%"],
+        [Paragraph(lang_map['m_logic'], body_style), "0%", f"{payload.adivinanzas_score}%"]
+    ]
+    metrics_table = Table(metrics_data, colWidths=[200, 110, 110])
+    metrics_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
+        ('PADDING', (0,0), (-1,-1), 6),
+        ('ALIGN', (1,1), (-1,-1), 'CENTER'),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+    ]))
+    story.append(metrics_table)
+    story.append(Spacer(1, 12))
     
-    story.append(Paragraph(lang_map['sec1_title'], h2_style)) 
-    
-    metrics_data = [ 
-        [Paragraph(f"<b>{lang_map['m1']}</b>", body_style), Paragraph(f"<b>{lang_map['m2']}</b>", body_style), Paragraph(f"<b>{lang_map['m3']}</b>", body_style)], 
-        [Paragraph(lang_map['m_pace'], body_style), f"{payload.score_inicial}%", f"{payload.score_actual}%"], 
-        [Paragraph(lang_map['m_breathe'], body_style), "0%", f"{payload.respiracion_score}%"], 
-        [Paragraph(lang_map['m_logic'], body_style), "0%", f"{payload.adivinanzas_score}%"] 
-    ] 
-    
-    metrics_table = Table(metrics_data, colWidths=[240, 140, 142]) 
-    metrics_table.setStyle(TableStyle([ 
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#F9F9F9")), 
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#E5E5E5")), 
-        ('PADDING', (0, 0), (-1, -1), 6), 
-        ('ALIGN', (1, 1), (-1, -1), 'CENTER'), 
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'), 
-    ])) 
-    story.append(metrics_table) 
-    story.append(Spacer(1, 12)) 
-    
-    story.append(Paragraph(lang_map['sec2_title'], h2_style)) 
-    
-    hotel_id = payload.destino_id 
-    if hotel_id in BACKEND_HOTELES: 
-        h_name = BACKEND_HOTELES[hotel_id][lang_key.lower()]["name"] 
-        h_desc = BACKEND_HOTELES[hotel_id][lang_key.lower()]["desc"] 
-    else: 
-        h_name = "Eden Roc Cap Cana (Punta Cana)" 
-        h_desc = "Villas de ultra-lujo con alberca propia y aislamiento acústico absoluto." 
+    story.append(Paragraph(lang_map['sec2_title'], h2_style))
+    hotel_id = payload.destino_id
+    if hotel_id in BACKEND_HOTELES:
+        h_name = BACKEND_HOTELES[hotel_id][lang_key.lower()]["name"]
+        h_desc = BACKEND_HOTELES[hotel_id][lang_key.lower()]["desc"]
+    else:
+        h_name = "Eden Roc Cap Cana (Punta Cana)"
+        h_desc = "Villas de ultra-lujo con alberca propia y aislamiento acústico absoluto."
         
-    tier_key = "ELITE" if "ELITE" in payload.variante or payload.score_inicial < 45 else "PREMIUM" 
-    logistica = BACKEND_LOGISTICA.get(tier_key, BACKEND_LOGISTICA["ELITE"])[lang_key.lower()] 
+    tier_key = "ELITE" if "ELITE" in payload.variante or payload.score_inicial < 45 else "PREMIUM"
+    logistica = BACKEND_LOGISTICA.get(tier_key, BACKEND_LOGISTICA["ELITE"])[lang_key.lower()]
     
-    dest_html = f"• <b>{lang_map['stay_lbl']}</b>: {h_name}<br/>" 
-    dest_html += f"• <b>{lang_map['desc_lbl']}</b>: {h_desc}<br/>" 
-    dest_html += f"• <b>{lang_map['air_lbl']}</b>: {logistica['air']}<br/>" 
-    dest_html += f"• <b>{lang_map['sea_lbl']}</b>: {logistica['sea']}<br/><br/>" 
-    dest_html += f"<i>{lang_map['consorcio']}</i>" 
+    dest_html = f"• {lang_map['stay_lbl']}: {h_name}<br/>"
+    dest_html += f"• {lang_map['desc_lbl']}: {h_desc}<br/>"
+    dest_html += f"• {lang_map['air_lbl']}: {logistica['air']}<br/>"
+    dest_html += f"• {lang_map['sea_lbl']}: {logistica['sea']}<br/><br/>"
+    dest_html += f"{lang_map['consorcio']}"
+    story.append(Paragraph(dest_html, body_style))
+    story.append(Spacer(1, 15))
     
-    story.append(Paragraph(dest_html, body_style)) 
-    story.append(Spacer(1, 15)) 
+    story.append(Paragraph(lang_map['sec3_title'], h2_style))
+    story.append(Paragraph(lang_map['cta'], body_style))
+    story.append(Spacer(1, 15))
     
-    story.append(Paragraph(lang_map['sec3_title'], h2_style)) 
-    story.append(Paragraph(lang_map['cta'], body_style)) 
-    story.append(Spacer(1, 15)) 
+    story.append(Paragraph(lang_map['sec4_title'], h2_style))
+    story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph(lang_map['ai_foot'], disclaimer_style))
     
-    story.append(Paragraph(lang_map['sec4_title'], h2_style)) 
-    story.append(Paragraph(lang_map['disclaimer'], disclaimer_style)) 
-    story.append(Spacer(1, 10)) 
-    story.append(Paragraph(lang_map['ai_foot'], disclaimer_style)) 
-    
-    doc.build(story) 
+    doc.build(story)
     return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
-
-# ==================================================================================== 
-# SERVIDOR EN ENTRADA RAÍZ (SERVIDOR DE TU HTML INTERACTIVO)
-# ==================================================================================== 
-# ==================================================================================== 
-# ENRUTADORES EXPLICITOS DE INTERFAZ (DESPACHO DE ARCHIVOS DIRECTO DESDE LA RAÍZ)
-# ==================================================================================== 
 
 @app.get("/", response_class=HTMLResponse)
 def read_index():
     if os.path.exists("index.html"):
         with open("index.html", "r", encoding="utf-8") as f:
             return f.read()
-    return "<h3>MAY ROGA LLC - index.html no encontrado en la raíz</h3>"
+    return "MAY ROGA LLC - index.html no encontrado en la raíz"
 
 @app.get("/script.js")
 def read_script():
-    if os.path.exists("script.js"):
-        return FileResponse("script.js", media_type="application/javascript")
-    raise HTTPException(status_code=404, detail="script.js no encontrado")
+    return FileResponse("script.js", media_type="application/javascript")
 
 @app.get("/style.css")
 def read_style():
-    if os.path.exists("style.css"):
-        return FileResponse("style.css", media_type="text/css")
-    raise HTTPException(status_code=404, detail="style.css no encontrado")
+    return FileResponse("style.css", media_type="text/css")
 
 @app.get("/data_pools.js")
 def read_data_pools():
-    if os.path.exists("data_pools.js"):
-        return FileResponse("data_pools.js", media_type="application/javascript")
-    raise HTTPException(status_code=404, detail="data_pools.js no encontrado")
+    return FileResponse("data_pools.js", media_type="application/javascript")
