@@ -152,8 +152,8 @@ def create_checkout_session(payload: CheckoutPayload):
             }],
             # Determina de forma dinámica si es un pago único comercial o una suscripción ilimitada mensual
             mode='payment' if payload.tier == "SINGLE_200" else 'subscription',
-            success_url=f"https://onrender.com{payload.folio}",
-            cancel_url="https://onrender.com",
+            success_url=f"https://wellness-travel.onrender.com{payload.folio}",
+            cancel_url="https://wellness-travel.onrender.com",
             metadata={
                 'folio_crm': payload.folio,
                 'billing_tier': payload.tier
