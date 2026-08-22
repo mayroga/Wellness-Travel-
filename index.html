@@ -395,9 +395,9 @@
     let devClickCount = 0;
 
     // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
-    let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); // Al azar en bloque de la primera mitad
-    let randomSec2 = Math.floor(Math.random() * (360 - 120) + 120); // Al azar en bloque de la segunda mitad
-    const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos exactos de interrupción
+    let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); 
+    let randomSec2 = Math.floor(Math.random() * (360 - 120)) + 120; // ¡CORREGIDO! Paréntesis cerrado limpiamente
+    const CRONOGRAMA_TRIANGULO = [900, 460, 50, randomSec1, randomSec2]; // Segundos de interrupción del reloj
 
     // Inicializador dinámico del trayecto interactivo
     window.KERNEL.init = function() {
