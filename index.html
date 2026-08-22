@@ -369,6 +369,27 @@
     }
   }
 </style>
+<script>
+    // Inicialización obligatoria del Kernel para evitar errores de referencia
+    window.KERNEL = window.KERNEL || {};
+    window.currentLang = "ES";
+
+    window.KERNEL.setLanguage = function(lang) {
+        window.currentLang = lang;
+        const btnES = document.getElementById('btnLangES');
+        const btnEN = document.getElementById('btnLangEN');
+        
+        if (btnES && btnEN) {
+            if (lang === 'ES') {
+                btnES.classList.add('active-lang');
+                btnEN.classList.remove('active-lang');
+            } else {
+                btnEN.classList.add('active-lang');
+                btnES.classList.remove('active-lang');
+            }
+        }
+    };
+</script>
 
 <div class="lang-container-giant" id="giantLangBox">
   <button id="btnLangES" class="giant-lang-btn active-lang" onclick="window.KERNEL.setLanguage('ES')">ESPAÑOL</button>
@@ -393,6 +414,8 @@
     let timeRemaining = 15 * 60;
     let userAnswers = [];
     let devClickCount = 0;
+
+    // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO...
 
     // 🎯 CRONOGRAMA MAESTRO DEL TRIÁNGULO: 5 Apariciones (3 fijas exactas y 2 calculadas al azar)
     let randomSec1 = Math.floor(Math.random() * (780 - 540) + 540); 
