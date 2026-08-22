@@ -439,49 +439,51 @@ const TEXTOS_INTERFAZ = {
   }
 };
 
-window.KERNEL = window.KERNEL || {};
+    window.KERNEL.realInit = function() {
+        const giantBox = document.getElementById('giantLangBox');
+        if (giantBox) giantBox.style.display = 'none';
+        
+        const btnUnlock = document.getElementById('btnUnlock');
+        if (btnUnlock) btnUnlock.style.display = 'none';
+        
+        const legalTitle = document.getElementById('lblLegalTitle');
+        if (legalTitle) legalTitle.style.display = 'none';
 
-window.KERNEL.init = function() {
-  const giantLangBox = document.getElementById('giantLangBox');
-  if (giantLangBox) giantLangBox.style.display = 'none';
+        const statusLbl = document.getElementById('lblStatus');
+        if (statusLbl) statusLbl.style.display = 'none';
 
-  const panelLegal = document.getElementById('panelLegal');
-  if (panelLegal) panelLegal.style.display = 'none';
+        this.iniciarPulmonVisual();
+        this.cargarFlujoSiguienteLocalStorage();
+        this.hablar();
 
-  const panelService = document.getElementById('panelService');
-  if (panelService) panelService.style.display = 'block';
+        if (Math.random() > 0.5) {
+            window.KERNEL.desplegarTrianguloCinematico();
+        }
 
-  this.iniciarPulmonVisual();
-  this.cargarFlujoSiguienteLocalStorage();
-  this.hablar();
+        // Reloj maestro del CRM de acompañamiento
+        serviceTimer = window.setInterval(() => {
+            timeRemaining--;
+            
+            let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            let secs = (timeRemaining % 60).toString().padStart(2, '0');
+            const clock = document.getElementById('clockDisplay');
+            if (clock) clock.innerText = `${mins}:${secs}`;
 
-  // 🎰 MOTOR NO-LINEAL HEURÍSTICO: Decide al azar si arranca interrumpiendo con el triángulo
-  if (Math.random() > 0.5) {
-    window.KERNEL.desplegarTrianguloCinematico();
-  }
+            // INTERCEPCIÓN MATEMÁTICA: Lanza el triángulo en las 5 marcas de tiempo exactas
+            if (typeof CRONOGRAMA_TRIANGULO !== 'undefined' && CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
+                window.KERNEL.desplegarTrianguloCinematico();
+            }
 
-  serviceTimer = window.setInterval(() => {
-    timeRemaining--;
-    let mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-    let secs = (timeRemaining % 60).toString().padStart(2, '0');
-    
-    const clockDisplay = document.getElementById('clockDisplay');
-    if (clockDisplay) clockDisplay.innerText = `${mins}:${secs}`;
+            // Despliegue automático del Pasillo de Escape en el Minuto 4 (240 segundos)
+            if (timeRemaining === 240) {
+                window.KERNEL.inyectarPortalInteractivodeEscape();
+            }
 
-    // CONTROL DE RELOJ DE ALTA GAMA: 5 Interrupciones exactas de 20s cada una
-    if (typeof CRONOGRAMA_TRIANGULO !== 'undefined' && CRONOGRAMA_TRIANGULO.includes(timeRemaining)) {
-      window.KERNEL.desplegarTrianguloCinematico();
-    }
-
-    if (timeRemaining === 240) {
-      window.KERNEL.inyectarPortalInteractivodeEscape();
-    }
-
-    if (timeRemaining <= 0) {
-      window.KERNEL.finalizarAcompanamientoCRM();
-    }
-  }, 1000);
-};
+            if (timeRemaining <= 0) {
+                window.KERNEL.finalizarAcompanamientoCRM();
+            }
+        }, 1000);
+    };
 
 window.KERNEL.desplegarTrianguloCinematico = function() {
   let engine = document.getElementById('engineWrapper');
