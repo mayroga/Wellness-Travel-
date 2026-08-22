@@ -275,28 +275,25 @@
             box-shadow: 0 0 25px var(--gold-glow);
         }
 
-        .agent-nbt-btn {
+        .agent-standby-btn {
             width: 100%;
-            background: rgba(41, 128, 185, 0.12);
+            background: rgba(41, 128, 185, 0.08);
             border: 1px solid var(--luxury-accent);
-            color: #73C6B6;
-            padding: 15px;
+            color: var(--luxury-accent);
+            padding: 12px;
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 12px;
-            box-shadow: 0 0 20px rgba(41, 128, 185, 0.3);
-            display: none;
+            margin-top: 8px;
         }
 
-        .agent-nbt-btn:hover {
+        .agent-standby-btn:hover {
             background: var(--luxury-accent);
             color: #fff;
-            box-shadow: 0 0 30px rgba(41, 128, 185, 0.6);
         }
 
         .cinematic-overlay {
@@ -510,9 +507,9 @@
             if (nextBtnText) {
                 nextBtnText.innerText = lang === "ES" ? "Siguiente Radiografía" : "Next Radiography";
             }
-            const agentBtn = document.getElementById('btnAgentNBT');
+            const agentBtn = document.getElementById('btnAgentStandby');
             if (agentBtn) {
-                agentBtn.innerText = lang === "ES" ? "TRATO DIRECTO NBT TRAVEL" : "DIRECT NBT TRAVEL SERVICE";
+                agentBtn.innerText = lang === "ES" ? "CONECTAR CON EL AGENTE" : "CONNECT WITH AGENT";
             }
 
             if (window.sessionStarted) {
@@ -597,9 +594,9 @@
                 <span id="txtNextBtn">Next Radiography</span>
             </button>
 
-            <!-- BOTÓN DE TRATO DIRECTO NBT TRAVEL (APARECE CASI AL FINAL DEL EJERCICIO) -->
-            <button class="agent-nbt-btn" id="btnAgentNBT" onclick="window.KERNEL.conectarTratoDirectoNBT()">
-                TRATO DIRECTO NBT TRAVEL
+            <!-- BOTÓN DE AGENTE DE VIAJES EN STAND-BY -->
+            <button class="agent-standby-btn" id="btnAgentStandby" onclick="window.KERNEL.conectarAgenteStandby()">
+                CONECTAR CON EL AGENTE
             </button>
         </div>
     </div>
@@ -809,6 +806,7 @@
             userChoices.push(puntos);
             localStorage.setItem('mayroga_intent', vibe);
 
+            // Síntesis de voz estrictamente en el idioma activo
             if ('speechSynthesis' in window) {
                 let utterance = new SpeechSynthesisUtterance(explicacion);
                 utterance.lang = window.currentLang === "ES" ? "es-US" : "en-US";
@@ -835,23 +833,13 @@
 
             let idx = parseInt(localStorage.getItem('mayroga_last_idx') || "0") + 1;
             localStorage.setItem('mayroga_last_idx', idx.toString());
-
-            // 4. SI ESTAMOS EN LA ÚLTIMA PREGUNTA O CASI AL FINAL, APARECE EL BOTÓN DE NBT TRAVEL PARA TRATO DIRECTO
-            if (idx >= POOL_RADIOGRAFIA.length - 1) {
-                const btnNBT = document.getElementById('btnAgentNBT');
-                if (btnNBT) btnNBT.style.display = 'block';
-            }
-
             this.cargarFlujoSiguienteLocalStorage();
         };
 
-        // 5. TRATO DIRECTO Y PERSONAL CON NBT TRAVEL
-        window.KERNEL.conectarTratoDirectoNBT = function() {
-            const mensajeNBT = window.currentLang === "ES"
-                ? "Iniciando canal de trato directo y personal con NBT Travel para asistencia exclusiva..."
-                : "Initiating direct and personal service channel with NBT Travel for exclusive assistance...";
-            alert(mensajeNBT);
-            // Aquí se puede integrar la redirección directa al contacto o pasarela de NBT Travel
+        window.KERNEL.conectarAgenteStandby = function() {
+            alert(window.currentLang === "ES" 
+                ? "Agente de Viajes en modo Stand-by. Las credenciales de enlace directo se configurarán próximamente." 
+                : "Travel Agent in Stand-by mode. Direct link credentials will be configured soon.");
         };
 
         window.KERNEL.inyectarPasilloEscapeReal = function() {
@@ -861,14 +849,10 @@
             if (box) box.style.display = 'none';
             if (btnNext) btnNext.style.display = 'none';
 
-            // Asegurar que el botón de NBT Travel aparezca visible al llegar al final
-            const btnNBT = document.getElementById('btnAgentNBT');
-            if (btnNBT) btnNBT.style.display = 'block';
-
             let tituloEscape = window.currentLang === "ES" ? "RADAR DE LUJO Y SATISFACCIÓN INIMAGINABLE" : "LUXURY & UNIMAGINABLE SATISFACTION RADAR";
             let descEscape = window.currentLang === "ES" 
-                ? "Radiografía completada con éxito. Acceda al trato directo de NBT Travel para la ejecución de su itinerario."
-                : "Radiography completed successfully. Access direct NBT Travel service for your itinerary execution.";
+                ? "Radiografía completada con éxito. Agente de Viajes en modo Stand-by."
+                : "Radiography completed successfully. Travel Agent in Stand-by mode.";
 
             if (stack) {
                 stack.innerHTML = `
