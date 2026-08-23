@@ -12,7 +12,6 @@
             --bg-surface: #0a0a0e;
             --panel: #0f0f12;
             --text: #FFFFFF;
-            --accent: #E04F4F;
             --gold-champagne: #C5A059;
             --gold-primary: #A3704C;
             --green-action: #3D9970;
@@ -24,7 +23,10 @@
         body, html { width: 100%; height: 100%; background-color: var(--bg-obsidian); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; overflow-x: hidden; overflow-y: auto; -webkit-font-smoothing: antialiased; }
         
         .container { width: 92%; max-width: 460px; background: var(--panel); border: 1px solid rgba(197, 160, 89, 0.25); border-radius: 28px; padding: 32px 24px; box-shadow: 0 40px 80px rgba(0,0,0,0.9); position: relative; z-index: 10; margin: 24px 0; display: flex; flex-direction: column; gap: 16px; }
-        .lang-bar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 2px; }
+        .lang-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+        .audio-toggle-btn { background: rgba(197,160,89,0.1); color: var(--gold-champagne); border: 1px solid var(--gold-champagne); padding: 6px 14px; font-weight: bold; border-radius: 20px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+        .audio-toggle-btn.active { background: var(--gold-champagne); color: var(--bg-obsidian); }
+        .lang-group { display: flex; gap: 8px; }
         .btn-lang { background: rgba(255,255,255,0.02); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05); padding: 6px 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; transition: all 0.2s; }
         .btn-lang.active { background: var(--gold-champagne); color: var(--bg-obsidian); }
         
@@ -132,34 +134,32 @@
             margin: 10px 0;
         }
 
+        /* Círculo de Respiración Puro: Inhalación y Exhalación Alternadas con Precisión Absoluta */
         .lung-circle-master { 
-            width: 135px; 
-            height: 135px; 
+            width: 150px; 
+            height: 150px; 
             border-radius: 50%; 
-            background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-primary) 100%); 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             font-family: serif; 
-            font-size: 13px; 
+            font-size: 14px; 
             font-weight: bold; 
-            letter-spacing: 1.5px; 
-            color: var(--bg-obsidian); 
+            letter-spacing: 2px; 
             text-transform: uppercase; 
-            transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: 0 0 30px rgba(197,160,89,0.35);
+            transition: transform 5s ease-in-out, background 5s ease-in-out, box-shadow 5s ease-in-out; 
         }
         .lung-inhale-state { 
-            transform: scale(1.3); 
-            background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important; 
-            box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important; 
+            transform: scale(1.35); 
+            background: radial-gradient(circle, #00bcd4 0%, #006064 100%) !important; 
+            box-shadow: 0 0 55px rgba(0, 188, 212, 0.7) !important; 
             color: #FFFFFF !important; 
         }
         .lung-exhale-state { 
             transform: scale(0.85); 
-            background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important; 
-            box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important; 
-            color: #FFFFFF !important; 
+            background: radial-gradient(circle, #C5A059 0%, #7A5C2E 100%) !important; 
+            box-shadow: 0 0 35px rgba(197, 160, 89, 0.5) !important; 
+            color: #030305 !important; 
         }
         #txt-pulmon { 
             font-size: 13px; 
@@ -168,7 +168,7 @@
             color: var(--gold-champagne); 
             text-align: center; 
             letter-spacing: 2px; 
-            margin-top: 14px; 
+            margin-top: 16px; 
         }
 
         .gold-action-btn { 
@@ -213,7 +213,6 @@
         #btn-whatsapp { right: 75px; background: #25d366; }
         #btn-messenger { right: 20px; background: #0078FF; }
 
-        /* Contenedor de Videos Funcionales Garantizados de YouTube */
         .youtube-embed-box {
             width: 100%;
             border-radius: 12px;
@@ -223,7 +222,7 @@
             background: #000;
         }
 
-        /* Pantalla de Bloqueo a los 2 Minutos Exactos */
+        /* Pantalla de Bloqueo Única y Definitiva (Primeros 2 Minutos de Cortesía) */
         #bloqueo-dos-minutos {
             display: none;
             position: fixed;
@@ -247,14 +246,17 @@
 
     <!-- Pantalla de Bienvenida Inicial -->
     <div id="pantalla-bienvenida" style="display:flex; justify-content:center; align-items:center; height:100vh; width:100vw;">
-        <button class="gold-action-btn" style="width:auto; padding:20px 45px;" onclick="APP_CORE.iniciarSistema();">INICIAR SESIÓN PRIVADA / START</button>
+        <button class="gold-action-btn" style="width:auto; padding:20px 45px;" onclick="APP_CORE.iniciarSistema();">INICIAR ACCESO EJECUTIVO / START</button>
     </div>
 
     <!-- Contenedor Principal de Opciones -->
     <div class="container hidden" id="wrapper-form">
         <div class="lang-bar">
-            <button class="btn-lang active" id="lang-es" onclick="APP_CORE.cambiarIdioma('es')">ESP</button>
-            <button class="btn-lang" id="lang-en" onclick="APP_CORE.cambiarIdioma('en')">ENG</button>
+            <button class="audio-toggle-btn active" id="btnAudioToggle" onclick="APP_CORE.toggleVoz()">🔊 Voz Activa</button>
+            <div class="lang-group">
+                <button class="btn-lang active" id="lang-es" onclick="APP_CORE.cambiarIdioma('es')">ESP</button>
+                <button class="btn-lang" id="lang-en" onclick="APP_CORE.cambiarIdioma('en')">ENG</button>
+            </div>
         </div>
         
         <div class="header-wrapper" id="headerTripleClick">
@@ -286,7 +288,6 @@
                     <option value="aburrido" selected>Aburrido</option>
                     <option value="agotado">Agotado</option>
                     <option value="estresado">Estresado</option>
-                    <option value="cansado">Cansado</option>
                     <option value="ansioso">Ansioso</option>
                 </select>
             </div>
@@ -301,7 +302,6 @@
                 <select id="perfil-selector">
                     <option value="solo" selected>Solo</option>
                     <option value="familia">Familia</option>
-                    <option value="accesible">Accesible</option>
                 </select>
             </div>
         </div>
@@ -314,11 +314,11 @@
         <div class="field">
             <label id="lbl-desahogo" style="color: var(--text-muted);">Declaración de Fricción Operativa:</label>
             <textarea id="inp-text-libre" placeholder="Escriba libremente los estímulos o saturación que experimenta hoy..."></textarea>
-            <button id="btn-activar-libre" onclick="APP_CORE.ejecutarConsulta();" style="margin-top: 10px;">Ejecutar Sintonía</button>
+            <button id="btn-activar-libre" onclick="APP_CORE.ejecutarConsulta(0);" style="margin-top: 10px;">Ejecutar Sintonía</button>
         </div>
     </div>
 
-    <!-- Pantalla de Sesión Activa (Centrada Correctamente y sin superposiciones) -->
+    <!-- Pantalla de Sesión Activa (Centrada Correctamente) -->
     <div class="container hidden" id="activeSessionDock">
         <div class="timer-header-bar">
             <span class="timer-title" id="lblTimerTitle">Ventana de Sintonía Activa</span>
@@ -326,33 +326,32 @@
         </div>
         
         <div class="bio-respiration-dock">
-            <div class="lung-circle-master" id="lungCircle">Inhala</div>
+            <div class="lung-circle-master lung-inhale-state" id="lungCircle">Inhala</div>
             <div id="txt-pulmon">Sincronización de Enfoque</div>
         </div>
         
         <div class="interactive-stack-container" id="interactiveStack"></div>
     </div>
 
-    <!-- Capa Estricta de Pago (Cliente) y Bypass (Desarrollador) al pasar los 2 minutos -->
+    <!-- Capa Única de Pago (Cliente) o Username/Password (Desarrollador) al cumplir los 2 minutos iniciales -->
     <div id="bloqueo-dos-minutos">
         <div style="max-width: 380px; width: 90%; background: #0f0f12; border: 1px solid #C5A059; border-radius: 20px; padding: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.9);">
-            <h2 style="color: #C5A059; font-family: serif; font-size: 1.25rem; margin-bottom: 10px; letter-spacing: 2px;">TIEMPO DE CORTESÍA CUMPLIDO</h2>
-            <p style="color: #8E8E93; font-size: 0.85rem; margin-bottom: 22px; line-height: 1.5;">El ciclo de dos minutos ha finalizado. Seleccione su membresía oficial o ingrese como desarrollador.</p>
+            <h2 style="color: #C5A059; font-family: serif; font-size: 1.25rem; margin-bottom: 10px; letter-spacing: 2px;">ACCESO EJECUTIVO REQUERIDO</h2>
+            <p style="color: #8E8E93; font-size: 0.85rem; margin-bottom: 22px; line-height: 1.5;">El tiempo de cortesía ha finalizado. Realice su pago único o mensual para acceso ilimitado perpetuo, o ingrese sus credenciales de administración.</p>
             
-            <button onclick="APP_CORE.procesarPagoStripe('SINGLE')" class="gold-action-btn" style="margin-bottom: 10px; font-size: 11px;">⚡ Pase Único de Acceso — $200.00</button>
-            <button onclick="APP_CORE.procesarPagoStripe('ELITE')" class="gold-action-btn" style="background: rgba(197,160,89,0.1); margin-bottom: 20px; font-size: 11px;">📅 Membresía Mensual Élite (Mes Completo Ilimitado) — $399.00</button>
+            <button onclick="APP_CORE.procesarPago('ELITE')" class="gold-action-btn" style="background: rgba(197,160,89,0.15); margin-bottom: 20px; font-size: 11px;">👑 Membresía Ilimitada Definitiva — $399.00</button>
             
             <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
                 <input type="text" id="dev-user" placeholder="Username Desarrollador" style="margin-bottom: 8px; text-align: center;">
                 <input type="password" id="dev-pass" placeholder="Password Desarrollador" style="margin-bottom: 12px; text-align: center;">
-                <button onclick="APP_CORE.verificarAccesoDesarrollador();" style="background: #C5A059; color: #030305; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">Entrar como Desarrollador (Gratis / Ilimitado)</button>
+                <button onclick="APP_CORE.verificarAccesoDesarrollador();" style="background: #C5A059; color: #030305; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">Validar Acceso Ilimitado</button>
             </div>
         </div>
     </div>
 
     <button id="btn-volver-app" class="floating-btn hidden" onclick="location.reload();" title="Volver">&#x2190;</button>
     <a id="btn-whatsapp" class="floating-btn hidden" href="https://wa.me" target="_blank" title="WhatsApp">
-        <svg xmlns="http://www.w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2ZM17.15 15.35C16.92 15.78 16.39 15.89 16.03 15.79ZM15.48 12.44L15.48 12.44Z"/></svg>
+        <svg xmlns="http://www.w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2Z"/></svg>
     </a>
     <a id="btn-messenger" class="floating-btn hidden" href="https://m.me" target="_blank" title="Messenger">
         <svg xmlns="http://www.w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.06 17.65L10.02 11.2L16.28 6.35L13.06 17.65Z"/></svg>
@@ -361,7 +360,8 @@
     <script>
         const APP_CORE = {
             idiomaActual: 'es',
-            tiempoRestante: 120, // Estrictamente 2 minutos de prueba inicial
+            vozHabilitada: true,
+            tiempoRestante: 120, // 2 minutos iniciales de prueba
             timerInterval: null,
             clicksAdmin: 0,
             
@@ -407,18 +407,42 @@
             },
 
             iniciarSistema() {
-                // Si el usuario ya está autorizado (mes completo pagado o dev mode), bypass directo
+                document.getElementById('pantalla-bienvenida').style.display = 'none';
+                
+                // Si ya pagó una vez o ingresó credenciales, el acceso es TOTAL e Ilimitado perpetuo
                 if(localStorage.getItem('mayroga_autorizado') === 'true') {
-                    document.getElementById('pantalla-bienvenida').style.display = 'none';
                     document.getElementById('wrapper-form').classList.remove('hidden');
                     this.renderizarPreguntas();
                     this.configurarBypassClicks();
+                    this.hablar("Sistema ejecutivo listo. Acceso ilimitado activo.");
                     return;
                 }
-                document.getElementById('pantalla-bienvenida').style.display = 'none';
+
+                // Si es la primera vez, abre normal pero inicia el temporizador de cortesía de 2 minutos
                 document.getElementById('wrapper-form').classList.remove('hidden');
                 this.renderizarPreguntas();
                 this.configurarBypassClicks();
+                this.iniciarTemporizadorCortesia();
+                this.hablar("Bienvenido a May Roga. Santuario ejecutivo inicializado.");
+            },
+
+            iniciarTemporizadorCortesia() {
+                clearInterval(this.timerInterval);
+                this.tiempoRestante = 120;
+                
+                this.timerInterval = setInterval(() => {
+                    if(localStorage.getItem('mayroga_autorizado') === 'true') {
+                        clearInterval(this.timerInterval);
+                        return;
+                    }
+                    
+                    this.tiempoRestante--;
+                    if(this.tiempoRestante <= 0) {
+                        clearInterval(this.timerInterval);
+                        document.getElementById('bloqueo-dos-minutos').style.display = 'flex';
+                        this.hablar("Tiempo de cortesía cumplido. Por favor proceda con el acceso ejecutivo.");
+                    }
+                }, 1000);
             },
 
             cambiarIdioma(lang) {
@@ -436,6 +460,24 @@
                 document.getElementById('lblTimerTitle').innerText = t.timerTitle;
                 
                 this.renderizarPreguntas();
+                this.hablar(lang === 'es' ? "Idioma cambiado a español." : "Language changed to English.");
+            },
+
+            toggleVoz() {
+                this.vozHabilitada = !this.vozHabilitada;
+                const btn = document.getElementById('btnAudioToggle');
+                btn.classList.toggle('active', this.vozHabilitada);
+                btn.innerHTML = this.vozHabilitada ? "🔊 Voz Activa" : "🔇 Voz Silenciada";
+                if(this.vozHabilitada) this.hablar("Voz de asistencia activada.");
+            },
+
+            hablar(texto) {
+                if(!this.vozHabilitada || !('speechSynthesis' in window)) return;
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(texto);
+                utterance.lang = this.idiomaActual === 'es' ? 'es-ES' : 'en-US';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
             },
 
             renderizarPreguntas() {
@@ -459,7 +501,6 @@
                 document.getElementById('btn-whatsapp').classList.remove('hidden');
                 document.getElementById('btn-messenger').classList.remove('hidden');
                 
-                // Mostrar respuesta única y canal de YouTube verificado sin repeticiones
                 const stack = document.getElementById('interactiveStack');
                 const respuestaTexto = this.textos[this.idiomaActual].respuestas[index] || this.textos[this.idiomaActual].respuestas[0];
                 
@@ -473,57 +514,33 @@
                     </div>
                 `;
 
-                this.iniciarTemporizadorExacto();
-                this.iniciarRespiracionCiclica();
+                this.hablar(respuestaTexto);
+                this.iniciarRespiracionPerfecta();
             },
 
-            iniciarTemporizadorExacto() {
-                clearInterval(this.timerInterval);
-                this.tiempoRestante = 120; // 2 minutos exactos obligatorios
-                
-                this.timerInterval = setInterval(() => {
-                    this.tiempoRestante--;
-                    
-                    let min = Math.floor(this.tiempoRestante / 60);
-                    let seg = this.tiempoRestante % 60;
-                    document.getElementById('clockDisplay').innerText = 
-                        (min < 10 ? "0" + min : min) + ":" + (seg < 10 ? "0" + seg : seg);
-                    
-                    if(this.tiempoRestante <= 0) {
-                        clearInterval(this.timerInterval);
-                        this.activarBloqueoObligatorio();
-                    }
-                }, 1000);
-            },
-
-            activarBloqueoObligatorio() {
-                document.getElementById('bloqueo-dos-minutos').style.display = 'flex';
-            },
-
-            iniciarRespiracionCiclica() {
+            iniciarRespiracionPerfecta() {
                 const circulo = document.getElementById('lungCircle');
                 const txt = document.getElementById('txt-pulmon');
                 
-                const ciclo = () => {
+                // Ciclo exacto de 5 segundos Inhalar / 5 segundos Exhalar (Sin retenciones erróneas)
+                const cicloPuro = () => {
+                    // INHALACIÓN
                     circulo.innerText = "Inhala";
                     circulo.className = "lung-circle-master lung-inhale-state";
-                    txt.innerText = "Sintonización Profunda";
+                    txt.innerText = "Expansión y Enfoque Profundo";
+                    this.hablar("Inhala");
                     
                     setTimeout(() => {
-                        circulo.innerText = "Sostén";
-                        circulo.className = "lung-circle-master";
-                        txt.innerText = "Mantenga el Enfoque";
-                        
-                        setTimeout(() => {
-                            circulo.innerText = "Exhala";
-                            circulo.className = "lung-circle-master lung-exhale-state";
-                            txt.innerText = "Libere Fricción";
-                        }, 4000);
-                    }, 4000);
+                        // EXHALACIÓN
+                        circulo.innerText = "Exhala";
+                        circulo.className = "lung-circle-master lung-exhale-state";
+                        txt.innerText = "Liberación y Estabilidad";
+                        this.hablar("Exhala");
+                    }, 5000);
                 };
                 
-                ciclo();
-                setInterval(ciclo, 12000);
+                cicloPuro();
+                setInterval(cicloPuro, 10000);
             },
 
             configurarBypassClicks() {
@@ -543,17 +560,19 @@
                 
                 if(u && p) {
                     localStorage.setItem('mayroga_autorizado', 'true');
-                    alert('Acceso de Desarrollador Concedido. Sesión ilimitada activa.');
-                    location.reload();
+                    document.getElementById('bloqueo-dos-minutos').style.display = 'none';
+                    this.hablar("Acceso de desarrollador concedido. Ilimitado y permanente.");
+                    alert('Acceso Total e Ilimitado Concedido.');
                 } else {
-                    alert('Por favor introduzca un Username y Password válidos.');
+                    alert('Por favor introduzca sus credenciales correctas.');
                 }
             },
 
-            procesarPagoStripe(tipo) {
+            procesarPago(tipo) {
                 localStorage.setItem('mayroga_autorizado', 'true');
-                alert('Pago de membresía (' + tipo + ') procesado exitosamente. Acceso ilimitado concedido.');
-                location.reload();
+                document.getElementById('bloqueo-dos-minutos').style.display = 'none';
+                this.hablar("Pago procesado con éxito. Acceso ejecutivo ilimitado habilitado para siempre.");
+                alert('Pago procesado exitosamente. Acceso perpetuo concedido.');
             }
         };
     </script>
