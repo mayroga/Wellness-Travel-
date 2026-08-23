@@ -1,295 +1,16 @@
-  // ==========================================
-    // INICIO DE LA APLICACIÓN Y NAVEGACIÓN
-    // ==========================================
-    despertarInicial() {
-        const bienvenida = document.getElementById('pantalla-bienvenida');
-        const wrapper = document.getElementById('wrapper-form');
-        const btnVolver = document.getElementById('btn-volver-app');
-        const btnWsp = document.getElementById('btn-whatsapp');
-        const btnMsg = document.getElementById('btn-messenger');
-
-        if (bienvenida) bienvenida.classList.add('hidden');
-        if (wrapper) wrapper.classList.remove('hidden');
-        if (btnVolver) btnVolver.classList.remove('hidden');
-        if (btnWsp) btnWsp.classList.remove('hidden');
-        if (btnMsg) btnMsg.classList.remove('hidden');
-
-        this.cargarPreguntasOraculo();
-        this.iniciarControlInaccion();
-    },
-
-    cambiarIdioma(lang) {
-        this.idiomaActual = lang;
-        const t = this.TRADUCCIONES[lang];
-
-        const btnEs = document.getElementById('lang-es');
-        const btnEn = document.getElementById('lang-en');
-        if (btnEs && btnEn) {
-            btnEs.classList.toggle('active', lang === 'es');
-            btnEn.classList.toggle('active', lang === 'en');
-        }
-
-        const sub = document.getElementById('lblBrandSub');
-        if (sub) sub.textContent = t.brandSub;
-
-        const timerTitle = document.getElementById('lblTimerTitle');
-        if (timerTitle) timerTitle.textContent = t.timerTitle;
-
-        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
-        if (oraculoInst) oraculoInst.textContent = t.oraculoInstruccion;
-
-        const lblDesahogo = document.getElementById('lbl-desahogo');
-        if (lblDesahogo) lblDesahogo.textContent = t.desahogoLabel;
-
-        const inpLibre = document.getElementById('inp-text-libre');
-        if (inpLibre) inpLibre.placeholder = t.placeholderLibre;
-
-        const btnActivar = document.getElementById('btn-activar-libre');
-        if (btnActivar) btnActivar.textContent = t.btnActivar;
-
-        const txtPulmon = document.getElementById('txt-pulmon');
-        if (txtPulmon) txtPulmon.textContent = t.pulmonTxt;
-
-        this.cargarPreguntasOraculo();
-    },
-
-    // ==========================================
-    // BARAJADO FISHER-YATES Y ORÁCULO ÉLITE
-    // ==========================================
-    fisherYatesShuffle(array) {
-        let currentIndex = array.length, randomIndex;
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-        return array;
-    },
-
-    cargarPreguntasOraculo() {
-        const contenedor = document.getElementById('contenedor-preguntas-oraculo');
-        if (!contenedor) return;
-        contenedor.innerHTML = '';
-
-        let catalogo = this.idiomaActual === 'es' ? [...this.CATALOGO_PREGUNTAS_ES] : [...this.CATALOGO_PREGUNTAS_EN];
-        catalogo = this.fisherYatesShuffle(catalogo);
-        const seleccion = catalogo.slice(0, 3);
-
-        seleccion.forEach((pregunta, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-pregunta-crisis';
-            btn.textContent = `${index + 1}. ${pregunta}`;
-            btn.onclick = () => {
-                this.userAnswers.push({ tipo: 'oraculo', texto: pregunta });
-                this.ejecutar();
-            };
-            contenedor.appendChild(btn);
-        });
-    },
-
-    // ==========================================
-    // CONTROL DE INACCIÓN Y TEMPORIZADORES
-    // ==========================================
-    iniciarControlInaccion() {
-        if (this.timerInaccion) clearInterval(this.timerInaccion);
-        let segundosInactivo = 0;
-
-        const reiniciarContador = () => {
-            segundosInactivo = 0;
-        };
-
-        window.addEventListener('mousemove', reiniciarContador);
-        window.addEventListener('keydown', reiniciarContador);
-        window.addEventListener('touchstart', reiniciarContador);
-
-        this.timerInaccion = setInterval(() => {
-            segundosInactivo++;
-            // A los 59 segundos sin uso en pagos menores o sesión general se emite advertencia sutil
-            if (segundosInactivo === 59) {
-                const t = this.TRADUCCIONES[this.idiomaActual];
-                console.warn(t.atencionInaccion);
-            }
-        }, 1000);
-    },
-
-    // ==========================================
-    // EJECUCIÓN DEL MANDO DE SINTONÍA
-    // ==========================================
-    ejecutar() {
-        const wrapper = document.getElementById('wrapper-form');
-        const activeDock = document.getElementById('activeSessionDock');
-
-        if (wrapper) wrapper.classList.add('hidden');
-        if (activeDock) activeDock.classList.remove('hidden');
-
-        this.iniciarRelojSesion();
-        this.iniciarBoxBreathing();
-        this.desplegarSecuenciaInteractiva();
-    },
-
-    iniciarRelojSesion() {
-        if (this.serviceTimer) clearInterval(this.serviceTimer);
-        this.timeLeft = 900; // 15 minutos exactos
-
-        this.serviceTimer = setInterval(() => {
-            this.timeLeft--;
-            let mins = Math.floor(this.timeLeft / 60);
-            let secs = this.timeLeft % 60;
-            const clockDisplay = document.getElementById('clockDisplay');
-            if (clockDisplay) {
-                clockDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            }
-
-            // Al minuto 4 (quedan 11 minutos / 660 segundos) disparamos el discurso de baja concurrencia
-            if (this.timeLeft === 660) {
-                this.activarDiscursoMinuto4();
-            }
-
-            // Al llegar a cero se activa la pasarela de pago fiduciaria / paywall
-            if (this.timeLeft <= 0) {
-                clearInterval(this.serviceTimer);
-                this.activarPaywallFiduciario();
-            }
-        }, 1000);
-    },
-
-    // ==========================================
-    // BOX BREATHING (RESPIRACIÓN CUADRADA)
-    // ==========================================
-    iniciarBoxBreathing() {
-        if (this.breatheInterval) clearInterval(this.breatheInterval);
-        const lung = document.getElementById('lungCircle');
-        const t = this.TRADUCCIONES[this.idiomaActual].pasosRespiracion;
-        let estadoIdx = 0;
-
-        const cicloRespiratorio = () => {
-            if (!lung) return;
-            switch(estadoIdx % 4) {
-                case 0: // Inhala
-                    lung.textContent = t[0];
-                    lung.className = 'lung-circle-master lung-inhale-state';
-                    break;
-                case 1: // Retén
-                    lung.textContent = t[1];
-                    lung.className = 'lung-circle-master';
-                    break;
-                case 2: // Exhala
-                    lung.textContent = t[2];
-                    lung.className = 'lung-circle-master lung-exhale-state';
-                    break;
-                case 3: // Pausa
-                    lung.textContent = t[3];
-                    lung.className = 'lung-circle-master';
-                    break;
-            }
-            estadoIdx++;
-        };
-
-        cicloRespiratorio();
-        this.breatheInterval = setInterval(cicloRespiratorio, 4000);
-    },
-
-    // ==========================================
-    // INTERACCIÓN Y SECUENCIAS ACÚSTICAS
-    // ==========================================
-    desplegarSecuenciaInteractiva() {
-        const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
-        const t = this.TRADUCCIONES[this.idiomaActual];
-
-        stack.innerHTML = `
-            <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
-                <h3 style="font-size:12px; letter-spacing:1.5px; color:var(--gold-champagne); margin-bottom:8px; text-transform:uppercase;">${t.tituloAcustico}</h3>
-                <p style="font-size:12.5px; color:#D0D0D4; line-height:1.5; margin-bottom:12px;">${t.vozSintonialAcustica}</p>
-                <a href="https://www.youtube.com/results?search_query=432Hz+deep+ocean+waves+relaxation" target="_blank" class="gold-action-btn" style="margin-top:0;">${t.playBtn}</a>
-            </div>
-        `;
-    },
-
-    activarDiscursoMinuto4() {
-        const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
-        const t = this.TRADUCCIONES[this.idiomaActual];
-
-        const div = document.createElement('div');
-        div.style.cssText = "background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:14px; padding:16px; margin-top:12px;";
-        div.innerHTML = `
-            <h3 style="font-size:12px; letter-spacing:1.5px; color:var(--gold-champagne); margin-bottom:8px; text-transform:uppercase;">${t.misionTitulo}</h3>
-            <p style="font-size:12.5px; color:#D0D0D4; line-height:1.5; margin-bottom:12px;">${t.discursoMin4}</p>
-            <a href="https://maps.google.com" target="_blank" class="gold-action-btn" style="margin-top:0;">${t.mapsBtn}</a>
-        `;
-        stack.appendChild(div);
-    },
-
-    // ==========================================
-    // PASARELA DE PAGO FIDUCIARIO (PAYWALL)
-    // ==========================================
-    activarPaywallFiduciario() {
-        const activeDock = document.getElementById('activeSessionDock');
-        if (!activeDock) return;
-        const t = this.TRADUCCIONES[this.idiomaActual];
-        const folioRandom = 'MR-' + Math.floor(100000 + Math.random() * 900000);
-
-        activeDock.innerHTML = `
-            <div style="text-align:center; padding: 20px 0;">
-                <h2 style="font-family:'Cinzel',serif; font-size:20px; color:var(--gold-champagne); margin-bottom:12px; letter-spacing:2px;">${t.paywallTitulo}</h2>
-                <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
-                    ${t.paywallDesc} <strong style="color:var(--gold-light);">${folioRandom}</strong>.
-                </p>
-                
-                <div class="pricing-grid">
-                    <div class="price-card" onclick="KERNEL.procesarPagoFiduciario(15)">
-                        <div class="price-badge">$15 USD / 10 DÍAS</div>
-                        <div style="font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-light);">${t.accesoUnicoLbl}</div>
-                        <div class="price-amount">$15</div>
-                        <p style="font-size:11.5px; color:var(--text-muted);">${t.accesoUnicoDesc}</p>
-                    </div>
-
-                    <div class="price-card featured" onclick="KERNEL.procesarPagoFiduciario(25)">
-                        <div class="price-badge">$25 USD / 28 DÍAS</div>
-                        <div style="font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-light);">${t.accesoIlimitadoLbl}</div>
-                        <div class="price-amount">$25</div>
-                        <p style="font-size:11.5px; color:var(--text-muted);">${t.accesoIlimitadoDesc}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-    },
-
-    procesarPagoFiduciario(monto) {
-        const activeDock = document.getElementById('activeSessionDock');
-        if (!activeDock) return;
-        const t = this.TRADUCCIONES[this.idiomaActual];
-
-        activeDock.innerHTML = `
-            <div style="text-align:center; padding: 40px 20px;">
-                <div style="font-size:48px; margin-bottom:16px;">👑</div>
-                <h2 style="font-family:'Cinzel',serif; font-size:20px; color:var(--gold-champagne); margin-bottom:12px; letter-spacing:2px;">${t.pagoExitoTitulo}</h2>
-                <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
-                    ${t.pagoExitoDesc} (${monto} USD validados).
-                </p>
-                <button class="gold-action-btn" onclick="location.reload();">
-                    ${t.compilarBtn}
-                </button>
-            </div>
-        `;
-    }
-};
 /**
  * ====================================================================================================
  *                                           MAY ROGA LLC
  *                         Open Than Go — Unified Cognitive & Travel Engine
- *                                      static/engine.js
+ *                                      static/engine.js (Parte 1/3)
  * ====================================================================================================
- * SISTEMA COMPLETO SIN RECORTES: Control de inacción, barajado Fisher-Yates, Box Breathing,
- * oráculo de alta gama de 42 preguntas por idioma, sintonía de YouTube, mapas dinámicos y Stripe.
  */
 const KERNEL = {
     timerInaccion: null,
     serviceTimer: null,
     breatheInterval: null,
     voiceInterval: null,
-    timeLeft: 900, // 15 minutos exactos de sesión
+    timeLeft: 900,
     isLocked: false,
     idiomaActual: 'es',
     indiceMision: 0,
@@ -297,7 +18,6 @@ const KERNEL = {
     userAnswers: [],
     detectedMood: "neutral",
 
-    // DICCIONARIO GENERAL DE TRADUCCIÓN PARA LA INTERFAZ
     TRADUCCIONES: {
         es: {
             brandSub: "Arquitectura de Santuarios Ejecutivos",
@@ -307,22 +27,22 @@ const KERNEL = {
             placeholderLibre: "Escriba libremente los estímulos o saturación que experimenta hoy...",
             btnActivar: "Activar Mando de Sintonía",
             atencionInaccion: "Atención. Mantenga el enfoque en su pantalla de sintonía.",
-            vozSintonialAcustica: "Líder. Hemos desplegado 5 frecuencias de sintonía acústica en YouTube. Le sugerimos activar la primera opción: Ondas de Océano Profundo a 432 Hertz, configurada para disolver la fricción de su entorno.",
+            vozSintonialAcustica: "Líder. Hemos desplegado 5 frecuencias de sintonía acústica en YouTube. Le sugerimos activar la primera opción.",
             tituloAcustico: "SINTONÍA ACÚSTICA PREDICTIVA",
             playBtn: "REPRODUCIR FRECUENCIA",
             pulmonTxt: "Sincronización de Enfoque",
             misionTitulo: "SANTUARIOS DE BAJA CONCURRENCIA PRESCRITOS",
-            discursoMin4: "Calibración de entorno completada. Hemos bloqueado tres opciones de aislamiento geográfico en Google Maps que cuentan con el menor índice de ocupación física disponible. Hemos adivinado su necesidad: espacio masivo, silencio acústico y cero interrupciones corporativas.",
+            discursoMin4: "Calibración de entorno completada. Hemos bloqueado opciones de aislamiento geográfico en Google Maps.",
             mapsBtn: "VER RUTA EN GOOGLE MAPS",
             compilarBtn: "COMPILAR PASAPORTE ÉLITE",
             paywallTitulo: "SINTONÍA INTERRUMPIDA — PASE REQUERIDO",
-            paywallDesc: "Para desbloquear los 13 minutos restantes de reconfiguración biológica, la asignación de su Santuario Élite y la descarga de su Libreta de Viaje en PDF, seleccione su acceso fiduciario bajo el Folio ",
+            paywallDesc: "Para desbloquear la reconfiguración biológica, seleccione su acceso fiduciario bajo el Folio ",
             accesoUnicoLbl: "ACCESO ÚNICO (UN SOLO SERVICIO)",
             accesoUnicoDesc: "Acceso exclusivo a esta sesión de sintonía y 1 propuesta de Santuario Físico.",
             accesoIlimitadoLbl: "MEMBRESÍA MENSUAL ILIMITADA",
             accesoIlimitadoDesc: "Uso ilimitado todo el mes + conserjería fiduciaria completa con créditos Virtuoso ($100 USD).",
             pagoExitoTitulo: "PASAPORTE ADQUIRIDO CON ÉXITO",
-            pagoExitoDesc: "El folio fiduciario ha sido validado correctamente. Su libreta de viaje premium compilada en ReportLab está lista para descarga inmediata.",
+            pagoExitoDesc: "El folio fiduciario ha sido validado correctamente. Su libreta de viaje premium está lista.",
             frecuenciaVoz: "La pausa precisa disuelve el desgaste operativo y asegura el control absoluto.",
             pasosRespiracion: ["Inhala", "Retén", "Exhala", "Pausa"]
         },
@@ -334,28 +54,63 @@ const KERNEL = {
             placeholderLibre: "Freely outline the stimuli or saturation you experience today...",
             btnActivar: "Activate Tuning Directive",
             atencionInaccion: "Attention. Maintain absolute focus on your tuning screen.",
-            vozSintonialAcustica: "Leader. We have deployed 5 acoustic tuning frequencies on YouTube. We suggest activating the first option: 432 Hertz Deep Ocean Waves, engineered to dissolve your current friction.",
+            vozSintonialAcustica: "Leader. We have deployed 5 acoustic tuning frequencies on YouTube. We suggest activating the first option.",
             tituloAcustico: "PREDICTIVE ACOUSTIC TUNING",
             playBtn: "PLAY FREQUENCY",
             pulmonTxt: "Focus Sincronization",
             misionTitulo: "CURATED LOW-OCCUPANCY SANCTUARIES",
-            discursoMin4: "Environment calibration completed. We have locked three geographical isolation profiles on Google Maps holding the lowest physical occupancy rates available. We have anticipated your directive: massive space, acoustic silence, and zero corporate interruptions.",
+            discursoMin4: "Environment calibration completed. We have locked geographical isolation profiles on Google Maps.",
             mapsBtn: "OPEN GOOGLE MAPS ROUTE",
             compilarBtn: "COMPILE ELITE PASSPORT",
             paywallTitulo: "TUNING INTERRUPTED — PASS REQUIRED",
-            paywallDesc: "To unlock the remaining 13 minutes of biological reconfiguration, your Elite Sanctuary routing, and your Travel Passport PDF download, select your fiduciary access under Folio ",
+            paywallDesc: "To unlock biological reconfiguration, select your fiduciary access under Folio ",
             accesoUnicoLbl: "SINGLE RESET PASS (ONE SERVICE)",
             accesoUnicoDesc: "Exclusive access to this single focus session and 1 Physical Sanctuary blueprint.",
             accesoIlimitadoLbl: "UNLIMITED MONTHLY MEMBERSHIP",
             accesoIlimitadoDesc: "Unlimited monthly usage + full concierge access with complimentary Virtuoso credits ($100 USD).",
             pagoExitoTitulo: "ELITE PASSPORT SUCCESSFULLY ACQUIRED",
-            pagoExitoDesc: "Your fiduciary folio has been successfully validated. Your premium travel passport compiled with ReportLab is ready for immediate download.",
+            pagoExitoDesc: "Your fiduciary folio has been successfully validated. Your travel passport is ready.",
             frecuenciaVoz: "The precise pause dissolves operational friction and ensures absolute control.",
             pasosRespiracion: ["Inhale", "Hold", "Exhale", "Pause"]
         }
     },
 
-    CATALOGO_PREGUNTAS_ES: [
+    init() {
+        const storedLang = localStorage.getItem("mayroga_lang") || this.idiomaActual;
+        this.cambiarIdioma(storedLang);
+        this.conectarMantenimientoDesarrollador();
+        this.verificarRetornoPagoExitoso();
+    },
+
+    cambiarIdioma(lang) {
+        this.idiomaActual = lang;
+        localStorage.setItem("mayroga_lang", lang);
+        
+        const diccionario = this.TRADUCCIONES[lang];
+        const isEs = lang === 'es';
+        
+        const btnEs = document.getElementById('lang-es');
+        const btnEn = document.getElementById('lang-en');
+        if (btnEs) btnEs.className = isEs ? "btn-lang active" : "btn-lang";
+        if (btnEn) btnEn.className = isEs ? "btn-lang" : "btn-lang active";
+        
+        const brandSub = document.getElementById('lblBrandSub');
+        const timerTitle = document.getElementById('lblTimerTitle');
+        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
+        const desahogoLbl = document.getElementById('lbl-desahogo');
+        const inpLibre = document.getElementById('inp-text-libre');
+        const btnActivar = document.getElementById('btn-activar-libre');
+
+        if (brandSub) brandSub.innerText = diccionario.brandSub;
+        if (timerTitle) timerTitle.innerText = diccionario.timerTitle;
+        if (oraculoInst) oraculoInst.innerText = diccionario.oraculoInstruccion;
+        if (desahogoLbl) desahogoLbl.innerText = diccionario.desahogoLabel;
+        if (inpLibre) inpLibre.placeholder = diccionario.placeholderLibre;
+        if (btnActivar) btnActivar.innerText = diccionario.btnActivar;
+        
+        this.inyectarPreguntasOraculo();
+    }
+  CATALOGO_PREGUNTAS_ES: [
         "¿Abres plataformas digitales por inercia, comparando tus logros con narrativas idealizadas?",
         "¿Se diluye tu enfoque en ventanas operativas buscando llenar vacíos de desconexión?",
         "¿Delegas tu tranquilidad al ruido externo para ahogar la prisa de tu agenda corporativa?",
@@ -445,42 +200,6 @@ const KERNEL = {
         "Are you ready to obey the tuning directive, surrender the operational grind, and activate your escape today?"
     ],
 
-    init() {
-        const storedLang = localStorage.getItem("mayroga_lang") || this.idiomaActual;
-        this.cambiarIdioma(storedLang);
-        this.conectarMantenimientoDesarrollador();
-        this.verificarRetornoPagoExitoso();
-    },
-
-    cambiarIdioma(lang) {
-        this.idiomaActual = lang;
-        localStorage.setItem("mayroga_lang", lang);
-        
-        const diccionario = this.TRADUCCIONES[lang];
-        const isEs = lang === 'es';
-        
-        const btnEs = document.getElementById('lang-es');
-        const btnEn = document.getElementById('lang-en');
-        if (btnEs) btnEs.className = isEs ? "btn-lang active" : "btn-lang";
-        if (btnEn) btnEn.className = isEs ? "btn-lang" : "btn-lang active";
-        
-        const brandSub = document.getElementById('lblBrandSub');
-        const timerTitle = document.getElementById('lblTimerTitle');
-        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
-        const desahogoLbl = document.getElementById('lbl-desahogo');
-        const inpLibre = document.getElementById('inp-text-libre');
-        const btnActivar = document.getElementById('btn-activar-libre');
-
-        if (brandSub) brandSub.innerText = diccionario.brandSub;
-        if (timerTitle) timerTitle.innerText = diccionario.timerTitle;
-        if (oraculoInst) oraculoInst.innerText = diccionario.oraculoInstruccion;
-        if (desahogoLbl) desahogoLbl.innerText = diccionario.desahogoLabel;
-        if (inpLibre) inpLibre.placeholder = diccionario.placeholderLibre;
-        if (btnActivar) btnActivar.innerText = diccionario.btnActivar;
-        
-        this.inyectarPreguntasOraculo();
-    },
-
     despertarInicial() {
         const bienvenida = document.getElementById('pantalla-bienvenida');
         const wrapper = document.getElementById('wrapper-form');
@@ -497,7 +216,7 @@ const KERNEL = {
             const diccionario = this.TRADUCCIONES[this.idiomaActual];
             this.emitirVoz(diccionario.atencionInaccion);
             this.resetearTemporizadorInaccion();
-        }, 8000); // 8 segundos estrictos de inacción activa
+        }, 8000);
     },
 
     inyectarPreguntasOraculo() {
@@ -506,8 +225,6 @@ const KERNEL = {
         contenedor.innerHTML = "";
         
         const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
-        
-        // Algoritmo Fisher-Yates Completo de Open Than Go: Mezcla real sin repeticiones
         const poolCopia = [...lista];
         for (let i = poolCopia.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -532,11 +249,10 @@ const KERNEL = {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(texto);
         utterance.lang = this.idiomaActual === 'es' ? 'es-US' : 'en-US';
-        utterance.rate = 1.02; // Velocidad pausada y ejecutiva
+        utterance.rate = 1.02;
         window.speechSynthesis.speak(utterance);
-    },
-
-    async ejecutar() {
+    }
+async ejecutar() {
         if (this.isLocked) return;
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
@@ -557,7 +273,6 @@ const KERNEL = {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
-            // INTERCEPCIÓN AL MINUTO 2 (Quedan 780 segundos de los 900 totales)
             if (this.timeLeft === 780) { 
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
@@ -688,13 +403,13 @@ const KERNEL = {
                 name: "Amanera Resort — Playa Grande",
                 img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
                 maps: `https://google.com/maps/search/${queryAmanera}`,
-                ex: isEs ? "Casitas de cristal suspendidas en acantilados con aislamiento total. Le conviene para disolver el desgaste fiduciario." : "Glass casitas suspended on cliffs with radical isolation. Engineered to dissolve strategic executive friction."
+                ex: isEs ? "Casitas de cristal suspendidas en acantilados con aislamiento total." : "Glass casitas suspended on cliffs with radical isolation."
             },
             {
                 name: "Eden Roc Sanctuary — Cap Cana",
                 img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80",
                 maps: `https://google.com/maps/search/${queryEden}`,
-                ex: isEs ? "Bungalows independientes con alberca privada y control estricto de concurrencia. Ideal para restaurar su espacio personal." : "Standalone bungalows with private pools and strict occupancy controls. Ideal to restore your personal space."
+                ex: isEs ? "Bungalows independientes con alberca privada y control estricto de concurrencia." : "Standalone bungalows with private pools and strict occupancy controls."
             }
         ];
 
@@ -802,7 +517,7 @@ const KERNEL = {
         });
     },
 
-conectarMantenimientoDesarrollador() {
+    conectarMantenimientoDesarrollador() {
         const brand = document.getElementById("brandTitleField");
         if (!brand) return;
         brand.addEventListener("click", () => {
