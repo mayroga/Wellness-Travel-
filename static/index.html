@@ -1,5 +1,4 @@
 <!-- =========================================================================
-     WELLNESS TRAVEL FRONTEND WINDOW (PART 1 - HEAD & PREMIUM STYLES)
      WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
      PARTE 1: ARQUITECTURA DE CONTENEDORES Y HOJA DE ESTILOS VIP
      ========================================================================= -->
@@ -8,18 +7,20 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
- <title>MAY ROGA llc — WELLNESS TRAVEL</title>
- <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
  <title id="html-title">MAY ROGA LLC — OPEN THAN GO ELITE</title>
  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
-
+ 
  <style>
- @import url('https://googleapis.com');
  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@400;500;600&display=swap');
-
+ 
  :root {
    --bg-obsidian: #030305;
-@@ -23,6 +24,7 @@
+   --bg-surface: #0a0a0e;
+   --bg-glass: rgba(12, 12, 16, 0.98);
+   --gold-champagne: #C5A059;
+   --gold-light: #DFBF7A;
+   --gold-dark: #91723B;
+   --gold-glow: rgba(197, 160, 89, 0.35);
    --white-ivory: #F9F9FB;
    --text-muted: #9E9EA4;
    --alert-crimson: #C0392B;
@@ -27,75 +28,264 @@
    --border-subtle: rgba(197, 160, 89, 0.2);
  }
 
-@@ -115,11 +117,10 @@
-   color: var(--bg-obsidian); 
-   box-shadow: 0 0 20px var(--gold-glow); 
+ * {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   -webkit-tap-highlight-color: transparent;
  }
- </style>
-</head>
-<style>
+
+ body, html {
+   width: 100%;
+   height: 100%;
+   background-color: var(--bg-obsidian);
+   color: var(--white-ivory);
+   font-family: 'Inter', sans-serif;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+ }
+
+ .container {
+   max-width: 520px;
+   width: 100%;
+   height: 100%;
+   max-height: 92vh;
+   background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian));
+   backdrop-filter: blur(40px);
+   -webkit-backdrop-filter: blur(40px);
+   border: 1px solid var(--border-subtle);
+   border-radius: 28px;
+   padding: 32px 24px;
+   box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08);
+   display: flex;
+   flex-direction: column;
+   position: relative;
+   overflow-y: auto;
+ }
+
+ .hidden { display: none !important; }
+
+ header {
+   text-align: center;
+   border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+   padding-bottom: 14px;
+   margin-bottom: 20px;
+ }
+
+ header h1 {
+   font-family: 'Cinzel', serif;
+   font-size: 26px;
+   font-weight: 500;
+   letter-spacing: 6px;
+   color: var(--gold-champagne);
+   text-transform: uppercase;
+   cursor: pointer;
+   user-select: none;
+ }
+
+ .subtitle-elite {
+   font-size: 9.5px;
+   letter-spacing: 3px;
+   color: var(--text-muted);
+   text-transform: uppercase;
+   margin-top: 4px;
+ }
+
+ .lang-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+
+ .btn-lang {
+   flex: 1;
+   background: rgba(255, 255, 255, 0.02);
+   border: 1px solid var(--border-subtle);
+   color: var(--text-muted);
+   padding: 12px;
+   border-radius: 12px;
+   font-size: 13px;
+   font-weight: 600;
+   letter-spacing: 1.5px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+ }
+
+ .btn-lang.active {
+   background: var(--gold-champagne);
+   border-color: var(--gold-champagne);
+   color: var(--bg-obsidian);
+   box-shadow: 0 0 20px var(--gold-glow);
+ }
  
  /* =========================================================================
-    WELLNESS TRAVEL FRONTEND WINDOW (PART 2 - EXTENDED PREMIUM STYLES)
     WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
     PARTE 2: ESTILOS MAESTROS DEL ORÁCULO, PULMÓN, PAYWALL Y CIERRE CONSCIENTE
     ========================================================================= */
- .timer-header-bar { 
-   display: flex; 
-@@ -249,19 +250,13 @@
-   margin-bottom: 16px; 
+ .timer-header-bar {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: rgba(197, 160, 89, 0.04);
+   border: 1px solid rgba(197, 160, 89, 0.15);
+   border-radius: 14px;
+   padding: 10px 18px;
+   margin-bottom: 20px;
  }
 
- .field-group div {
+ .timer-title {
+   font-size: 11px;
+   letter-spacing: 1.5px;
+   text-transform: uppercase;
+   color: var(--gold-light);
+ }
+
+ .timer-value {
+   font-family: monospace;
+   font-size: 22px;
+   color: var(--alert-crimson);
+   font-weight: 600;
+   letter-spacing: 1px;
+ }
+
+ .bio-respiration-dock {
    display: flex;
    flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin: 20px 0;
+   position: relative;
+   min-height: 150px;
  }
 
- .field-group label { 
-   display: block; 
-   font-size: 11px; 
-   text-transform: uppercase; 
-   color: var(--text-muted); 
-   margin-bottom: 6px; 
-   letter-spacing: 1px; 
-   font-weight: 500;
+ .lung-circle-master {
+   width: 125px;
+   height: 125px;
+   border-radius: 50%;
+   background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%);
+   box-shadow: 0 0 35px var(--gold-glow);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: 'Cinzel', serif;
+   font-size: 12.5px;
+   font-weight: 600;
+   letter-spacing: 1.5px;
+   color: var(--bg-obsidian);
+   text-transform: uppercase;
+   transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1);
+   text-align: center;
+   padding: 10px;
  }
 
- .field-group input, .field-group select { 
-@@ -273,14 +268,9 @@
-   border-radius: 12px; 
-   font-size: 13px; 
-   outline: none; 
+ .lung-inhale-state {
+   transform: scale(1.32);
+   background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important;
+   box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important;
+   color: #FFFFFF !important;
+ }
+
+ .lung-exhale-state {
+   transform: scale(0.85);
+   background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important;
+   box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important;
+   color: #FFFFFF !important;
+ }
+
+ .interactive-stack-container {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   margin-bottom: 15px;
+ }
+
+ .btn-pregunta-crisis {
+   width: 100%;
+   background: rgba(255, 255, 255, 0.02);
+   border: 1px solid rgba(255, 255, 255, 0.08);
+   color: var(--white-ivory);
+   padding: 14px 16px;
+   border-radius: 14px;
+   font-size: 13px;
+   text-align: left;
+   cursor: pointer;
+   transition: all 0.25s ease;
+   line-height: 1.4;
+ }
+
+ .btn-pregunta-crisis:hover {
+   border-color: var(--gold-champagne);
+   background: rgba(197, 160, 89, 0.06);
+   transform: translateY(-1px);
+ }
+
+ .gold-action-btn {
+   width: 100%;
+   background: transparent;
+   border: 1px solid var(--gold-champagne);
+   color: var(--gold-champagne);
+   padding: 16px;
+   border-radius: 50px;
+   font-size: 12.5px;
+   font-weight: 600;
+   letter-spacing: 2px;
+   text-transform: uppercase;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   margin-top: 10px;
+   text-align: center;
+   text-decoration: none;
+   display: block;
+ }
+
+ .gold-action-btn:hover {
+   background: var(--gold-champagne);
+   color: var(--bg-obsidian);
+   box-shadow: 0 0 25px var(--gold-glow);
+ }
+
+ .field-group {
+   display: flex;
+   gap: 12px;
+   margin-bottom: 16px;
+ }
+
+ .field-group label {
+   display: block;
+   font-size: 11px;
+   text-transform: uppercase;
+   color: var(--text-muted);
+   margin-bottom: 6px;
+   letter-spacing: 1px;
+ }
+
+ .field-group input, .field-group select {
+   width: 100%;
+   background: rgba(255, 255, 255, 0.03);
+   border: 1px solid var(--border-subtle);
+   color: #fff;
+   padding: 12px;
+   border-radius: 12px;
+   font-size: 13px;
+   outline: none;
+   transition: border-color 0.3s ease;
+ }
+
+ textarea {
+   width: 100%;
+   background: rgba(255, 255, 255, 0.03);
+   border: 1px solid var(--border-subtle);
+   color: #fff;
+   padding: 12px;
+   border-radius: 12px;
+   font-size: 13px;
+   outline: none;
+   resize: none;
+   height: 80px;
    font-family: inherit;
    transition: border-color 0.3s ease;
  }
 
- .field-group input:focus, .field-group select:focus, textarea:focus {
-   border-color: var(--gold-champagne);
- }
-
- textarea { 
-   width: 100%; 
-   background: rgba(255, 255, 255, 0.03); 
-@@ -296,68 +286,72 @@
-   transition: border-color 0.3s ease;
- }
-
- .floating-btn { 
-   position: fixed; 
-   bottom: 20px; 
-   width: 45px; 
-   height: 45px; 
-   border-radius: 50%; 
-   display: flex; 
-   justify-content: center; 
-   align-items: center; 
-   font-size: 1.3rem; 
-   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
-   cursor: pointer; 
-   z-index: 1000; 
-   border: 1px solid rgba(255, 255, 255, 0.1); 
-   transition: transform 0.2s, background-color 0.2s; 
  /* ESTILOS DEL CIERRE CONSCIENTE INTEGRAL */
  #pantalla-cierre {
    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -103,19 +293,12 @@
    align-items: center; flex-direction: column; text-align: center; z-index: 9998; padding: 20px;
  }
 
- #btn-volver-app { 
-   left: 20px; 
-   background: var(--bg-surface); 
-   color: var(--gold-champagne); 
-   border-color: var(--border-subtle);
  .cierre-content {
    background: var(--bg-surface); border: 1px solid var(--border-subtle);
    padding: 30px; border-radius: 24px; max-width: 400px; width: 100%;
    box-shadow: 0 40px 80px rgba(0,0,0,0.9);
  }
 
- .floating-btn:hover { 
-   transform: translateY(-2px); 
  #reto-img { max-width: 70px; height: auto; margin-bottom: 15px; }
  #reto-titulo { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold-champagne); margin-bottom: 10px; }
  #reto-descripcion { font-size: 0.95rem; color: #eee; margin-bottom: 20px; line-height: 1.5; }
@@ -123,12 +306,12 @@
  #cierre-mensaje-final { font-size: 1.15rem; color: var(--wellness-green); margin: 20px 0; font-weight: bold; }
 
  /* BOTONES FLOTANTES INTEGRADOS */
- .floating-btn { 
-   position: fixed; bottom: 20px; width: 45px; height: 45px; 
-   border-radius: 50%; display: flex; justify-content: center; 
-   align-items: center; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
-   cursor: pointer; z-index: 1000; border: 1px solid rgba(255, 255, 255, 0.1); 
-   transition: transform 0.2s, background-color 0.2s; 
+ .floating-btn {
+   position: fixed; bottom: 20px; width: 45px; height: 45px;
+   border-radius: 50%; display: flex; justify-content: center;
+   align-items: center; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+   cursor: pointer; z-index: 1000; border: 1px solid rgba(255, 255, 255, 0.1);
+   transition: transform 0.2s, background-color 0.2s;
  }
 
  #btn-volver-app { left: 20px; background: var(--bg-surface); color: var(--gold-champagne); border-color: var(--border-subtle); }
@@ -139,12 +322,10 @@
 </head>
 <body>
  <!-- =========================================================================
-    WELLNESS TRAVEL FRONTEND WINDOW (PART 3 - VIEWPORTS & DASHBOARD POOLS)
     WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
     PARTE 3: ARBOL DOM DEL CUERPO, BIENVENIDA Y DASHBOARD EXCLUSIVO
     ========================================================================= -->
-
- <!-- Pantalla de Bienvenida VIP Obligatoria -->
+ 
  <!-- Pantalla de Bienvenida Privada Élite -->
  <div id="pantalla-bienvenida" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:var(--bg-obsidian); display:flex; justify-content:center; align-items:center; z-index:9999;">
    <button class="gold-action-btn" onclick="KERNEL.despertarInicial();" style="width:auto; padding:20px 45px; border-radius:50px; font-size:14px; letter-spacing:2px;">
@@ -152,54 +333,45 @@
    </button>
  </div>
 
- <!-- Contenedor Principal del Formulario Unificado -->
  <!-- Contenedor Principal de la Arquitectura de Sintonía -->
  <div class="container hidden" id="wrapper-form">
-   <!-- Barra Selectora de Idiomas -->
    <div class="lang-bar">
      <button class="btn-lang active" id="lang-es" onclick="KERNEL.cambiarIdioma('es')">ESP</button>
      <button class="btn-lang" id="lang-en" onclick="KERNEL.cambiarIdioma('en')">ENG</button>
    </div>
-
-   <!-- Cabecera de Marca Fiduciaria -->
    
    <header>
-     <h1 id="brandTitleField">MAY ROGA llc</h1>
      <h1 id="brandTitleField">MAY ROGA LLC</h1>
      <div class="subtitle-elite" id="lblBrandSub">Arquitectura de Santuarios Ejecutivos</div>
    </header>
 
-   <!-- Primera Fila: Ubicación Logística y Selección de Modo -->
    <!-- Configuración de Coordenadas Logísticas -->
    <div class="field-group">
-     <div style="flex: 2;">
      <div style="flex: 2; display: flex; flex-direction: column;">
        <label id="lbl-zip">Código Postal / Zip Code</label>
-       <input type="text" id="inp-zip" placeholder="Ej: 33167" maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
        <input type="text" id="inp-zip" placeholder="Ej: 33167" maxlength="5" pattern="[0-9]{5}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
      </div>
-     <div style="flex: 1;">
      <div style="flex: 1; display: flex; flex-direction: column;">
        <label>Modo</label>
        <select id="modo-selector">
          <option value="SALIR" selected>SALIR</option>
-@@ -366,9 +360,9 @@
+         <option value="CASA">CASA</option>
+       </select>
      </div>
    </div>
 
-   <!-- Segunda Fila: Selectores de Sintonía de Alta Gama -->
    <!-- Filtros Analíticos de Sintonía Élite -->
    <div class="field-group">
-     <div style="flex: 1;">
      <div style="flex: 1; display: flex; flex-direction: column;">
        <label>Mente</label>
        <select id="mente-selector">
          <option value="aburrido" selected>Aburrido</option>
-@@ -378,14 +372,14 @@
+         <option value="agotado">Agotado</option>
+         <option value="estresado">Estresado</option>
+         <option value="cansado">Cansado</option>
          <option value="ansioso">Ansioso</option>
        </select>
      </div>
-     <div style="flex: 1;">
      <div style="flex: 1; display: flex; flex-direction: column;">
        <label>Gasto</label>
        <select id="budget-selector">
@@ -207,23 +379,24 @@
          <option value="ilimitado">Ilimitado</option>
        </select>
      </div>
-     <div style="flex: 1;">
      <div style="flex: 1; display: flex; flex-direction: column;">
        <label>Perfil</label>
        <select id="perfil-selector">
          <option value="solo" selected>Solo</option>
-@@ -397,21 +391,22 @@
+         <option value="acompanado">Acompañado</option>
+         <option value="familia">Familia</option>
+         <option value="empresa">Empresa</option>
+         <option value="accesible">Accesible</option>
+       </select>
      </div>
    </div>
 
-   <!-- El Oráculo: Inyección Dinámica de Preguntas Flotantes -->
    <!-- Panel Interactiva del Oráculo Cascáda Flotante (3 en 3) -->
    <p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 1.5px; text-align: center; margin-bottom: 15px;"></p>
    <div style="position: relative; min-height: 120px; overflow: hidden; margin-bottom: 20px;">
      <div class="interactive-stack-container" id="contenedor-preguntas-oraculo"></div>
    </div>
 
-   <!-- Mando Libre: Caja de Entrada para Fricciones Personalizadas -->
    <!-- Caja de Entrada Libre Healed 100% con Mando de Sintonía -->
    <div style="margin-bottom: 16px;">
      <label id="lbl-desahogo" style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; font-weight: 500;"></label>
@@ -232,17 +405,30 @@
    </div>
  </div>
  <!-- =========================================================================
-    WELLNESS TRAVEL FRONTEND WINDOW (PART 4 - ACTIVE WINDOW & SCRIPT LOCK)
     WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
     PARTE 4: LIENZO DE SESIÓN ACTIVA, PANTALLA DE CIERRE Y ENLACES COMPLETO
     ========================================================================= -->
-
+ 
  <!-- Lienzo Dinámico de Sesión Activa (Pulmón y Terapia Acústica) -->
-@@ -434,10 +429,49 @@
+ <div class="container hidden" id="activeSessionDock">
+   <div class="timer-header-bar">
+     <span class="timer-title" id="lblTimerTitle">Ventana de Sintonía Activa</span>
+     <span class="timer-value" id="clockDisplay">10:00</span>
+   </div>
+   
+   <!-- Guía Box Breathing Sincronizada -->
+   <div class="bio-respiration-dock">
+     <div class="lung-circle-master" id="lungCircle">Inhala</div>
+   </div>
+   
+   <div id="txt-pulmon" style="text-align: center; font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 20px;">
+     Sincronización de Enfoque
+   </div>
+   
+   <!-- Contenedor para Videos de YouTube e Inyecciones en Rojo de Mapas -->
    <div class="interactive-stack-container" id="interactiveStack"></div>
  </div>
 
- <!-- Botón Flotante Inmunizado de Retorno -->
  <!-- Pantalla de Cierre Consciente Unificada — Réplica Inmutable -->
  <div id="pantalla-cierre" class="hidden">
    <div class="cierre-content">
