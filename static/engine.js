@@ -16,15 +16,6 @@ const KERNEL = {
     idiomaActual: 'es',
     devClickCount: 0,
     historialVistos: [],   // Control local anti-repeticiones para enrutamiento
-    currentAudio: null,    // Referencia para control de audio ambiental y limpieza
-    crmDataStore: {        // Almacén CRM interno segmentado
-        sessionType: "SALIR",
-        zipCode: "",
-        mindState: "aburrido",
-        budget: "abierto",
-        profile: "solo",
-        activeReports: []
-    },
 
     // Diccionarios VIP Extendidos (Absolutamente libres de términos médicos o laborales)
     TRADUCCIONES: {
@@ -219,6 +210,7 @@ const KERNEL = {
     ],
 
     init() {
+        // Unificar los dos bloques en español en un solo arreglo dinámico al arrancar
         this.CATALOGO_PREGUNTAS_ES = [...this.CATALOGO_PREGUNTAS_ES, ...this.CATALOGO_PREGUNTAS_ES_2];
         this.cambiarIdioma(this.idiomaActual);
         this.conectarMantenimientoDesarrollador();
@@ -260,6 +252,7 @@ const KERNEL = {
        
         const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
        
+        // Algoritmo inmutable de desordenamiento y extracción de 3 elementos flotantes en cascada
         let seleccionadas = [...lista].sort(() => 0.5 - Math.random()).slice(0, 3);
        
         seleccionadas.forEach((pregunta, idx) => {
@@ -288,34 +281,19 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
 
-        // Capturar valores para el CRM interno segmentado
-        this.crmDataStore.sessionType = document.getElementById('modo-selector') ? document.getElementById('modo-selector').value : "SALIR";
-        this.crmDataStore.zipCode = document.getElementById('inp-zip') ? document.getElementById('inp-zip').value : "33167";
-        this.crmDataStore.mindState = document.getElementById('mente-selector') ? document.getElementById('mente-selector').value : "aburrido";
-        this.crmDataStore.budget = document.getElementById('budget-selector') ? document.getElementById('budget-selector').value : "abierto";
-        this.crmDataStore.profile = document.getElementById('perfil-selector') ? document.getElementById('perfil-selector').value : "solo";
-        
-        const textoLibreVal = document.getElementById('inp-text-libre').value;
-        this.CRMManager.dividirYRegistrar("Ejecucion_Nodo_Principal", { ...this.crmDataStore, textoLibre: textoLibreVal });
-
         // Bloqueo y transición estética de viewports
         document.getElementById('wrapper-form').classList.add('hidden');
         document.getElementById('activeSessionDock').classList.remove('hidden');
-        
-        // Mostrar botones de interacción si existen en el HTML
-        if (document.getElementById('btn-volver-app')) document.getElementById('btn-volver-app').classList.remove('hidden');
-        if (document.getElementById('btn-whatsapp')) document.getElementById('btn-whatsapp').classList.remove('hidden');
-        if (document.getElementById('btn-messenger')) document.getElementById('btn-messenger').classList.remove('hidden');
 
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
-        this.reproducirMusicaAmbiental();
 
         // Cronómetro maestro síncrono de 10 minutos (600s) idéntico a Open Than Go
         this.serviceTimer = setInterval(() => {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
+            // INYECCIÓN OBLIGATORIA DEL DESTINO EN ROJO 4 MINUTOS ANTES DE EXPIRAR (MINUTO 6 / 240s RESTANTES)
             if (this.timeLeft === 240) {
                 this.inyectarDestinoOpcionalRojo();
             }
@@ -324,31 +302,11 @@ const KERNEL = {
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
                 clearInterval(this.voiceInterval);
-                this.detenerMusicaAmbiental();
                 this.activarCierreConscienteCronometrado();
             }
         }, 1000);
 
         this.activarVozAsesorContinuo();
-    },
-
-    reproducirMusicaAmbiental() {
-        try {
-            this.currentAudio = new Audio('https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg');
-            this.currentAudio.loop = true;
-            this.currentAudio.volume = 0.4;
-            this.currentAudio.play().catch(e => console.log("Audio de ambiente autoreplay bloqueado por navegador", e));
-        } catch (err) {
-            console.error("Error reproduciendo audio ambiental", err);
-        }
-    },
-
-    detenerMusicaAmbiental() {
-        if (this.currentAudio) {
-            this.currentAudio.pause();
-            this.currentAudio.currentTime = 0;
-            this.currentAudio = null;
-        }
     },
 
     activarSintonizaAcusticaYouTube() {
@@ -363,6 +321,7 @@ const KERNEL = {
 
         let html = `<div style="margin-bottom:10px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
         poolVideos.forEach((v) => {
+            // CORREGIDO: Se cambió de comillas simples a backticks y interpolación correcta ${v.id}
             html += `
                 <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
                     <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
@@ -376,6 +335,7 @@ const KERNEL = {
         let paso = 0;
         const dic = this.TRADUCCIONES[this.idiomaActual];
        
+        // Ciclo síncrono inmutable de respiración clínica en 4 tiempos fijos
         this.breatheInterval = setInterval(() => {
             const circle = document.getElementById('lungCircle');
             if (!circle) return;
@@ -397,8 +357,7 @@ const KERNEL = {
     actualizarRelojInterfaz() {
         let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-        const clockElem = document.getElementById('clockDisplay');
-        if (clockElem) clockElem.innerText = `${mins}:${secs}`;
+        document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
     },
 
     activarVozAsesorContinuo() {
@@ -407,6 +366,7 @@ const KERNEL = {
         this.voiceInterval = setInterval(emitir, 45000);
     },
 
+    // Inyección interactiva obligatoria destacada en ROJO a los 4 minutos finales
     inyectarDestinoOpcionalRojo() {
         const stack = document.getElementById('interactiveStack');
         const dic = this.TRADUCCIONES[this.idiomaActual];
@@ -415,6 +375,7 @@ const KERNEL = {
         const divDestino = document.createElement('div');
         divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
        
+        // CORREGIDO: Uso correcto de backticks para la URL de Google Search
         divDestino.onclick = () => window.open(`https://google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
        
         divDestino.innerHTML = `
@@ -426,17 +387,17 @@ const KERNEL = {
         stack.insertBefore(divDestino, stack.firstChild);
     },
 
+    // MÓDULO COMPLETO CRONOMETRADO DEL CIERRE CONSCIENTE (99% OPEN THAN GO)
     activarCierreConscienteCronometrado() {
+        // Desplegar viewport de cierre inyectando un reto conductual aleatorio
         document.getElementById('activeSessionDock').classList.add('hidden');
         document.getElementById('pantalla-cierre').classList.remove('hidden');
 
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
         const imgTag = document.getElementById('reto-img');
        
-        if (imgTag) {
-            imgTag.src = retoSeleccionado.img;
-            imgTag.classList.remove('hidden');
-        }
+        imgTag.src = retoSeleccionado.img;
+        imgTag.classList.remove('hidden');
        
         if (this.idiomaActual === 'es') {
             document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_es;
@@ -446,10 +407,10 @@ const KERNEL = {
             document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_en;
         }
 
+        // Ejecutar cuenta atrás obligatoria de 60 segundos
         this.cierreTimerInterval = setInterval(() => {
             this.cierreTimeLeft--;
-            const cierreTimerElem = document.getElementById('cierre-timer');
-            if (cierreTimerElem) cierreTimerElem.innerText = this.cierreTimeLeft;
+            document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
 
             if (this.cierreTimeLeft <= 0) {
                 clearInterval(this.cierreTimerInterval);
@@ -462,64 +423,41 @@ const KERNEL = {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
        
-        const cierreTimerElem = document.getElementById('cierre-timer');
-        if (cierreTimerElem) cierreTimerElem.classList.add('hidden');
+        document.getElementById('cierre-timer').classList.add('hidden');
        
         const msgFinal = document.getElementById('cierre-mensaje-final');
-        if (msgFinal) {
-            msgFinal.innerText = dic.cierreFinalizado;
-            msgFinal.classList.remove('hidden');
-        }
+        msgFinal.innerText = dic.cierreFinalizado;
+        msgFinal.classList.remove('hidden');
 
         const btnReiniciar = document.getElementById('btn-recomenzar-experiencia');
-        if (btnReiniciar) btnReiniciar.classList.remove('hidden');
+        btnReiniciar.classList.remove('hidden');
 
+        // Transformación dinámica del contenedor para habilitar la descarga del PDF fiduciario
         const root = document.getElementById('cierre-message');
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
        
-        if (root) {
-            root.innerHTML = `
-                <div style="text-align:center; padding:10px 0;">
-                    <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
-                        ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
-                    </p>
-                    <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
-                </div>
-            `;
-        }
-    },
-
-    // Módulo CRM Interno para segmentar y gestionar operaciones y reportes
-    CRMManager: {
-        dividirYRegistrar(nodoOrigen, payload) {
-            const registroNodo = {
-                id: 'CRM-' + Date.now(),
-                nodo: nodoOrigen,
-                timestamp: new Date().toISOString(),
-                data: payload
-            };
-            KERNEL.crmDataStore.activeReports.push(registroNodo);
-            console.log("[CRM System Segmented]:", registroNodo);
-        }
+        root.innerHTML = `
+            <div style="text-align:center; padding:10px 0;">
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
+                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
+                </p>
+                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
+            </div>
+        `;
     },
 
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
        
-        fetch("https://wellness-travel.onrender.com/api/pdf", {
+        // CONEXIÓN DIRECTA FIX A TU ENDPOINT EN RENDER
+        fetch("https://wellness-travel.onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 servicio_id: folio,
                 lang: this.idiomaActual,
-                score_inicial: 45.0, 
-                score_actual: 90.0, 
-                respiracion_score: 100.0, 
-                adivinanzas_score: 100.0,
-                iev: 95.0, 
-                variante: "ELITE_WELLNESS", 
-                destino_id: "S1",
-                crmStore: this.crmDataStore
+                score_inicial: 45.0, score_actual: 90.0, respiracion_score: 100.0, adivinanzas_score: 100.0,
+                iev: 95.0, variante: "ELITE_WELLNESS", destino_id: "S1"
             })
         })
         .then(res => {
