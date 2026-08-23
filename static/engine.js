@@ -2,7 +2,7 @@
  * ====================================================================================================
  *                                           MAY ROGA LLC
  *                         Open Than Go — Unified Cognitive & Travel Engine
- *                                      static/engine.js (Parte 1/3)
+ *                                      static/engine.js (Unificado)
  * ====================================================================================================
  */
 const KERNEL = {
@@ -75,42 +75,7 @@ const KERNEL = {
         }
     },
 
-    init() {
-        const storedLang = localStorage.getItem("mayroga_lang") || this.idiomaActual;
-        this.cambiarIdioma(storedLang);
-        this.conectarMantenimientoDesarrollador();
-        this.verificarRetornoPagoExitoso();
-    },
-
-    cambiarIdioma(lang) {
-        this.idiomaActual = lang;
-        localStorage.setItem("mayroga_lang", lang);
-        
-        const diccionario = this.TRADUCCIONES[lang];
-        const isEs = lang === 'es';
-        
-        const btnEs = document.getElementById('lang-es');
-        const btnEn = document.getElementById('lang-en');
-        if (btnEs) btnEs.className = isEs ? "btn-lang active" : "btn-lang";
-        if (btnEn) btnEn.className = isEs ? "btn-lang" : "btn-lang active";
-        
-        const brandSub = document.getElementById('lblBrandSub');
-        const timerTitle = document.getElementById('lblTimerTitle');
-        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
-        const desahogoLbl = document.getElementById('lbl-desahogo');
-        const inpLibre = document.getElementById('inp-text-libre');
-        const btnActivar = document.getElementById('btn-activar-libre');
-
-        if (brandSub) brandSub.innerText = diccionario.brandSub;
-        if (timerTitle) timerTitle.innerText = diccionario.timerTitle;
-        if (oraculoInst) oraculoInst.innerText = diccionario.oraculoInstruccion;
-        if (desahogoLbl) desahogoLbl.innerText = diccionario.desahogoLabel;
-        if (inpLibre) inpLibre.placeholder = diccionario.placeholderLibre;
-        if (btnActivar) btnActivar.innerText = diccionario.btnActivar;
-        
-        this.inyectarPreguntasOraculo();
-    }
-  CATALOGO_PREGUNTAS_ES: [
+    CATALOGO_PREGUNTAS_ES: [
         "¿Abres plataformas digitales por inercia, comparando tus logros con narrativas idealizadas?",
         "¿Se diluye tu enfoque en ventanas operativas buscando llenar vacíos de desconexión?",
         "¿Delegas tu tranquilidad al ruido externo para ahogar la prisa de tu agenda corporativa?",
@@ -200,6 +165,42 @@ const KERNEL = {
         "Are you ready to obey the tuning directive, surrender the operational grind, and activate your escape today?"
     ],
 
+    init() {
+        const storedLang = localStorage.getItem("mayroga_lang") || this.idiomaActual;
+        this.cambiarIdioma(storedLang);
+        this.conectarMantenimientoDesarrollador();
+        this.verificarRetornoPagoExitoso();
+    },
+
+    cambiarIdioma(lang) {
+        this.idiomaActual = lang;
+        localStorage.setItem("mayroga_lang", lang);
+        
+        const diccionario = this.TRADUCCIONES[lang];
+        const isEs = lang === 'es';
+        
+        const btnEs = document.getElementById('lang-es');
+        const btnEn = document.getElementById('lang-en');
+        if (btnEs) btnEs.className = isEs ? "btn-lang active" : "btn-lang";
+        if (btnEn) btnEn.className = isEs ? "btn-lang" : "btn-lang active";
+        
+        const brandSub = document.getElementById('lblBrandSub');
+        const timerTitle = document.getElementById('lblTimerTitle');
+        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
+        const desahogoLbl = document.getElementById('lbl-desahogo');
+        const inpLibre = document.getElementById('inp-text-libre');
+        const btnActivar = document.getElementById('btn-activar-libre');
+
+        if (brandSub) brandSub.innerText = diccionario.brandSub;
+        if (timerTitle) timerTitle.innerText = diccionario.timerTitle;
+        if (oraculoInst) oraculoInst.innerText = diccionario.oraculoInstruccion;
+        if (desahogoLbl) desahogoLbl.innerText = diccionario.desahogoLabel;
+        if (inpLibre) inpLibre.placeholder = diccionario.placeholderLibre;
+        if (btnActivar) btnActivar.innerText = diccionario.btnActivar;
+        
+        this.inyectarPreguntasOraculo();
+    },
+
     despertarInicial() {
         const bienvenida = document.getElementById('pantalla-bienvenida');
         const wrapper = document.getElementById('wrapper-form');
@@ -251,8 +252,9 @@ const KERNEL = {
         utterance.lang = this.idiomaActual === 'es' ? 'es-US' : 'en-US';
         utterance.rate = 1.02;
         window.speechSynthesis.speak(utterance);
-    }
-async ejecutar() {
+    },
+
+    async ejecutar() {
         if (this.isLocked) return;
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
