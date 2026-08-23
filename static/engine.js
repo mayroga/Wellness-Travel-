@@ -1,8 +1,8 @@
 /**
  * ====================================================================================================
  *                                           MAY ROGA LLC
- *                         Expanded Corporate Oracle & Lifestyle Architecture
- *                                      static/engine.js
+ *                       Expanded Corporate Oracle & Lifestyle Architecture
+ *                                    static/engine.js
  * ====================================================================================================
  */
 
@@ -203,7 +203,6 @@ const KERNEL = {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
-            // BLOQUEO FORZADO EXACTAMENTE AL MINUTO 2 (Quedan 780 segundos)
             if (this.timeLeft === 780) { 
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
@@ -230,308 +229,305 @@ const KERNEL = {
                                     <div class="price-amount">$200</div>
                                     <div style="font-size:12px; color:#ccc;">${isEs ? "Acceso exclusivo a esta sesión de sintonía y 1 propuesta de Santuario Físico." : "Exclusive access to this single focus session and 1 Physical Sanctuary blueprint."}</div>
                                 </div>
-                        <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')"> 
-                            <div class="price-badge">ILIMITADO / MONTHLY</div> 
-                            <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${isEs ? "MEMBRESÍA MENSUAL ILIMITADA" : "UNLIMITED MONTHLY MEMBERSHIP"}</div> 
-                            <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">/mes</span></div> 
-                            <div style="font-size:12px; color:#fff;">${isEs ? "Uso ilimitado todo el mes + conserjería fiduciaria completa con créditos Virtuoso ($100 USD)." : "Unlimited monthly usage + full concierge access with complimentary Virtuoso credits ($100 USD)."}</div> 
+                                <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')"> 
+                                    <div class="price-badge">ILIMITADO / MONTHLY</div> 
+                                    <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${isEs ? "MEMBRESÍA MENSUAL ILIMITADA" : "UNLIMITED MONTHLY MEMBERSHIP"}</div> 
+                                    <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">/mes</span></div> 
+                                    <div style="font-size:12px; color:#fff;">${isEs ? "Uso ilimitado todo el mes + conserjería fiduciaria completa con créditos Virtuoso ($100 USD)." : "Unlimited monthly usage + full concierge access with complimentary Virtuoso credits ($100 USD)."}</div> 
+                                </div> 
+                            </div> 
                         </div> 
-                    </div> 
-                </div> 
-            `;
-        }
-    }
+                    `;
+                }
+            }
 
-    if (this.timeLeft === 240) {
-        this.inyectarPasilloEscapeReal(zip);
-    }
+            if (this.timeLeft === 240) {
+                this.inyectarPasilloEscapeReal(zip);
+            }
 
-    if (this.timeLeft <= 0) {
-        clearInterval(this.serviceTimer);
-        this.finalizarAcompanamientoCRM();
-    }
-}, 1000);
+            if (this.timeLeft <= 0) {
+                clearInterval(this.serviceTimer);
+                this.finalizarAcompanamientoCRM();
+            }
+        }, 1000);
 
-this.activarVozAsesorContinuo();
-},
+        this.activarVozAsesorContinuo();
+    },
 
-activarSintonizaAcusticaYouTube() {
-    console.log("[MAY ROGA] Inicializando catálogo acústico predictivo.");
-    const isEs = this.idiomaActual === 'es';
-    
-    // 5 opciones directas de ultra-lujo listas para reproducir sin barras de búsqueda
-    const poolVideos = isEs ? [
-        { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", url: "https://youtube.com", desc: "Sintonía de aislamiento acústico total." },
-        { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", url: "https://youtube.com", desc: "Descompresión biológica de baja concurrencia." },
-        { t: "Ruido Blanco de Lluvia en Selva Privada", url: "https://youtube.com", desc: "Bloqueo de ruido operativo de oficina." },
-        { t: "Frecuencia de Sanación Zen 528Hz — Calma Pura", url: "https://youtube.com", desc: "Disolución de fricción estratégica." },
-        { t: "Paisajes Sonoros del Desierto Minimalista", url: "https://youtube.com", desc: "Restauración de soberanía cognitiva." }
-    ] : [
-        { t: "432Hz Solfeggio Frequency — Deep Ocean Resonance", url: "https://youtube.com", desc: "Complete acoustic isolation protocol." },
-        { t: "8Hz Alpha Waves — Natural Space Architecture", url: "https://youtube.com", desc: "Low-occupancy biological decompression." },
-        { t: "White Noise — Private Rainforest Ambience", url: "https://youtube.com", desc: "Corporate office friction shielding." },
-        { t: "528Hz Zen Healing Frequency — Pure Mental Calming", url: "https://youtube.com", desc: "Executive decision overload dissolution." },
-        { t: "Minimalist Desert Soundscapes — Pure Focus", url: "https://youtube.com", desc: "Cognitive sovereignty restoration." }
-    ];
+    activarSintonizaAcusticaYouTube() {
+        console.log("[MAY ROGA] Inicializando catálogo acústico predictivo.");
+        const isEs = this.idiomaActual === 'es';
+        
+        const poolVideos = isEs ? [
+            { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", url: "https://youtube.com", desc: "Sintonía de aislamiento acústico total." },
+            { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", url: "https://youtube.com", desc: "Descompresión biológica de baja concurrencia." },
+            { t: "Ruido Blanco de Lluvia en Selva Privada", url: "https://youtube.com", desc: "Bloqueo de ruido operativo de oficina." },
+            { t: "Frecuencia de Sanación Zen 528Hz — Calma Pura", url: "https://youtube.com", desc: "Disolución de fricción estratégica." },
+            { t: "Paisajes Sonoros del Desierto Minimalista", url: "https://youtube.com", desc: "Restauración de soberanía cognitiva." }
+        ] : [
+            { t: "432Hz Solfeggio Frequency — Deep Ocean Resonance", url: "https://youtube.com", desc: "Complete acoustic isolation protocol." },
+            { t: "8Hz Alpha Waves — Natural Space Architecture", url: "https://youtube.com", desc: "Low-occupancy biological decompression." },
+            { t: "White Noise — Private Rainforest Ambience", url: "https://youtube.com", desc: "Corporate office friction shielding." },
+            { t: "528Hz Zen Healing Frequency — Pure Mental Calming", url: "https://youtube.com", desc: "Executive decision overload dissolution." },
+            { t: "Minimalist Desert Soundscapes — Pure Focus", url: "https://youtube.com", desc: "Cognitive sovereignty restoration." }
+        ];
 
-    // Acompañamiento verbal por detrás en el idioma del cliente
-    const guionVoz = isEs ? 
-        "Líder. Hemos desplegado 5 frecuencias de sintonía acústica. Le sugerimos activar la primera opción: Ondas de Océano Profundo a 432 Hertz, configurada para disolver la fricción de su entorno." :
-        "Leader. We have deployed 5 acoustic tuning frequencies. We suggest activating the first option: 432 Hertz Deep Ocean Waves, engineered to dissolve your current friction.";
-    
-    this.emitirVoz(guionVoz);
+        const guionVoz = isEs ? 
+            "Líder. Hemos desplegado 5 frecuencias de sintonía acústica. Le sugerimos activar la primera opción: Ondas de Océano Profundo a 432 Hertz, configurada para disolver la fricción de su entorno." :
+            "Leader. We have deployed 5 acoustic tuning frequencies. We suggest activating the first option: 432 Hertz Deep Ocean Waves, engineered to dissolve your current friction.";
+        
+        this.emitirVoz(guionVoz);
 
-    const stack = document.getElementById('interactiveStack');
-    if (!stack) return;
+        const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
 
-    let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${isEs ? "SINTONÍA ACÚSTICA PREDICTIVA" : "PREDICTIVE ACOUSTIC TUNING"}</div>`;
-    poolVideos.forEach((v, i) => {
-        html += `
-            <div style="background:var(--bg-surface); border:1px solid rgba(255,255,255,0.05); padding:14px; border-radius:12px; margin-bottom:10px; text-align:left;">
-                <div style="font-size:13px; font-weight:bold; color:#fff; margin-bottom:4px;">${i+1}. ${v.t}</div>
-                <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">${v.desc}</div>
-                <a class="escape-action-pill" href="${v.url}" target="_blank" style="padding:6px 12px; font-size:10px; text-decoration:none; display:inline-block;">${isEs ? "REPRODUCIR FRECUENCIA" : "PLAY FREQUENCY"}</a>
-            </div>
-        `;
-    });
-    stack.innerHTML = html;
-},
-
-iniciarPulmonVisual() {
-    if (this.breatheInterval) clearInterval(this.breatheInterval);
-    let paso = 0;
-    const pasosES = ["Inhala", "Retén", "Exhala", "Pausa"];
-    const pasosEN = ["Inhale", "Hold", "Exhale", "Pause"];
-    this.breatheInterval = setInterval(() => {
-        const circle = document.getElementById('lungCircle');
-        if (!circle) return;
-        const pack = this.idiomaActual === 'es' ? pasosES : pasosEN;
-        circle.innerText = pack[paso];
-        if (paso === 0) {
-            circle.className = "lung-circle-master lung-inhale-state";
-        } else if (paso === 2) {
-            circle.className = "lung-circle-master lung-exhale-state";
-        } else {
-            circle.className = "lung-circle-master";
-        }
-        paso = (paso + 1) % 4;
-    }, 4000);
-},
-
-actualizarRelojInterfaz() {
-    let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
-    let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-    const clock = document.getElementById('clockDisplay');
-    if (clock) clock.innerText = `${mins}:${secs}`;
-},
-
-activarVozAsesorContinuo() {
-    const emitir = () => {
-        const frase = this.idiomaActual === 'es' ? this.FRASES_VOZ_ES : this.FRASES_VOZ_EN;
-        this.emitirVoz(frase);
-    };
-    emitir();
-    this.voiceInterval = setInterval(emitir, 45000);
-},
-
-inyectarPasilloEscapeReal(zipCode) {
-    const stack = document.getElementById('interactiveStack');
-    if (!stack) return;
-
-    const isEs = this.idiomaActual === 'es';
-    const titulo = isEs ? "SANTUARIOS DE BAJA CONCURRENCIA PRESCRITOS" : "CURATED LOW-OCCUPANCY SANCTUARIES";
-    
-    // Las 3 propuestas Élite con imágenes instantáneas nítidas cargadas desde el inicio
-    const santuarios = [
-        {
-            name: "Amanera Resort — Playa Grande",
-            img: "https://unsplash.com",
-            maps: `https://google.com{encodeURIComponent("Luxury Resort Amanera Playa Grande")}`,
-            es_ex: "Casitas de cristal suspendidas en acantilados con aislamiento total. Le conviene porque neutraliza de inmediato su índice de fatiga por decisiones críticas.",
-            en_ex: "Glass casitas suspended on cliffs with radical isolation. Prescribed to instantly neutralize your critical decision fatigue index."
-        },
-        {
-            name: "Eden Roc Sanctuary — Cap Cana",
-            img: "https://unsplash.com",
-            maps: `https://google.com{encodeURIComponent("Eden Roc Cap Cana Private Villas")}`,
-            es_ex: "Bungalows independientes con alberca privada y control estricto de concurrencia. Ideal para restaurar su espacio personal sin alertas.",
-            en_ex: "Standalone bungalows with private pools and strict occupancy controls. Ideal to restore your personal space without structural alerts."
-        },
-        {
-            name: "Amangiri Oasis — Utah Desert",
-            img: "https://unsplash.com",
-            maps: `https://google.com{encodeURIComponent(`Luxury Resort Amangiri Utah near ${zipCode || '33167'}`)}`,
-            es_ex: "Arquitectura monolítica oculta en el cañón profundo. Diseñado para directores que exigen desapego operativo absoluto e inmunidad de entorno.",
-            en_ex: "Monolithic architecture hidden in the deep canyon. Engineered for executives demanding absolute operational detachment and environment immunity."
-        }
-    ];
-
-    // Discurso predictivo por voz de fondo explicando los motivos fiduciarios
-    const discursoExplicativo = isEs ?
-        "Calibración de entorno completada. Hemos bloqueado tres opciones de aislamiento geográfico en Google Maps que cuentan con el menor índice de ocupación física disponible. Hemos adivinado su necesidad: espacio masivo, silencio acústico y cero interrupciones corporativas." :
-        "Environment calibration completed. We have locked three geographical isolation profiles on Google Maps holding the lowest physical occupancy rates available. We have anticipated your directive: massive space, acoustic silence, and zero corporate interruptions.";
-
-    this.emitirVoz(discursoExplicativo);
-
-    let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${titulo}</div>`;
-    santuarios.forEach((s) => {
-        html += `
-            <div style="background:var(--bg-surface); border:1px solid var(--gold-champagne); border-radius:16px; margin-bottom:15px; overflow:hidden; text-align:left;">
-                <img src="${s.img}" style="width:100%; height:130px; object-fit:cover; display:block;" alt="${s.name}">
-                <div style="padding:15px;">
-                    <div style="font-size:14px; font-weight:bold; color:var(--gold-champagne); margin-bottom:6px;">${s.name}</div>
-                    <p style="font-size:11.5px; color:#eee; line-height:1.4; margin-bottom:12px;">${isEs ? s.es_ex : s.en_ex}</p>
-                    <a class="escape-action-pill" href="${s.maps}" target="_blank" style="background:var(--gold-champagne); color:var(--bg-obsidian); font-weight:bold; text-transform:uppercase; padding:8px 14px; font-size:10px; border-radius:6px; text-decoration:none; display:inline-block;">
-                        ${isEs ? "VER RUTA EN GOOGLE MAPS" : "OPEN GOOGLE MAPS ROUTE"}
-                    </a>
-                </div>
-            </div>
-        `;
-    });
-
-    html += `
-        <button class="gold-action-btn" style="margin-top:10px; width:100%;" onclick="KERNEL.finalizarAcompanamientoCRM()">
-            ${isEs ? "COMPILAR PASAPORTE ÉLITE" : "COMPILE ELITE PASSPORT"}
-        </button>
-    `;
-    stack.innerHTML = html;
-},
-
-finalizarAcompanamientoCRM() {
-    clearInterval(this.serviceTimer);
-    clearInterval(this.breatheInterval);
-    clearInterval(this.voiceInterval);
-    const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
-    localStorage.setItem("mayroga_last_folio", uuid);
-    const root = document.getElementById('activeSessionDock');
-    if (!root) return;
-    const isEs = this.idiomaActual === 'es';
-    const titulo = isEs ? "PASAPORTE ÉLITE COMPILADO" : "ELITE PASSPORT COMPILED";
-    const desc = isEs ? `Su pasaporte fiduciario ha sido estructurado bajo el Folio <b>${uuid}</b>. Seleccione su nivel de acceso empresarial.` : `Your fiduciary passport has been structured under Folio <b>${uuid}</b>. Select your business access tier.`;
-    
-    root.innerHTML = `
-        <div style="text-align:center; padding:15px 0;"> 
-            <h2 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:20px; letter-spacing:3px; margin-bottom:8px;">${titulo}</h2> 
-            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:20px;">${desc}</p> 
-            <div class="pricing-grid"> 
-                <div class="price-card" onclick="KERNEL.redirigirStripe('SINGLE_200', '${uuid}')"> 
-                    <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${isEs ? "ACCESO ÚNICO" : "SINGLE RESET PASS"}</div> 
-                    <div class="price-amount">$200</div> 
-                </div> 
-                <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')"> 
-                    <div class="price-badge">ILIMITADO / MONTHLY</div> 
-                    <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${isEs ? "MEMBRESÍA MENSUAL ILIMITADA" : "UNLIMITED MONTHLY MEMBERSHIP"}</div> 
-                    <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">/mes</span></div> 
-                </div> 
-            </div> 
-        </div>
-    `;
-},
-
-redirigirStripe(tier, folio) {
-    document.body.style.cursor = "wait";
-    fetch("/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier: tier, folio: folio })
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.body.style.cursor = "default";
-        if (data.checkout_url) window.location.href = data.checkout_url;
-    })
-    .catch(() => {
-        document.body.style.cursor = "default";
-        alert(this.idiomaActual === 'es' ? "Falla de enlace con los servidores bancarios de Stripe." : "Stripe gateway connectivity failure.");
-    });
-},
-verificarRetornoPagoExitoso() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('status') === 'success') {
-        const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
-        localStorage.setItem("mayroga_pase_stripe", "true");
-        window.addEventListener("DOMContentLoaded", () => {
-            const root = document.getElementById('appRootContainer') || document.getElementById('wrapper-form');
-            if (!root) return;
-            document.getElementById('pantalla-bienvenida').style.display = 'none';
-            root.classList.remove('hidden');
-            
-            root.innerHTML = `
-                <div style="text-align:center; padding:30px 10px;"> 
-                    <h1 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:24px; letter-spacing:4px; margin-bottom:10px;">MAY ROGA</h1> 
-                    <div class="subtitle-elite" style="color:var(--gold-light); font-weight:bold; letter-spacing:2px; margin-bottom:15px;">PASAPORTE ADQUIRIDO CON ÉXITO</div> 
-                    <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:25px; line-height:1.6;"> 
-                        El folio fiduciario <b>${paidFolio}</b> ha sido validado correctamente. Su libreta de viaje premium compilada en ReportLab está lista para descarga inmediata. 
-                    </p> 
-                    <button class="gold-action-btn" onclick="KERNEL.descargarPasaportePDF('${paidFolio}')">DOWNLOAD PASSPORT (PDF)</button> 
+        let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${isEs ? "SINTONÍA ACÚSTICA PREDICTIVA" : "PREDICTIVE ACOUSTIC TUNING"}</div>`;
+        poolVideos.forEach((v, i) => {
+            html += `
+                <div style="background:var(--bg-surface); border:1px solid rgba(255,255,255,0.05); padding:14px; border-radius:12px; margin-bottom:10px; text-align:left;">
+                    <div style="font-size:13px; font-weight:bold; color:#fff; margin-bottom:4px;">${i+1}. ${v.t}</div>
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">${v.desc}</div>
+                    <a class="escape-action-pill" href="${v.url}" target="_blank" style="padding:6px 12px; font-size:10px; text-decoration:none; display:inline-block;">${isEs ? "REPRODUCIR FRECUENCIA" : "PLAY FREQUENCY"}</a>
                 </div>
             `;
         });
-    }
-},
+        stack.innerHTML = html;
+    },
 
-descargarPasaportePDF(folio) {
-    document.body.style.cursor = "wait";
-    fetch("/generate-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            servicio_id: folio,
-            lang: this.idiomaActual,
-            score_inicial: 50.0,
-            score_actual: 85.0,
-            respiracion_score: 100.0,
-            adivinanzas_score: 100.0,
-            iev: 95.0,
-            variante: "ELITE_RECONEXION",
-            destino_id: "H1"
+    iniciarPulmonVisual() {
+        if (this.breatheInterval) clearInterval(this.breatheInterval);
+        let paso = 0;
+        const pasosES = ["Inhala", "Retén", "Exhala", "Pausa"];
+        const pasosEN = ["Inhale", "Hold", "Exhale", "Pause"];
+        this.breatheInterval = setInterval(() => {
+            const circle = document.getElementById('lungCircle');
+            if (!circle) return;
+            const pack = this.idiomaActual === 'es' ? pasosES : pasosEN;
+            circle.innerText = pack[paso];
+            if (paso === 0) {
+                circle.className = "lung-circle-master lung-inhale-state";
+            } else if (paso === 2) {
+                circle.className = "lung-circle-master lung-exhale-state";
+            } else {
+                circle.className = "lung-circle-master";
+            }
+            paso = (paso + 1) % 4;
+        }, 4000);
+    },
+
+    actualizarRelojInterfaz() {
+        let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
+        let secs = (this.timeLeft % 60).toString().padStart(2, '0');
+        const clock = document.getElementById('clockDisplay');
+        if (clock) clock.innerText = `${mins}:${secs}`;
+    },
+
+    activarVozAsesorContinuo() {
+        const emitir = () => {
+            const frase = this.idiomaActual === 'es' ? this.FRASES_VOZ_ES : this.FRASES_VOZ_EN;
+            this.emitirVoz(frase);
+        };
+        emitir();
+        this.voiceInterval = setInterval(emitir, 45000);
+    },
+
+    inyectarPasilloEscapeReal(zipCode) {
+        const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
+
+        const isEs = this.idiomaActual === 'es';
+        const titulo = isEs ? "SANTUARIOS DE BAJA CONCURRENCIA PRESCRITOS" : "CURATED LOW-OCCUPANCY SANCTUARIES";
+        
+        const santuarios = [
+            {
+                name: "Amanera Resort — Playa Grande",
+                img: "https://unsplash.com",
+                maps: `https://google.com/${encodeURIComponent("Luxury Resort Amanera Playa Grande")}`,
+                es_ex: "Casitas de cristal suspendidas en acantilados con aislamiento total. Le conviene porque neutraliza de inmediato su índice de fatiga por decisiones críticas.",
+                en_ex: "Glass casitas suspended on cliffs with radical isolation. Prescribed to instantly neutralize your critical decision fatigue index."
+            },
+            {
+                name: "Eden Roc Sanctuary — Cap Cana",
+                img: "https://unsplash.com",
+                maps: `https://google.com/${encodeURIComponent("Eden Roc Cap Cana Private Villas")}`,
+                es_ex: "Bungalows independientes con alberca privada y control estricto de concurrencia. Ideal para restaurar su espacio personal sin alertas.",
+                en_ex: "Standalone bungalows with private pools and strict occupancy controls. Ideal to restore your personal space without structural alerts."
+            },
+            {
+                name: "Amangiri Oasis — Utah Desert",
+                img: "https://unsplash.com",
+                maps: `https://google.com/${encodeURIComponent(`Luxury Resort Amangiri Utah near ${zipCode || '33167'}`)}`,
+                es_ex: "Arquitectura monolítica oculta en el cañón profundo. Diseñado para directores que exigen desapego operativo absoluto e inmunidad de entorno.",
+                en_ex: "Monolithic architecture hidden in the deep canyon. Engineered for executives demanding absolute operational detachment and environment immunity."
+            }
+        ];
+
+        const discursoExplicativo = isEs ?
+            "Calibración de entorno completada. Hemos bloqueado tres opciones de aislamiento geográfico en Google Maps que cuentan con el menor índice de ocupación física disponible. Hemos adivinado su necesidad: espacio masivo, silencio acústico y cero interrupciones corporativas." :
+            "Environment calibration completed. We have locked three geographical isolation profiles on Google Maps holding the lowest physical occupancy rates available. We have anticipated your directive: massive space, acoustic silence, and zero corporate interruptions.";
+
+        this.emitirVoz(discursoExplicativo);
+
+        let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${titulo}</div>`;
+        santuarios.forEach((s) => {
+            html += `
+                <div style="background:var(--bg-surface); border:1px solid var(--gold-champagne); border-radius:16px; margin-bottom:15px; overflow:hidden; text-align:left;">
+                    <img src="${s.img}" style="width:100%; height:130px; object-fit:cover; display:block;" alt="${s.name}">
+                    <div style="padding:15px;">
+                        <div style="font-size:14px; font-weight:bold; color:var(--gold-champagne); margin-bottom:6px;">${s.name}</div>
+                        <p style="font-size:11.5px; color:#eee; line-height:1.4; margin-bottom:12px;">${isEs ? s.es_ex : s.en_ex}</p>
+                        <a class="escape-action-pill" href="${s.maps}" target="_blank" style="background:var(--gold-champagne); color:var(--bg-obsidian); font-weight:bold; text-transform:uppercase; padding:8px 14px; font-size:10px; border-radius:6px; text-decoration:none; display:inline-block;">
+                            ${isEs ? "VER RUTA EN GOOGLE MAPS" : "OPEN GOOGLE MAPS ROUTE"}
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+            <button class="gold-action-btn" style="margin-top:10px; width:100%;" onclick="KERNEL.finalizarAcompanamientoCRM()">
+                ${isEs ? "COMPILAR PASAPORTE ÉLITE" : "COMPILE ELITE PASSPORT"}
+            </button>
+        `;
+        stack.innerHTML = html;
+    },
+
+    finalizarAcompanamientoCRM() {
+        clearInterval(this.serviceTimer);
+        clearInterval(this.breatheInterval);
+        clearInterval(this.voiceInterval);
+        const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
+        localStorage.setItem("mayroga_last_folio", uuid);
+        const root = document.getElementById('activeSessionDock');
+        if (!root) return;
+        const isEs = this.idiomaActual === 'es';
+        const titulo = isEs ? "PASAPORTE ÉLITE COMPILADO" : "ELITE PASSPORT COMPILED";
+        const desc = isEs ? `Su pasaporte fiduciario ha sido estructurado bajo el Folio <b>${uuid}</b>. Seleccione su nivel de acceso empresarial.` : `Your fiduciary passport has been structured under Folio <b>${uuid}</b>. Select your business access tier.`;
+        
+        root.innerHTML = `
+            <div style="text-align:center; padding:15px 0;"> 
+                <h2 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:20px; letter-spacing:3px; margin-bottom:8px;">${titulo}</h2> 
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:20px;">${desc}</p> 
+                <div class="pricing-grid"> 
+                    <div class="price-card" onclick="KERNEL.redirigirStripe('SINGLE_200', '${uuid}')"> 
+                        <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${isEs ? "ACCESO ÚNICO" : "SINGLE RESET PASS"}</div> 
+                        <div class="price-amount">$200</div> 
+                    </div> 
+                    <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')"> 
+                        <div class="price-badge">ILIMITADO / MONTHLY</div> 
+                        <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${isEs ? "MEMBRESÍA MENSUAL ILIMITADA" : "UNLIMITED MONTHLY MEMBERSHIP"}</div> 
+                        <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">/mes</span></div> 
+                    </div> 
+                </div> 
+            </div>
+        `;
+    },
+
+    redirigirStripe(tier, folio) {
+        document.body.style.cursor = "wait";
+        fetch("/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tier: tier, folio: folio })
         })
-    })
-    .then(res => res.blob())
-    .then(blob => {
-        document.body.style.cursor = "default";
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `MayRoga_Elite_Passport_${folio}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-    })
-    .catch(() => {
-        document.body.style.cursor = "default";
-        alert("Error al descargar el Pasaporte PDF desde Render.");
-    });
-},
+        .then(res => res.json())
+        .then(data => {
+            document.body.style.cursor = "default";
+            if (data.checkout_url) window.location.href = data.checkout_url;
+        })
+        .catch(() => {
+            document.body.style.cursor = "default";
+            alert(this.idiomaActual === 'es' ? "Falla de enlace con los servidores bancarios de Stripe." : "Stripe gateway connectivity failure.");
+        });
+    },
 
-conectarMantenimientoDesarrollador() {
-    const brand = document.getElementById("brandTitleField");
-    if (!brand) return;
-    brand.addEventListener("click", () => {
-        this.devClickCount++;
-        if (this.devClickCount === 3) {
-            this.devClickCount = 0;
-            const u = prompt("Developer Username:");
-            const p = prompt("Developer Password:");
-            fetch("/verify-dev-access", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ user: u, dev_pass: p })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.authenticated) {
-                    window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
-                } else {
-                    alert("Acceso denegado.");
-                }
-            })
-            .catch(() => {
-                window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+    verificarRetornoPagoExitoso() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'success') {
+            const paidFolio = urlParams.get('folio') || "MR-CONFIRMED";
+            localStorage.setItem("mayroga_pase_stripe", "true");
+            window.addEventListener("DOMContentLoaded", () => {
+                const root = document.getElementById('appRootContainer') || document.getElementById('wrapper-form');
+                if (!root) return;
+                document.getElementById('pantalla-bienvenida').style.display = 'none';
+                root.classList.remove('hidden');
+                
+                root.innerHTML = `
+                    <div style="text-align:center; padding:30px 10px;"> 
+                        <h1 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:24px; letter-spacing:4px; margin-bottom:10px;">MAY ROGA</h1> 
+                        <div class="subtitle-elite" style="color:var(--gold-light); font-weight:bold; letter-spacing:2px; margin-bottom:15px;">PASAPORTE ADQUIRIDO CON ÉXITO</div> 
+                        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:25px; line-height:1.6;"> 
+                            El folio fiduciario <b>${paidFolio}</b> ha sido validado correctamente. Su libreta de viaje premium compilada en ReportLab está lista para descarga inmediata. 
+                        </p> 
+                        <button class="gold-action-btn" onclick="KERNEL.descargarPasaportePDF('${paidFolio}')">DOWNLOAD PASSPORT (PDF)</button> 
+                    </div>
+                `;
             });
         }
-    });
-}
+    },
+
+    descargarPasaportePDF(folio) {
+        document.body.style.cursor = "wait";
+        fetch("/generate-pdf", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                servicio_id: folio,
+                lang: this.idiomaActual,
+                score_inicial: 50.0,
+                score_actual: 85.0,
+                respiracion_score: 100.0,
+                adivinanzas_score: 100.0,
+                iev: 95.0,
+                variante: "ELITE_RECONEXION",
+                destino_id: "H1"
+            })
+        })
+        .then(res => res.blob())
+        .then(blob => {
+            document.body.style.cursor = "default";
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `MayRoga_Elite_Passport_${folio}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        })
+        .catch(() => {
+            document.body.style.cursor = "default";
+            alert("Error al descargar el Pasaporte PDF desde Render.");
+        });
+    },
+
+    conectarMantenimientoDesarrollador() {
+        const brand = document.getElementById("brandTitleField");
+        if (!brand) return;
+        brand.addEventListener("click", () => {
+            this.devClickCount++;
+            if (this.devClickCount === 3) {
+                this.devClickCount = 0;
+                const u = prompt("Developer Username:");
+                const p = prompt("Developer Password:");
+                fetch("/verify-dev-access", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ user: u, dev_pass: p })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.authenticated) {
+                        window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+                    } else {
+                        alert("Acceso denegado.");
+                    }
+                })
+                .catch(() => {
+                    window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+                });
+            }
+        });
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => KERNEL.init());
