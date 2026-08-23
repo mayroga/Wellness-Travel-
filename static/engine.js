@@ -1,20 +1,23 @@
 // =========================================================================
-// WELLNESS TRAVEL FRONTEND LOGIC — NÚCLEO MAESTRO COMPLETO E ÍNTEGRO
+// WELLNESS TRAVEL FRONTEND LOGIC — RECONSTRUCCIÓN DINÁMICA PURA 1:1 OTG
+// ARCHIVO COMPLETO, INTEGRAL Y ACTUALIZADO (VERSIÓN DEFINITIVA)
 // =========================================================================
 
 const KERNEL = {
-    // Variables de Estado de Ingeniería
+    // Variables de Estado de Ingeniería Dinámica
     timerInaccion: null,
     serviceTimer: null,
     breatheInterval: null,
     voiceInterval: null,
     cierreTimerInterval: null,
-    timeLeft: 600,         // 10 minutos matemáticos de sesión activa obligatoria
-    cierreTimeLeft: 60,    // 60 segundos obligatorios de Limpieza Mental Profunda en Cierre
+    timeLeft: 600,         // 10 minutos matemáticos obligatorios de sesión activa
+    cierreTimeLeft: 60,    // 60 segundos de Limpieza Mental Profunda en Cierre
     isLocked: false,
     idiomaActual: 'es',
     devClickCount: 0,
-    historialVistos: [],   // Control local anti-repeticiones
+    historialVistos: [],   // Almacenamiento anti-repeticiones del CRM local
+    balanceBienestar: null,
+    escapesVIP: [],
 
     // Diccionarios VIP Extendidos
     TRADUCCIONES: {
@@ -56,51 +59,19 @@ const KERNEL = {
         }
     },
 
-    // Matriz de Retos Conductuales del Cierre Consciente (Con iconos seguros integrados para evitar 404)
+    // Catálogo de Retos Conductuales
     CATALOGO_RETOS: [
-        {
-            id: "R1", icono: "🧘‍♂️",
-            titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.",
-            titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room."
-        },
-        {
-            id: "R2", icono: "👁️",
-            titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.",
-            titulo_en: "Fixed Contemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment."
-        },
-        {
-            id: "R3", icono: "✍️",
-            titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.",
-            titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air."
-        },
-        {
-            id: "R4", icono: "🍃",
-            titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.",
-            titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways."
-        },
-        {
-            id: "R5", icono: "🦾",
-            titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.",
-            titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly."
-        },
-        {
-            id: "R6", icono: "🌊",
-            titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.",
-            titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave."
-        },
-        {
-            id: "R7", icono: "⚓",
-            titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.",
-            titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly."
-        },
-        {
-            id: "R8", icono: "🔲",
-            titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.",
-            titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace."
-        }
+        { id: "R1", icono: "🧘‍♂️", titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.", titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room." },
+        { id: "R2", icono: "👁️", titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.", titulo_en: "Fixed Comtemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment." },
+        { id: "R3", icono: "✍️", titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.", titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air." },
+        { id: "R4", icono: "🍃", titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.", titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways." },
+        { id: "R5", icono: "🦾", titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.", titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly." },
+        { id: "R6", icono: "🌊", titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.", titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave." },
+        { id: "R7", icono: "⚓", titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.", titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly." },
+        { id: "R8", icono: "🔲", titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.", titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace." }
     ],
 
-    // Catálogo completo de 48 preguntas para el oráculo interactivo
+    // Matriz de las 48 preguntas en Español
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
         "¿Se diluye tu enfoque en redes digitales buscando llenar vacíos de desconexión?",
@@ -152,6 +123,7 @@ const KERNEL = {
         "¿La presión constante del entorno compromete la calidad de tu enfoque mental?"
     ],
 
+    // Matriz de las 48 preguntas en Inglés
     CATALOGO_PREGUNTAS_EN: [
         "Do you feel environmental stimuli saturate your ability to contemplate calm?",
         "Does your strategic focus dissolve in digital networks trying to fill moments of friction?",
@@ -229,8 +201,10 @@ const KERNEL = {
     },
 
     despertarInicial() {
-        document.getElementById('pantalla-bienvenida').style.display = 'none';
-        document.getElementById('wrapper-form').classList.remove('hidden');
+        const welcomeEl = document.getElementById('pantalla-bienvenida');
+        if (welcomeEl) welcomeEl.style.display = 'none';
+        const formEl = document.getElementById('wrapper-form');
+        if (formEl) formEl.classList.remove('hidden');
         this.resetearTemporizadorInaccion();
     },
 
@@ -256,7 +230,8 @@ const KERNEL = {
             btn.className = 'btn-pregunta-crisis';
             btn.innerText = `${idx + 1}. ${pregunta}`;
             btn.onclick = () => {
-                document.getElementById('inp-text-libre').value = pregunta;
+                const libre = document.getElementById('inp-text-libre');
+                if (libre) libre.value = pregunta;
                 this.ejecutar();
             };
             contenedor.appendChild(btn);
@@ -277,17 +252,17 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
 
-        const zipValue = document.getElementById('inp-zip').value || "33167";
-        const modoValue = document.getElementById('modo-selector').value;
-        const menteValue = document.getElementById('mente-selector').value;
-        const budgetValue = document.getElementById('budget-selector').value;
-        const perfilValue = document.getElementById('perfil-selector').value;
-        const textoLibreValue = document.getElementById('inp-text-libre').value;
+        const zipValue = document.getElementById('inp-zip')?.value || "33167";
+        const modoValue = document.getElementById('modo-selector')?.value || "ejecutivo";
+        const menteValue = document.getElementById('mente-selector')?.value || "activo";
+        const budgetValue = document.getElementById('budget-selector')?.value || "alto";
+        const perfilValue = document.getElementById('perfil-selector')?.value || "individual";
+        const textoLibreValue = document.getElementById('inp-text-libre')?.value || "";
 
         document.body.style.cursor = "wait";
 
         try {
-            const respuesta = await fetch("https://wellness-travel.onrender.com", {
+            const respuesta = await fetch("https://onrender.com", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -308,7 +283,6 @@ const KERNEL = {
 
         } catch (err) {
             document.body.style.cursor = "default";
-            // Respaldo estructural de emergencia si el backend no responde
             this.balanceBienestar = { inicial: 45.0, cierre_proyectado: 90.0 };
             this.escapesVIP = [
                 {
@@ -320,8 +294,10 @@ const KERNEL = {
             ];
         }
 
-        document.getElementById('wrapper-form').classList.add('hidden');
-        document.getElementById('activeSessionDock').classList.remove('hidden');
+        const formWrapper = document.getElementById('wrapper-form');
+        if (formWrapper) formWrapper.classList.add('hidden');
+        const sessionDock = document.getElementById('activeSessionDock');
+        if (sessionDock) sessionDock.classList.remove('hidden');
 
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
@@ -334,7 +310,8 @@ const KERNEL = {
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
                 clearInterval(this.voiceInterval);
-                document.getElementById('otg-muro-comercial').classList.remove('hidden');
+                const paywall = document.getElementById('otg-muro-comercial');
+                if (paywall) paywall.classList.remove('hidden');
                 return;
             }
 
@@ -358,7 +335,7 @@ const KERNEL = {
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
         
         document.body.style.cursor = "wait";
-        fetch("https://wellness-travel.onrender.com", {
+        fetch("https://onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ price_id: priceId, folio_id: folio })
@@ -379,9 +356,10 @@ const KERNEL = {
     activarSintonizaAcusticaYouTube() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
         
-        const modoActivo = document.getElementById('modo-selector').value;
-        const menteActiva = document.getElementById('mente-selector').value;
+        const modoActivo = document.getElementById('modo-selector')?.value || "ejecutivo";
+        const menteActiva = document.getElementById('mente-selector')?.value || "activo";
         
         let discursoInicial = this.idiomaActual === 'es' 
             ? `Líder. Modo ${modoActivo} activado para mente en estado ${menteActiva}. Iniciando aislamiento acústico.`
@@ -400,14 +378,17 @@ const KERNEL = {
                     <div style="font-size:11px; color:#9E9EA4; margin-bottom:4px;"><b>Actividad:</b> ${detalles.actividad_sintonía}</div>
                     <div style="font-size:11px; color:#9E9EA4; margin-bottom:4px;"><b>Logística Aérea:</b> ${detalles.logistica_aerea}</div>
                     <div style="font-size:11px; color:#9E9EA4; margin-bottom:10px;"><b>Línea Marítima:</b> ${detalles.logistica_maritima}</div>
-                    <button class="gold-action-btn" style="padding:10px 20px; font-size:11px; margin-top:0; width:auto; border-radius:12px;" onclick="window.open('https://google.com?q=${encodeURIComponent(dest.nombre)}', '_blank')">
+                    <button class="gold-action-btn" style="padding:10px 20px; font-size:11px; margin-top:0; width:auto; border-radius:12px;" onclick="window.open('https://google.com?q=' + encodeURIComponent('${dest.nombre}'), '_blank')">
                         ${dic.mapsBtn}
                     </button>
                 </div>`;
         });
         
         html += `
-            <iframe style="width:100%; height:120px; border:0; border-radius:12px; margin-top:10px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div style="margin-top:15px; display:flex; flex-direction:column; gap:12px;">
+                <iframe style="width:100%; height:140px; border:0; border-radius:12px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <iframe style="width:100%; height:140px; border:0; border-radius:12px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
         `;
         stack.innerHTML = html;
     },
@@ -454,8 +435,8 @@ const KERNEL = {
         this.emitirVoz(dic.discursoMin4);
         
         const divDestino = document.createElement('div');
-        divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
-        divDestino.onclick = () => window.open(`https://google.com?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
+        divDestino.style.cssText = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
+        divDestino.onclick = () => window.open(`https://google.com?q=` + encodeURIComponent('Luxury Resort Amanera Playa Grande'), '_blank');
         
         divDestino.innerHTML = `
             <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
@@ -467,8 +448,10 @@ const KERNEL = {
     },
 
     activarCierreConscienteCronometrado() {
-        document.getElementById('activeSessionDock').classList.add('hidden');
-        document.getElementById('pantalla-cierre').classList.remove('hidden');
+        const sessionDock = document.getElementById('activeSessionDock');
+        if (sessionDock) sessionDock.classList.add('hidden');
+        const cierrePantalla = document.getElementById('pantalla-cierre');
+        if (cierrePantalla) cierrePantalla.classList.remove('hidden');
 
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
         
@@ -477,12 +460,15 @@ const KERNEL = {
             imgContainer.outerHTML = `<div id="reto-img" style="font-size: 50px; text-align: center; margin-bottom: 10px;">${retoSeleccionado.icono}</div>`;
         }
         
+        const retoTitulo = document.getElementById('reto-titulo');
+        const retoDesc = document.getElementById('reto-descripcion');
+
         if (this.idiomaActual === 'es') {
-            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_es;
-            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_es;
+            if (retoTitulo) retoTitulo.innerText = retoSeleccionado.titulo_es;
+            if (retoDesc) retoDesc.innerText = retoSeleccionado.desc_es;
         } else {
-            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_en;
-            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_en;
+            if (retoTitulo) retoTitulo.innerText = retoSeleccionado.titulo_en;
+            if (retoDesc) retoDesc.innerText = retoSeleccionado.desc_en;
         }
 
         this.cierreTimerInterval = setInterval(() => {
@@ -516,6 +502,8 @@ const KERNEL = {
         if (!root) return;
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
         
+        const textoWhatsApp = encodeURIComponent('Hola, he completado mi pasaporte de bienestar y deseo coordinar la logística de mi próximo itinerario premium.');
+        
         root.innerHTML = `
             <div style="text-align:center; padding:10px 0;"> 
                 <button class="gold-action-btn" style="margin-bottom:15px;" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
@@ -524,7 +512,7 @@ const KERNEL = {
                     <p style="font-size:11.5px; color:var(--text-muted); line-height:1.4; margin-bottom:12px;">
                         ¿Desea materializar su escape? Conéctese de forma directa y privada con nuestro Consultor de Viajes Élite para gestionar charters aéreos, reservas Virtuoso y logística marítima exclusiva.
                     </p>
-                    <button class="gold-action-btn" style="background:var(--gold-champagne); color:#030305; font-size:11px; font-weight:700;" onclick="window.open('https://wa.me/1799747913?text=' + encodeURIComponent('Hola, he completado mi pasaporte de bienestar y deseo coordinar la logística de mi próximo itinerario premium.'), '_blank')">
+                    <button class="gold-action-btn" style="background:var(--gold-champagne); color:#030305; font-size:11px; font-weight:700;" onclick="window.open('https://wa.me/17866471371?text=${textoWhatsApp}', '_blank')">
                         CONTACTAR AGENTE PRIVADO
                     </button>
                 </div>
@@ -534,18 +522,18 @@ const KERNEL = {
 
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
-        
-        fetch("https://wellness-travel.onrender.com", {
+        fetch("https://onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                servicio_id: folio, 
+                servicio_id: folio,
                 lang: this.idiomaActual,
-                score_inicial: this.balanceBienestar ? this.balanceBienestar.inicial : 45.0, 
-                score_actual: this.balanceBienestar ? this.balanceBienestar.cierre_proyectado : 90.0, 
-                respiracion_score: 100.0, adivinanzas_score: 100.0,
-                iev: 95.0, 
-                variante: "ELITE_WELLNESS", 
+                score_inicial: this.balanceBienestar ? this.balanceBienestar.inicial : 45.0,
+                score_actual: this.balanceBienestar ? this.balanceBienestar.cierre_proyectado : 90.0,
+                respiracion_score: 100.0, 
+                adivinanzas_score: 100.0,
+                iev: 95.0,
+                variante: "ELITE_WELLNESS",
                 destino_id: "S1"
             })
         })
