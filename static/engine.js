@@ -808,7 +808,7 @@ const KERNEL = {
         });
     },
 
-    conectarMantenimientoDesarrollador() {
+conectarMantenimientoDesarrollador() {
         const brand = document.getElementById("brandTitleField");
         if (!brand) return;
         brand.addEventListener("click", () => {
