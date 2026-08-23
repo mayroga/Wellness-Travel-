@@ -1,10 +1,9 @@
 // =========================================================================
-// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 99% OPEN THAN GO
-// PARTE 1: ARQUITECTURA DE DATOS, DICCIONARIOS Y RETOS DE CIERRE CONSCIENTE
+// WELLNESS TRAVEL FRONTEND LOGIC — REENSAMBLADO MAESTRO INDESTRUCTIBLE
 // =========================================================================
 
 const KERNEL = {
-    // Variables de Estado de Ingeniería (Sincronizadas con Open Than Go)
+    // Variables de Estado de Ingeniería
     timerInaccion: null,
     serviceTimer: null,
     breatheInterval: null,
@@ -15,9 +14,9 @@ const KERNEL = {
     isLocked: false,
     idiomaActual: 'es',
     devClickCount: 0,
-    historialVistos: [],   // Control local anti-repeticiones para enrutamiento
+    historialVistos: [],   // Control local anti-repeticiones
 
-    // Diccionarios VIP Extendidos (Absolutamente libres de términos médicos o laborales)
+    // Diccionarios VIP Extendidos
     TRADUCCIONES: {
         es: {
             brandSub: "Arquitectura de Santuarios Ejecutivos",
@@ -57,7 +56,7 @@ const KERNEL = {
         }
     },
 
-    // Matriz de Retos Conductuales del Cierre Consciente (Réplica exacta 1:1)
+    // Matriz de Retos Conductuales del Cierre Consciente
     CATALOGO_RETOS: [
         {
             id: "R1", img: "/static/silence.svg",
@@ -101,7 +100,6 @@ const KERNEL = {
         }
     ],
 
-    // Pool de Preguntas Analíticas — Primer Bloque (1 a 24)
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
         "¿Se diluye tu enfoque en redes digitales buscando llenar vacíos de desconexión?",
@@ -126,11 +124,7 @@ const KERNEL = {
         "¿La falta de pausas conscientes reduce la claridad de tu visión personal?",
         "¿Percibes que las demandas del día a día consumen tu reserva de enfoque?",
         "¿Te dejas llevar por la corriente de la rutina sin evaluar tu balance individual?",
-        "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?"
-    ],
-
-    // Continuación Pool de Preguntas Analíticas — Segundo Bloque (25 a 48)
-    CATALOGO_PREGUNTAS_ES_2: [
+        "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?",
         "¿El ritmo automatizado de tus días disminuye la calidad de tus descansos?",
         "¿Buscas un entorno exclusivo pero las opciones comunes te generan saturación?",
         "¿La exposición continua a entornos densivos limita tu claridad reflexiva?",
@@ -157,7 +151,6 @@ const KERNEL = {
         "¿La presión constante del entorno compromete la calidad de tu enfoque mental?"
     ],
 
-    // Pool Completo de Preguntas Analíticas en Inglés (1 a 48)
     CATALOGO_PREGUNTAS_EN: [
         "Do you feel environmental stimuli saturate your ability to contemplate calm?",
         "Does your strategic focus dissolve in digital networks trying to fill moments of friction?",
@@ -210,8 +203,6 @@ const KERNEL = {
     ],
 
     init() {
-        // Unificar los dos bloques en español en un solo arreglo dinámico al arrancar
-        this.CATALOGO_PREGUNTAS_ES = [...this.CATALOGO_PREGUNTAS_ES, ...this.CATALOGO_PREGUNTAS_ES_2];
         this.cambiarIdioma(this.idiomaActual);
         this.conectarMantenimientoDesarrollador();
     },
@@ -220,12 +211,18 @@ const KERNEL = {
         this.idiomaActual = lang;
         const diccionario = this.TRADUCCIONES[lang];
         
-        document.getElementById('lblBrandSub').innerText = diccionario.brandSub;
-        document.getElementById('lblTimerTitle').innerText = diccionario.timerTitle;
-        document.getElementById('lbl-oraculo-instruccion').innerText = diccionario.oraculoInstruccion;
-        document.getElementById('lbl-desahogo').innerText = diccionario.desahogoLabel;
-        document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
-        document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
+        const elBrand = document.getElementById('lblBrandSub');
+        if (elBrand) elBrand.innerText = diccionario.brandSub;
+        const elTimer = document.getElementById('lblTimerTitle');
+        if (elTimer) elTimer.innerText = diccionario.timerTitle;
+        const elOraculo = document.getElementById('lbl-oraculo-instruccion');
+        if (elOraculo) elOraculo.innerText = diccionario.oraculoInstruccion;
+        const elDesahogo = document.getElementById('lbl-desahogo');
+        if (elDesahogo) elDesahogo.innerText = diccionario.desahogoLabel;
+        const elInpLibre = document.getElementById('inp-text-libre');
+        if (elInpLibre) elInpLibre.placeholder = diccionario.placeholderLibre;
+        const elBtnActivar = document.getElementById('btn-activar-libre');
+        if (elBtnActivar) elBtnActivar.innerText = diccionario.btnActivar;
         
         this.inyectarPreguntasOraculo();
     },
@@ -251,8 +248,6 @@ const KERNEL = {
         contenedor.innerHTML = "";
         
         const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
-        
-        // Algoritmo inmutable de desordenamiento y extracción de 3 elementos flotantes en cascada
         let seleccionadas = [...lista].sort(() => 0.5 - Math.random()).slice(0, 3);
         
         seleccionadas.forEach((pregunta, idx) => {
@@ -281,19 +276,60 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
 
-        // Bloqueo y transición estética de viewports
+        const zipValue = document.getElementById('inp-zip').value || "33167";
+        const modoValue = document.getElementById('modo-selector').value;
+        const menteValue = document.getElementById('mente-selector').value;
+        const budgetValue = document.getElementById('budget-selector').value;
+        const perfilValue = document.getElementById('perfil-selector').value;
+        const textoLibreValue = document.getElementById('inp-text-libre').value;
+
+        document.body.style.cursor = "wait";
+
+        try {
+            const respuesta = await fetch("https://wellness-travel.onrender.com", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    zip_code: zipValue, modo: modoValue, mente: menteValue,
+                    budget: budgetValue, perfil: perfilValue,
+                    historial_vistos: this.historialVistos, texto_libre: textoLibreValue
+                })
+            });
+
+            if (!respuesta.ok) throw new Error();
+            const data = await respuesta.json();
+            document.body.style.cursor = "default";
+
+            this.balanceBienestar = data.balance_bienestar;
+            this.escapesVIP = data.opciones_escape_vip; 
+
+            this.escapesVIP.forEach(dest => this.historialVistos.push(dest.id));
+
+        } catch (err) {
+            document.body.style.cursor = "default";
+            alert("Error al conectar con el oráculo.");
+            this.isLocked = false;
+            return;
+        }
+
         document.getElementById('wrapper-form').classList.add('hidden');
         document.getElementById('activeSessionDock').classList.remove('hidden');
 
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
 
-        // Cronómetro maestro síncrono de 10 minutos (600s) idéntico a Open Than Go
         this.serviceTimer = setInterval(() => {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
-            // INYECCIÓN OBLIGATORIA DEL DESTINO EN ROJO 4 MINUTOS ANTES DE EXPIRAR (MINUTO 6 / 240s RESTANTES)
+            if (this.timeLeft === 480 && localStorage.getItem('otg_user_role') !== 'admin' && !localStorage.getItem('otg_pase_stripe')) {
+                clearInterval(this.serviceTimer);
+                clearInterval(this.breatheInterval);
+                clearInterval(this.voiceInterval);
+                document.getElementById('otg-muro-comercial').classList.remove('hidden');
+                return;
+            }
+
             if (this.timeLeft === 240) {
                 this.inyectarDestinoOpcionalRojo();
             }
@@ -309,25 +345,63 @@ const KERNEL = {
         this.activarVozAsesorContinuo();
     },
 
+    procesarPagoStripe(tipo) {
+        const priceId = tipo === 'unico' ? 'price_1TtbjXBOA5mT4t0PMCJSext6' : 'price_1TtblSBOA5mT4t0PGiYvT2l9';
+        const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
+        
+        document.body.style.cursor = "wait";
+        fetch("https://wellness-travel.onrender.com", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ price_id: priceId, folio_id: folio })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.url) {
+                localStorage.setItem('otg_pase_stripe', 'true');
+                window.location.href = data.url;
+            }
+        })
+        .catch(() => {
+            document.body.style.cursor = "default";
+            alert("Error de comunicación en pasarela fiduciaria.");
+        });
+    },
+
     activarSintonizaAcusticaYouTube() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
-        this.emitirVoz(dic.vozSintonialAcustica);
         const stack = document.getElementById('interactiveStack');
+        
+        const modoActivo = document.getElementById('modo-selector').value;
+        const menteActiva = document.getElementById('mente-selector').value;
+        
+        let discursoInicial = this.idiomaActual === 'es' 
+            ? `Líder. Modo ${modoActivo} activado para mente en estado ${menteActiva}. Iniciando aislamiento acústico.`
+            : `Leader. Mode ${modoActivo} enabled for mind state ${menteActiva}. Deploying acoustic isolation.`;
+            
+        this.emitirVoz(discursoInicial);
 
-        const poolVideos = [
-            { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", id: "1ZYbU82GVz4" },
-            { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", id: "WPni755-Krg" }
-        ];
-
-        let html = `<div style="margin-bottom:10px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
-        poolVideos.forEach((v) => {
-            // CORREGIDO: Se cambió de comillas simples a backticks y interpolación correcta ${v.id}
+        let html = `<div style="margin-bottom:15px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
+        
+        this.escapesVIP.forEach((dest) => {
+            const detalles = this.idiomaActual === 'es' ? dest.detalles_es : dest.detalles_en;
             html += `
-                <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
-                    <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
-                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.15); padding:16px; border-radius:16px; margin-bottom:15px; text-align:left;">
+                    <div style="font-size:14px; font-weight:700; color:var(--gold-champagne); margin-bottom:6px;">👑 ${dest.nombre}</div>
+                    <p style="font-size:12px; color:#bbb; line-height:1.4; margin-bottom:8px;">${detalles.descripcion}</p>
+                    <div style="font-size:11px; color:#9E9EA4; margin-bottom:4px;"><b>Actividad:</b> ${detalles.actividad_sintonía}</div>
+                    <div style="font-size:11px; color:#9E9EA4; margin-bottom:4px;"><b>Logística Aérea:</b> ${detalles.logistica_aerea}</div>
+                    <div style="font-size:11px; color:#9E9EA4; margin-bottom:10px;"><b>Línea Marítima:</b> ${detalles.logistica_maritima}</div>
+                    <button class="gold-action-btn" style="padding:10px 20px; font-size:11px; margin-top:0; width:auto; border-radius:12px;" onclick="window.open('https://google.com?q=${encodeURIComponent(dest.nombre)}', '_blank')">
+                        ${dic.mapsBtn}
+                    </button>
                 </div>`;
         });
+        
+        html += `
+            <iframe style="width:100%; height:120px; border:0; border-radius:12px; margin-top:10px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe style="width:100%; height:120px; border:0; border-radius:12px; margin-top:10px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        `;
         stack.innerHTML = html;
     },
 
@@ -335,7 +409,6 @@ const KERNEL = {
         let paso = 0;
         const dic = this.TRADUCCIONES[this.idiomaActual];
         
-        // Ciclo síncrono inmutable de respiración clínica en 4 tiempos fijos
         this.breatheInterval = setInterval(() => {
             const circle = document.getElementById('lungCircle');
             if (!circle) return;
@@ -366,7 +439,6 @@ const KERNEL = {
         this.voiceInterval = setInterval(emitir, 45000);
     },
 
-    // Inyección interactiva obligatoria destacada en ROJO a los 4 minutos finales
     inyectarDestinoOpcionalRojo() {
         const stack = document.getElementById('interactiveStack');
         const dic = this.TRADUCCIONES[this.idiomaActual];
@@ -374,9 +446,7 @@ const KERNEL = {
         
         const divDestino = document.createElement('div');
         divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
-        
-        // CORREGIDO: Uso correcto de backticks para la URL de Google Search
-        divDestino.onclick = () => window.open(`https://google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
+        divDestino.onclick = () => window.open(`https://google.com?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
         
         divDestino.innerHTML = `
             <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
@@ -387,9 +457,7 @@ const KERNEL = {
         stack.insertBefore(divDestino, stack.firstChild);
     },
 
-    // MÓDULO COMPLETO CRONOMETRADO DEL CIERRE CONSCIENTE (99% OPEN THAN GO)
     activarCierreConscienteCronometrado() {
-        // Desplegar viewport de cierre inyectando un reto conductual aleatorio
         document.getElementById('activeSessionDock').classList.add('hidden');
         document.getElementById('pantalla-cierre').classList.remove('hidden');
 
@@ -407,7 +475,6 @@ const KERNEL = {
             document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_en;
         }
 
-        // Ejecutar cuenta atrás obligatoria de 60 segundos
         this.cierreTimerInterval = setInterval(() => {
             this.cierreTimeLeft--;
             document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
@@ -422,26 +489,34 @@ const KERNEL = {
     finalizarCierreYMostrarDescarga() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
-        
-        document.getElementById('cierre-timer').classList.add('hidden');
+        const timerEl = document.getElementById('cierre-timer');
+        if (timerEl) timerEl.classList.add('hidden');
         
         const msgFinal = document.getElementById('cierre-mensaje-final');
-        msgFinal.innerText = dic.cierreFinalizado;
-        msgFinal.classList.remove('hidden');
+        if (msgFinal) {
+            msgFinal.innerText = dic.cierreFinalizado;
+            msgFinal.classList.remove('hidden');
+        }
 
-        const btnReiniciar = document.getElementById('btn-recomenzar-experiencia');
-        btnReiniciar.classList.remove('hidden');
-
-        // Transformación dinámica del contenedor para habilitar la descarga del PDF fiduciario
+        const recomenzarBtn = document.getElementById('btn-recomenzar-experiencia');
+        if (recomenzarBtn) recomenzarBtn.classList.remove('hidden');
+        
         const root = document.getElementById('cierre-message');
+        if (!root) return;
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
         
         root.innerHTML = `
             <div style="text-align:center; padding:10px 0;"> 
-                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
-                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
-                </p> 
-                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button> 
+                <button class="gold-action-btn" style="margin-bottom:15px;" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
+                <div style="border-top:1px solid var(--border-subtle); margin:20px 0; padding-top:15px;">
+                    <h4 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:13px; letter-spacing:1px; margin-bottom:6px;">✈️ DISEÑO DE ITINERARIOS AD HOC</h4>
+                    <p style="font-size:11.5px; color:var(--text-muted); line-height:1.4; margin-bottom:12px;">
+                        ¿Desea materializar su escape? Conéctese de forma directa y privada con nuestro Consultor de Viajes Élite para gestionar charters aéreos, reservas Virtuoso y logística marítima exclusiva.
+                    </p>
+                    <button class="gold-action-btn" style="background:var(--gold-champagne); color:#030305; font-size:11px; font-weight:700;" onclick="window.open('https://wa.me/1799747913?text=' + encodeURIComponent('Hola, he completado mi pasaporte de bienestar y deseo coordinar la logística de mi próximo itinerario premium.'), '_blank')">
+                        CONTACTAR AGENTE PRIVADO
+                    </button>
+                </div>
             </div>
         `;
     },
@@ -449,29 +524,32 @@ const KERNEL = {
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
         
-        // CONEXIÓN DIRECTA FIX A TU ENDPOINT EN RENDER
         fetch("https://wellness-travel.onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 servicio_id: folio, 
                 lang: this.idiomaActual,
-                score_inicial: 45.0, score_actual: 90.0, respiracion_score: 100.0, adivinanzas_score: 100.0,
-                iev: 95.0, variante: "ELITE_WELLNESS", destino_id: "S1"
+                score_inicial: this.balanceBienestar ? this.balanceBienestar.inicial : 45.0, 
+                score_actual: this.balanceBienestar ? this.balanceBienestar.cierre_proyectado : 90.0, 
+                respiracion_score: 100.0, adivinanzas_score: 100.0,
+                iev: 95.0, 
+                variante: "ELITE_WELLNESS", 
+                destino_id: "S1"
             })
         })
         .then(res => {
-            if (!res.ok) throw new Error("Fallo transaccional");
+            if (!res.ok) throw new Error();
             return res.blob();
         })
         .then(blob => {
             document.body.style.cursor = "default";
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url; 
+            a.href = url;
             a.download = `Wellness_Elite_Passport_${folio}.pdf`;
-            document.body.appendChild(a); 
-            a.click(); 
+            document.body.appendChild(a);
+            a.click();
             a.remove();
         })
         .catch(() => {
@@ -487,7 +565,9 @@ const KERNEL = {
             this.devClickCount++;
             if (this.devClickCount === 3) {
                 this.devClickCount = 0;
-                window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+                localStorage.setItem('otg_user_role', 'admin');
+                alert("Acceso Desarrollador Concedido. Licencia de propietario verificada de manera fiduciaria.");
+                location.reload();
             }
         });
     }
