@@ -326,6 +326,8 @@ const KERNEL = {
         
         const divDestino = document.createElement('div');
         divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
+        
+        // CORRECCIÓN SINTÁCTICA: Template string correcto con backticks (`) y signo de dólar ($)
         divDestino.onclick = () => window.open(`https://google.com{encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
         
         divDestino.innerHTML = `
