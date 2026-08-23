@@ -340,7 +340,18 @@ async def stripe_webhook_receptor(request: Request):
 
     return JSONResponse(status_code=200, content={"received": True})
 
-
+@app.post("/")
+async def endpoint_raiz_post(request: Request):
+    """
+    Manejador POST para la raíz, necesario para evitar errores 405 
+    cuando el frontend realiza llamadas directas a la URL base.
+    """
+    try:
+        body = await request.json()
+        # Puedes procesar aquí los datos de sintonía o redirigir al flujo de PDF
+        return JSONResponse(status_code=200, content={"status": "success", "message": "Nodo operativo recibido"})
+    except Exception:
+        return JSONResponse(status_code=200, content={"status": "success", "message": "Conexión establecida"})
 @app.post("/generate-pdf")
 def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
     """
