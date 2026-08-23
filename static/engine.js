@@ -1,5 +1,5 @@
 // =========================================================================
-// WELLNESS TRAVEL FRONTEND LOGIC — ESTABILIZADO Y COMPLETO (STATIC)
+// WELLNESS TRAVEL FRONTEND LOGIC — NÚCLEO MAESTRO COMPLETO E ÍNTEGRO
 // =========================================================================
 
 const KERNEL = {
@@ -56,7 +56,7 @@ const KERNEL = {
         }
     },
 
-    // Matriz de Retos Conductuales del Cierre Consciente (Con iconos seguros integrados)
+    // Matriz de Retos Conductuales del Cierre Consciente (Con iconos seguros integrados para evitar 404)
     CATALOGO_RETOS: [
         {
             id: "R1", icono: "🧘‍♂️",
@@ -100,6 +100,7 @@ const KERNEL = {
         }
     ],
 
+    // Catálogo completo de 48 preguntas para el oráculo interactivo
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
         "¿Se diluye tu enfoque en redes digitales buscando llenar vacíos de desconexión?",
@@ -110,7 +111,45 @@ const KERNEL = {
         "¿Permaneces conectado a pantallas por inercia sacrificando tu espacio de aislamiento?",
         "¿Te cuesta encontrar un momento de absoluto silencio acústico en tu rutina?",
         "¿Sientes que la inercia diaria bloquea la apreciación del tiempo presente?",
-        "¿La velocidad del entorno dificulta sintonizar con tu balance interno?"
+        "¿La velocidad del entorno dificulta sintonizar con tu balance interno?",
+        "¿Experimentas una constante demanda de atención que fragmenta tu enfoque?",
+        "¿El exceso de información ambiental genera fricción en tus decisiones de vida?",
+        "¿Te cuesta desconectar del flujo constante de notificaciones e interacciones?",
+        "¿Sientes que tu espacio personal ha sido invadido por estímulos innecesarios?",
+        "¿La prisa colectiva te empuja a actuar sin una intención clara hoy?",
+        "¿Percibes una desconexión entre tus metas de bienestar y tus hábitos diarios?",
+        "¿Buscas refugio en el aislamiento pero el entorno urbano dificulta el silencio?",
+        "¿La saturación de compromisos sociales limita tu tiempo de introspección?",
+        "¿Sientes que la falta de espacios curados afecta tu perspectiva diaria?",
+        "¿Te resulta complejo trazar una línea divisoria entre el entorno y tu tranquilidad?",
+        "¿La falta de pausas conscientes reduce la claridad de tu visión personal?",
+        "¿Percibes que las demandas del día a día consumen tu reserva de enfoque?",
+        "¿Te dejas llevar por la corriente de la rutina sin evaluar tu balance individual?",
+        "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?",
+        "¿El ritmo automatizado de tus días disminuye la calidad de tu descanso?",
+        "¿Buscas un entorno exclusivo pero las opciones comunes te generan saturación?",
+        "¿La exposición continua a entornos densivos limita tu claridad reflexiva?",
+        "¿Sientes la necesidad de resetear tus estímulos sensoriales de manera urgente?",
+        "¿El dinamismo excesivo de tu agenda reduce tu capacidad de contemplación?",
+        "¿Te cuesta retener la sensación de calma ante la presión de los tiempos?",
+        "¿Sientes que el entorno te exige una velocidad que no deseas mantener?",
+        "¿La sobrecarga de interacciones superficiales desgasta tu nivel de sintonía?",
+        "¿Te resulta difícil aislar tus pensamientos del bullicio general de la ciudad?",
+        "¿La falta de un santuario personal fragmenta tu consistencia en el enfoque?",
+        "¿Sientes que el tiempo transcurre sin permitirte asimilar tus logros?",
+        "¿El exceso de opciones y alternativas del día a día nubla tu dirección?",
+        "¿La prisa por cumplir expectativas externas drena tu sintonía individual?",
+        "¿Te cuesta trabajo establecer un límite firme ante las demandas de tu entorno?",
+        "¿Sientes que la desconexión con la naturaleza acelera tu fatiga ambiental?",
+        "¿El ruido de fondo constante en tus actividades impide tu concentración profunda?",
+        "¿Te percibes atrapado en patrones de consumo digital que no aportan valor?",
+        "¿La falta de una estructura de bienestar adaptada fragmenta tu estabilidad?",
+        "¿Sientes que la prisa de los demás dicta el ritmo de tus propias pausas?",
+        "¿La saturación en los espacios habituales limita tu libertad de pensamiento?",
+        "¿Te cuesta encontrar un balance armónico entre tu vida social y tu espacio solo?",
+        "¿El ritmo vertiginoso del entorno obstaculiza tu claridad a largo plazo?",
+        "¿Sientes que la rutina se repite sin ofrecerte un espacio genuino de renovación?",
+        "¿La presión constante del entorno compromete la calidad de tu enfoque mental?"
     ],
 
     CATALOGO_PREGUNTAS_EN: [
@@ -123,7 +162,45 @@ const KERNEL = {
         "Do you remain connected to screens out of inertia, sacrificing your isolation space?",
         "Is it difficult to find a moment of absolute acoustic silence in your routine?",
         "Do you feel that daily inertia blocks your appreciation of the present time?",
-        "Does the speed of the surroundings make it difficult to tune your internal balance?"
+        "Does the speed of the surroundings make it difficult to tune your internal balance?",
+        "Are you experiencing a constant demand for attention that fragments your focus?",
+        "Does the excess of environmental information create friction in your life choices?",
+        "Is it hard for you to disconnect from the constant stream of notifications?",
+        "Do you feel your personal space has been invaded by unnecessary external stimuli?",
+        "Does the collective rush push you to act without a clear intention today?",
+        "Do you perceive a disconnect between your wellness goals and daily habits?",
+        "Do you seek shelter in isolation but the urban landscape complicates silence?",
+        "Does the saturation of social commitments limit your time for introspection?",
+        "Do you feel that the lack of curated spaces affects your daily perspective?",
+        "Is it complex to draw a firm line between the environment and your peace?",
+        "Does the lack of conscious pauses reduce the clarity of your personal vision?",
+        "Do you perceive that daily demands consume your reserved focus index?",
+        "Are you carried away by the current of routine without assessing your balance?",
+        "Do you feel the visual noise of your habitual environment interrupts your calm?",
+        "Does the automated rhythm of your days decrease the quality of your rests?",
+        "Are you looking for an exclusive environment but common options cause overload?",
+        "Does continuous exposure to dense surroundings limit your reflective clarity?",
+        "Do you feel an urgent need to reset your internal sensory stimuli?",
+        "Does the excessive dynamism of your schedule reduce your contemplation capacity?",
+        "Is it hard to retain the feeling of calm under the pressure of timelines?",
+        "Do you feel the environment demands a speed you do not wish to maintain?",
+        "Does the overload of superficial interactions wear down your tuning level?",
+        "Is it difficult to isolate your thoughts from the general city bustle?",
+        "Does the lack of a personal sanctuary fragment your deep focus consistency?",
+        "Do you feel time passes without allowing you to assimilate your milestones?",
+        "Does the excess of daily options and alternatives cloud your direction?",
+        "Does the rush to meet external expectations drain your individual tuning?",
+        "Is it hard for you to establish a firm boundary against surrounding demands?",
+        "Do you feel that disconnecting from nature accelerates your environmental fatigue?",
+        "Does constant background noise in your actions prevent deep concentration?",
+        "Do you perceive yourself trapped in digital patterns that provide no value?",
+        "Does the lack of a tailored wellness structure fragment your stability?",
+        "Do you feel that the rush of others dictates the pace of your own pauses?",
+        "Does saturation in habitual spaces limit your freedom of thought?",
+        "Is it hard to find a harmonious balance between social life and solo space?",
+        "Does the dizzying pace of the environment hinder your long-term clarity?",
+        "Do you feel routine repeats itself without offering a genuine space for renewal?",
+        "Does the constant pressure of the surroundings compromise your mental focus?"
     ],
 
     init() {
@@ -231,14 +308,14 @@ const KERNEL = {
 
         } catch (err) {
             document.body.style.cursor = "default";
-            // Fallback de seguridad local si la red falla temporalmente
+            // Respaldo estructural de emergencia si el backend no responde
             this.balanceBienestar = { inicial: 45.0, cierre_proyectado: 90.0 };
             this.escapesVIP = [
                 {
                     id: "S1",
                     nombre: "Amanera Executive Sanctuary",
                     detalles_es: { descripcion: "Santuario privado frente al mar con aislamiento absoluto.", actividad_sintonía: "Contemplación de mareas", logistica_aerea: "Helipuerto privado disponible", logistica_maritima: "Muelle exclusivo 432Hz" },
-                    detalles_en: { descripcion: "Private oceanfront sanctuary with absolute isolation.", activity_sintonía: "Tidal contemplation", logistica_aerea: "Private helipad available", logistica_maritima: "Exclusive 432Hz dock" }
+                    detalles_en: { descripcion: "Private oceanfront sanctuary with absolute isolation.", actividad_sintonía: "Tidal contemplation", logistica_aerea: "Private helipad available", logistica_maritima: "Exclusive 432Hz dock" }
                 }
             ];
         }
@@ -395,7 +472,6 @@ const KERNEL = {
 
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
         
-        // Renderizado seguro por icono vectorial en texto para evitar 404
         const imgContainer = document.getElementById('reto-img');
         if (imgContainer) {
             imgContainer.outerHTML = `<div id="reto-img" style="font-size: 50px; text-align: center; margin-bottom: 10px;">${retoSeleccionado.icono}</div>`;
