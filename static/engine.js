@@ -1,25 +1,23 @@
 // =========================================================================
-// WELLNESS TRAVEL FRONTEND LOGIC — RECONSTRUCCIÓN DINÁMICA PURA 1:1 OTG
-// ARCHIVO COMPLETO, INTEGRAL Y ACTUALIZADO (VERSIÓN DEFINITIVA)
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 99% OPEN THAN GO
+// PARTE 1: ARQUITECTURA DE DATOS, DICCIONARIOS Y RETOS DE CIERRE CONSCIENTE
 // =========================================================================
 
 const KERNEL = {
-    // Variables de Estado de Ingeniería Dinámica
+    // Variables de Estado de Ingeniería (Sincronizadas con Open Than Go)
     timerInaccion: null,
     serviceTimer: null,
     breatheInterval: null,
     voiceInterval: null,
     cierreTimerInterval: null,
-    timeLeft: 600,         // 10 minutos matemáticos obligatorios de sesión activa
-    cierreTimeLeft: 60,    // 60 segundos de Limpieza Mental Profunda en Cierre
+    timeLeft: 600,         // 10 minutos matemáticos de sesión activa obligatoria
+    cierreTimeLeft: 60,    // 60 segundos obligatorios de Limpieza Mental Profunda en Cierre
     isLocked: false,
     idiomaActual: 'es',
     devClickCount: 0,
-    historialVistos: [],   // Almacenamiento anti-repeticiones del CRM local
-    balanceBienestar: null,
-    escapesVIP: [],
+    historialVistos: [],   // Control local anti-repeticiones para enrutamiento
 
-    // Diccionarios VIP Extendidos
+    // Diccionarios VIP Extendidos (Absolutamente libres de términos médicos o laborales)
     TRADUCCIONES: {
         es: {
             brandSub: "Arquitectura de Santuarios Ejecutivos",
@@ -59,19 +57,51 @@ const KERNEL = {
         }
     },
 
-    // Catálogo de Retos Conductuales
+    // Matriz de Retos Conductuales del Cierre Consciente (Réplica exacta 1:1)
     CATALOGO_RETOS: [
-        { id: "R1", icono: "🧘‍♂️", titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.", titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room." },
-        { id: "R2", icono: "👁️", titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.", titulo_en: "Fixed Comtemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment." },
-        { id: "R3", icono: "✍️", titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.", titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air." },
-        { id: "R4", icono: "🍃", titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.", titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways." },
-        { id: "R5", icono: "🦾", titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.", titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly." },
-        { id: "R6", icono: "🌊", titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.", titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave." },
-        { id: "R7", icono: "⚓", titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.", titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly." },
-        { id: "R8", icono: "🔲", titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.", titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace." }
+        {
+            id: "R1", img: "/static/silence.svg",
+            titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.",
+            titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room."
+        },
+        {
+            id: "R2", img: "/static/observe.svg",
+            titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.",
+            titulo_en: "Fixed Contemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment."
+        },
+        {
+            id: "R3", img: "/static/words.svg",
+            titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.",
+            titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air."
+        },
+        {
+            id: "R4", img: "/static/laugh.svg",
+            titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.",
+            titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways."
+        },
+        {
+            id: "R5", img: "/static/stretch.svg",
+            titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.",
+            titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly."
+        },
+        {
+            id: "R6", img: "/static/nature_sound.svg",
+            titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.",
+            titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave."
+        },
+        {
+            id: "R7", img: "/static/gratitude.svg",
+            titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.",
+            titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly."
+        },
+        {
+            id: "R8", img: "/static/square_breath.svg",
+            titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.",
+            titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace."
+        }
     ],
 
-    // Matriz de las 48 preguntas en Español
+    // Pool de Preguntas Analíticas — Primer Bloque (1 a 24)
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
         "¿Se diluye tu enfoque en redes digitales buscando llenar vacíos de desconexión?",
@@ -96,8 +126,12 @@ const KERNEL = {
         "¿La falta de pausas conscientes reduce la claridad de tu visión personal?",
         "¿Percibes que las demandas del día a día consumen tu reserva de enfoque?",
         "¿Te dejas llevar por la corriente de la rutina sin evaluar tu balance individual?",
-        "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?",
-        "¿El ritmo automatizado de tus días disminuye la calidad de tu descanso?",
+        "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?"
+    ],
+
+    // Continuación Pool de Preguntas Analíticas — Segundo Bloque (25 a 48)
+    CATALOGO_PREGUNTAS_ES_2: [
+        "¿El ritmo automatizado de tus días disminuye la calidad de tus descansos?",
         "¿Buscas un entorno exclusivo pero las opciones comunes te generan saturación?",
         "¿La exposición continua a entornos densivos limita tu claridad reflexiva?",
         "¿Sientes la necesidad de resetear tus estímulos sensoriales de manera urgente?",
@@ -123,7 +157,7 @@ const KERNEL = {
         "¿La presión constante del entorno compromete la calidad de tu enfoque mental?"
     ],
 
-    // Matriz de las 48 preguntas en Inglés
+    // Pool Completo de Preguntas Analíticas en Inglés (1 a 48)
     CATALOGO_PREGUNTAS_EN: [
         "Do you feel environmental stimuli saturate your ability to contemplate calm?",
         "Does your strategic focus dissolve in digital networks trying to fill moments of friction?",
@@ -176,6 +210,8 @@ const KERNEL = {
     ],
 
     init() {
+        // Unificar los dos bloques en español en un solo arreglo dinámico al arrancar
+        this.CATALOGO_PREGUNTAS_ES = [...this.CATALOGO_PREGUNTAS_ES, ...this.CATALOGO_PREGUNTAS_ES_2];
         this.cambiarIdioma(this.idiomaActual);
         this.conectarMantenimientoDesarrollador();
     },
@@ -183,28 +219,20 @@ const KERNEL = {
     cambiarIdioma(lang) {
         this.idiomaActual = lang;
         const diccionario = this.TRADUCCIONES[lang];
-        
-        const elBrand = document.getElementById('lblBrandSub');
-        if (elBrand) elBrand.innerText = diccionario.brandSub;
-        const elTimer = document.getElementById('lblTimerTitle');
-        if (elTimer) elTimer.innerText = diccionario.timerTitle;
-        const elOraculo = document.getElementById('lbl-oraculo-instruccion');
-        if (elOraculo) elOraculo.innerText = diccionario.oraculoInstruccion;
-        const elDesahogo = document.getElementById('lbl-desahogo');
-        if (elDesahogo) elDesahogo.innerText = diccionario.desahogoLabel;
-        const elInpLibre = document.getElementById('inp-text-libre');
-        if (elInpLibre) elInpLibre.placeholder = diccionario.placeholderLibre;
-        const elBtnActivar = document.getElementById('btn-activar-libre');
-        if (elBtnActivar) elBtnActivar.innerText = diccionario.btnActivar;
-        
+       
+        document.getElementById('lblBrandSub').innerText = diccionario.brandSub;
+        document.getElementById('lblTimerTitle').innerText = diccionario.timerTitle;
+        document.getElementById('lbl-oraculo-instruccion').innerText = diccionario.oraculoInstruccion;
+        document.getElementById('lbl-desahogo').innerText = diccionario.desahogoLabel;
+        document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
+        document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
+       
         this.inyectarPreguntasOraculo();
     },
 
     despertarInicial() {
-        const welcomeEl = document.getElementById('pantalla-bienvenida');
-        if (welcomeEl) welcomeEl.style.display = 'none';
-        const formEl = document.getElementById('wrapper-form');
-        if (formEl) formEl.classList.remove('hidden');
+        document.getElementById('pantalla-bienvenida').style.display = 'none';
+        document.getElementById('wrapper-form').classList.remove('hidden');
         this.resetearTemporizadorInaccion();
     },
 
@@ -221,17 +249,18 @@ const KERNEL = {
         const contenedor = document.getElementById('contenedor-preguntas-oraculo');
         if (!contenedor) return;
         contenedor.innerHTML = "";
-        
+       
         const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
+       
+        // Algoritmo inmutable de desordenamiento y extracción de 3 elementos flotantes en cascada
         let seleccionadas = [...lista].sort(() => 0.5 - Math.random()).slice(0, 3);
-        
+       
         seleccionadas.forEach((pregunta, idx) => {
             const btn = document.createElement('button');
             btn.className = 'btn-pregunta-crisis';
             btn.innerText = `${idx + 1}. ${pregunta}`;
             btn.onclick = () => {
-                const libre = document.getElementById('inp-text-libre');
-                if (libre) libre.value = pregunta;
+                document.getElementById('inp-text-libre').value = pregunta;
                 this.ejecutar();
             };
             contenedor.appendChild(btn);
@@ -252,69 +281,19 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
 
-        const zipValue = document.getElementById('inp-zip')?.value || "33167";
-        const modoValue = document.getElementById('modo-selector')?.value || "ejecutivo";
-        const menteValue = document.getElementById('mente-selector')?.value || "activo";
-        const budgetValue = document.getElementById('budget-selector')?.value || "alto";
-        const perfilValue = document.getElementById('perfil-selector')?.value || "individual";
-        const textoLibreValue = document.getElementById('inp-text-libre')?.value || "";
-
-        document.body.style.cursor = "wait";
-
-        try {
-            const respuesta = await fetch("https://onrender.com", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    zip_code: zipValue, modo: modoValue, mente: menteValue,
-                    budget: budgetValue, perfil: perfilValue,
-                    historial_vistos: this.historialVistos, texto_libre: textoLibreValue
-                })
-            });
-
-            if (!respuesta.ok) throw new Error();
-            const data = await respuesta.json();
-            document.body.style.cursor = "default";
-
-            this.balanceBienestar = data.balance_bienestar;
-            this.escapesVIP = data.opciones_escape_vip; 
-
-            this.escapesVIP.forEach(dest => this.historialVistos.push(dest.id));
-
-        } catch (err) {
-            document.body.style.cursor = "default";
-            this.balanceBienestar = { inicial: 45.0, cierre_proyectado: 90.0 };
-            this.escapesVIP = [
-                {
-                    id: "S1",
-                    nombre: "Amanera Executive Sanctuary",
-                    detalles_es: { descripcion: "Santuario privado frente al mar con aislamiento absoluto.", actividad_sintonía: "Contemplación de mareas", logistica_aerea: "Helipuerto privado disponible", logistica_maritima: "Muelle exclusivo 432Hz" },
-                    detalles_en: { descripcion: "Private oceanfront sanctuary with absolute isolation.", actividad_sintonía: "Tidal contemplation", logistica_aerea: "Private helipad available", logistica_maritima: "Exclusive 432Hz dock" }
-                }
-            ];
-        }
-
-        const formWrapper = document.getElementById('wrapper-form');
-        if (formWrapper) formWrapper.classList.add('hidden');
-        const sessionDock = document.getElementById('activeSessionDock');
-        if (sessionDock) sessionDock.classList.remove('hidden');
+        // Bloqueo y transición estética de viewports
+        document.getElementById('wrapper-form').classList.add('hidden');
+        document.getElementById('activeSessionDock').classList.remove('hidden');
 
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
 
+        // Cronómetro maestro síncrono de 10 minutos (600s) idéntico a Open Than Go
         this.serviceTimer = setInterval(() => {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
-            if (this.timeLeft === 480 && localStorage.getItem('otg_user_role') !== 'admin' && !localStorage.getItem('otg_pase_stripe')) {
-                clearInterval(this.serviceTimer);
-                clearInterval(this.breatheInterval);
-                clearInterval(this.voiceInterval);
-                const paywall = document.getElementById('otg-muro-comercial');
-                if (paywall) paywall.classList.remove('hidden');
-                return;
-            }
-
+            // INYECCIÓN OBLIGATORIA DEL DESTINO EN ROJO 4 MINUTOS ANTES DE EXPIRAR (MINUTO 6 / 240s RESTANTES)
             if (this.timeLeft === 240) {
                 this.inyectarDestinoOpcionalRojo();
             }
@@ -330,79 +309,39 @@ const KERNEL = {
         this.activarVozAsesorContinuo();
     },
 
-    procesarPagoStripe(tipo) {
-        const priceId = tipo === 'unico' ? 'price_1TtbjXBOA5mT4t0PMCJSext6' : 'price_1TtblSBOA5mT4t0PGiYvT2l9';
-        const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
-        
-        document.body.style.cursor = "wait";
-        fetch("https://onrender.com", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ price_id: priceId, folio_id: folio })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.url) {
-                localStorage.setItem('otg_pase_stripe', 'true');
-                window.location.href = data.url;
-            }
-        })
-        .catch(() => {
-            document.body.style.cursor = "default";
-            alert("Error de comunicación en pasarela fiduciaria.");
-        });
-    },
-
     activarSintonizaAcusticaYouTube() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
+        this.emitirVoz(dic.vozSintonialAcustica);
         const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
-        
-        const modoActivo = document.getElementById('modo-selector')?.value || "ejecutivo";
-        const menteActiva = document.getElementById('mente-selector')?.value || "activo";
-        
-        let discursoInicial = this.idiomaActual === 'es' 
-            ? `Líder. Modo ${modoActivo} activado para mente en estado ${menteActiva}. Iniciando aislamiento acústico.`
-            : `Leader. Mode ${modoActivo} enabled for mind state ${menteActiva}. Deploying acoustic isolation.`;
-            
-        this.emitirVoz(discursoInicial);
 
-        let html = `<div style="margin-bottom:15px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
-        
-        this.escapesVIP.forEach((dest) => {
-            const detalles = this.idiomaActual === 'es' ? dest.detalles_es : dest.detalles_en;
+        const poolVideos = [
+            { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", id: "1ZYbU82GVz4" },
+            { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", id: "WPni755-Krg" }
+        ];
+
+        let html = `<div style="margin-bottom:10px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
+        poolVideos.forEach((v) => {
+            // CORREGIDO: Se cambió de comillas simples a backticks y interpolación correcta ${v.id}
             html += `
-                <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.15); padding:16px; border-radius:16px; margin-bottom:15px; text-align:left;">
-                    <div style="font-size:14px; font-weight:700; color:var(--gold-champagne); margin-bottom:6px;">👑 ${dest.nombre}</div>
-                    <p style="font-size:12px; color:#bbb; line-height:1.4; margin-bottom:8px;">${detalles.descripcion}</p>
-                    <div style="font-size:11px; color:#9E9EA4; margin-bottom:4px;"><b>Actividad:</b> ${detalles.actividad_sintonía}</div>
-                    <div style="font-size:11px; color:#9E9EA4; margin-bottom:4px;"><b>Logística Aérea:</b> ${detalles.logistica_aerea}</div>
-                    <div style="font-size:11px; color:#9E9EA4; margin-bottom:10px;"><b>Línea Marítima:</b> ${detalles.logistica_maritima}</div>
-                    <button class="gold-action-btn" style="padding:10px 20px; font-size:11px; margin-top:0; width:auto; border-radius:12px;" onclick="window.open('https://google.com?q=' + encodeURIComponent('${dest.nombre}'), '_blank')">
-                        ${dic.mapsBtn}
-                    </button>
+                <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
+                    <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
+                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>`;
         });
-        
-        html += `
-            <div style="margin-top:15px; display:flex; flex-direction:column; gap:12px;">
-                <iframe style="width:100%; height:140px; border:0; border-radius:12px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                <iframe style="width:100%; height:140px; border:0; border-radius:12px;" src="https://youtube.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        `;
         stack.innerHTML = html;
     },
 
     iniciarPulmonVisual() {
         let paso = 0;
         const dic = this.TRADUCCIONES[this.idiomaActual];
-        
+       
+        // Ciclo síncrono inmutable de respiración clínica en 4 tiempos fijos
         this.breatheInterval = setInterval(() => {
             const circle = document.getElementById('lungCircle');
             if (!circle) return;
-            
+           
             circle.innerText = dic.pasosRespiracion[paso];
-            
+           
             if (paso === 0) {
                 circle.className = "lung-circle-master lung-inhale-state";
             } else if (paso === 2) {
@@ -410,7 +349,7 @@ const KERNEL = {
             } else {
                 circle.className = "lung-circle-master";
             }
-            
+           
             paso = (paso + 1) % 4;
         }, 4000);
     },
@@ -418,8 +357,7 @@ const KERNEL = {
     actualizarRelojInterfaz() {
         let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-        const clockEl = document.getElementById('clockDisplay');
-        if (clockEl) clockEl.innerText = `${mins}:${secs}`;
+        document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
     },
 
     activarVozAsesorContinuo() {
@@ -428,53 +366,51 @@ const KERNEL = {
         this.voiceInterval = setInterval(emitir, 45000);
     },
 
+    // Inyección interactiva obligatoria destacada en ROJO a los 4 minutos finales
     inyectarDestinoOpcionalRojo() {
         const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.discursoMin4);
-        
+       
         const divDestino = document.createElement('div');
-        divDestino.style.cssText = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
-        divDestino.onclick = () => window.open(`https://google.com?q=` + encodeURIComponent('Luxury Resort Amanera Playa Grande'), '_blank');
-        
+        divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
+       
+        // CORREGIDO: Uso correcto de backticks para la URL de Google Search
+        divDestino.onclick = () => window.open(`https://google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
+       
         divDestino.innerHTML = `
-            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
-            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div> 
-            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} </p> 
+            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div>
+            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div>
+            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} </p>
             <span style="font-size:10px; background:var(--alert-crimson); color:#fff; padding:4px 8px; border-radius:4px; font-weight:bold; text-transform:uppercase;">${dic.mapsBtn}</span>
         `;
         stack.insertBefore(divDestino, stack.firstChild);
     },
 
+    // MÓDULO COMPLETO CRONOMETRADO DEL CIERRE CONSCIENTE (99% OPEN THAN GO)
     activarCierreConscienteCronometrado() {
-        const sessionDock = document.getElementById('activeSessionDock');
-        if (sessionDock) sessionDock.classList.add('hidden');
-        const cierrePantalla = document.getElementById('pantalla-cierre');
-        if (cierrePantalla) cierrePantalla.classList.remove('hidden');
+        // Desplegar viewport de cierre inyectando un reto conductual aleatorio
+        document.getElementById('activeSessionDock').classList.add('hidden');
+        document.getElementById('pantalla-cierre').classList.remove('hidden');
 
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
-        
-        const imgContainer = document.getElementById('reto-img');
-        if (imgContainer) {
-            imgContainer.outerHTML = `<div id="reto-img" style="font-size: 50px; text-align: center; margin-bottom: 10px;">${retoSeleccionado.icono}</div>`;
-        }
-        
-        const retoTitulo = document.getElementById('reto-titulo');
-        const retoDesc = document.getElementById('reto-descripcion');
-
+        const imgTag = document.getElementById('reto-img');
+       
+        imgTag.src = retoSeleccionado.img;
+        imgTag.classList.remove('hidden');
+       
         if (this.idiomaActual === 'es') {
-            if (retoTitulo) retoTitulo.innerText = retoSeleccionado.titulo_es;
-            if (retoDesc) retoDesc.innerText = retoSeleccionado.desc_es;
+            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_es;
+            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_es;
         } else {
-            if (retoTitulo) retoTitulo.innerText = retoSeleccionado.titulo_en;
-            if (retoDesc) retoDesc.innerText = retoSeleccionado.desc_en;
+            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_en;
+            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_en;
         }
 
+        // Ejecutar cuenta atrás obligatoria de 60 segundos
         this.cierreTimerInterval = setInterval(() => {
             this.cierreTimeLeft--;
-            const timerEl = document.getElementById('cierre-timer');
-            if (timerEl) timerEl.innerText = this.cierreTimeLeft;
+            document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
 
             if (this.cierreTimeLeft <= 0) {
                 clearInterval(this.cierreTimerInterval);
@@ -486,59 +422,46 @@ const KERNEL = {
     finalizarCierreYMostrarDescarga() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
-        const timerEl = document.getElementById('cierre-timer');
-        if (timerEl) timerEl.classList.add('hidden');
-        
+       
+        document.getElementById('cierre-timer').classList.add('hidden');
+       
         const msgFinal = document.getElementById('cierre-mensaje-final');
-        if (msgFinal) {
-            msgFinal.innerText = dic.cierreFinalizado;
-            msgFinal.classList.remove('hidden');
-        }
+        msgFinal.innerText = dic.cierreFinalizado;
+        msgFinal.classList.remove('hidden');
 
-        const recomenzarBtn = document.getElementById('btn-recomenzar-experiencia');
-        if (recomenzarBtn) recomenzarBtn.classList.remove('hidden');
-        
+        const btnReiniciar = document.getElementById('btn-recomenzar-experiencia');
+        btnReiniciar.classList.remove('hidden');
+
+        // Transformación dinámica del contenedor para habilitar la descarga del PDF fiduciario
         const root = document.getElementById('cierre-message');
-        if (!root) return;
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
-        
-        const textoWhatsApp = encodeURIComponent('Hola, he completado mi pasaporte de bienestar y deseo coordinar la logística de mi próximo itinerario premium.');
-        
+       
         root.innerHTML = `
-            <div style="text-align:center; padding:10px 0;"> 
-                <button class="gold-action-btn" style="margin-bottom:15px;" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
-                <div style="border-top:1px solid var(--border-subtle); margin:20px 0; padding-top:15px;">
-                    <h4 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:13px; letter-spacing:1px; margin-bottom:6px;">✈️ DISEÑO DE ITINERARIOS AD HOC</h4>
-                    <p style="font-size:11.5px; color:var(--text-muted); line-height:1.4; margin-bottom:12px;">
-                        ¿Desea materializar su escape? Conéctese de forma directa y privada con nuestro Consultor de Viajes Élite para gestionar charters aéreos, reservas Virtuoso y logística marítima exclusiva.
-                    </p>
-                    <button class="gold-action-btn" style="background:var(--gold-champagne); color:#030305; font-size:11px; font-weight:700;" onclick="window.open('https://wa.me/17866471371?text=${textoWhatsApp}', '_blank')">
-                        CONTACTAR AGENTE PRIVADO
-                    </button>
-                </div>
+            <div style="text-align:center; padding:10px 0;">
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
+                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
+                </p>
+                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
             </div>
         `;
     },
 
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
-        fetch("https://onrender.com", {
+       
+        // CONEXIÓN DIRECTA FIX A TU ENDPOINT EN RENDER
+        fetch("https://wellness-travel.onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 servicio_id: folio,
                 lang: this.idiomaActual,
-                score_inicial: this.balanceBienestar ? this.balanceBienestar.inicial : 45.0,
-                score_actual: this.balanceBienestar ? this.balanceBienestar.cierre_proyectado : 90.0,
-                respiracion_score: 100.0, 
-                adivinanzas_score: 100.0,
-                iev: 95.0,
-                variante: "ELITE_WELLNESS",
-                destino_id: "S1"
+                score_inicial: 45.0, score_actual: 90.0, respiracion_score: 100.0, adivinanzas_score: 100.0,
+                iev: 95.0, variante: "ELITE_WELLNESS", destino_id: "S1"
             })
         })
         .then(res => {
-            if (!res.ok) throw new Error();
+            if (!res.ok) throw new Error("Fallo transaccional");
             return res.blob();
         })
         .then(blob => {
@@ -564,9 +487,7 @@ const KERNEL = {
             this.devClickCount++;
             if (this.devClickCount === 3) {
                 this.devClickCount = 0;
-                localStorage.setItem('otg_user_role', 'admin');
-                alert("Acceso Desarrollador Concedido. Licencia de propietario verificada de manera fiduciaria.");
-                location.reload();
+                window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
             }
         });
     }
