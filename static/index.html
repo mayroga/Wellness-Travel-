@@ -3,89 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="html-title">MAY ROGA — OPEN THAN GO</title>
+    <title id="html-title">MAY ROGA — Executive Sanctuary Architecture</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+    
+    <script>
+        (function(){
+            const role = localStorage.getItem('otg_user_role');
+            const stripePass = localStorage.getItem('mayroga_pase_stripe');
+            if(role === 'admin' || stripePass) return;
+            
+            console.log("[MAY ROGA] Paywall de alta seguridad activo.");
+            document.addEventListener("DOMContentLoaded", () => {
+                const paywall = document.createElement('div');
+                paywall.id = 'otg-muro-comercial';
+                paywall.style = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:#030305; color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:sans-serif; text-align:center; padding:20px; box-sizing:border-box; z-index:99999;';
+                paywall.innerHTML = `
+                    <h1 style="color:#C5A059; margin-bottom:5px; font-size:2rem; font-family:serif; letter-spacing:6px;">MAY ROGA</h1>
+                    <div style="font-size:11px; color:#A3704C; letter-spacing:2px; margin-bottom:25px;">EXECUTIVE SANCTUARY ARCHITECTURE</div>
+                    <p style="color:#8E8E93; font-size:.9rem; margin-bottom:30px; max-width:320px;">Su pasaporte de sintonía ejecutiva ha sido compilado de forma privada. Seleccione un plan oficial para activar el servicio de la Host Agency.</p>
+                    
+                    <button onclick="KERNEL.redirigirStripe('SINGLE_200', 'WALL-01')" style="width:290px; padding:16px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.1); color:#fff; border-radius:8px; font-weight:bold; cursor:pointer; margin:8px; font-size:.9rem; text-align:left;">
+                        <span style="font-size:10px; color:#888; display:block; letter-spacing:1px;">SINGLE RESET</span>
+                        ⚡ Pase de Un Solo Servicio — $200.00
+                    </button>
+                    
+                    <button onclick="KERNEL.redirigirStripe('ELITE_399', 'WALL-02')" style="width:290px; padding:16px; background:linear-gradient(180deg, rgba(163, 112, 76, 0.15) 0%, rgba(0,0,0,0.5) 100%); border:1px solid #A3704C; color:#fff; border-radius:8px; font-weight:bold; cursor:pointer; margin:8px; font-size:.9rem; text-align:left;">
+                        <span style="font-size:10px; color:#C5A084; display:block; letter-spacing:1px;">ACCESO ILIMITADO</span>
+                        📅 Membresía Mensual Élite — $399.00/mes
+                    </button>
+                    
+                    <button onclick="document.getElementById('otg-admin-form').style.display='flex'" style="background:transparent; border:none; color:#444; margin-top:35px; font-size:.75rem; cursor:pointer; text-decoration:underline; letter-spacing:1px;">MANTENIMIENTO DESARROLLADOR</button>
+                    
+                    <div id="otg-admin-form" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#030305; flex-direction:column; justify-content:center; align-items:center; z-index:100000;">
+                        <h3 style="color:#C5A059; margin-bottom:15px; font-size:1.1rem; font-family:serif; letter-spacing:2px;">CONSOLA DE DESARROLLO</h3>
+                        <input type="text" id="otg-user" placeholder="Username" style="width:240px; padding:12px; margin:6px; background:#0a0a0e; border:1px solid rgba(197,160,89,0.3); color:#fff; border-radius:8px; outline:none; text-align:center;">
+                        <input type="password" id="otg-pass" placeholder="Password" style="width:240px; padding:12px; margin:6px; background:#0a0a0e; border:1px solid rgba(197,160,89,0.3); color:#fff; border-radius:8px; outline:none; text-align:center;">
+                        <button onclick="const u=document.getElementById('otg-user').value, p=document.getElementById('otg-pass').value; if(!u||!p)return; fetch('/verify-dev-access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:u,dev_pass:p})}).then(res=>{if(!res.ok)throw new Error();return res.json();}).then(data=>{if(data.authenticated){localStorage.setItem('otg_user_role','admin');alert('Acceso Concedido.');location.reload();}}).catch(()=>alert('Credenciales inválidas.'));" style="width:240px; padding:12px; background:#C5A059; border:none; color:#030305; font-weight:bold; border-radius:50px; margin-top:15px; cursor:pointer; text-transform:uppercase; letter-spacing:1px;">Bypass de Seguridad</button>
+                        <button onclick="document.getElementById('otg-admin-form').style.display='none'" style="background:transparent; border:none; color:#8E8E93; margin-top:20px; cursor:pointer; font-size:.8rem;">Cancelar</button>
+                    </div>
+                `;
+                document.body.appendChild(paywall);
+            });
+        })();
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         :root {
             --bg-obsidian: #030305;
             --bg-surface: #0a0a0e;
-            --bg-glass: rgba(12, 12, 16, 0.98);
+            --panel: #0f0f12;
+            --text: #FFFFFF;
+            --accent: #E04F4F;
             --gold-champagne: #C5A059;
-            --gold-light: #DFBF7A;
-            --gold-dark: #91723B;
-            --gold-glow: rgba(197, 160, 89, 0.35);
-            --white-ivory: #F9F9FB;
-            --text-muted: #9E9EA4;
-            --alert-crimson: #C0392B;
-            --wellness-green: #27AE60;
+            --gold-primary: #A3704C;
+            --green-action: #3D9970;
+            --cyan-inhale: #00bcd4;
+            --text-muted: #8E8E93;
             --relax-blue: #2980B9;
-            --border-subtle: rgba(197, 160, 89, 0.2);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body, html { width: 100%; height: 100%; background-color: var(--bg-obsidian); color: var(--white-ivory); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .app-window, .container { max-width: 520px; width: 100%; height: 100%; max-height: 92vh; background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian)); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border-subtle); border-radius: 28px; padding: 32px 24px; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08); display: flex; flex-direction: column; position: relative; overflow-y: auto; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html { width: 100%; height: 100%; background-color: var(--bg-obsidian); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; overflow-x: hidden; overflow-y: auto; -webkit-font-smoothing: antialiased; }
+        
+        .container { width: 92%; max-width: 460px; background: var(--panel); border: 1px solid rgba(197, 160, 89, 0.25); border-radius: 28px; padding: 40px 28px; box-shadow: 0 40px 80px rgba(0,0,0,0.9); position: relative; z-index: 10; margin: 24px 0; display: flex; flex-direction: column; gap: 16px; }
+        .lang-bar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 5px; }
+        .btn-lang { background: rgba(255,255,255,0.02); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05); padding: 6px 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; transition: all 0.2s; }
+        .btn-lang.active { background: var(--gold-champagne); color: var(--bg-obsidian); }
+        
+        .header-wrapper { text-align: center; margin-bottom: 10px; padding: 15px 0; position: relative; overflow: hidden; }
+        h1.dynamic-title { font-family: "Cinzel", serif; font-size: 1.6rem; letter-spacing: 0.25em; font-weight: 500; color: var(--gold-champagne); margin: 0; animation: titleFloat 6s infinite ease-in-out; text-transform: uppercase; }
+        @keyframes titleFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+        .subtitle-elite { font-size: 9.5px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; margin-top: 6px; text-align: center; }
+        
+        .sky-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.15; z-index: 1; }
+        .cloud { position: absolute; background: #fff; border-radius: 100px; filter: blur(4px); animation: windMove 18s infinite linear; }
+        .cloud::before, .cloud::after { content: ''; position: absolute; background: #fff; border-radius: 50%; }
+        .cloud.c1 { width: 60px; height: 20px; top: 5px; left: -70px; animation-duration: 22s; }
+        .cloud.c1::before { width: 30px; height: 30px; top: -15px; left: 10px; }
+        .cloud.c1::after { width: 20px; height: 20px; top: -10px; left: 30px; }
+        .cloud.c2 { width: 80px; height: 25px; top: 20px; left: -90px; animation-duration: 16s; animation-delay: 4s; }
+        .cloud.c2::before { width: 40px; height: 40px; top: -20px; left: 15px; }
+        .cloud.c2::after { width: 30px; height: 35px; top: -15px; left: 40px; }
+        @keyframes windMove { 0% { transform: translateX(0); } 100% { transform: translateX(520px); } }
+
+        .field { margin-bottom: 4px; }
+        label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15rem; color: var(--gold-champagne); margin-bottom: 6px; font-weight: bold; }
+        input, select, textarea { width: 100%; background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.08); color: var(--text); padding: 14px; border-radius: 8px; font-size: 0.95rem; outline: none; appearance: none; transition: border-color 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: var(--gold-champagne); }
+        select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='16' height='16' fill='%23C5A059' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 35px; }
+        textarea { height: 75px; resize: none; }
         .hidden { display: none !important; }
-        header { text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.15); padding-bottom: 14px; margin-bottom: 20px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 500; letter-spacing: 6px; color: var(--gold-champagne); text-transform: uppercase; cursor: pointer; user-select: none; }
-        .subtitle-elite { font-size: 9.5px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
-        .lang-bar { display: flex; gap: 12px; margin-bottom: 20px; }
-        .btn-lang { flex: 1; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; }
-        .btn-lang.active { background: var(--gold-champagne); border-color: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 20px var(--gold-glow); }
-        .timer-header-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(197, 160, 89, 0.04); border: 1px solid rgba(197, 160, 89, 0.15); border-radius: 14px; padding: 10px 18px; margin-bottom: 20px; }
-        .timer-title { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); }
-        .timer-value { font-family: monospace; font-size: 22px; color: var(--alert-crimson); font-weight: 600; letter-spacing: 1px; }
-        .bio-respiration-dock { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0 20px 0; position: relative; min-height: 150px; }
-        .lung-circle-master { width: 125px; height: 125px; border-radius: 50%; background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%); box-shadow: 0 0 35px var(--gold-glow); display: flex; justify-content: center; align-items: center; font-family: 'Cinzel', serif; font-size: 12.5px; font-weight: 600; letter-spacing: 1.5px; color: var(--bg-obsidian); text-transform: uppercase; transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1); text-align: center; padding: 10px; }
-        .lung-inhale-state { transform: scale(1.32); background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important; box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important; color: #FFFFFF !important; }
-        .lung-exhale-state { transform: scale(0.85); background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important; box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important; color: #FFFFFF !important; }
-        .interactive-stack-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .btn-pregunta-crisis { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--white-ivory); padding: 14px 16px; border-radius: 14px; font-size: 13px; text-align: left; cursor: pointer; transition: all 0.25s ease; }
-        .btn-pregunta-crisis:hover { border-color: var(--gold-champagne); background: rgba(197, 160, 89, 0.06); transform: translateY(-1px); }
-        .gold-action-btn { width: 100%; background: transparent; border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 16px; border-radius: 50px; font-size: 12.5px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; text-align: center; text-decoration: none; display: block; }
-        .gold-action-btn:hover { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 25px var(--gold-glow); }
-        .explanation-box { background: rgba(197, 160, 89, 0.08); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px; font-size: 12.5px; color: #E2E2E6; margin-top: 12px; line-height: 1.5; display: none; text-align: left; }
-        .pricing-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 15px; }
-        .price-card { background: var(--bg-surface); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 20px; cursor: pointer; position: relative; transition: all 0.3s ease; text-align: left; }
-        .price-card:hover { border-color: var(--gold-champagne); box-shadow: 0 0 30px var(--gold-glow); }
-        .price-card.featured { border-color: var(--gold-champagne); background: linear-gradient(145deg, rgba(197, 160, 89, 0.08), var(--bg-surface)); }
-        .price-badge { position: absolute; top: -10px; right: 20px; background: var(--gold-champagne); color: var(--bg-obsidian); font-size: 9px; font-weight: bold; padding: 3px 10px; border-radius: 6px; letter-spacing: 1px; text-transform: uppercase; }
-        .price-amount { font-size: 32px; font-family: 'Cinzel', serif; color: var(--white-ivory); margin: 8px 0; font-weight: 600; }
-        .field-group { display: flex; gap: 12px; margin-bottom: 16px; }
-        .field-group label { display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; }
-        .field-group input, .field-group select { width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); color: #fff; padding: 12px; border-radius: 12px; font-size: 13px; outline: none; }
-        textarea { width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); color: #fff; padding: 12px; border-radius: 12px; font-size: 13px; outline: none; resize: none; height: 80px; font-family: inherit; }
-        .floating-btn { position: fixed; bottom: 20px; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); cursor: pointer; z-index: 1000; border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.2s; }
-        #btn-volver-app { left: 20px; background: var(--bg-surface); color: var(--gold-champagne); }
-        #btn-whatsapp { right: 75px; background: #25d366; }
-        #btn-messenger { right: 20px; background: #0078FF; }
-        .floating-btn:hover { transform: translateY(-2px); }
-    </style>
-</head>
+        
+        .oraculo-scroll-box { position: relative; width: 100%; min-height: auto; max-height: none; overflow: visible; margin-bottom: 10px; }
+        .interactive-stack-container { display: flex; flex-direction: column; gap: 18px; width: 100%; max-height: none !important; overflow: visible !important; }
+        
+.btn-pregunta-crisis { 
+    width: 100%; 
+    background: var(--bg-surface); 
+    color: #F9F9FB; 
+    border: 1px solid rgba(255,255,255,0.06); 
+    padding: 18px; 
+    font-size: 0.98rem; 
+    font-weight: bold; 
+    text-align: left; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    line-height: 1.5; 
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
+    margin-bottom: 4px; 
+}
+.btn-pregunta-crisis:hover { 
+    border-color: var(--gold-champagne); 
+    background: rgba(197,160,89,0.04); 
+    transform: scale(1.01); 
+}
+#btn-activar-libre { 
+    width: 100%; 
+    background: transparent; 
+    border: 1px solid var(--gold-champagne); 
+    color: var(--gold-champagne); 
+    padding: 16px; 
+    font-weight: bold; 
+    border-radius: 50px; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    letter-spacing: 1px; 
+    transition: all 0.3s; 
+}
+#btn-activar-libre:hover { 
+    background: var(--gold-champagne); 
+    color: var(--bg-obsidian); 
+}
+.timer-header-bar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: rgba(197, 160, 89, 0.03); 
+    border: 1px solid rgba(197, 160, 89, 0.15); 
+    border-radius: 14px; 
+    padding: 12px 20px; 
+}
+.timer-title { 
+    font-size: 11px; 
+    letter-spacing: 1.5px; 
+    text-transform: uppercase; 
+    color: var(--gold-champagne); 
+    font-weight: bold; 
+}
+#timer { 
+    font-weight: 200; 
+    text-align: center; 
+    font-size: 3.5rem; 
+    color: #fff; 
+    font-family: monospace; 
+    margin: 10px 0; 
+}
+#txt-pulmon { 
+    font-size: 13px; 
+    text-transform: uppercase; 
+    font-weight: bold; 
+    color: var(--gold-champagne); 
+    text-align: center; 
+    letter-spacing: 2px; 
+    margin-top: 10px; 
+}
+#breath-circle { 
+    width: 125px; 
+    height: 125px; 
+    background: rgba(0, 188, 212, 0.15); 
+    border: 3px solid var(--cyan-inhale); 
+    border-radius: 50%; 
+    margin: 25px auto; 
+    box-shadow: 0 0 20px rgba(0,188,212,0.2); 
+}
+.lung-circle-master { 
+    width: 125px; 
+    height: 125px; 
+    border-radius: 50%; 
+    background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-primary) 100%); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-family: serif; 
+    font-size: 13px; 
+    font-weight: bold; 
+    letter-spacing: 1.5px; 
+    color: var(--bg-obsidian); 
+    text-transform: uppercase; 
+    transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1); 
+    margin: 25px auto; 
+}
+.lung-inhale-state { 
+    transform: scale(1.32); 
+    background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important; 
+    box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important; 
+    color: #FFFFFF !important; 
+}
+.lung-exhale-state { 
+    transform: scale(0.85); 
+    background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important; 
+    box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important; 
+    color: #FFFFFF !important; 
+}
+.gold-action-btn { 
+    width: 100%; 
+    background: transparent; 
+    border: 1px solid var(--gold-champagne); 
+    color: var(--gold-champagne); 
+    padding: 16px; 
+    border-radius: 50px; 
+    font-size: 12.5px; 
+    font-weight: 600; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    text-decoration: none; 
+    display: block; 
+    text-align: center; 
+}
+.gold-action-btn:hover { 
+    background: var(--gold-champagne); 
+    color: var(--bg-obsidian); 
+    box-shadow: 0 0 25px rgba(197, 160, 89, 0.35); 
+}
+.escape-action-pill { 
+    background: rgba(255, 255, 255, 0.04); 
+    border: 1px solid var(--gold-champagne); 
+    color: var(--gold-champagne); 
+    padding: 9px 14px; 
+    border-radius: 20px; 
+    font-size: 11px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.2s ease; 
+    text-decoration: none; 
+    display: inline-block; 
+    margin-top: 5px; 
+}
+.escape-action-pill:hover { 
+    background: var(--gold-champagne); 
+    color: var(--bg-obsidian); 
+}
+.floating-btn { 
+    position: fixed; 
+    bottom: 20px; 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 1.3rem; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+    cursor: pointer; 
+    z-index: 1000; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    transition: transform 0.2s; 
+}
+#btn-volver-app { 
+    left: 20px; 
+    background: var(--panel); 
+    color: var(--gold-champagne); 
+}
+#btn-whatsapp { 
+    right: 75px; 
+    background: #25d366; 
+}
+#btn-messenger { 
+    right: 20px; 
+    background: #0078FF; 
+}
+.floating-btn:hover { 
+    transform: translateY(-2px); 
+}
+.pricing-grid { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px; 
+    margin-top: 15px; 
+}
+.price-card { 
+    background: var(--bg-surface); 
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 18px; 
+    padding: 20px; 
+    cursor: pointer; 
+    position: relative; 
+    transition: all 0.3s ease; 
+    text-align: left; 
+}
+.price-card:hover { 
+    border-color: var(--gold-champagne); 
+    box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); 
+}
+.price-card.featured { 
+    border-color: var(--gold-champagne); 
+    background: linear-gradient(145deg, rgba(197, 160, 89, 0.08), var(--bg-surface)); 
+}
+.price-badge { 
+    position: absolute; 
+    top: -10px; 
+    right: 20px; 
+    background: var(--gold-champagne); 
+    color: var(--bg-obsidian); 
+    font-size: 9px; 
+    font-weight: bold; 
+    padding: 3px 10px; 
+    border-radius: 6px; 
+    letter-spacing: 1px; 
+    text-transform: uppercase; 
+}
+.price-amount { 
+    font-size: 32px; 
+    font-family: 'Cinzel', serif; 
+    color: #fff; 
+    margin: 8px 0; 
+    font-weight: 600; 
+}
 <body>
-    <!-- Pantalla de Bienvenida Exclusiva -->
-    <div id="pantalla-bienvenida" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:var(--bg-obsidian); display:flex; justify-content:center; align-items:center; z-index:9999;">
-        <button class="gold-action-btn" onclick="KERNEL.despertarInicial();" style="width:auto; padding:20px 45px; border-radius:50px; font-size:14px; letter-spacing:2px;">
-            INICIAR SESIÓN PRIVADA / START
-        </button>
+
+    <div id="pantalla-bienvenida">
+        <button class="gold-action-btn" style="width:auto; padding:20px 45px;" onclick="KERNEL.despertarInicial();">INICIAR SESIÓN PRIVADA / START</button>
     </div>
 
-    <!-- Contenedor Principal de la Aplicación -->
     <div class="container hidden" id="wrapper-form">
         <div class="lang-bar">
             <button class="btn-lang active" id="lang-es" onclick="KERNEL.cambiarIdioma('es')">ESP</button>
             <button class="btn-lang" id="lang-en" onclick="KERNEL.cambiarIdioma('en')">ENG</button>
         </div>
         
-        <header>
-            <h1 id="brandTitleField">MAY ROGA</h1>
-            <div class="subtitle-elite" id="lblBrandSub">Executive Sanctuary Architecture</div>
-        </header>
+        <div class="header-wrapper">
+            <div class="sky-container">
+                <div class="cloud c1"></div>
+                <div class="cloud c2"></div>
+            </div>
+            <h1 class="dynamic-title" id="brandTitleField">MAY ROGA</h1>
+            <div class="subtitle-elite" id="lblBrandSub">Arquitectura de Santuarios Ejecutivos</div>
+        </div>
 
-        <!-- Bloque de Ubicación y Selección de Modo -->
-        <div class="field-group">
+        <div class="field" style="display: flex; gap: 12px; margin-bottom: 20px;">
             <div style="flex: 2;">
-                <label id="lbl-zip">Código Postal / Zip Code</label>
+                <label id="lbl-zip">Código Postal / ZIP Code</label>
                 <input type="text" id="inp-zip" placeholder="Ej: 33167" maxlength="5" pattern="[0-9]{5}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
             </div>
             <div style="flex: 1;">
@@ -97,8 +355,7 @@
             </div>
         </div>
 
-        <!-- Selectores Métricos de Estado Ejecutivo -->
-        <div class="field-group">
+        <div class="field" style="display: flex; gap: 10px; margin-bottom: 20px;">
             <div style="flex: 1;">
                 <label>Mente</label>
                 <select id="mente-selector">
@@ -120,56 +377,45 @@
                 <select id="perfil-selector">
                     <option value="solo" selected>Solo</option>
                     <option value="familia">Familia</option>
+                    <option value="accesible">Accesible</option>
                 </select>
             </div>
         </div>
 
-        <!-- El Oráculo: Preguntas de Descompresión No Repetitivas -->
         <p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 1.5px; text-align: center; margin-bottom: 15px;">¿Qué vector bloquea tu enfoque hoy?</p>
-        <div style="position: relative; min-height: 120px; overflow: hidden; margin-bottom: 20px;">
+        <div class="oraculo-scroll-box">
             <div class="interactive-stack-container" id="contenedor-preguntas-oraculo"></div>
         </div>
 
-        <!-- Caja de Desahogo Libre con Interceptor Criptográfico -->
-        <div style="margin-bottom: 16px;">
+        <div class="field">
             <label id="lbl-desahogo" style="color: var(--text-muted);">O declare aquí su fricción operativa:</label>
             <textarea id="inp-text-libre" placeholder="Escriba libremente los estímulos o saturación que experimenta hoy..."></textarea>
-            <button id="btn-activar-libre" onclick="KERNEL.ejecutar();" style="width: 100%; background: transparent; border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 16px; font-weight: bold; border-radius: 50px; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-top: 10px; transition: all 0.3s;">
-                Activar Mando de Sintonía
-            </button>
+            <button id="btn-activar-libre" onclick="KERNEL.ejecutar();" style="margin-top: 10px;"></button>
         </div>
     </div>
 
-    <!-- Lienzo Dinámico de Sesión Activa (Pulmón y Terapia Acústica) -->
     <div class="container hidden" id="activeSessionDock">
         <div class="timer-header-bar">
             <span class="timer-title" id="lblTimerTitle">Ventana de Sintonía Activa</span>
-            <span class="timer-value" id="clockDisplay">15:00</span>
+            <div id="timer"><span class="timer-value" id="clockDisplay">15:00</span></div>
         </div>
         
-        <!-- Guía Box Breathing Sincronizada -->
         <div class="bio-respiration-dock">
             <div class="lung-circle-master" id="lungCircle">Inhala</div>
         </div>
-        <div id="txt-pulmon" style="text-align: center; font-size: 12px; color: var(--text-muted); letter-spacing: 1px;">Sincronización de Enfoque</div>
-        <div class="explanation-box" id="lblExplanationBox"></div>
+        <div id="txt-pulmon">Sincronización de Enfoque</div>
         
         <div class="interactive-stack-container" id="interactiveStack" style="margin-top: 20px;"></div>
-        <button class="gold-action-btn" id="btnNext" style="display:none;" onclick="KERNEL.avanzarRetoContinuo()">
-            <span id="txtNextBtn">Siguiente Frecuencia</span>
-        </button>
     </div>
 
-    <!-- Botones Flotantes Inmunizados -->
     <button id="btn-volver-app" class="floating-btn hidden" onclick="location.reload();" title="Volver">&#x2190;</button>
     <a id="btn-whatsapp" class="floating-btn hidden" href="https://wa.me" target="_blank" title="WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2Z"/></svg>
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2ZM17.15 15.35C16.92 15.78 16.39 15.89 16.03 15.79ZM15.48 12.44L15.48 12.44Z"/></svg>
     </a>
     <a id="btn-messenger" class="floating-btn hidden" href="https://m.me" target="_blank" title="Messenger">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.06 17.65L10.02 11.2L16.28 6.35L13.06 17.65Z"/></svg>
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.06 17.65L10.02 11.2L16.28 6.35L13.06 17.65Z"/></svg>
     </a>
 
-    <!-- Carga del Motor Lógico Unificado -->
     <script src="/static/engine.js"></script>
 </body>
 </html>
