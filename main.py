@@ -10,7 +10,10 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from typing import List, Optional
 import stripe
-
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
 app = FastAPI(
     title="Wellness Travel — Private Premium Engine",
     description="Núcleo de enrutamiento y balance fiduciario de estilo de vida premium sin alteraciones lógicas.",
@@ -348,11 +351,11 @@ async def endpoint_raiz_post(request: Request):
     """
     try:
         body = await request.json()
-        # Puedes procesar aquí los datos de sintonía o redirigir al flujo de PDF
         return JSONResponse(status_code=200, content={"status": "success", "message": "Nodo operativo recibido"})
     except Exception:
         return JSONResponse(status_code=200, content={"status": "success", "message": "Conexión establecida"})
-@app.post("/generate-pdf")
+
+@app.post("/api/pdf")
 def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
     """
     Compilador gráfico asíncrono de ReportLab. Diseña una libreta de sintonía
