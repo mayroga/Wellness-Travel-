@@ -304,26 +304,17 @@ const KERNEL = {
     },
 
     inyectarPasilloEscapeReal(zipCode) {
-        const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
-        const dic = this.TRADUCCIONES[this.idiomaActual];
-        const isEs = this.idiomaActual === 'es';
-        const queryEden = encodeURIComponent(`Eden Roc near ${zipCode || 'Miami'}`);
-        const queryAmanera = encodeURIComponent(`Luxury Resort Amanera Playa Grande`);
-        
-        this.emitirVoz(dic.discursoMin4);
-        
         const santuarios = [
             {
                 name: "Amanera Resort — Playa Grande",
-                img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
-                maps: `https://google.com/maps/search/${queryAmanera}`,
+                img: "https://unsplash.com",
+                maps: `https://google.com{queryAmanera}`,
                 ex: isEs ? "Casitas de cristal suspendidas en acantilados con aislamiento total." : "Glass casitas suspended on cliffs with radical isolation."
             },
             {
                 name: "Eden Roc Sanctuary — Cap Cana",
-                img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80",
-                maps: `https://google.com/maps/search/${queryEden}`,
+                img: "https://unsplash.com",
+                maps: `https://google.com{queryEden}`,
                 ex: isEs ? "Bungalows independientes con alberca privada y control estricto de concurrencia." : "Standalone bungalows with private pools and strict occupancy controls."
             }
         ];
