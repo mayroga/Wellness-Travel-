@@ -1,5 +1,5 @@
 // =========================================================================
-// WELLNESS TRAVEL CORE LOGIC ENGINE (PART 1 - INITIALIZATION & CORE POOLS)
+// WELLNESS TRAVEL CORE LOGIC ENGINE (COMPLETE & CORRECTED)
 // =========================================================================
 
 const KERNEL = {
@@ -170,11 +170,7 @@ const KERNEL = {
         document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
         document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
         this.inyectarPreguntasOraculo();
-    }
-};
-// =========================================================================
-// WELLNESS TRAVEL CORE LOGIC ENGINE (PART 2 - INTERACTION & FLOATING POOLS)
-// =========================================================================
+    },
 
     despertarInicial() {
         document.getElementById('pantalla-bienvenida').style.display = 'none';
@@ -221,9 +217,6 @@ const KERNEL = {
         utterance.rate = 0.95;
         window.speechSynthesis.speak(utterance);
     },
-// =========================================================================
-// WELLNESS TRAVEL CORE LOGIC ENGINE (PART 3 - EXECUTION & BIO-RESPIRATION)
-// =========================================================================
 
     async ejecutar() {
         if (this.isLocked) return;
@@ -273,7 +266,7 @@ const KERNEL = {
             html += `
                 <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
                     <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
-                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://youtube.com{v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>`;
         });
         stack.innerHTML = html;
@@ -308,9 +301,6 @@ const KERNEL = {
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
         document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
     },
-// =========================================================================
-// WELLNESS TRAVEL CORE LOGIC ENGINE (PART 4 - INTERACTIVE REDIRECTS & PDF)
-// =========================================================================
 
     activarVozAsesorContinuo() { 
         const emitir = () => this.emitirVoz(this.TRADUCCIONES[this.idiomaActual].frecuenciaVoz);
@@ -327,8 +317,7 @@ const KERNEL = {
         const divDestino = document.createElement('div');
         divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
         
-        // CORRECCIÓN SINTÁCTICA: Template string correcto con backticks (`) y signo de dólar ($)
-        divDestino.onclick = () => window.open(`https://google.com{encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
+        divDestino.onclick = () => window.open(`https://google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
         
         divDestino.innerHTML = `
             <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
@@ -354,21 +343,21 @@ const KERNEL = {
 
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
-    fetch("https://wellness-travel.onrender.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            servicio_id: folio, 
-            lang: this.idiomaActual,
-            score_inicial: 45.0, 
-            score_actual: 90.0, 
-            respiracion_score: 100.0, 
-            adivinanzas_score: 100.0,
-            iev: 95.0, 
-            variante: "ELITE_WELLNESS", 
-            destino_id: "S1"
+        fetch("https://wellness-travel.onrender.com", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                servicio_id: folio, 
+                lang: this.idiomaActual,
+                score_inicial: 45.0, 
+                score_actual: 90.0, 
+                respiracion_score: 100.0, 
+                adivinanzas_score: 100.0,
+                iev: 95.0, 
+                variante: "ELITE_WELLNESS", 
+                destino_id: "S1"
+            })
         })
-    })
         .then(res => res.blob())
         .then(blob => {
             document.body.style.cursor = "default";
