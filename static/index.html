@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="html-title">MAY ROGA — Executive Sanctuary Architecture</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+    <title id="html-title">MAY ROGA — OPEN THAN GO</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         :root {
@@ -18,81 +18,43 @@
             --white-ivory: #F9F9FB;
             --text-muted: #9E9EA4;
             --alert-crimson: #C0392B;
+            --wellness-green: #27AE60;
+            --relax-blue: #2980B9;
             --border-subtle: rgba(197, 160, 89, 0.2);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body, html { width: 100%; height: 100%; background-color: var(--bg-obsidian); color: var(--white-ivory); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        
-        .container { max-width: 520px; width: 100%; height: 100%; max-height: 92vh; background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian)); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border-subtle); border-radius: 28px; padding: 32px 24px; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08); display: flex; flex-direction: column; position: relative; overflow-y: auto; }
+        .app-window, .container { max-width: 520px; width: 100%; height: 100%; max-height: 92vh; background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian)); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border-subtle); border-radius: 28px; padding: 32px 24px; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08); display: flex; flex-direction: column; position: relative; overflow-y: auto; }
         .hidden { display: none !important; }
-        
-        header { text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.15); padding-bottom: 14px; margin-bottom: 20px; position: relative; }
+        header { text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.15); padding-bottom: 14px; margin-bottom: 20px; }
         header h1 { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 500; letter-spacing: 6px; color: var(--gold-champagne); text-transform: uppercase; cursor: pointer; user-select: none; }
         .subtitle-elite { font-size: 9.5px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
-        
-        .top-bar-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .audio-toggle-btn { background: rgba(197,160,89,0.1); color: var(--gold-champagne); border: 1px solid var(--gold-champagne); padding: 10px 16px; font-weight: 600; border-radius: 12px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; transition: all 0.3s; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; }
-        .audio-toggle-btn.active { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 20px var(--gold-glow); }
-        
-        .lang-bar { display: flex; gap: 12px; flex: 1; max-width: 220px; }
-        .btn-lang { flex: 1; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 10px; border-radius: 12px; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; }
+        .lang-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+        .btn-lang { flex: 1; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; }
         .btn-lang.active { background: var(--gold-champagne); border-color: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 20px var(--gold-glow); }
-        
         .timer-header-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(197, 160, 89, 0.04); border: 1px solid rgba(197, 160, 89, 0.15); border-radius: 14px; padding: 10px 18px; margin-bottom: 20px; }
         .timer-title { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); }
         .timer-value { font-family: monospace; font-size: 22px; color: var(--alert-crimson); font-weight: 600; letter-spacing: 1px; }
-        
-        .bio-respiration-dock { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px 0; position: relative; min-height: 180px; }
-        
-        /* Círculo Respiratorio Grande y Exquisito (Inhalación y Exhalación Pura) */
-        .lung-circle-master { 
-            width: 155px; 
-            height: 155px; 
-            border-radius: 50%; 
-            background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%); 
-            box-shadow: 0 0 45px var(--gold-glow); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            font-family: 'Cinzel', serif; 
-            font-size: 14px; 
-            font-weight: 600; 
-            letter-spacing: 2px; 
-            color: var(--bg-obsidian); 
-            text-transform: uppercase; 
-            transition: transform 5s cubic-bezier(0.4, 0, 0.2, 1), background 5s ease-in-out, box-shadow 5s ease-in-out; 
-            text-align: center; 
-            padding: 10px; 
-        }
-        .lung-inhale-state { 
-            transform: scale(1.35); 
-            background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important; 
-            box-shadow: 0 0 65px rgba(52, 152, 219, 0.7) !important; 
-            color: #FFFFFF !important; 
-        }
-        .lung-exhale-state { 
-            transform: scale(0.85); 
-            background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important; 
-            box-shadow: 0 0 45px rgba(231, 76, 60, 0.7) !important; 
-            color: #FFFFFF !important; 
-        }
-        
+        .bio-respiration-dock { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0 20px 0; position: relative; min-height: 150px; }
+        .lung-circle-master { width: 125px; height: 125px; border-radius: 50%; background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%); box-shadow: 0 0 35px var(--gold-glow); display: flex; justify-content: center; align-items: center; font-family: 'Cinzel', serif; font-size: 12.5px; font-weight: 600; letter-spacing: 1.5px; color: var(--bg-obsidian); text-transform: uppercase; transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1); text-align: center; padding: 10px; }
+        .lung-inhale-state { transform: scale(1.32); background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important; box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important; color: #FFFFFF !important; }
+        .lung-exhale-state { transform: scale(0.85); background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important; box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important; color: #FFFFFF !important; }
         .interactive-stack-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         .btn-pregunta-crisis { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--white-ivory); padding: 14px 16px; border-radius: 14px; font-size: 13px; text-align: left; cursor: pointer; transition: all 0.25s ease; }
         .btn-pregunta-crisis:hover { border-color: var(--gold-champagne); background: rgba(197, 160, 89, 0.06); transform: translateY(-1px); }
-        
         .gold-action-btn { width: 100%; background: transparent; border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 16px; border-radius: 50px; font-size: 12.5px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; text-align: center; text-decoration: none; display: block; }
         .gold-action-btn:hover { background: var(--gold-champagne); color: var(--bg-obsidian); box-shadow: 0 0 25px var(--gold-glow); }
-        
-        .explanation-box { background: rgba(197, 160, 89, 0.08); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px; font-size: 13px; color: #E2E2E6; margin-top: 12px; line-height: 1.6; text-align: left; }
-        
-        .youtube-embed-box { width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-subtle); margin-top: 15px; background: #000; }
-        
+        .explanation-box { background: rgba(197, 160, 89, 0.08); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px; font-size: 12.5px; color: #E2E2E6; margin-top: 12px; line-height: 1.5; display: none; text-align: left; }
+        .pricing-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 15px; }
+        .price-card { background: var(--bg-surface); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 20px; cursor: pointer; position: relative; transition: all 0.3s ease; text-align: left; }
+        .price-card:hover { border-color: var(--gold-champagne); box-shadow: 0 0 30px var(--gold-glow); }
+        .price-card.featured { border-color: var(--gold-champagne); background: linear-gradient(145deg, rgba(197, 160, 89, 0.08), var(--bg-surface)); }
+        .price-badge { position: absolute; top: -10px; right: 20px; background: var(--gold-champagne); color: var(--bg-obsidian); font-size: 9px; font-weight: bold; padding: 3px 10px; border-radius: 6px; letter-spacing: 1px; text-transform: uppercase; }
+        .price-amount { font-size: 32px; font-family: 'Cinzel', serif; color: var(--white-ivory); margin: 8px 0; font-weight: 600; }
         .field-group { display: flex; gap: 12px; margin-bottom: 16px; }
         .field-group label { display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; }
         .field-group input, .field-group select { width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); color: #fff; padding: 12px; border-radius: 12px; font-size: 13px; outline: none; }
         textarea { width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); color: #fff; padding: 12px; border-radius: 12px; font-size: 13px; outline: none; resize: none; height: 80px; font-family: inherit; }
-        
         .floating-btn { position: fixed; bottom: 20px; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); cursor: pointer; z-index: 1000; border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.2s; }
         #btn-volver-app { left: 20px; background: var(--bg-surface); color: var(--gold-champagne); }
         #btn-whatsapp { right: 75px; background: #25d366; }
@@ -101,25 +63,21 @@
     </style>
 </head>
 <body>
-
     <!-- Pantalla de Bienvenida Exclusiva -->
     <div id="pantalla-bienvenida" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:var(--bg-obsidian); display:flex; justify-content:center; align-items:center; z-index:9999;">
-        <button class="gold-action-btn" onclick="APP_MAESTRA.iniciarSesionPrivada();" style="width:auto; padding:20px 45px; border-radius:50px; font-size:14px; letter-spacing:2px;">
+        <button class="gold-action-btn" onclick="KERNEL.despertarInicial();" style="width:auto; padding:20px 45px; border-radius:50px; font-size:14px; letter-spacing:2px;">
             INICIAR SESIÓN PRIVADA / START
         </button>
     </div>
 
     <!-- Contenedor Principal de la Aplicación -->
     <div class="container hidden" id="wrapper-form">
-        <div class="top-bar-controls">
-            <button class="audio-toggle-btn active" id="btnAudioToggle" onclick="APP_MAESTRA.toggleVoz()">🔊 Voz Activa</button>
-            <div class="lang-bar">
-                <button class="btn-lang active" id="lang-es" onclick="APP_MAESTRA.cambiarIdioma('es')">ESP</button>
-                <button class="btn-lang" id="lang-en" onclick="APP_MAESTRA.cambiarIdioma('en')">ENG</button>
-            </div>
+        <div class="lang-bar">
+            <button class="btn-lang active" id="lang-es" onclick="KERNEL.cambiarIdioma('es')">ESP</button>
+            <button class="btn-lang" id="lang-en" onclick="KERNEL.cambiarIdioma('en')">ENG</button>
         </div>
         
-        <header id="headerTripleClick">
+        <header>
             <h1 id="brandTitleField">MAY ROGA</h1>
             <div class="subtitle-elite" id="lblBrandSub">Executive Sanctuary Architecture</div>
         </header>
@@ -139,42 +97,45 @@
             </div>
         </div>
 
-        <!-- Selectores de Bienestar y Calma -->
+        <!-- Selectores Métricos de Estado Ejecutivo -->
         <div class="field-group">
             <div style="flex: 1;">
                 <label>Mente</label>
                 <select id="mente-selector">
-                    <option value="relajado" selected>Relajado</option>
-                    <option value="sereno">Sereno</option>
-                    <option value="desconectado">Desconectado</option>
+                    <option value="aburrido" selected>Aburrido</option>
+                    <option value="agotado">Agotado</option>
+                    <option value="estresado">Estresado</option>
+                    <option value="cansado">Cansado</option>
+                    <option value="ansioso">Ansioso</option>
                 </select>
             </div>
             <div style="flex: 1;">
-                <label>Paz</label>
+                <label>Gasto</label>
                 <select id="budget-selector">
-                    <option value="2" selected>Plena</option>
+                    <option value="2" selected>Abierto</option>
                 </select>
             </div>
             <div style="flex: 1;">
                 <label>Perfil</label>
                 <select id="perfil-selector">
-                    <option value="exclusivo" selected>Exclusivo</option>
+                    <option value="solo" selected>Solo</option>
+                    <option value="familia">Familia</option>
                 </select>
             </div>
         </div>
 
-        <!-- Preguntas de Calma y Tiempo Libre -->
-        <p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 1.5px; text-align: center; margin-bottom: 15px;">Elige tu frecuencia de calma hoy:</p>
+        <!-- El Oráculo: Preguntas de Descompresión No Repetitivas -->
+        <p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 1.5px; text-align: center; margin-bottom: 15px;">¿Qué vector bloquea tu enfoque hoy?</p>
         <div style="position: relative; min-height: 120px; overflow: hidden; margin-bottom: 20px;">
             <div class="interactive-stack-container" id="contenedor-preguntas-oraculo"></div>
         </div>
 
-        <!-- Caja de Declaración y Bienestar -->
+        <!-- Caja de Desahogo Libre con Interceptor Criptográfico -->
         <div style="margin-bottom: 16px;">
-            <label id="lbl-desahogo" style="color: var(--text-muted);">Declaración de Bienestar y Calma:</label>
-            <textarea id="inp-text-libre" placeholder="Disfruta el presente, suelta el control y descansa..."></textarea>
-            <button id="btn-activar-libre" onclick="APP_MAESTRA.ejecutarSintonia(0);" style="width: 100%; background: transparent; border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 16px; font-weight: bold; border-radius: 50px; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-top: 10px; transition: all 0.3s;">
-                Activar Paz Plena
+            <label id="lbl-desahogo" style="color: var(--text-muted);">O declare aquí su fricción operativa:</label>
+            <textarea id="inp-text-libre" placeholder="Escriba libremente los estímulos o saturación que experimenta hoy..."></textarea>
+            <button id="btn-activar-libre" onclick="KERNEL.ejecutar();" style="width: 100%; background: transparent; border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 16px; font-weight: bold; border-radius: 50px; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-top: 10px; transition: all 0.3s;">
+                Activar Mando de Sintonía
             </button>
         </div>
     </div>
@@ -182,28 +143,24 @@
     <!-- Lienzo Dinámico de Sesión Activa (Pulmón y Terapia Acústica) -->
     <div class="container hidden" id="activeSessionDock">
         <div class="timer-header-bar">
-            <span class="timer-title" id="lblTimerTitle">Santuario de Calma Activo</span>
+            <span class="timer-title" id="lblTimerTitle">Ventana de Sintonía Activa</span>
             <span class="timer-value" id="clockDisplay">15:00</span>
         </div>
         
-        <!-- Guía de Respiración Grande y Perfecta -->
+        <!-- Guía Box Breathing Sincronizada -->
         <div class="bio-respiration-dock">
-            <div class="lung-circle-master lung-inhale-state" id="lungCircle">Inhala</div>
+            <div class="lung-circle-master" id="lungCircle">Inhala</div>
         </div>
-        <div id="txt-pulmon" style="text-align: center; font-size: 12px; color: var(--gold-champagne); letter-spacing: 2px; text-transform: uppercase; font-weight: bold; margin-top: 5px;">Bienestar y Calma Absoluta</div>
-        
+        <div id="txt-pulmon" style="text-align: center; font-size: 12px; color: var(--text-muted); letter-spacing: 1px;">Sincronización de Enfoque</div>
         <div class="explanation-box" id="lblExplanationBox"></div>
         
-        <div class="youtube-embed-box">
-            <iframe width="100%" height="210" src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk" title="Ambient Relaxation Stream" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        
-        <button class="gold-action-btn" id="btnNext" style="margin-top: 15px;" onclick="location.reload();">
-            <span>Nueva Sintonía</span>
+        <div class="interactive-stack-container" id="interactiveStack" style="margin-top: 20px;"></div>
+        <button class="gold-action-btn" id="btnNext" style="display:none;" onclick="KERNEL.avanzarRetoContinuo()">
+            <span id="txtNextBtn">Siguiente Frecuencia</span>
         </button>
     </div>
 
-    <!-- Botones Flotantes -->
+    <!-- Botones Flotantes Inmunizados -->
     <button id="btn-volver-app" class="floating-btn hidden" onclick="location.reload();" title="Volver">&#x2190;</button>
     <a id="btn-whatsapp" class="floating-btn hidden" href="https://wa.me" target="_blank" title="WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2Z"/></svg>
@@ -212,164 +169,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.06 17.65L10.02 11.2L16.28 6.35L13.06 17.65Z"/></svg>
     </a>
 
-    <script>
-        const APP_MAESTRA = {
-            idiomaActual: 'es',
-            vozHabilitada: true,
-            clicksAdmin: 0,
-            
-            textos: {
-                es: {
-                    titulo: "MAY ROGA",
-                    sub: "Santuario Ejecutivo Antiestrés",
-                    zipLabel: "Código Postal / Zip Code",
-                    instruccion: "Elige tu frecuencia de calma hoy:",
-                    desahogoLabel: "Declaración de Bienestar y Calma:",
-                    btnLibre: "Activar Paz Plena",
-                    timerTitle: "Santuario de Calma Activo",
-                    preguntas: [
-                        "Disfrutar de un momento de absoluto descanso y desconexión.",
-                        "Contemplar la tranquilidad sin ninguna prisa ni pendiente.",
-                        "Recargar energía pura escuchando melodías relajantes."
-                    ],
-                    respuestas: [
-                        "Mensaje de Calma: El control de tu tiempo es tu mayor lujo. Suelta las tensiones y descansa con total exclusividad.",
-                        "Bienestar Exclusivo: Tu única prioridad en este instante es disfrutar de tu paz interior y armonía.",
-                        "Armonía Total: Disfruta del silencio, la música ambiental y el control absoluto de tu tranquilidad."
-                    ]
-                },
-                en: {
-                    titulo: "MAY ROGA",
-                    sub: "Executive Anti-Stress Sanctuary",
-                    zipLabel: "ZIP Code",
-                    instruccion: "Choose your frequency of calm today:",
-                    desahogoLabel: "Wellbeing & Calm Declaration:",
-                    btnLibre: "Activate Pure Peace",
-                    timerTitle: "Active Calm Sanctuary",
-                    preguntas: [
-                        "Enjoy a moment of absolute rest and disconnection.",
-                        "Contemplate tranquility with zero rush or pending tasks.",
-                        "Recharge pure energy while listening to relaxing melodies."
-                    ],
-                    respuestas: [
-                        "Calm Message: Controlling your time is your ultimate luxury. Release tension and rest with absolute exclusivity.",
-                        "Exclusive Wellbeing: Your only priority in this moment is to enjoy your inner peace and harmony.",
-                        "Total Harmony: Enjoy the quiet, ambient music, and absolute control of your tranquility."
-                    ]
-                }
-            },
-
-            iniciarSesionPrivada() {
-                document.getElementById('pantalla-bienvenida').style.display = 'none';
-                document.getElementById('wrapper-form').classList.remove('hidden');
-                this.renderizarPreguntas();
-                this.configurarBypassClicks();
-                this.hablar("Santuario activo. Disfruta tu tiempo y tranquilidad.");
-            },
-
-            cambiarIdioma(lang) {
-                this.idiomaActual = lang;
-                document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-                document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-                
-                const t = this.textos[lang];
-                document.getElementById('brandTitleField').innerText = t.titulo;
-                document.getElementById('lblBrandSub').innerText = t.sub;
-                document.getElementById('lbl-zip').innerText = t.zipLabel;
-                document.getElementById('lbl-oraculo-instruccion').innerText = t.instruccion;
-                document.getElementById('lbl-desahogo').innerText = t.desahogoLabel;
-                document.getElementById('btn-activar-libre').innerText = t.btnLibre;
-                document.getElementById('lblTimerTitle').innerText = t.timerTitle;
-                
-                this.renderizarPreguntas();
-                this.hablar(lang === 'es' ? "Idioma cambiado a español." : "Language changed to English.");
-            },
-
-            toggleVoz() {
-                this.vozHabilitada = !this.vozHabilitada;
-                const btn = document.getElementById('btnAudioToggle');
-                btn.classList.toggle('active', this.vozHabilitada);
-                btn.innerHTML = this.vozHabilitada ? "🔊 Voz Activa" : "🔇 Voz Silenciada";
-                if(this.vozHabilitada) this.hablar("Voz de asistencia activada.");
-            },
-
-            hablar(texto) {
-                if(!this.vozHabilitada || !('speechSynthesis' in window)) return;
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(texto);
-                utterance.lang = this.idiomaActual === 'es' ? 'es-ES' : 'en-US';
-                utterance.rate = 0.95; // Ritmo cálido y pausado
-                window.speechSynthesis.speak(utterance);
-            },
-
-            renderizarPreguntas() {
-                const contenedor = document.getElementById('contenedor-preguntas-oraculo');
-                contenedor.innerHTML = '';
-                const lista = this.textos[this.idiomaActual].preguntas;
-                
-                lista.forEach((texto, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'btn-pregunta-crisis';
-                    btn.innerText = texto;
-                    btn.onclick = () => this.ejecutarSintonia(index);
-                    contenedor.appendChild(btn);
-                });
-            },
-
-            ejecutarSintonia(index = 0) {
-                document.getElementById('wrapper-form').classList.add('hidden');
-                document.getElementById('activeSessionDock').classList.remove('hidden');
-                document.getElementById('btn-volver-app').classList.remove('hidden');
-                document.getElementById('btn-whatsapp').classList.remove('hidden');
-                document.getElementById('btn-messenger').classList.remove('hidden');
-                
-                const box = document.getElementById('lblExplanationBox');
-                const respuestaTexto = this.textos[this.idiomaActual].respuestas[index] || this.textos[this.idiomaActual].respuestas[0];
-                
-                box.innerHTML = `
-                    <strong style="color:var(--gold-champagne); display:block; margin-bottom:6px; font-size:10px; letter-spacing:1px; text-transform:uppercase;">Atención Ejecutiva Exclusiva</strong>
-                    ${respuestaTexto}
-                `;
-
-                this.hablar(respuestaTexto);
-                this.iniciarRespiracionGrande();
-            },
-
-            iniciarRespiracionGrande() {
-                const circulo = document.getElementById('lungCircle');
-                const txt = document.getElementById('txt-pulmon');
-                
-                const cicloPuro = () => {
-                    // INHALACIÓN
-                    circulo.innerText = "Inhala";
-                    circulo.className = "lung-circle-master lung-inhale-state";
-                    txt.innerText = "Expansión y Calma Profunda";
-                    this.hablar("Inhala suavemente");
-                    
-                    setTimeout(() => {
-                        // EXHALACIÓN
-                        circulo.innerText = "Exhala";
-                        circulo.className = "lung-circle-master lung-exhale-state";
-                        txt.innerText = "Liberación y Paz Interior";
-                        this.hablar("Exhala y descansa");
-                    }, 5000);
-                };
-                
-                cicloPuro();
-                setInterval(cicloPuro, 10000);
-            },
-
-            configurarBypassClicks() {
-                const header = document.getElementById('headerTripleClick');
-                header.addEventListener('click', () => {
-                    this.clicksAdmin++;
-                    if(this.clicksAdmin >= 3) {
-                        this.clicksAdmin = 0;
-                        alert('Santuario Operativo Exclusivo — May Roga LLC');
-                    }
-                });
-            }
-        };
-    </script>
+    <!-- Carga del Motor Lógico Unificado -->
+    <script src="/static/engine.js"></script>
 </body>
 </html>
