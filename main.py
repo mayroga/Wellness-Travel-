@@ -1,112 +1,36 @@
-# ====================================================================================================
-#                                           MAY ROGA LLC
-#                         Wellness Travel Architecture & Lifestyle Optimization
-#                                    Miami, Florida | USA
-#                               PRODUCTION UNIFIED ENGINE - V3.5
-# ====================================================================================================
-
+# ==========================================
+# WELLNESS TRAVEL MASTER BACKEND (PART 1)
+# ==========================================
 import os
-import re
 import random
-import urllib.parse
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import List, Optional
 import stripe
 
-# Componentes del Motor ReportLab para Pasaportes de Alta Gama
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
-
 app = FastAPI(
-    title="MAY ROGA LLC - Executive Sanctuary Architecture Gateway",
+    title="Wellness Travel — Private Premium Engine",
+    description="Ecosistema fiduciario de alta sintonía y aislamiento acústico para perfiles selectos.",
     version="3.5.0"
 )
 
-# ----------------------------------------------------------------------------------------------------
-# CONFIGURACIÓN DE SEGURIDAD Y PASARELAS CRIPTOGRÁFICAS (RENDER ENV)
-# ----------------------------------------------------------------------------------------------------
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
+# Inicialización de pasarelas fiduciarias seguras
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "sk_test_mock_wellness_key")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "whsec_mock")
 
-# Configuración única de Price IDs Élite
-STRIPE_PRICE_ID1 = os.getenv("STRIPE_PRICE_ID1", "price_1TtbjXBOA5mT4t0PMCJSext6")  # Un Solo Servicio: $200
-STRIPE_PRICE_ID2 = os.getenv("STRIPE_PRICE_ID2", "price_1TtblSBOA5mT4t0PGiYvT2l9")  # Mensual Ilimitado: $399
+# Esquemas estrictos Pydantic para el blindaje de payloads transaccionales
+class SintonizacionPayload(BaseModel):
+    zip_code: str = Field(..., pattern=r"^[0-9]{5}$")
+    modo: str = Field(..., pattern=r"^(SALIR|CASA)$")
+    mente: str = Field(..., pattern=r"^(aburrido|cansado|estresado|agotado|ansioso)$")
+    budget: str = Field(..., pattern=r"^(abierto|ilimitado)$")
+    perfil: str = Field(..., pattern=r"^(solo|acompanado|familia|empresa|accesible)$")
+    historial_vistos: List[str] = []
+    texto_libre: Optional[str] = ""
 
-ADMIN_USER = os.getenv("ADMIN_USERNAME", "admin")
-ADMIN_PASS = os.getenv("ADMIN_PASSWORD", "mayroga2026")
-
-LINK_BASE_MAPS = "https://google.com"
-
-# Asegurar directorios de persistencia temporal
-os.makedirs("temp", exist_ok=True)
-if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# ----------------------------------------------------------------------------------------------------
-# VECTORES DE CONFIGURACIÓN Y DICCIONARIOS BILINGÜES DE LUJO
-# ----------------------------------------------------------------------------------------------------
-DEFAULT_NECESSITY_VECTOR = {
-    "movimiento": 50, "naturaleza": 50, "silencio": 50, "agua": 50, "sol": 50,
-    "sombra": 50, "aire_fresco": 50, "creatividad": 50, "comunidad": 50, "aprendizaje": 50,
-    "juego": 50, "contemplacion": 50, "descanso": 50, "organizacion": 50,
-    "alimentacion": 50, "musica": 50, "risa": 50, "esperanza": 50, "indicador_ansiedad": 0
-}
-
-DICTIONARY_BILINGUAL = {
-    "ES": {
-        "doc_title": "LIBRETA DE VIAJE INDIVIDUAL (PRIVADA Y EXCLUSIVA)",
-        "folio": "Folio de Acompañamiento VIP", 
-        "status": "Estatus: Procesado en Servidor Render",
-        "sec1_title": "1. BALANCE Y AVANCE DE ENFOQUE PERSONAL",
-        "m1": "Indicador Evaluado", "m2": "Nivel Inicial", "m3": "Nivel de Cierre",
-        "m_pace": "Índice de Fricción Ejecutiva", "m_breathe": "Tasa de Calibración Biológica", "m_logic": "Eficiencia del Enfoque Cognitivo",
-        "sec2_title": "2. ENRUTAMIENTO EXCLUSIVO DE VIAJE (HOST AGENCY GATEWAY)",
-        "stay_lbl": "Santuario de Ultra-Lujo Curado", "desc_lbl": "Perfil de Aislamiento Físico",
-        "air_lbl": "Logística Aérea VIP", "sea_lbl": "Corredor Marítimo Élite",
-        "consorcio": "Beneficios Exclusivos Consorcio: Elegible automáticamente para créditos de cortesía Virtuoso/Signature ($100 USD para experiencias de bienestar y mejoras de suite prioritarias mediante su folio).",
-        "sec3_title": "3. CONCLUSIONES DE SINTONÍA COMPILADA",
-        "cta": "Este pasaporte resume su optimización neurobiológica. Diseñado para disolver el desgaste operativo y asegurar el control absoluto sobre su agenda.",
-        "sec4_title": "4. COMPLIANCE DE PRIVACIDAD MAY ROGA LLC",
-        "disclaimer": "Toda la información de sintonía se procesa localmente bajo estrictos estándares de anonimato en terminales fiduciarias (localStorage). El líder global retiene el control absoluto de sus registros.",
-        "ai_foot": "Este documento es estrictamente confidencial y para fines informativos de estilo de vida premium. No constituye asesoramiento clínico formal."
-    },
-    "EN": {
-        "doc_title": "PERSONAL TRAVEL PASSPORT (CONFIDENTIAL BLUEPRINT)",
-        "folio": "Executive Service ID Folio", 
-        "status": "Status: Processed on Secure Render Node",
-        "sec1_title": "1. WELLNESS BALANCE & ENHANCEMENT SUMMARY",
-        "m1": "Executive Metric Evaluated", "m2": "Initial Baseline", "m3": "Closing Balance",
-        "m_pace": "Executive Friction & Pace Index", "m_breathe": "Biological Calibration Rate", "m_logic": "Cognitive Focus & Clarity Rate",
-        "sec2_title": "2. YOUR EXCLUSIVE TRAVEL ROUTING (HOST AGENCY GATEWAY)",
-        "stay_lbl": "Curated Luxury Oasis", "desc_lbl": "Wellness Profile Detail",
-        "air_lbl": "Premium Air Logistics", "sea_lbl": "Maritime Cruise Corridor",
-        "consorcio": "Exclusive Consortium Privileges: Eligible for complimentary Virtuoso/Signature luxury benefits ($100 resort credits for relaxation therapies and priority room upgrades processed automatically via credentials).",
-        "sec3_title": "3. ACTIONABLE PERFORMANCE FOCUS POINTS",
-        "cta": "This travel passport serves as a concise summary of your progress. It benchmarks your clarity index and outlines the stabilization parameters achieved against routine corporate exhaustion.",
-        "sec4_title": "4. CORPORATE LIFESTYLE PRIVACY ASSURANCE",
-        "disclaimer": "All digital metrics gathered to compile this travel passport are processed strictly locally and anonymously on the user's browser terminal via local behavior algorithms (localStorage).",
-        "ai_foot": "This document is for informational and promotional travel purposes only. For clinical or medical advice, consult a certified healthcare professional."
-    }
-}
-
-BACKEND_HOTELES = {
-    "H1": {
-        "es": {"name": "Eden Roc Cap Cana / Eden Roc Miami Beach", "desc": "Bungalows de ultra-lujo con albercas propias, acceso restringido a playas privadas y aislamiento acústico total."},
-        "en": {"name": "Eden Roc Cap Cana / Eden Roc Miami Beach", "desc": "Ultra-luxury standalone bungalows with plunge pools, pristine restricted beachfronts, and complete acoustic silence."}
-    },
-    "H2": {
-        "es": {"name": "Amanera Resort (Playa Grande)", "desc": "Casitas minimalistas de cristal zen suspendidas sobre acantilados masivos de la selva virgen del Caribe."},
-        "en": {"name": "Amanera Resort (Playa Grande)", "desc": "Zen minimalist glass casitas suspended over massive Caribbean jungle cliffs providing radical environmental isolation."}
-    }
-}
-# ----------------------------------------------------------------------------------------------------
-# MODELOS DE VALIDACIÓN PYDANTIC (ESTÁNDAR DE ALTO RENDIMIENTO)
-# ----------------------------------------------------------------------------------------------------
-class PDFPayload(BaseModel):
+class PDFPassportPayload(BaseModel):
     servicio_id: str
     lang: str
     score_inicial: float
@@ -117,118 +41,413 @@ class PDFPayload(BaseModel):
     variante: str
     destino_id: str
 
-class CheckoutPayload(BaseModel):
-    tier: str
-    folio: str
+# Diccionario Maestro Bilingüe Élite — Absolutamente libre de términos médicos o laborales
+DICTIONARY_BILINGUAL = {
+    "ES": {
+        "doc_title": "PASAPORTE DE BIENESTAR INDIVIDUAL",
+        "folio": "Folio de Sintonía Premium",
+        "status": "Estatus: Validado en Red Render",
+        "sec1_title": "1. BALANCE DE ENFOQUE Y BIENESTAR INDIVIDUAL",
+        "m1": "Indicador Evaluado", "m2": "Nivel Inicial", "m3": "Nivel de Cierre",
+        "m_pace": "Índice de Saturación Externa", 
+        "m_breathe": "Tasa de Sincronización Respiratoria", 
+        "m_logic": "Eficiencia de Enfoque Mental",
+        "sec2_title": "2. ENRUTAMIENTO EXCLUSIVO DE VIAJE",
+        "stay_lbl": "Santuario de Ultra-Lujo Prescrito", 
+        "desc_lbl": "Perfil de Aislamiento Acústico",
+        "air_lbl": "Logística Aérea Privada", 
+        "sea_lbl": "Línea Marítima Élite",
+        "consorcio": "Beneficios de Consorcio: Elegible automáticamente para créditos de cortesía Virtuoso/Signature ($100 USD para experiencias de sintonía y mejoras de suite).",
+        "sec3_title": "3. CONCLUSIONES DE ESTILO DE VIDA PREMIUM",
+        "cta": "Este resumen certifica su descompresión y optimización de bienestar. Diseñado para disolver la saturación del entorno y asegurar el control total de su tiempo.",
+        "sec4_title": "4. COMPLIANCE DE PRIVACIDAD MAY ROGA LLC",
+        "disclaimer": "Toda la información de sintonía se procesa de forma local y anónima en su terminal mediante almacenamiento fiduciario seguro (localStorage). El líder retiene el control de sus registros.",
+        "ai_foot": "Este documento es estrictamente confidencial y para fines informativos de estilo de vida premium. No constituye asesoramiento clínico ni médico formal."
+    },
+    "EN": {
+        "doc_title": "INDIVIDUAL WELLNESS PASSPORT",
+        "folio": "Premium Tuning Folio ID",
+        "status": "Status: Validated on Secure Render Node",
+        "sec1_title": "1. WELLNESS BALANCE & INDIVIDUAL FOCUS SUMMARY",
+        "m1": "Evaluated Metric", "m2": "Initial Baseline", "m3": "Closing Balance",
+        "m_pace": "External Saturation Index", 
+        "m_breathe": "Respiratory Synchronization Rate", 
+        "m_logic": "Mental Focus Efficiency Rate",
+        "sec2_title": "2. EXCLUSIVE TRAVEL ROUTING",
+        "stay_lbl": "Prescribed Ultra-Luxury Sanctuary", 
+        "desc_lbl": "Acoustic Isolation Profile",
+        "air_lbl": "Private Air Logistics", 
+        "sea_lbl": "Elite Maritime Corridor",
+        "consorcio": "Consortium Privileges: Automatically eligible for complimentary Virtuoso/Signature luxury benefits ($100 credits for wellness experiences and priority suite upgrades).",
+        "sec3_title": "3. PREMIUM LIFESTYLE INSIGHTS",
+        "cta": "This passport summarizes your progress, benchmarking your focus index and outlining the stabilization achieved against routine daily exhaustion.",
+        "sec4_title": "4. CORPORATE LIFESTYLE PRIVACY ASSURANCE",
+        "disclaimer": "All digital metrics gathered to compile this passport are processed strictly locally and anonymously on the user's browser terminal via local behavior algorithms (localStorage).",
+        "ai_foot": "This document is for informational and promotional travel purposes only. It does not constitute clinical or medical advice."
+    }
+}
+# ==========================================
+# WELLNESS TRAVEL MASTER BACKEND (PART 2)
+# ==========================================
 
-class DevAuthPayload(BaseModel):
-    user: str
-    dev_pass: str
+# Base de datos inmutable de Santuarios Élite - Calibrada para Ultra-Lujo
+# Totalmente adaptada a perfiles: solo, acompanado, familia, empresa, accesible
+SANTUARIOS_VIP = {
+    "S1": {
+        "nombre": "Amanera Resort — Playa Grande",
+        "perfil_compatible": ["solo", "acompanado"],
+        "es": {
+            "desc": "Casitas zen minimalistas suspendidas sobre acantilados masivos. Máximo aislamiento acústico frente a la saturación externa.",
+            "actividad": "Sesión privada de sintonización sonora frente al mar y caminata por acantilados protegidos.",
+            "logistica_aerea": "Vuelo charter privado en Gulfstream G650 hasta el aeródromo privado más cercano.",
+            "logistica_maritima": "Yate de colección de 80 pies disponible para traslados costeros exclusivos."
+        },
+        "en": {
+            "desc": "Zen minimalist casitas suspended over massive cliffs. Radical acoustic isolation from external sensory overload.",
+            "actividad": "Private oceanfront sound tuning session and premium guided tracking along protected cliffs.",
+            "logistica_aerea": "Private Gulfstream G650 charter flight to the nearest executive private airfield.",
+            "logistica_maritima": "80-foot collector yacht available for exclusive bespoke coastal transfers."
+        }
+    },
+    "S2": {
+        "nombre": "Eden Roc Cap Cana — Elite Marina Complex",
+        "perfil_compatible": ["acompanado", "familia", "empresa"],
+        "es": {
+            "desc": "Bungalows independientes con muelles privados y lagunas naturales protegidas. Privacidad fiduciaria garantizada.",
+            "actividad": "Navegación premium a baja velocidad en aguas profundas y cena privada con menú de sintonía fina.",
+            "logistica_aerea": "Acceso VIP directo a través de la terminal ejecutiva FBO y helicóptero privado al helipuerto del resort.",
+            "logistica_maritima": "Embarcación premium Riva Aquarama para accesos directos desde la marina privada."
+        },
+        "en": {
+            "desc": "Standalone boutique villas featuring private docks and deep eco-lagoons. Guaranteed fiduciary privacy.",
+            "actividad": "Deep water premium sailing at low cruise speed and exclusive chef-curated dining sensory experiences.",
+            "logistica_aerea": "Direct VIP arrival via executive FBO terminal and private helicopter connection to the resort pad.",
+            "logistica_maritima": "Premium Riva Aquarama vessel operational for direct boarding from the private marina."
+        }
+    },
+    "S3": {
+        "nombre": "Amangiri Sanctuary — Desert Solitude",
+        "perfil_compatible": ["solo", "acompanado", "empresa"],
+        "es": {
+            "desc": "Arquitectura monolítica oculta en cañones desérticos profundos. Diseñado para recuperar el control absoluto del silencio.",
+            "actividad": "Sesión nocturna de observación astronómica guiada sin contaminación lumínica ni acústica.",
+            "logistica_aerea": "Charter privado Bombardier Global 7500 con tripulación dedicada de alta gama.",
+            "logistica_maritima": "No aplica. Logística terrestre premium mediante flota privada de vehículos blindados de confort."
+        },
+        "en": {
+            "desc": "Monolithic architecture hidden inside deep desert canyons. Engineered to regain complete control of quietness.",
+            "actividad": "Nightly premium stargazing session guided by experts, fully shielded from light and noise pollution.",
+            "logistica_aerea": "Private Bombardier Global 7500 flight utilizing highly vetted executive crews.",
+            "logistica_maritima": "Not applicable. Secured luxury ground transport utilizing premium armored comfort fleets."
+        }
+    },
+    "S4": {
+        "nombre": "Singita Lebombo — Private Wilderness Sanctuary",
+        "perfil_compatible": ["familia", "empresa", "accesible"],
+        "es": {
+            "desc": "Villas de cristal suspendidas sobre parajes naturales vírgenes con accesibilidad total y diseño de vanguardia.",
+            "actividad": "Safari privado fotográfico de alta fidelidad con guías nativos expertos y rastreadores de élite.",
+            "logistica_aerea": "Conexión directa en jet privado intercontinental y avioneta privada monomotor exclusiva.",
+            "logistica_maritima": "Exploración fluvial premium en embarcación privada eco-sustentable de alta gama."
+        },
+        "en": {
+            "desc": "Elevated glass suites hovering over wild nature fields with full physical accessibility and high-end design.",
+            "actividad": "Private high-fidelity photographic safari featuring veteran elite track specialists.",
+            "logistica_aerea": "Direct private intercontinental jet routing linking directly with an exclusive single-engine aircraft.",
+            "logistica_maritima": "Premium river exploration on a private bespoke eco-friendly high-end vessel."
+        }
+    }
+}
 
-# ----------------------------------------------------------------------------------------------------
-# CONTROLADORES DE RUTA Y ENLACES BANCARIOS ÉLITE
-# ----------------------------------------------------------------------------------------------------
-@app.post("/verify-dev-access")
-def verify_dev_access(payload: DevAuthPayload):
-    if payload.user == ADMIN_USER and payload.dev_pass == ADMIN_PASS:
-        return {"authenticated": True}
-    raise HTTPException(status_code=401, detail="Access Denied.")
+# Motor analítico de puntuación - Réplica exacta del CWRE V2.1 de Open Than Go
+# Calcula el Índice de Estabilización de Enfoque sin usar terminología clínica
+def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
+    base_score = 45.0  # Baseline inicial estándar
+    
+    # Modificadores de estado mental (Mente)
+    modificadores_mente = {
+        "aburrido": 5.0,
+        "cansado": -10.0,
+        "estresado": -20.0,
+        "agotado": -25.0,
+        "ansioso": -30.0
+    }
+    
+    # Modificadores de entorno y acompañamiento (Perfil)
+    modificadores_perfil = {
+        "solo": 10.0,
+        "acompanado": 5.0,
+        "familia": -5.0,
+        "empresa": -15.0,  # Alta demanda de atención directiva
+        "accesible": 0.0
+    }
+    
+    score_inicial = base_score + modificadores_mente.get(payload.mente, 0.0) + modificadores_perfil.get(payload.perfil, 0.0)
+    score_inicial = max(10.0, min(95.0, score_inicial))
+    
+    # Análisis del texto libre (Mando de Sintonía) para detectar fricciones complejas
+    interceptor_friccion = 0.0
+    if payload.texto_libre:
+        palabras_saturacion = ["ruido", "saturacion", "agenda", "tiempo", "vuelo", "reunion", "entorno", "exceso"]
+        conteo = sum(1 for palabra in palabras_saturacion if palabra in payload.texto_libre.lower())
+        interceptor_friccion = conteo * -3.5
+        
+    score_inicial = max(5.0, score_inicial + interceptor_friccion)
+    
+    # Simulación matemática de optimización post-sesión (Cierre proyectado)
+    score_cierre = min(100.0, score_inicial + 45.0)
+    
+    return {
+        "score_inicial": round(score_inicial, 2),
+        "score_cierre": round(score_cierre, 2),
+        "eficiencia_respiratoria": 100.0,
+        "enfoque_mental": 100.0
+    }
+# ==========================================
+# WELLNESS TRAVEL MASTER BACKEND (PART 3)
+# ==========================================
 
-@app.post("/create-checkout-session")
-def create_checkout_session(payload: CheckoutPayload):
-    # Enlace exacto a la matriz corporativa de Stripe configurada en Render
-    price_id = STRIPE_PRICE_ID1 if "SINGLE" in payload.tier else STRIPE_PRICE_ID2
+@app.post("/api/sintonizar")
+async def endpoint_sintonizar_contextual(payload: SintonizacionPayload):
+    """
+    Core del motor de enrutamiento dinámico. Procesa el perfil, calcula las métricas
+    de sintonía y prescribe las 3 opciones de escape VIP en tiempo real sin repeticiones.
+    """
     try:
+        # 1. Ejecutar el motor de cálculo de balance fiduciario
+        metricas = calcular_indice_estabilizacion(payload)
+        
+        # 2. Filtrar el catálogo inmutable por compatibilidad de perfil exclusivo
+        opciones_filtradas = []
+        for sid, datos in SANTUARIOS_VIP.items():
+            if payload.perfil in datos["perfil_compatible"]:
+                opciones_filtradas.append((sid, datos))
+        
+        # Si por exceso de filtros queda vacío, abrir el catálogo completo de ultra-lujo
+        if not opciones_filtradas:
+            opciones_filtradas = list(SANTUARIOS_VIP.items())
+            
+        # 3. Algoritmo Anti-Repetición: Excluir destinos previamente visitados en el CRM local
+        opciones_disponibles = [
+            (sid, datos) for sid, datos in opciones_filtradas 
+            if sid not in payload.historial_vistos
+        ]
+        
+        # Si el usuario ya recorrió todo el catálogo élite, reiniciar el historial dinámicamente
+        if len(opciones_disponibles) < 3:
+            opciones_disponibles = opciones_filtradas
+            
+        # 4. Seleccionar exactamente las 3 mejores opciones prescritas de alta sintonía
+        seleccionados = random.sample(opciones_disponibles, min(3, len(opciones_disponibles)))
+        
+        # 5. Estructurar la respuesta transaccional para el frontend
+        destinos_prescritos = []
+        for sid, datos in seleccionados:
+            destinos_prescritos.append({
+                "id": sid,
+                "nombre": datos["nombre"],
+                "detalles_es": {
+                    "descripcion": datos["es"]["desc"],
+                    "actividad_sintonía": datos["es"]["actividad"],
+                    "logistica_aerea": datos["es"]["logistica_aerea"],
+                    "logistica_maritima": datos["es"]["logistica_maritima"]
+                },
+                "detalles_en": {
+                    "descripcion": datos["en"]["desc"],
+                    "actividad_sintonía": datos["en"]["actividad"],
+                    "logistica_aerea": datos["en"]["logistica_aerea"],
+                    "logistica_maritima": datos["en"]["logistica_maritima"]
+                }
+            })
+            
+        return JSONResponse(status_code=200, content={
+            "status": "success",
+            "codigo_postal": payload.zip_code,
+            "modo_activo": payload.modo,
+            "balance_bienestar": {
+                "inicial": metricas["score_inicial"],
+                "cierre_proyectado": metricas["score_cierre"],
+                "eficiencia_respiratoria": metricas["eficiencia_respiratoria"],
+                "enfoque_mental": metricas["enfoque_mental"]
+            },
+            "opciones_escape_vip": destinos_prescritos
+        })
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Fallo crítico en el motor contextual: {str(e)}")
+
+
+@app.post("/api/checkout-premium")
+async def crear_sesion_checkout_elite(request: Request):
+    """
+    Levanta la pasarela Stripe con los precios exclusivos de ultra-lujo ($200 o $399),
+    validando la integridad transaccional del entorno de Render.
+    """
+    try:
+        body = await request.json()
+        price_id = body.get("price_id")
+        folio_servicio = body.get("folio_id", "MR-UNKNOWN")
+        
+        if not price_id:
+            raise HTTPException(status_code=400, detail="Parámetros transaccionales incompletos.")
+            
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            line_items=[{'price': price_id, 'quantity': 1}],
-            mode='payment' if "SINGLE" in payload.tier else 'subscription',
-            success_url="https://wellness-travel.onrender.com" + os.getenv("RENDER_EXTERNAL_HOSTNAME", "localhost:8000") + "/?status=success&folio=" + payload.folio,
-            cancel_url="https://wellness-travel.onrender.com" + os.getenv("RENDER_EXTERNAL_HOSTNAME", "localhost:8000") + "/",
-            metadata={'folio_crm': payload.folio, 'billing_tier': payload.tier}
+            line_items=[{
+                'price': price_id,
+                'quantity': 1,
+            }],
+            mode='payment' if "unico" in price_id else 'subscription',
+            # INYECCIÓN DE TU URL EN RENDER PARA ÉXITO Y CANCELACIÓN:
+            success_url=f"https://wellness-travel.onrender.com{folio_servicio}",
+            cancel_url="https://wellness-travel.onrender.com",
+            client_reference_id=folio_servicio
         )
-        return {"checkout_url": session.url}
+        return JSONResponse(status_code=200, content={"id": session.id, "url": session.url})
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error en pasarela Stripe Élite: {str(e)}")
 
-# ----------------------------------------------------------------------------------------------------
-# MOTOR DE GENERACIÓN ASÍNCRONA DE PASAPORTES (REPORTLAB CORP)
-# ----------------------------------------------------------------------------------------------------
+# ==========================================
+# WELLNESS TRAVEL MASTER BACKEND (PART 4)
+# ==========================================
+
+@app.post("/api/stripe-webhook")
+async def stripe_webhook_receptor(request: Request):
+    """
+    Interceptor asíncrono de eventos de Stripe. Sincroniza la confirmación de pagos 
+    en el nodo de Render y autoriza la liberación del Pasaporte VIP.
+    """
+    payload = await request.body()
+    sig_header = request.headers.get("stripe-signature")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail="Payload transaccional inválido.")
+    except stripe.error.SignatureVerificationError as e:
+        raise HTTPException(status_code=400, detail="Firma fiduciaria inválida.")
+
+    # Procesar la confirmación exitosa del cobro de alta gama
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        folio_cliente = session.get("client_reference_id", "MR-ASYNC-DIRECT")
+        # Aquí se integraría la persistencia en el CRM local/Almacenamiento Render
+        print(f"[CRM UPDATE] Folio {folio_cliente} validado exitosamente vía Webhook.")
+
+    return JSONResponse(status_code=200, content={"received": True})
+
+
 @app.post("/generate-pdf")
-def generate_pdf(payload: PDFPayload):
-    pdf_filename = f"MayRoga_Elite_Passport_{payload.servicio_id}.pdf"
-    pdf_path = os.path.join("temp", pdf_filename)
-    
-    doc = SimpleDocTemplate(
-        pdf_path, pagesize=letter,
-        rightMargin=45, leftMargin=45, topMargin=45, bottomMargin=45,
-        title=f"Passport_{payload.servicio_id}"
-    )
-    styles = getSampleStyleSheet()
-    
-    # Paleta corporativa purgada de elementos informales
-    c_primary = colors.HexColor("#030305")
-    c_gold = colors.HexColor("#A3704C")
-    c_text = colors.HexColor("#222222")
-    c_legal = colors.HexColor("#777777")
-    
-    title_style = ParagraphStyle('CorpTitle', parent=styles['Heading1'], fontSize=24, leading=28, textColor=c_primary, alignment=1)
-    subtitle_style = ParagraphStyle('CorpSub', parent=styles['Normal'], fontSize=9, leading=13, textColor=c_legal, alignment=1)
-    h2_style = ParagraphStyle('SectionHeader', parent=styles['Heading2'], fontSize=11, leading=15, textColor=c_gold, spaceBefore=18, spaceAfter=8)
-    body_style = ParagraphStyle('CorpBody', parent=styles['Normal'], fontSize=9.5, leading=14, textColor=c_text)
-    disclaimer_style = ParagraphStyle('LegalText', parent=styles['Normal'], fontSize=7.5, leading=11, textColor=c_legal, alignment=4)
+def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
+    """
+    Compilador gráfico asíncrono de ReportLab. Genera una libreta de viaje 
+    limpia, minimalista y ordenada sobre una paleta Obsidian/Gold.
+    """
+    try:
+        # Asegurar la existencia del directorio fiduciario temporal
+        if not os.path.exists("temp"):
+            os.makedirs("temp")
 
-    story = []
-    lang_key = "EN" if payload.lang.upper() == "EN" else "ES"
-    lang_map = DICTIONARY_BILINGUAL[lang_key]
+        pdf_filename = f"Wellness_Elite_Passport_{payload.servicio_id}.pdf"
+        pdf_path = os.path.join("temp", pdf_filename)
+        
+        # Inicializar el lienzo con márgenes limpios y aireados
+        doc = SimpleDocTemplate(
+            pdf_path, 
+            pagesize=letter, 
+            rightMargin=54, 
+            leftMargin=54, 
+            topMargin=54, 
+            bottomMargin=54
+        )
+        
+        styles = getSampleStyleSheet()
+        
+        # Paleta de colores VIP inmutable
+        c_primary = colors.HexColor("#030305")
+        c_gold = colors.HexColor("#C5A059")
+        c_text = colors.HexColor("#222222")
+        c_legal = colors.HexColor("#777777")
+        
+        # Tipografías y estilos limpios (sin sobrecarga visual)
+        title_style = ParagraphStyle('Title', fontSize=22, leading=26, textColor=c_primary, alignment=1)
+        subtitle_style = ParagraphStyle('Sub', fontSize=9, leading=12, textColor=c_legal, alignment=1)
+        h2_style = ParagraphStyle('H2', fontSize=11, leading=14, textColor=c_gold, spaceBefore=15, spaceAfter=6)
+        body_style = ParagraphStyle('Body', fontSize=9.5, leading=14, textColor=c_text)
+        disclaimer_style = ParagraphStyle('Legal', fontSize=7.5, leading=11, textColor=c_legal, alignment=4)
 
-    # Construcción de la Libreta de Viaje Fiduciaria
-    story.append(Paragraph("MAY ROGA LLC", title_style))
-    story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization<br/>Miami, Florida | USA", subtitle_style))
-    story.append(Spacer(1, 15))
-    story.append(Paragraph(f"{lang_map['doc_title']}", ParagraphStyle('RepTitle', parent=styles['Heading3'], fontSize=11, leading=14, alignment=1, textColor=c_primary, spaceAfter=15)))
-    story.append(Paragraph(f"<b>{lang_map['folio']}</b>: {payload.servicio_id} | {lang_map['status']}", body_style))
-    story.append(Spacer(1, 12))
-    
-    story.append(Paragraph(lang_map['sec1_title'], h2_style))
-    metrics_data = [
-        [Paragraph(lang_map['m1'], body_style), Paragraph(lang_map['m2'], body_style), Paragraph(lang_map['m3'], body_style)],
-        [Paragraph(lang_map['m_pace'], body_style), f"{payload.score_inicial}%", f"{payload.score_actual}%"],
-        [Paragraph(lang_map['m_breathe'], body_style), "0%", f"{payload.respiracion_score}%"],
-        [Paragraph(lang_map['m_logic'], body_style), "0%", f"{payload.adivinanzas_score}%"]
-    ]
-    t = Table(metrics_data)
-    t.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
-        ('PADDING', (0,0), (-1,-1), 6),
-        ('ALIGN', (1,1), (-1,-1), 'CENTER'),
-        ('VALIGN', (0,0), (-1,-1), 'MIDDLE')
-    ]))
-    story.append(t)
-    
-    story.append(Paragraph(lang_map['sec2_title'], h2_style))
-    h_info = BACKEND_HOTELES.get(payload.destino_id, BACKEND_HOTELES["H1"])[lang_key.lower()]
+        story = []
+        lang_key = "EN" if payload.lang.upper() == "EN" else "ES"
+        lang_map = DICTIONARY_BILINGUAL[lang_key]
 
-    dest_html = f"• <b>{lang_map['stay_lbl']}</b>: {h_info['name']}<br/>• <b>{lang_map['desc_lbl']}</b>: {h_info['desc']}<br/>• <b>{lang_map['air_lbl']}</b>: Gulfstream G650 Private Charter Executive Flight.<br/>• <b>{lang_map['sea_lbl']}</b>: The Ritz-Carlton Yacht Collection Ocean Terrace Suite.<br/><br/>{lang_map['consorcio']}"
-    story.append(Paragraph(dest_html, body_style))
-    
-    story.append(Spacer(1, 15))
-    story.append(Paragraph(lang_map['sec3_title'], h2_style))
-    story.append(Paragraph(lang_map['cta'], body_style))
-    story.append(Spacer(1, 15))
-    story.append(Paragraph(lang_map['sec4_title'], h2_style))
-    story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
-    story.append(Spacer(1, 10))
-    story.append(Paragraph(lang_map['ai_foot'], disclaimer_style))
+        # Inyección ordenada de contenido en el lienzo
+        story.append(Paragraph("MAY ROGA LLC", title_style))
+        story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization", subtitle_style))
+        story.append(Spacer(1, 15))
+        story.append(Paragraph(f"<b>{lang_map['doc_title']}</b>", ParagraphStyle('T', fontSize=12, alignment=1, textColor=c_primary)))
+        story.append(Paragraph(f"{lang_map['folio']}: {payload.servicio_id} | {lang_map['status']}", body_style))
+        story.append(Spacer(1, 10))
+        
+        # Sección 1: Cuadrícula analítica de estabilización
+        story.append(Paragraph(lang_map['sec1_title'], h2_style))
+        metrics_data = [
+            [Paragraph(lang_map['m1'], body_style), Paragraph(lang_map['m2'], body_style), Paragraph(lang_map['m3'], body_style)],
+            [Paragraph(lang_map['m_pace'], body_style), f"{payload.score_inicial}%", f"{payload.score_actual}%"],
+            [Paragraph(lang_map['m_breathe'], body_style), "0%", f"{payload.respiracion_score}%"],
+            [Paragraph(lang_map['m_logic'], body_style), "0%", f"{payload.adivinanzas_score}%"]
+        ]
+        t = Table(metrics_data)
+        t.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F9F9F9")),
+            ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E5E5E5")),
+            ('PADDING', (0,0), (-1,-1), 6)
+        ]))
+        story.append(t)
+        
+        # Sección 2: Prescripción logística exclusiva
+        story.append(Paragraph(lang_map['sec2_title'], h2_style))
+        h_info = SANTUARIOS_VIP.get(payload.destino_id, SANTUARIOS_VIP["S1"])[lang_key.lower()]
+        
+        dest_html = (
+            f"• <b>{lang_map['stay_lbl']}</b>: {SANTUARIOS_VIP.get(payload.destino_id, SANTUARIOS_VIP['S1'])['nombre']}<br/>"
+            f"• <b>{lang_map['desc_lbl']}</b>: {h_info['desc']}<br/>"
+            f"• <b>Logística de Actividad</b>: {h_info['actividad']}<br/>"
+            f"• <b>{lang_map['air_lbl']}</b>: {h_info['logistica_aerea']}<br/>"
+            f"• <b>{lang_map['sea_lbl']}</b>: {h_info['logistica_maritima']}<br/><br/>"
+            f"{lang_map['consorcio']}"
+        )
+        story.append(Paragraph(dest_html, body_style))
+        
+        # Sección 3: Conclusiones y Cláusulas de Exclusión Médica/Legal (Inmunidad)
+        story.append(Spacer(1, 10))
+        story.append(Paragraph(lang_map['sec3_title'], h2_style))
+        story.append(Paragraph(lang_map['cta'], body_style))
+        story.append(Spacer(1, 10))
+        story.append(Paragraph(lang_map['sec4_title'], h2_style))
+        story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
+        story.append(Paragraph(lang_map['ai_foot'], disclaimer_style))
 
-    doc.build(story)
-    return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
+        # Compilar documento
+        doc.build(story)
+        return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Fallo en compilador ReportLab: {str(e)}")
 
-@app.get("/", response_class=HTMLResponse)
-def read_index():
-    index_path = "static/index.html"
-    if os.path.exists(index_path):
-        with open(index_path, "r", encoding="utf-8") as f:
-            return f.read()
-    return "MAY ROGA LLC - index.html no localizado en /static"
+
+# Montaje y enrutamiento final de archivos estáticos en Render
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/{catchall:path}")
+async def catch_all_routing():
+    """
+    Garantiza que cualquier recarga en el navegador redirija limpiamente 
+    al lienzo principal de la aplicación.
+    """
+    if os.path.exists("static/index.html"):
+        return FileResponse("static/index.html")
+    return HTMLResponse(content="<h1>Wellness Travel Node Operational</h1>", status_code=200)
