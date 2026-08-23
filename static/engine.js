@@ -1,10 +1,4 @@
-"Do you feel complete apathy toward inevitable family commitments due to decision fatigue?",
-"Does your body demand an immediate operational halt while your schedule forces you forward?",
-"Do you feel that today's interactions are creating unsustainable silences in your close bonds?",
-"Are you ready to obey the tuning command, drop operations, and activate your escape today?"
-],
-
-    // ==========================================
+  // ==========================================
     // INICIO DE LA APLICACIÓN Y NAVEGACIÓN
     // ==========================================
     despertarInicial() {
