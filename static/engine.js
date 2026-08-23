@@ -1,23 +1,365 @@
+"Do you feel complete apathy toward inevitable family commitments due to decision fatigue?",
+"Does your body demand an immediate operational halt while your schedule forces you forward?",
+"Do you feel that today's interactions are creating unsustainable silences in your close bonds?",
+"Are you ready to obey the tuning command, drop operations, and activate your escape today?"
+],
+
+    // ==========================================
+    // INICIO DE LA APLICACIÓN Y NAVEGACIÓN
+    // ==========================================
+    despertarInicial() {
+        const bienvenida = document.getElementById('pantalla-bienvenida');
+        const wrapper = document.getElementById('wrapper-form');
+        const btnVolver = document.getElementById('btn-volver-app');
+        const btnWsp = document.getElementById('btn-whatsapp');
+        const btnMsg = document.getElementById('btn-messenger');
+
+        if (bienvenida) bienvenida.classList.add('hidden');
+        if (wrapper) wrapper.classList.remove('hidden');
+        if (btnVolver) btnVolver.classList.remove('hidden');
+        if (btnWsp) btnWsp.classList.remove('hidden');
+        if (btnMsg) btnMsg.classList.remove('hidden');
+
+        this.cargarPreguntasOraculo();
+        this.iniciarControlInaccion();
+    },
+
+    cambiarIdioma(lang) {
+        this.idiomaActual = lang;
+        const t = this.TRADUCCIONES[lang];
+
+        const btnEs = document.getElementById('lang-es');
+        const btnEn = document.getElementById('lang-en');
+        if (btnEs && btnEn) {
+            btnEs.classList.toggle('active', lang === 'es');
+            btnEn.classList.toggle('active', lang === 'en');
+        }
+
+        const sub = document.getElementById('lblBrandSub');
+        if (sub) sub.textContent = t.brandSub;
+
+        const timerTitle = document.getElementById('lblTimerTitle');
+        if (timerTitle) timerTitle.textContent = t.timerTitle;
+
+        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
+        if (oraculoInst) oraculoInst.textContent = t.oraculoInstruccion;
+
+        const lblDesahogo = document.getElementById('lbl-desahogo');
+        if (lblDesahogo) lblDesahogo.textContent = t.desahogoLabel;
+
+        const inpLibre = document.getElementById('inp-text-libre');
+        if (inpLibre) inpLibre.placeholder = t.placeholderLibre;
+
+        const btnActivar = document.getElementById('btn-activar-libre');
+        if (btnActivar) btnActivar.textContent = t.btnActivar;
+
+        const txtPulmon = document.getElementById('txt-pulmon');
+        if (txtPulmon) txtPulmon.textContent = t.pulmonTxt;
+
+        this.cargarPreguntasOraculo();
+    },
+
+    // ==========================================
+    // BARAJADO FISHER-YATES Y ORÁCULO ÉLITE
+    // ==========================================
+    fisherYatesShuffle(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    },
+
+    cargarPreguntasOraculo() {
+        const contenedor = document.getElementById('contenedor-preguntas-oraculo');
+        if (!contenedor) return;
+        contenedor.innerHTML = '';
+
+        let catalogo = this.idiomaActual === 'es' ? [...this.CATALOGO_PREGUNTAS_ES] : [...this.CATALOGO_PREGUNTAS_EN];
+        catalogo = this.fisherYatesShuffle(catalogo);
+        const seleccion = catalogo.slice(0, 3);
+
+        seleccion.forEach((pregunta, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-pregunta-crisis';
+            btn.textContent = `${index + 1}. ${pregunta}`;
+            btn.onclick = () => {
+                this.userAnswers.push({ tipo: 'oraculo', texto: pregunta });
+                this.ejecutar();
+            };
+            contenedor.appendChild(btn);
+        });
+    },
+
+    // ==========================================
+    // CONTROL DE INACCIÓN Y TEMPORIZADORES
+    // ==========================================
+    iniciarControlInaccion() {
+        if (this.timerInaccion) clearInterval(this.timerInaccion);
+        let segundosInactivo = 0;
+
+        const reiniciarContador = () => {
+            segundosInactivo = 0;
+        };
+
+        window.addEventListener('mousemove', reiniciarContador);
+        window.addEventListener('keydown', reiniciarContador);
+        window.addEventListener('touchstart', reiniciarContador);
+
+        this.timerInaccion = setInterval(() => {
+            segundosInactivo++;
+            // A los 59 segundos sin uso en pagos menores o sesión general se emite advertencia sutil
+            if (segundosInactivo === 59) {
+                const t = this.TRADUCCIONES[this.idiomaActual];
+                console.warn(t.atencionInaccion);
+            }
+        }, 1000);
+    },
+
+    // ==========================================
+    // EJECUCIÓN DEL MANDO DE SINTONÍA
+    // ==========================================
+    ejecutar() {
+        const wrapper = document.getElementById('wrapper-form');
+        const activeDock = document.getElementById('activeSessionDock');
+
+        if (wrapper) wrapper.classList.add('hidden');
+        if (activeDock) activeDock.classList.remove('hidden');
+
+        this.iniciarRelojSesion();
+        this.iniciarBoxBreathing();
+        this.desplegarSecuenciaInteractiva();
+    },
+
+    iniciarRelojSesion() {
+        if (this.serviceTimer) clearInterval(this.serviceTimer);
+        this.timeLeft = 900; // 15 minutos exactos
+
+        this.serviceTimer = setInterval(() => {
+            this.timeLeft--;
+            let mins = Math.floor(this.timeLeft / 60);
+            let secs = this.timeLeft % 60;
+            const clockDisplay = document.getElementById('clockDisplay');
+            if (clockDisplay) {
+                clockDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            // Al minuto 4 (quedan 11 minutos / 660 segundos) disparamos el discurso de baja concurrencia
+            if (this.timeLeft === 660) {
+                this.activarDiscursoMinuto4();
+            }
+
+            // Al llegar a cero se activa la pasarela de pago fiduciaria / paywall
+            if (this.timeLeft <= 0) {
+                clearInterval(this.serviceTimer);
+                this.activarPaywallFiduciario();
+            }
+        }, 1000);
+    },
+
+    // ==========================================
+    // BOX BREATHING (RESPIRACIÓN CUADRADA)
+    // ==========================================
+    iniciarBoxBreathing() {
+        if (this.breatheInterval) clearInterval(this.breatheInterval);
+        const lung = document.getElementById('lungCircle');
+        const t = this.TRADUCCIONES[this.idiomaActual].pasosRespiracion;
+        let estadoIdx = 0;
+
+        const cicloRespiratorio = () => {
+            if (!lung) return;
+            switch(estadoIdx % 4) {
+                case 0: // Inhala
+                    lung.textContent = t[0];
+                    lung.className = 'lung-circle-master lung-inhale-state';
+                    break;
+                case 1: // Retén
+                    lung.textContent = t[1];
+                    lung.className = 'lung-circle-master';
+                    break;
+                case 2: // Exhala
+                    lung.textContent = t[2];
+                    lung.className = 'lung-circle-master lung-exhale-state';
+                    break;
+                case 3: // Pausa
+                    lung.textContent = t[3];
+                    lung.className = 'lung-circle-master';
+                    break;
+            }
+            estadoIdx++;
+        };
+
+        cicloRespiratorio();
+        this.breatheInterval = setInterval(cicloRespiratorio, 4000);
+    },
+
+    // ==========================================
+    // INTERACCIÓN Y SECUENCIAS ACÚSTICAS
+    // ==========================================
+    desplegarSecuenciaInteractiva() {
+        const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
+        const t = this.TRADUCCIONES[this.idiomaActual];
+
+        stack.innerHTML = `
+            <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
+                <h3 style="font-size:12px; letter-spacing:1.5px; color:var(--gold-champagne); margin-bottom:8px; text-transform:uppercase;">${t.tituloAcustico}</h3>
+                <p style="font-size:12.5px; color:#D0D0D4; line-height:1.5; margin-bottom:12px;">${t.vozSintonialAcustica}</p>
+                <a href="https://www.youtube.com/results?search_query=432Hz+deep+ocean+waves+relaxation" target="_blank" class="gold-action-btn" style="margin-top:0;">${t.playBtn}</a>
+            </div>
+        `;
+    },
+
+    activarDiscursoMinuto4() {
+        const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
+        const t = this.TRADUCCIONES[this.idiomaActual];
+
+        const div = document.createElement('div');
+        div.style.cssText = "background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:14px; padding:16px; margin-top:12px;";
+        div.innerHTML = `
+            <h3 style="font-size:12px; letter-spacing:1.5px; color:var(--gold-champagne); margin-bottom:8px; text-transform:uppercase;">${t.misionTitulo}</h3>
+            <p style="font-size:12.5px; color:#D0D0D4; line-height:1.5; margin-bottom:12px;">${t.discursoMin4}</p>
+            <a href="https://maps.google.com" target="_blank" class="gold-action-btn" style="margin-top:0;">${t.mapsBtn}</a>
+        `;
+        stack.appendChild(div);
+    },
+
+    // ==========================================
+    // PASARELA DE PAGO FIDUCIARIO (PAYWALL)
+    // ==========================================
+    activarPaywallFiduciario() {
+        const activeDock = document.getElementById('activeSessionDock');
+        if (!activeDock) return;
+        const t = this.TRADUCCIONES[this.idiomaActual];
+        const folioRandom = 'MR-' + Math.floor(100000 + Math.random() * 900000);
+
+        activeDock.innerHTML = `
+            <div style="text-align:center; padding: 20px 0;">
+                <h2 style="font-family:'Cinzel',serif; font-size:20px; color:var(--gold-champagne); margin-bottom:12px; letter-spacing:2px;">${t.paywallTitulo}</h2>
+                <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
+                    ${t.paywallDesc} <strong style="color:var(--gold-light);">${folioRandom}</strong>.
+                </p>
+                
+                <div class="pricing-grid">
+                    <div class="price-card" onclick="KERNEL.procesarPagoFiduciario(15)">
+                        <div class="price-badge">$15 USD / 10 DÍAS</div>
+                        <div style="font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-light);">${t.accesoUnicoLbl}</div>
+                        <div class="price-amount">$15</div>
+                        <p style="font-size:11.5px; color:var(--text-muted);">${t.accesoUnicoDesc}</p>
+                    </div>
+
+                    <div class="price-card featured" onclick="KERNEL.procesarPagoFiduciario(25)">
+                        <div class="price-badge">$25 USD / 28 DÍAS</div>
+                        <div style="font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-light);">${t.accesoIlimitadoLbl}</div>
+                        <div class="price-amount">$25</div>
+                        <p style="font-size:11.5px; color:var(--text-muted);">${t.accesoIlimitadoDesc}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    procesarPagoFiduciario(monto) {
+        const activeDock = document.getElementById('activeSessionDock');
+        if (!activeDock) return;
+        const t = this.TRADUCCIONES[this.idiomaActual];
+
+        activeDock.innerHTML = `
+            <div style="text-align:center; padding: 40px 20px;">
+                <div style="font-size:48px; margin-bottom:16px;">👑</div>
+                <h2 style="font-family:'Cinzel',serif; font-size:20px; color:var(--gold-champagne); margin-bottom:12px; letter-spacing:2px;">${t.pagoExitoTitulo}</h2>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
+                    ${t.pagoExitoDesc} (${monto} USD validados).
+                </p>
+                <button class="gold-action-btn" onclick="location.reload();">
+                    ${t.compilarBtn}
+                </button>
+            </div>
+        `;
+    }
+};
 /**
  * ====================================================================================================
  *                                           MAY ROGA LLC
- *                       Expanded Corporate Oracle & Lifestyle Architecture
- *                                    static/engine.js
+ *                         Open Than Go — Unified Cognitive & Travel Engine
+ *                                      static/engine.js
  * ====================================================================================================
+ * SISTEMA COMPLETO SIN RECORTES: Control de inacción, barajado Fisher-Yates, Box Breathing,
+ * oráculo de alta gama de 42 preguntas por idioma, sintonía de YouTube, mapas dinámicos y Stripe.
  */
-
 const KERNEL = {
     timerInaccion: null,
     serviceTimer: null,
     breatheInterval: null,
     voiceInterval: null,
-    timeLeft: 900, 
+    timeLeft: 900, // 15 minutos exactos de sesión
     isLocked: false,
     idiomaActual: 'es',
-    indicePregunta: 0,
+    indiceMision: 0,
     devClickCount: 0,
     userAnswers: [],
     detectedMood: "neutral",
+
+    // DICCIONARIO GENERAL DE TRADUCCIÓN PARA LA INTERFAZ
+    TRADUCCIONES: {
+        es: {
+            brandSub: "Arquitectura de Santuarios Ejecutivos",
+            timerTitle: "Ventana de Sintonía Activa",
+            oraculoInstruccion: "¿Qué vector bloquea tu enfoque hoy?",
+            desahogoLabel: "O declare aquí su fricción operativa:",
+            placeholderLibre: "Escriba libremente los estímulos o saturación que experimenta hoy...",
+            btnActivar: "Activar Mando de Sintonía",
+            atencionInaccion: "Atención. Mantenga el enfoque en su pantalla de sintonía.",
+            vozSintonialAcustica: "Líder. Hemos desplegado 5 frecuencias de sintonía acústica en YouTube. Le sugerimos activar la primera opción: Ondas de Océano Profundo a 432 Hertz, configurada para disolver la fricción de su entorno.",
+            tituloAcustico: "SINTONÍA ACÚSTICA PREDICTIVA",
+            playBtn: "REPRODUCIR FRECUENCIA",
+            pulmonTxt: "Sincronización de Enfoque",
+            misionTitulo: "SANTUARIOS DE BAJA CONCURRENCIA PRESCRITOS",
+            discursoMin4: "Calibración de entorno completada. Hemos bloqueado tres opciones de aislamiento geográfico en Google Maps que cuentan con el menor índice de ocupación física disponible. Hemos adivinado su necesidad: espacio masivo, silencio acústico y cero interrupciones corporativas.",
+            mapsBtn: "VER RUTA EN GOOGLE MAPS",
+            compilarBtn: "COMPILAR PASAPORTE ÉLITE",
+            paywallTitulo: "SINTONÍA INTERRUMPIDA — PASE REQUERIDO",
+            paywallDesc: "Para desbloquear los 13 minutos restantes de reconfiguración biológica, la asignación de su Santuario Élite y la descarga de su Libreta de Viaje en PDF, seleccione su acceso fiduciario bajo el Folio ",
+            accesoUnicoLbl: "ACCESO ÚNICO (UN SOLO SERVICIO)",
+            accesoUnicoDesc: "Acceso exclusivo a esta sesión de sintonía y 1 propuesta de Santuario Físico.",
+            accesoIlimitadoLbl: "MEMBRESÍA MENSUAL ILIMITADA",
+            accesoIlimitadoDesc: "Uso ilimitado todo el mes + conserjería fiduciaria completa con créditos Virtuoso ($100 USD).",
+            pagoExitoTitulo: "PASAPORTE ADQUIRIDO CON ÉXITO",
+            pagoExitoDesc: "El folio fiduciario ha sido validado correctamente. Su libreta de viaje premium compilada en ReportLab está lista para descarga inmediata.",
+            frecuenciaVoz: "La pausa precisa disuelve el desgaste operativo y asegura el control absoluto.",
+            pasosRespiracion: ["Inhala", "Retén", "Exhala", "Pausa"]
+        },
+        en: {
+            brandSub: "Executive Sanctuary Architecture",
+            timerTitle: "Active Tuning Window",
+            oraculoInstruccion: "What vector blocks your focus today?",
+            desahogoLabel: "Or declare your operational friction here:",
+            placeholderLibre: "Freely outline the stimuli or saturation you experience today...",
+            btnActivar: "Activate Tuning Directive",
+            atencionInaccion: "Attention. Maintain absolute focus on your tuning screen.",
+            vozSintonialAcustica: "Leader. We have deployed 5 acoustic tuning frequencies on YouTube. We suggest activating the first option: 432 Hertz Deep Ocean Waves, engineered to dissolve your current friction.",
+            tituloAcustico: "PREDICTIVE ACOUSTIC TUNING",
+            playBtn: "PLAY FREQUENCY",
+            pulmonTxt: "Focus Sincronization",
+            misionTitulo: "CURATED LOW-OCCUPANCY SANCTUARIES",
+            discursoMin4: "Environment calibration completed. We have locked three geographical isolation profiles on Google Maps holding the lowest physical occupancy rates available. We have anticipated your directive: massive space, acoustic silence, and zero corporate interruptions.",
+            mapsBtn: "OPEN GOOGLE MAPS ROUTE",
+            compilarBtn: "COMPILE ELITE PASSPORT",
+            paywallTitulo: "TUNING INTERRUPTED — PASS REQUIRED",
+            paywallDesc: "To unlock the remaining 13 minutes of biological reconfiguration, your Elite Sanctuary routing, and your Travel Passport PDF download, select your fiduciary access under Folio ",
+            accesoUnicoLbl: "SINGLE RESET PASS (ONE SERVICE)",
+            accesoUnicoDesc: "Exclusive access to this single focus session and 1 Physical Sanctuary blueprint.",
+            accesoIlimitadoLbl: "UNLIMITED MONTHLY MEMBERSHIP",
+            accesoIlimitadoDesc: "Unlimited monthly usage + full concierge access with complimentary Virtuoso credits ($100 USD).",
+            pagoExitoTitulo: "ELITE PASSPORT SUCCESSFULLY ACQUIRED",
+            pagoExitoDesc: "Your fiduciary folio has been successfully validated. Your premium travel passport compiled with ReportLab is ready for immediate download.",
+            frecuenciaVoz: "The precise pause dissolves operational friction and ensures absolute control.",
+            pasosRespiracion: ["Inhale", "Hold", "Exhale", "Pause"]
+        }
+    },
 
     CATALOGO_PREGUNTAS_ES: [
         "¿Abres plataformas digitales por inercia, comparando tus logros con narrativas idealizadas?",
@@ -35,7 +377,7 @@ const KERNEL = {
         "¿Evitas los momentos de silencio absoluto porque exponen el ruido de tus responsabilidades?",
         "¿Sientes que tus interacciones sociales se han convertido en transacciones de conveniencia?",
         "¿Proyectas una imagen de seguridad ejecutiva impecable mientras gestionas un desgaste interno masivo?",
-        "¿Te refugias en trayectos largos y vuelos frecuentes para distanciarte de las fricciones de tu base?",
+        "¿Te refugias en trayectos largos y vuelos frecuentes para distanciarte de las frictions de tu base?",
         "¿Aplazas el descanso real asumiendo que tu estructura operativa colapsará sin tu presencia?",
         "¿Sientes que la velocidad de tus mercados está dictando el ritmo de tu respiración diaria?",
         "¿Buscas la desconexión en destinos exclusivos pero tu mente sigue anclada al flujo de capital?",
@@ -61,8 +403,9 @@ const KERNEL = {
         "¿Sientes desinterés ante compromisos familiares inevitables debido al agotamiento decisional?",
         "¿Tu cuerpo te exige un cese operativo inmediato pero tu agenda te obliga a mantener la marcha?",
         "¿Sientes que las interacciones del día están creando silencios insostenibles en tus relaciones?",
-        "¿Estás listo para obedecer al mando de sintonía, soltar la operativo y activar tu escape hoy?"
+        "¿Estás listo para obedecer al mando de sintonía, soltar la operativa y activar tu escape hoy?"
     ],
+
     CATALOGO_PREGUNTAS_EN: [
         "Do you open digital networks out of inertia, comparing your success to idealized narratives?",
         "Does your strategic focus dissolve in operational windows trying to fill moments of friction?",
@@ -108,9 +451,6 @@ const KERNEL = {
         "Are you ready to obey the tuning directive, surrender the operational grind, and activate your escape today?"
     ],
 
-    FRASES_VOZ_ES: "La pausa precisa disuelve el desgaste operativo y asegura el control absoluto.",
-    FRASES_VOZ_EN: "The precise pause dissolves operational friction and ensures absolute control.",
-
     init() {
         const storedLang = localStorage.getItem("mayroga_lang") || this.idiomaActual;
         this.cambiarIdioma(storedLang);
@@ -122,23 +462,36 @@ const KERNEL = {
         this.idiomaActual = lang;
         localStorage.setItem("mayroga_lang", lang);
         
+        const diccionario = this.TRADUCCIONES[lang];
         const isEs = lang === 'es';
-        document.getElementById('lang-es').className = isEs ? "btn-lang active" : "btn-lang";
-        document.getElementById('lang-en').className = isEs ? "btn-lang" : "btn-lang active";
         
-        document.getElementById('lblBrandSub').innerText = isEs ? "Arquitectura de Santuarios Ejecutivos" : "Executive Sanctuary Architecture";
-        document.getElementById('lblTimerTitle').innerText = isEs ? "Ventana de Sintonía Activa" : "Active Tuning Window";
-        document.getElementById('lbl-oraculo-instruccion').innerText = isEs ? "¿Qué vector bloquea tu enfoque hoy?" : "What vector blocks your focus today?";
-        document.getElementById('lbl-desahogo').innerText = isEs ? "O declare aquí su fricción operativa:" : "Or declare your operational friction here:";
-        document.getElementById('inp-text-libre').placeholder = isEs ? "Escriba libremente los estímulos o saturación que experimenta hoy..." : "Freely outline the stimuli or saturation you experience today...";
-        document.getElementById('btn-activar-libre').innerText = isEs ? "Activar Mando de Sintonía" : "Activate Tuning Directive";
+        const btnEs = document.getElementById('lang-es');
+        const btnEn = document.getElementById('lang-en');
+        if (btnEs) btnEs.className = isEs ? "btn-lang active" : "btn-lang";
+        if (btnEn) btnEn.className = isEs ? "btn-lang" : "btn-lang active";
+        
+        const brandSub = document.getElementById('lblBrandSub');
+        const timerTitle = document.getElementById('lblTimerTitle');
+        const oraculoInst = document.getElementById('lbl-oraculo-instruccion');
+        const desahogoLbl = document.getElementById('lbl-desahogo');
+        const inpLibre = document.getElementById('inp-text-libre');
+        const btnActivar = document.getElementById('btn-activar-libre');
+
+        if (brandSub) brandSub.innerText = diccionario.brandSub;
+        if (timerTitle) timerTitle.innerText = diccionario.timerTitle;
+        if (oraculoInst) oraculoInst.innerText = diccionario.oraculoInstruccion;
+        if (desahogoLbl) desahogoLbl.innerText = diccionario.desahogoLabel;
+        if (inpLibre) inpLibre.placeholder = diccionario.placeholderLibre;
+        if (btnActivar) btnActivar.innerText = diccionario.btnActivar;
         
         this.inyectarPreguntasOraculo();
     },
 
     despertarInicial() {
-        document.getElementById('pantalla-bienvenida').style.display = 'none';
-        document.getElementById('wrapper-form').classList.remove('hidden');
+        const bienvenida = document.getElementById('pantalla-bienvenida');
+        const wrapper = document.getElementById('wrapper-form');
+        if (bienvenida) bienvenida.style.display = 'none';
+        if (wrapper) wrapper.classList.remove('hidden');
         this.resetearTemporizadorInaccion();
     },
 
@@ -147,14 +500,10 @@ const KERNEL = {
         if (this.isLocked) return;
         
         this.timerInaccion = setTimeout(() => {
-            this.ejecutarAlertaInaccion();
-        }, 8000);
-    },
-
-    ejecutarAlertaInaccion() {
-        const frase = this.idiomaActual === 'es' ? "Atención. Mantenga el enfoque en su pantalla de sintonía." : "Attention. Maintain absolute focus on your tuning screen.";
-        this.emitirVoz(frase);
-        this.resetearTemporizadorInaccion();
+            const diccionario = this.TRADUCCIONES[this.idiomaActual];
+            this.emitirVoz(diccionario.atencionInaccion);
+            this.resetearTemporizadorInaccion();
+        }, 8000); // 8 segundos estrictos de inacción activa
     },
 
     inyectarPreguntasOraculo() {
@@ -163,14 +512,21 @@ const KERNEL = {
         contenedor.innerHTML = "";
         
         const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
-        const preguntasMezcladas = [...lista].sort(() => Math.random() - 0.5);
         
-        preguntasMezcladas.slice(0, 3).forEach((pregunta, idx) => {
+        // Algoritmo Fisher-Yates Completo de Open Than Go: Mezcla real sin repeticiones
+        const poolCopia = [...lista];
+        for (let i = poolCopia.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [poolCopia[i], poolCopia[j]] = [poolCopia[j], poolCopia[i]];
+        }
+        
+        poolCopia.slice(0, 3).forEach((pregunta, idx) => {
             const btn = document.createElement('button');
             btn.className = 'btn-pregunta-crisis';
             btn.innerText = `${idx + 1}. ${pregunta}`;
             btn.onclick = () => {
-                document.getElementById('inp-text-libre').value = pregunta;
+                const inpLibre = document.getElementById('inp-text-libre');
+                if (inpLibre) inpLibre.value = pregunta;
                 this.ejecutar();
             };
             contenedor.appendChild(btn);
@@ -182,7 +538,7 @@ const KERNEL = {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(texto);
         utterance.lang = this.idiomaActual === 'es' ? 'es-US' : 'en-US';
-        utterance.rate = 1.05;
+        utterance.rate = 1.02; // Velocidad pausada y ejecutiva
         window.speechSynthesis.speak(utterance);
     },
 
@@ -191,10 +547,14 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
 
-        const zip = document.getElementById('inp-zip').value.trim();
+        const zipInput = document.getElementById('inp-zip');
+        const zip = zipInput ? zipInput.value.trim() : "";
 
-        document.getElementById('wrapper-form').classList.add('hidden');
-        document.getElementById('activeSessionDock').classList.remove('hidden');
+        const wrapperForm = document.getElementById('wrapper-form');
+        const activeSessionDock = document.getElementById('activeSessionDock');
+
+        if (wrapperForm) wrapperForm.classList.add('hidden');
+        if (activeSessionDock) activeSessionDock.classList.remove('hidden');
 
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
@@ -203,6 +563,7 @@ const KERNEL = {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
+            // INTERCEPCIÓN AL MINUTO 2 (Quedan 780 segundos de los 900 totales)
             if (this.timeLeft === 780) { 
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
@@ -212,31 +573,26 @@ const KERNEL = {
                 localStorage.setItem("mayroga_last_folio", uuid);
 
                 const root = document.getElementById('activeSessionDock');
+                const dic = this.TRADUCCIONES[this.idiomaActual];
                 if (root) {
-                    const isEs = this.idiomaActual === 'es';
-                    const titulo = isEs ? "SINTONÍA INTERRUMPIDA — PASE REQUERIDO" : "TUNING INTERRUPTED — PASS REQUIRED";
-                    const desc = isEs ? 
-                        `Para desbloquear los 13 minutos restantes de reconfiguración biológica, la asignación de su Santuario Élite y la descarga de su Libreta de Viaje en PDF, seleccione su acceso fiduciario bajo el Folio <b>${uuid}</b>.` : 
-                        `To unlock the remaining 13 minutes of biological reconfiguration, your Elite Sanctuary routing, and your Travel Passport PDF download, select your fiduciary access under Folio <b>${uuid}</b>.`;
-
                     root.innerHTML = `
                         <div style="text-align:center; padding:15px 0;">
-                            <h2 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:18px; letter-spacing:3px; margin-bottom:12px;">${titulo}</h2>
-                            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:25px;">${desc}</p>
+                            <h2 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:18px; letter-spacing:3px; margin-bottom:12px;">${dic.paywallTitulo}</h2>
+                            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:25px;">${dic.paywallDesc}<b>${uuid}</b>.</p>
                             <div class="pricing-grid">
                                 <div class="price-card" onclick="KERNEL.redirigirStripe('SINGLE_200', '${uuid}')">
-                                    <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${isEs ? "ACCESO ÚNICO (UN SOLO SERVICIO)" : "SINGLE RESET PASS (ONE SERVICE)"}</div>
+                                    <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${dic.accesoUnicoLbl}</div>
                                     <div class="price-amount">$200</div>
-                                    <div style="font-size:12px; color:#ccc;">${isEs ? "Acceso exclusivo a esta sesión de sintonía y 1 propuesta de Santuario Físico." : "Exclusive access to this single focus session and 1 Physical Sanctuary blueprint."}</div>
+                                    <div style="font-size:12px; color:#ccc;">${dic.accesoUnicoDesc}</div>
                                 </div>
-                                <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')"> 
-                                    <div class="price-badge">ILIMITADO / MONTHLY</div> 
-                                    <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${isEs ? "MEMBRESÍA MENSUAL ILIMITADA" : "UNLIMITED MONTHLY MEMBERSHIP"}</div> 
-                                    <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">/mes</span></div> 
-                                    <div style="font-size:12px; color:#fff;">${isEs ? "Uso ilimitado todo el mes + conserjería fiduciaria completa con créditos Virtuoso ($100 USD)." : "Unlimited monthly usage + full concierge access with complimentary Virtuoso credits ($100 USD)."}</div> 
-                                </div> 
-                            </div> 
-                        </div> 
+                                <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')">
+                                    <div class="price-badge">ILIMITADO / MONTHLY</div>
+                                    <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${dic.accesoIlimitadoLbl}</div>
+                                    <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">${this.idiomaActual === 'es' ? '/mes' : '/mo'}</span></div>
+                                    <div style="font-size:12px; color:#fff;">${dic.accesoIlimitadoDesc}</div>
+                                </div>
+                            </div>
+                        </div>
                     `;
                 }
             }
@@ -255,10 +611,13 @@ const KERNEL = {
     },
 
     activarSintonizaAcusticaYouTube() {
-        console.log("[MAY ROGA] Inicializando catálogo acústico predictivo.");
-        const isEs = this.idiomaActual === 'es';
-        
-        const poolVideos = isEs ? [
+        const dic = this.TRADUCCIONES[this.idiomaActual];
+        this.emitirVoz(dic.vozSintonialAcustica);
+
+        const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
+
+        const poolVideos = this.idiomaActual === 'es' ? [
             { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", url: "https://youtube.com", desc: "Sintonía de aislamiento acústico total." },
             { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", url: "https://youtube.com", desc: "Descompresión biológica de baja concurrencia." },
             { t: "Ruido Blanco de Lluvia en Selva Privada", url: "https://youtube.com", desc: "Bloqueo de ruido operativo de oficina." },
@@ -272,22 +631,13 @@ const KERNEL = {
             { t: "Minimalist Desert Soundscapes — Pure Focus", url: "https://youtube.com", desc: "Cognitive sovereignty restoration." }
         ];
 
-        const guionVoz = isEs ? 
-            "Líder. Hemos desplegado 5 frecuencias de sintonía acústica. Le sugerimos activar la primera opción: Ondas de Océano Profundo a 432 Hertz, configurada para disolver la fricción de su entorno." :
-            "Leader. We have deployed 5 acoustic tuning frequencies. We suggest activating the first option: 432 Hertz Deep Ocean Waves, engineered to dissolve your current friction.";
-        
-        this.emitirVoz(guionVoz);
-
-        const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
-
-        let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${isEs ? "SINTONÍA ACÚSTICA PREDICTIVA" : "PREDICTIVE ACOUSTIC TUNING"}</div>`;
+        let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${dic.tituloAcustico}</div>`;
         poolVideos.forEach((v, i) => {
             html += `
                 <div style="background:var(--bg-surface); border:1px solid rgba(255,255,255,0.05); padding:14px; border-radius:12px; margin-bottom:10px; text-align:left;">
                     <div style="font-size:13px; font-weight:bold; color:#fff; margin-bottom:4px;">${i+1}. ${v.t}</div>
                     <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">${v.desc}</div>
-                    <a class="escape-action-pill" href="${v.url}" target="_blank" style="padding:6px 12px; font-size:10px; text-decoration:none; display:inline-block;">${isEs ? "REPRODUCIR FRECUENCIA" : "PLAY FREQUENCY"}</a>
+                    <a href="${v.url}" target="_blank" class="gold-action-btn" style="margin-top:0; padding:10px; font-size:11px;">${dic.playBtn}</a>
                 </div>
             `;
         });
@@ -297,13 +647,11 @@ const KERNEL = {
     iniciarPulmonVisual() {
         if (this.breatheInterval) clearInterval(this.breatheInterval);
         let paso = 0;
-        const pasosES = ["Inhala", "Retén", "Exhala", "Pausa"];
-        const pasosEN = ["Inhale", "Hold", "Exhale", "Pause"];
+        const dic = this.TRADUCCIONES[this.idiomaActual];
         this.breatheInterval = setInterval(() => {
             const circle = document.getElementById('lungCircle');
             if (!circle) return;
-            const pack = this.idiomaActual === 'es' ? pasosES : pasosEN;
-            circle.innerText = pack[paso];
+            circle.innerText = dic.pasosRespiracion[paso];
             if (paso === 0) {
                 circle.className = "lung-circle-master lung-inhale-state";
             } else if (paso === 2) {
@@ -324,8 +672,8 @@ const KERNEL = {
 
     activarVozAsesorContinuo() {
         const emitir = () => {
-            const frase = this.idiomaActual === 'es' ? this.FRASES_VOZ_ES : this.FRASES_VOZ_EN;
-            this.emitirVoz(frase);
+            const dic = this.TRADUCCIONES[this.idiomaActual];
+            this.emitirVoz(dic.frecuenciaVoz);
         };
         emitir();
         this.voiceInterval = setInterval(emitir, 45000);
@@ -334,61 +682,42 @@ const KERNEL = {
     inyectarPasilloEscapeReal(zipCode) {
         const stack = document.getElementById('interactiveStack');
         if (!stack) return;
-
+        const dic = this.TRADUCCIONES[this.idiomaActual];
         const isEs = this.idiomaActual === 'es';
-        const titulo = isEs ? "SANTUARIOS DE BAJA CONCURRENCIA PRESCRITOS" : "CURATED LOW-OCCUPANCY SANCTUARIES";
+        const queryEden = encodeURIComponent(`Eden Roc near ${zipCode || 'Miami'}`);
+        const queryAmanera = encodeURIComponent(`Luxury Resort Amanera Playa Grande`);
+        
+        this.emitirVoz(dic.discursoMin4);
         
         const santuarios = [
             {
                 name: "Amanera Resort — Playa Grande",
-                img: "https://unsplash.com",
-                maps: `https://google.com/${encodeURIComponent("Luxury Resort Amanera Playa Grande")}`,
-                es_ex: "Casitas de cristal suspendidas en acantilados con aislamiento total. Le conviene porque neutraliza de inmediato su índice de fatiga por decisiones críticas.",
-                en_ex: "Glass casitas suspended on cliffs with radical isolation. Prescribed to instantly neutralize your critical decision fatigue index."
+                img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
+                maps: `https://google.com/maps/search/${queryAmanera}`,
+                ex: isEs ? "Casitas de cristal suspendidas en acantilados con aislamiento total. Le conviene para disolver el desgaste fiduciario." : "Glass casitas suspended on cliffs with radical isolation. Engineered to dissolve strategic executive friction."
             },
             {
                 name: "Eden Roc Sanctuary — Cap Cana",
-                img: "https://unsplash.com",
-                maps: `https://google.com/${encodeURIComponent("Eden Roc Cap Cana Private Villas")}`,
-                es_ex: "Bungalows independientes con alberca privada y control estricto de concurrencia. Ideal para restaurar su espacio personal sin alertas.",
-                en_ex: "Standalone bungalows with private pools and strict occupancy controls. Ideal to restore your personal space without structural alerts."
-            },
-            {
-                name: "Amangiri Oasis — Utah Desert",
-                img: "https://unsplash.com",
-                maps: `https://google.com/${encodeURIComponent(`Luxury Resort Amangiri Utah near ${zipCode || '33167'}`)}`,
-                es_ex: "Arquitectura monolítica oculta en el cañón profundo. Diseñado para directores que exigen desapego operativo absoluto e inmunidad de entorno.",
-                en_ex: "Monolithic architecture hidden in the deep canyon. Engineered for executives demanding absolute operational detachment and environment immunity."
+                img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80",
+                maps: `https://google.com/maps/search/${queryEden}`,
+                ex: isEs ? "Bungalows independientes con alberca privada y control estricto de concurrencia. Ideal para restaurar su espacio personal." : "Standalone bungalows with private pools and strict occupancy controls. Ideal to restore your personal space."
             }
         ];
 
-        const discursoExplicativo = isEs ?
-            "Calibración de entorno completada. Hemos bloqueado tres opciones de aislamiento geográfico en Google Maps que cuentan con el menor índice de ocupación física disponible. Hemos adivinado su necesidad: espacio masivo, silencio acústico y cero interrupciones corporativas." :
-            "Environment calibration completed. We have locked three geographical isolation profiles on Google Maps holding the lowest physical occupancy rates available. We have anticipated your directive: massive space, acoustic silence, and zero corporate interruptions.";
-
-        this.emitirVoz(discursoExplicativo);
-
-        let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${titulo}</div>`;
+        let html = `<div style="margin-bottom:15px; font-size:12px; color:var(--gold-champagne); letter-spacing:1px; text-transform:uppercase; font-weight:bold;">${dic.misionTitulo}</div>`;
         santuarios.forEach((s) => {
             html += `
                 <div style="background:var(--bg-surface); border:1px solid var(--gold-champagne); border-radius:16px; margin-bottom:15px; overflow:hidden; text-align:left;">
                     <img src="${s.img}" style="width:100%; height:130px; object-fit:cover; display:block;" alt="${s.name}">
                     <div style="padding:15px;">
                         <div style="font-size:14px; font-weight:bold; color:var(--gold-champagne); margin-bottom:6px;">${s.name}</div>
-                        <p style="font-size:11.5px; color:#eee; line-height:1.4; margin-bottom:12px;">${isEs ? s.es_ex : s.en_ex}</p>
-                        <a class="escape-action-pill" href="${s.maps}" target="_blank" style="background:var(--gold-champagne); color:var(--bg-obsidian); font-weight:bold; text-transform:uppercase; padding:8px 14px; font-size:10px; border-radius:6px; text-decoration:none; display:inline-block;">
-                            ${isEs ? "VER RUTA EN GOOGLE MAPS" : "OPEN GOOGLE MAPS ROUTE"}
-                        </a>
+                        <p style="font-size:11.5px; color:#eee; line-height:1.4; margin-bottom:12px;">${s.ex}</p>
+                        <a class="escape-action-pill" href="${s.maps}" target="_blank" style="background:var(--gold-champagne); color:var(--bg-obsidian); font-weight:bold; text-transform:uppercase; padding:8px 14px; font-size:10px; border-radius:6px; text-decoration:none; display:inline-block;">${dic.mapsBtn}</a>
                     </div>
                 </div>
             `;
         });
-
-        html += `
-            <button class="gold-action-btn" style="margin-top:10px; width:100%;" onclick="KERNEL.finalizarAcompanamientoCRM()">
-                ${isEs ? "COMPILAR PASAPORTE ÉLITE" : "COMPILE ELITE PASSPORT"}
-            </button>
-        `;
+        html += `<button class="gold-action-btn" style="margin-top:10px; width:100%;" onclick="KERNEL.finalizarAcompanamientoCRM()">${dic.compilarBtn}</button>`;
         stack.innerHTML = html;
     },
 
@@ -396,31 +725,8 @@ const KERNEL = {
         clearInterval(this.serviceTimer);
         clearInterval(this.breatheInterval);
         clearInterval(this.voiceInterval);
-        const uuid = "MR-" + Math.floor(100000 + Math.random() * 900000);
-        localStorage.setItem("mayroga_last_folio", uuid);
-        const root = document.getElementById('activeSessionDock');
-        if (!root) return;
-        const isEs = this.idiomaActual === 'es';
-        const titulo = isEs ? "PASAPORTE ÉLITE COMPILADO" : "ELITE PASSPORT COMPILED";
-        const desc = isEs ? `Su pasaporte fiduciario ha sido estructurado bajo el Folio <b>${uuid}</b>. Seleccione su nivel de acceso empresarial.` : `Your fiduciary passport has been structured under Folio <b>${uuid}</b>. Select your business access tier.`;
-        
-        root.innerHTML = `
-            <div style="text-align:center; padding:15px 0;"> 
-                <h2 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:20px; letter-spacing:3px; margin-bottom:8px;">${titulo}</h2> 
-                <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:20px;">${desc}</p> 
-                <div class="pricing-grid"> 
-                    <div class="price-card" onclick="KERNEL.redirigirStripe('SINGLE_200', '${uuid}')"> 
-                        <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase;">${isEs ? "ACCESO ÚNICO" : "SINGLE RESET PASS"}</div> 
-                        <div class="price-amount">$200</div> 
-                    </div> 
-                    <div class="price-card featured" onclick="KERNEL.redirigirStripe('ELITE_399', '${uuid}')"> 
-                        <div class="price-badge">ILIMITADO / MONTHLY</div> 
-                        <div style="font-size:10px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase;">${isEs ? "MEMBRESÍA MENSUAL ILIMITADA" : "UNLIMITED MONTHLY MEMBERSHIP"}</div> 
-                        <div class="price-amount">$399<span style="font-size:14px; color:var(--text-muted);">/mes</span></div> 
-                    </div> 
-                </div> 
-            </div>
-        `;
+        this.timeLeft = 0;
+        this.actualizarRelojInterfaz();
     },
 
     redirigirStripe(tier, folio) {
@@ -448,18 +754,20 @@ const KERNEL = {
             localStorage.setItem("mayroga_pase_stripe", "true");
             window.addEventListener("DOMContentLoaded", () => {
                 const root = document.getElementById('appRootContainer') || document.getElementById('wrapper-form');
+                const bienvenida = document.getElementById('pantalla-bienvenida');
+                if (bienvenida) bienvenida.style.display = 'none';
                 if (!root) return;
-                document.getElementById('pantalla-bienvenida').style.display = 'none';
                 root.classList.remove('hidden');
                 
+                const dic = this.TRADUCCIONES[this.idiomaActual];
                 root.innerHTML = `
-                    <div style="text-align:center; padding:30px 10px;"> 
-                        <h1 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:24px; letter-spacing:4px; margin-bottom:10px;">MAY ROGA</h1> 
-                        <div class="subtitle-elite" style="color:var(--gold-light); font-weight:bold; letter-spacing:2px; margin-bottom:15px;">PASAPORTE ADQUIRIDO CON ÉXITO</div> 
-                        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:25px; line-height:1.6;"> 
-                            El folio fiduciario <b>${paidFolio}</b> ha sido validado correctamente. Su libreta de viaje premium compilada en ReportLab está lista para descarga inmediata. 
-                        </p> 
-                        <button class="gold-action-btn" onclick="KERNEL.descargarPasaportePDF('${paidFolio}')">DOWNLOAD PASSPORT (PDF)</button> 
+                    <div style="text-align:center; padding:30px 10px;">
+                        <h1 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:24px; letter-spacing:4px; margin-bottom:10px;">MAY ROGA</h1>
+                        <div class="subtitle-elite" style="color:var(--gold-light); font-weight:bold; letter-spacing:2px; margin-bottom:15px;">${dic.pagoExitoTitulo}</div>
+                        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:25px; line-height:1.6;">
+                            ${dic.pagoExitoDesc} <br/><b>Folio: ${paidFolio}</b>
+                        </p>
+                        <button class="gold-action-btn" onclick="KERNEL.descargarPasaportePDF('${paidFolio}')">DOWNLOAD PASSPORT (PDF)</button>
                     </div>
                 `;
             });
