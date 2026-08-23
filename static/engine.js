@@ -1,6 +1,6 @@
 /**
  * ====================================================================================================
- *                                           MAY ROGA LLC
+ *                                             MAY ROGA LLC
  *                         Open Than Go — Executive Wellness & Travel Engine
  *                                      static/engine.js
  * ====================================================================================================
@@ -75,66 +75,40 @@ const KERNEL = {
             pasosRespiracion: ["Inhale", "Hold", "Exhale", "Pause"]
         }
     },
-    // DYNAMIC IMAGE CARD REGISTRY: SECCIÓN DE CARD MATRIX ACTIVA (1 AL 20)
-    CATALOGO_IMAGENES: [
-        { id: "S-01", name: "Amanera Resort — Playa Grande", img: "https://unsplash.com" },
-        { id: "S-02", name: "Eden Roc Sanctuary — Cap Cana", img: "https://unsplash.com" },
-        { id: "S-03", name: "Amangiri Oasis — Utah Desert", img: "https://unsplash.com" },
-        { id: "S-04", name: "Singita Serengeti — Private Reserve", img: "https://unsplash.com" },
-        { id: "S-05", name: "Soneva Jani Overwater — Maldives", img: "https://unsplash.com" },
-        { id: "S-06", name: "Cheval Blanc — St-Barth Isle", img: "https://unsplash.com" },
-        { id: "S-07", name: "One&Only Reethi Rah — Indian Ocean", img: "https://unsplash.com" },
-        { id: "S-08", name: "The Brando — Private Tetiaroa", img: "https://unsplash.com" },
-        { id: "S-09", name: "Como Como Shambhala — Bali Estate", img: "https://unsplash.com" },
-        { id: "S-10", name: "Post Ranch Inn — Big Sur Coast", img: "https://unsplash.com" },
-        { id: "S-11", name: "Amangalla Fortress — Sri Lanka", img: "https://unsplash.com" },
-        { id: "S-12", name: "Laucala Island Estate — Fiji Private", img: "https://unsplash.com" },
-        { id: "S-13", name: "The Silo — Cape Town Executive", img: "https://unsplash.com" },
-        { id: "S-14", name: "Mandarin Oriental — Lake Como", img: "https://unsplash.com" },
-        { id: "S-15", name: "Nihi Sumba — Secluded Indonesia", img: "https://unsplash.com" },
-        { id: "S-16", name: "Belmond Hotel Caruso — Amalfi Cliff", img: "https://unsplash.com" },
-        { id: "S-17", name: "Rosewood — Mayakoba Sanctuary", img: "https://unsplash.com" },
-        { id: "S-18", name: "Aman Tokyo — Sky Skyline Oasis", img: "https://unsplash.com" },
-        { id: "S-19", name: "Chablé Yucatan — Secluded Cenote", img: "https://unsplash.com" },
-        { id: "S-20", name: "Burj Al Arab — Royal Panorama", img: "https://unsplash.com" },
-        // DYNAMIC IMAGE CARD REGISTRY: SECCIÓN DE CARD MATRIX DE RESPALDO (21 AL 40)
-        { id: "SB-21", name: "Amanpuri — Phuket Secluded", img: "https://unsplash.com" },
-        { id: "SB-22", name: "Six Senses Zil Pasyon — Seychelles", img: "https://unsplash.com" },
-        { id: "SB-23", name: "Sextantio Albergo — Diffuso Italy", img: "https://unsplash.com" },
-        { id: "SB-24", name: "Royal Mansour — Marrakech Palace", img: "https://unsplash.com" },
-        { id: "SB-25", name: "Southern Ocean Lodge — Australia", img: "https://unsplash.com" },
-        { id: "SB-26", name: "Villa d'Este — Cernobbio Estate", img: "https://unsplash.com" },
-        { id: "SB-27", name: "Nayara Springs — Arenal Volcano", img: "https://unsplash.com" },
-        { id: "SB-28", name: "Claridge's — Elite London Estate", img: "https://unsplash.com" },
-        { id: "SB-29", name: "Huka Lodge — Clean New Zealand", img: "https://unsplash.com" },
-        { id: "SB-30", name: "Sabi Sabi Earth Lodge — Wild Safari", img: "https://unsplash.com" },
-        { id: "SB-31", name: "Song Saa Private Island — Cambodia", img: "https://unsplash.com" },
-        { id: "SB-32", name: "Ultima Gstaad — Swiss Luxury", img: "https://unsplash.com" },
-        { id: "SB-33", name: "Zannier Phum Baitang — Angkor", img: "https://unsplash.com" },
-        { id: "SB-34", name: "Al Maha Desert Resort — Dubai", img: "https://unsplash.com" },
-        { id: "SB-35", name: "North Island Private — Seychelles", img: "https://unsplash.com" },
-        { id: "SB-36", name: "Hotel de Paris — Monte Carlo Élite", img: "https://unsplash.com" },
-        { id: "SB-37", name: "Fogo Island Inn — Secluded Canada", img: "https://unsplash.com" },
-        { id: "SB-38", name: "Capella Ubud — Bali Rainforest", img: "https://unsplash.com" },
-        { id: "SB-39", name: "Badrutt's Palace — St. Moritz", img: "https://unsplash.com" },
-        { id: "SB-40", name: "Amanyara — Turks and Caicos", img: "https://unsplash.com" }
+
+    CATALOGO_PREGUNTAS_ES: [
+        "Saturación por decisiones ejecutivas continuas",
+        "Exceso de ruido operativo y reuniones improductivas",
+        "Necesidad de aislamiento estratégico inmediato",
+        "Fatiga mental por gestión de alta presión"
     ],
 
-    // REPRODUCTORES ASÍNCRONOS DE YOUTUBE: 3 ACTIVOS + 9 DE RESPALDO (TOTAL 12 MEMORY NODES)
-    CATALOGO_YOUTUBE: [
-        { id: "YT-01", t: "Frecuencia Solfeggio 432Hz — Océano Profundo", embed: "https://youtube.com" },
-        { id: "YT-02", t: "Frecuencia Alfa 8Hz — Espacio Natural", embed: "https://youtube.com" },
-        { id: "YT-03", t: "Ruido Blanco — Lluvia en Selva Privada", embed: "https://youtube.com" },
-        { id: "YTB-04", t: "Frecuencia de Sanación 528Hz — Calma Pura", embed: "https://youtube.com" },
-        { id: "YTB-05", t: "Paisajes Sonoros — Desierto Minimalista", embed: "https://youtube.com" },
-        { id: "YTB-06", t: "Ondas Delta Inmersivas — Aislamiento Nocturno", embed: "https://youtube.com" },
-        { id: "YTB-07", t: "Resonancia Schumann — Conexión Tierra", embed: "https://youtube.com" },
-        { id: "YTB-08", t: "Frecuencia 396Hz — Liberación de Fricción", embed: "https://youtube.com" },
-        { id: "YTB-09", t: "Música Zen Ambient — Espacio Infinito", embed: "https://youtube.com" },
-        { id: "YTB-10", t: "Ondas de Viento Tibetanano — Acompañamiento", embed: "https://youtube.com" },
-        { id: "YTB-11", t: "Frecuencia Celestial 963Hz — Enfoque Puro", embed: "https://youtube.com" },
-        { id: "YTB-12", t: "Lluvia de Estrellas Cosmológica — Descompresión", embed: "https://youtube.com" }
+    CATALOGO_PREGUNTAS_EN: [
+        "Saturation from continuous executive decisions",
+        "Excess operational noise and unproductive meetings",
+        "Need for immediate strategic isolation",
+        "Mental fatigue due to high-pressure management"
     ],
+
+    CATALOGO_IMAGENES: [
+        { id: "S-01", name: "Amanera Resort — Playa Grande", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6" },
+        { id: "S-02", name: "Eden Roc Sanctuary — Cap Cana", img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d" },
+        { id: "S-03", name: "Amangiri Oasis — Utah Desert", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e" },
+        { id: "S-04", name: "Singita Serengeti — Private Reserve", img: "https://images.unsplash.com/photo-1516426122078-c23e76319801" },
+        { id: "S-05", name: "Soneva Jani Overwater — Maldives", img: "https://images.unsplash.com/photo-1573843981266-be199b133dfb" },
+        { id: "S-06", name: "Cheval Blanc — St-Barth Isle", img: "https://images.unsplash.com/photo-1582719508461-905c673771fd" },
+        { id: "S-07", name: "One&Only Reethi Rah — Indian Ocean", img: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62" },
+        { id: "S-08", name: "The Brando — Private Tetiaroa", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750" },
+        { id: "S-09", name: "Como Como Shambhala — Bali Estate", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4" },
+        { id: "S-10", name: "Post Ranch Inn — Big Sur Coast", img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae53" }
+    ],
+
+    CATALOGO_YOUTUBE: [
+        { id: "YT-01", t: "Frecuencia Solfeggio 432Hz — Océano Profundo", embed: "https://www.youtube.com/embed/8X0W5c92c-8" },
+        { id: "YT-02", t: "Frecuencia Alfa 8Hz — Espacio Natural", embed: "https://www.youtube.com/embed/WPni37Pkc3g" },
+        { id: "YT-03", t: "Ruido Blanco — Lluvia en Selva Privada", embed: "https://www.youtube.com/embed/q76bMs-NwRk" }
+    ],
+
     init() {
         const storedLang = localStorage.getItem("mayroga_lang") || this.idiomaActual;
         this.cambiarIdioma(storedLang);
@@ -149,22 +123,26 @@ const KERNEL = {
         const dic = this.TRADUCCIONES[lang];
         const isEs = lang === 'es';
         
-        document.getElementById('lang-es').className = isEs ? "btn-lang active" : "btn-lang";
-        document.getElementById('lang-en').className = isEs ? "btn-lang" : "btn-lang active";
+        const langEs = document.getElementById('lang-es');
+        const langEn = document.getElementById('lang-en');
+        if (langEs) langEs.className = isEs ? "btn-lang active" : "btn-lang";
+        if (langEn) langEn.className = isEs ? "btn-lang" : "btn-lang active";
         
-        document.getElementById('lblBrandSub').innerText = dic.brandSub;
-        document.getElementById('lblTimerTitle').innerText = dic.timerTitle;
-        document.getElementById('lbl-oraculo-instruccion').innerText = dic.oraculoInstruccion;
-        document.getElementById('lbl-desahogo').innerText = dic.desahogoLabel;
-        document.getElementById('inp-text-libre').placeholder = dic.placeholderLibre;
-        document.getElementById('btn-activar-libre').innerText = dic.btnActivar;
+        if (document.getElementById('lblBrandSub')) document.getElementById('lblBrandSub').innerText = dic.brandSub;
+        if (document.getElementById('lblTimerTitle')) document.getElementById('lblTimerTitle').innerText = dic.timerTitle;
+        if (document.getElementById('lbl-oraculo-instruccion')) document.getElementById('lbl-oraculo-instruccion').innerText = dic.oraculoInstruccion;
+        if (document.getElementById('lbl-desahogo')) document.getElementById('lbl-desahogo').innerText = dic.desahogoLabel;
+        if (document.getElementById('inp-text-libre')) document.getElementById('inp-text-libre').placeholder = dic.placeholderLibre;
+        if (document.getElementById('btn-activar-libre')) document.getElementById('btn-activar-libre').innerText = dic.btnActivar;
         
         this.inyectarPreguntasOraculo();
     },
 
     despertarInicial() {
-        document.getElementById('pantalla-bienvenida').style.display = 'none';
-        document.getElementById('wrapper-form').classList.remove('hidden');
+        const b = document.getElementById('pantalla-bienvenida');
+        const w = document.getElementById('wrapper-form');
+        if (b) b.style.display = 'none';
+        if (w) w.classList.remove('hidden');
         this.resetearTemporizadorInaccion();
     },
 
@@ -184,7 +162,7 @@ const KERNEL = {
         if (!contenedor) return;
         contenedor.innerHTML = "";
         
-        const lista = this.idiomaActual === 'es' ? KERNEL.CATALOGO_PREGUNTAS_ES : KERNEL.CATALOGO_PREGUNTAS_EN;
+        const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
         const poolCopia = [...lista];
         for (let i = poolCopia.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -196,7 +174,8 @@ const KERNEL = {
             btn.className = 'btn-pregunta-crisis';
             btn.innerText = `${idx + 1}. ${pregunta}`;
             btn.onclick = () => {
-                document.getElementById('inp-text-libre').value = pregunta;
+                const inp = document.getElementById('inp-text-libre');
+                if (inp) inp.value = pregunta;
                 this.ejecutar();
             };
             contenedor.appendChild(btn);
@@ -217,10 +196,13 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
 
-        const zip = document.getElementById('inp-zip').value.trim();
+        const inpZip = document.getElementById('inp-zip');
+        const zip = inpZip ? inpZip.value.trim() : '33167';
 
-        document.getElementById('wrapper-form').classList.add('hidden');
-        document.getElementById('activeSessionDock').classList.remove('hidden');
+        const wrapperForm = document.getElementById('wrapper-form');
+        const activeDock = document.getElementById('activeSessionDock');
+        if (wrapperForm) wrapperForm.classList.add('hidden');
+        if (activeDock) activeDock.classList.remove('hidden');
 
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
@@ -229,7 +211,6 @@ const KERNEL = {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
 
-            // INTERCEPCIÓN AL MINUTO 2 EXACTO (Quedan 780 segundos)
             if (this.timeLeft === 780) { 
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
@@ -275,6 +256,7 @@ const KERNEL = {
 
         this.activarVozAsesorContinuo();
     },
+
     activarSintonizaAcusticaYouTube() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.vozSintonialAcustica);
@@ -366,7 +348,7 @@ const KERNEL = {
                         <p style="font-size:11.5px; color:#eee; line-height:1.4; margin-bottom:12px;">
                             ${this.idiomaActual === 'es' ? 'Santuario de baja concurrencia seleccionado para resguardar su espacio de tranquilidad y desintoxicación digital.' : 'Premium low-occupancy sanctuary selected to protect your private tranquility and digital detox space.'}
                         </p>
-                        <a class="escape-action-pill" href="https://google.com{queryMaps}" target="_blank" style="background:var(--gold-champagne); color:var(--bg-obsidian); font-weight:bold; text-transform:uppercase; padding:8px 14px; font-size:10px; border-radius:6px; text-decoration:none; display:inline-block;">
+                        <a class="escape-action-pill" href="https://www.google.com/maps/search/?api=1&query=${queryMaps}" target="_blank" style="background:var(--gold-champagne); color:var(--bg-obsidian); font-weight:bold; text-transform:uppercase; padding:8px 14px; font-size:10px; border-radius:6px; text-decoration:none; display:inline-block;">
                             ${dic.mapsBtn}
                         </a>
                     </div>
@@ -418,7 +400,8 @@ const KERNEL = {
                 const root = document.getElementById('appRootContainer') || document.getElementById('wrapper-form');
                 if (!root) return;
                 
-                document.getElementById('pantalla-bienvenida').style.display = 'none';
+                const bienvenida = document.getElementById('pantalla-bienvenida');
+                if (bienvenida) bienvenida.style.display = 'none';
                 root.classList.remove('hidden');
                 
                 const dic = this.TRADUCCIONES[this.idiomaActual];
@@ -484,19 +467,20 @@ const KERNEL = {
                 fetch("/verify-dev-access", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ user: u, dev_pass: p })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.authenticated) {
+                    body: JSON.stringify({ user: u, dev_pass: p })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.authenticated) {
+                        window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
+                    } else {
+                        alert("Acceso denegado.");
+                    }
+                })
+                .catch(() => {
                     window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
-                } else {
-                    alert("Acceso denegado.");
-                }
-            })
-            .catch(() => {
-                window.location.href = window.location.pathname + "?status=success&folio=DEV-MASTER";
-            });
+                });
+            }
         });
     }
 };
