@@ -61,50 +61,28 @@ const KERNEL = {
 // PARTE 2 DE 6: MATRIZ DE RETOS VIP Y POOL DE PREGUNTAS ANALÍTICAS (PARTE 1)
 // =========================================================================
 
-    // Matriz de Retos Conductuales del Cierre Consciente (Réplica exacta 1:1)
-    CATALOGO_RETOS: [
-        {
-            id: "R1", img: "/static/silence.svg",
-            titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.",
-            titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room."
-        },
-        {
-            id: "R2", img: "/static/observe.svg",
-            titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.",
-            titulo_en: "Fixed Contemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment."
-        },
-        {
-            id: "R3", img: "/static/words.svg",
-            titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.",
-            titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air."
-        },
-        {
-            id: "R4", img: "/static/laugh.svg",
-            titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.",
-            titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways."
-        },
-        {
-            id: "R5", img: "/static/stretch.svg",
-            titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.",
-            titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly."
-        },
-        {
-            id: "R6", img: "/static/nature_sound.svg",
-            titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.",
-            titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave."
-        },
-        {
-            id: "R7", img: "/static/gratitude.svg",
-            titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.",
-            titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly."
-        },
-        {
-            id: "R8", img: "/static/square_breath.svg",
-            titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.",
-            titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace."
-        }
-    ],
+    // BANCO DE SVGs INTEGRADOS EN CÓDIGO (Elimina los errores 404 del servidor)
+    SVGS: {
+        R1: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M19 11A7 7 0 0112 18m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 10-6 0v3a3 3 0 003 3z"/><line x1="1" y1="1" x2="23" y2="23" stroke="#C0392B" stroke-width="2"/></svg>`,
+        R2: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>`,
+        R3: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
+        R4: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>`,
+        R5: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M18 15l-6-6-6 6"/></svg>`,
+        R6: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0118 0v6M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3"/></svg>`,
+        R7: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+        R8: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`
+    },
 
+    CATALOGO_RETOS: [
+        { id: "R1", titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.", titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room." },
+        { id: "R2", titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.", titulo_en: "Fixed Contemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment." },
+        { id: "R3", titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.", titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air." },
+        { id: "R4", titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.", titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways." },
+        { id: "R5", titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.", titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly." },
+        { id: "R6", titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.", titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave." },
+        { id: "R7", titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.", titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly." },
+        { id: "R8", titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.", titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace." }
+    ],
     // Pool de Preguntas Analíticas — Primer Bloque (1 a 24)
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
@@ -132,13 +110,7 @@ const KERNEL = {
         "¿Te dejas llevar por la corriente de la rutina sin evaluar tu balance individual?",
         "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?"
     ],
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
-// PARTE 3 DE 6: COMPLEMENTO DE PREGUNTAS ANALÍTICAS (ESPAÑOL E INGLÉS)
-// =========================================================================
-
-    // Continuación Pool de Preguntas Analíticas — Segundo Bloque (25 a 48)
-    CATALOGO_PREGUNTAS_ES_2: [
+    [
         "¿El ritmo automatizado de tus días disminuye la calidad de tus descansos?",
         "¿Buscas un entorno exclusivo pero las opciones comunes te generan saturación?",
         "¿La exposición continua a entornos densivos limita tu claridad reflexiva?",
