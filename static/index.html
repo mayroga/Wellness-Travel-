@@ -1,477 +1,557 @@
 <!-- =========================================================================
-     WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
-     PARTE 1: ARQUITECTURA DE CONTENEDORES Y HOJA DE ESTILOS VIP
-     ========================================================================= -->
+WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 100% OPEN THAN GO
+PARTE 1 DE 6: ARQUITECTURA GENERAL, TIPOGRAFÍAS Y HOJA DE ESTILOS GLOBALES
+========================================================================= -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
- <title id="html-title">MAY ROGA LLC — OPEN THAN GO ELITE</title>
- <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
- 
- <style>
- @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@400;500;600&display=swap');
- 
- :root {
-   --bg-obsidian: #030305;
-   --bg-surface: #0a0a0e;
-   --bg-glass: rgba(12, 12, 16, 0.98);
-   --gold-champagne: #C5A059;
-   --gold-light: #DFBF7A;
-   --gold-dark: #91723B;
-   --gold-glow: rgba(197, 160, 89, 0.35);
-   --white-ivory: #F9F9FB;
-   --text-muted: #9E9EA4;
-   --alert-crimson: #C0392B;
-   --wellness-green: #27AE60;
-   --border-subtle: rgba(197, 160, 89, 0.2);
- }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title id="html-title">MAY ROGA LLC — OPEN THAN GO ELITE</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+<style>
+@import url('https://googleapis.com');
 
- * {
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   -webkit-tap-highlight-color: transparent;
- }
+:root {
+--bg-obsidian: #030305;
+--bg-surface: #0a0a0e;
+--bg-glass: rgba(12, 12, 16, 0.98);
+--gold-champagne: #C5A059;
+--gold-light: #DFBF7A;
+--gold-dark: #91723B;
+--gold-glow: rgba(197, 160, 89, 0.35);
+--white-ivory: #F9F9FB;
+--text-muted: #9E9EA4;
+--alert-crimson: #C0392B;
+--wellness-green: #27AE60;
+--border-subtle: rgba(197, 160, 89, 0.2);
+}
 
- body, html {
-   width: 100%;
-   height: 100%;
-   background-color: var(--bg-obsidian);
-   color: var(--white-ivory);
-   font-family: 'Inter', sans-serif;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   overflow: hidden;
- }
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-tap-highlight-color: transparent;
+}
 
- .container {
-   max-width: 520px;
-   width: 100%;
-   height: 100%;
-   max-height: 92vh;
-   background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian));
-   backdrop-filter: blur(40px);
-   -webkit-backdrop-filter: blur(40px);
-   border: 1px solid var(--border-subtle);
-   border-radius: 28px;
-   padding: 32px 24px;
-   box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 160, 89, 0.08);
-   display: flex;
-   flex-direction: column;
-   position: relative;
-   overflow-y: auto;
- }
+/* Inmunización de scrollbars en la raíz del documento y contenedores principales */
+html, 
+body, 
+.container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
- .hidden { display: none !important; }
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.container::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+}
 
- header {
-   text-align: center;
-   border-bottom: 1px solid rgba(197, 160, 89, 0.15);
-   padding-bottom: 14px;
-   margin-bottom: 20px;
- }
+body {
+width: 100%;
+height: 100%;
+background-color: var(--bg-obsidian);
+color: var(--white-ivory);
+font-family: 'Inter', sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+position: fixed;
+top: 0;
+left: 0;
+overscroll-behavior: none;
+}
 
- header h1 {
-   font-family: 'Cinzel', serif;
-   font-size: 26px;
-   font-weight: 500;
-   letter-spacing: 6px;
-   color: var(--gold-champagne);
-   text-transform: uppercase;
-   cursor: pointer;
-   user-select: none;
- }
+/* Halo de luz trasera áurica de fondo */
+body::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+}
+/* =========================================================================
+WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 100% OPEN THAN GO
+PARTE 2 DE 6: CONTENEDOR MAESTRO DE CRISTALIZACIÓN Y SELECTORES DE IDIOMA
+========================================================================= */
 
- .subtitle-elite {
-   font-size: 9.5px;
-   letter-spacing: 3px;
-   color: var(--text-muted);
-   text-transform: uppercase;
-   margin-top: 4px;
- }
+.container {
+max-width: 520px;
+width: 100%;
+height: 100%;
+max-height: 92vh;
+background: linear-gradient(165deg, var(--bg-glass), var(--bg-obsidian));
+backdrop-filter: blur(50px) saturate(180%) !important;
+-webkit-backdrop-filter: blur(50px) saturate(180%) !important;
+border: 1px solid rgba(197, 160, 89, 0.18) !important;
+border-radius: 28px;
+padding: 32px 24px;
+box-shadow: 
+    0 40px 100px rgba(0, 0, 0, 0.98), 
+    0 0 80px rgba(197, 160, 89, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+display: flex;
+flex-direction: column;
+position: relative;
+overflow-y: auto;
+transform: translateZ(0);
+will-change: transform, opacity;
+transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
 
- .lang-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+.hidden { display: none !important; }
 
- .btn-lang {
-   flex: 1;
-   background: rgba(255, 255, 255, 0.02);
-   border: 1px solid var(--border-subtle);
-   color: var(--text-muted);
-   padding: 12px;
-   border-radius: 12px;
-   font-size: 13px;
-   font-weight: 600;
-   letter-spacing: 1.5px;
-   cursor: pointer;
-   transition: all 0.3s ease;
- }
+header {
+text-align: center;
+border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+padding-bottom: 14px;
+margin-bottom: 20px;
+}
 
- .btn-lang.active {
-   background: var(--gold-champagne);
-   border-color: var(--gold-champagne);
-   color: var(--bg-obsidian);
-   box-shadow: 0 0 20px var(--gold-glow);
- }
- 
- /* =========================================================================
-    WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
-    PARTE 2: ESTILOS MAESTROS DEL ORÁCULO, PULMÓN, PAYWALL Y CIERRE CONSCIENTE
-    ========================================================================= */
- .timer-header-bar {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   background: rgba(197, 160, 89, 0.04);
-   border: 1px solid rgba(197, 160, 89, 0.15);
-   border-radius: 14px;
-   padding: 10px 18px;
-   margin-bottom: 20px;
- }
+header h1 {
+font-family: 'Cinzel', serif !important;
+font-size: 26px;
+font-weight: 500;
+letter-spacing: 6px;
+color: var(--gold-champagne) !important;
+text-transform: uppercase;
+cursor: pointer;
+user-select: none;
+text-shadow: 0 0 15px var(--gold-glow) !important;
+transition: color 0.4s ease, text-shadow 0.4s ease !important;
+}
 
- .timer-title {
-   font-size: 11px;
-   letter-spacing: 1.5px;
-   text-transform: uppercase;
-   color: var(--gold-light);
- }
+header h1:hover {
+color: var(--gold-light) !important;
+text-shadow: 0 0 25px rgba(223, 191, 122, 0.6) !important;
+}
 
- .timer-value {
-   font-family: monospace;
-   font-size: 22px;
-   color: var(--alert-crimson);
-   font-weight: 600;
-   letter-spacing: 1px;
- }
+.subtitle-elite {
+font-size: 9.5px;
+letter-spacing: 3px;
+color: var(--text-muted);
+text-transform: uppercase;
+margin-top: 4px;
+}
 
- .bio-respiration-dock {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   margin: 20px 0;
-   position: relative;
-   min-height: 150px;
- }
+.lang-bar { display: flex; gap: 12px; margin-bottom: 20px; }
 
- .lung-circle-master {
-   width: 125px;
-   height: 125px;
-   border-radius: 50%;
-   background: radial-gradient(circle, var(--gold-champagne) 0%, var(--gold-dark) 100%);
-   box-shadow: 0 0 35px var(--gold-glow);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-family: 'Cinzel', serif;
-   font-size: 12.5px;
-   font-weight: 600;
-   letter-spacing: 1.5px;
-   color: var(--bg-obsidian);
-   text-transform: uppercase;
-   transition: all 3.9s cubic-bezier(0.4, 0, 0.2, 1);
-   text-align: center;
-   padding: 10px;
- }
+.btn-lang {
+flex: 1;
+background: rgba(255, 255, 255, 0.02) !important;
+border: 1px solid rgba(197, 160, 89, 0.15) !important;
+color: var(--text-muted) !important;
+padding: 12px;
+border-radius: 12px;
+font-size: 13px;
+font-weight: 600;
+letter-spacing: 1.5px;
+cursor: pointer;
+transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
 
- .lung-inhale-state {
-   transform: scale(1.32);
-   background: radial-gradient(circle, #3498DB 0%, #1B4F72 100%) !important;
-   box-shadow: 0 0 50px rgba(52, 152, 219, 0.6) !important;
-   color: #FFFFFF !important;
- }
+.btn-lang.active {
+background: var(--gold-champagne) !important;
+border-color: var(--gold-champagne) !important;
+color: var(--bg-obsidian) !important;
+box-shadow: 0 0 20px var(--gold-glow) !important;
+}
+/* =========================================================================
+WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 100% OPEN THAN GO
+PARTE 3 DE 6: FORMULARIOS BLINDADOS, ORÁCULO E INTERACCIONES MAESTRAS
+========================================================================= */
 
- .lung-exhale-state {
-   transform: scale(0.85);
-   background: radial-gradient(circle, #E74C3C 0%, #78281F 100%) !important;
-   box-shadow: 0 0 35px rgba(231, 76, 60, 0.6) !important;
-   color: #FFFFFF !important;
- }
+.field-group {
+display: flex;
+gap: 12px;
+margin-bottom: 16px;
+}
 
- .interactive-stack-container {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   margin-bottom: 15px;
- }
+.field-group label {
+display: block;
+font-size: 11px;
+text-transform: uppercase;
+color: var(--text-muted);
+margin-bottom: 6px;
+letter-spacing: 1px;
+}
 
- .btn-pregunta-crisis {
-   width: 100%;
-   background: rgba(255, 255, 255, 0.02);
-   border: 1px solid rgba(255, 255, 255, 0.08);
-   color: var(--white-ivory);
-   padding: 14px 16px;
-   border-radius: 14px;
-   font-size: 13px;
-   text-align: left;
-   cursor: pointer;
-   transition: all 0.25s ease;
-   line-height: 1.4;
- }
+.field-group input, 
+.field-group select, 
+textarea {
+width: 100%;
+background: rgba(255, 255, 255, 0.02) !important;
+border: 1px solid rgba(197, 160, 89, 0.15) !important;
+color: var(--white-ivory) !important;
+padding: 12px;
+border-radius: 12px;
+font-size: 13px;
+outline: none;
+font-family: 'Inter', sans-serif !important;
+letter-spacing: 0.5px !important;
+transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+-webkit-appearance: none !important;
+appearance: none !important;
+}
 
- .btn-pregunta-crisis:hover {
-   border-color: var(--gold-champagne);
-   background: rgba(197, 160, 89, 0.06);
-   transform: translateY(-1px);
- }
+.field-group input:focus, 
+.field-group select:focus, 
+textarea:focus {
+border-color: var(--gold-champagne) !important;
+background: rgba(197, 160, 89, 0.03) !important;
+box-shadow: 0 0 15px rgba(197, 160, 89, 0.12) !important;
+}
 
- .gold-action-btn {
-   width: 100%;
-   background: transparent;
-   border: 1px solid var(--gold-champagne);
-   color: var(--gold-champagne);
-   padding: 16px;
-   border-radius: 50px;
-   font-size: 12.5px;
-   font-weight: 600;
-   letter-spacing: 2px;
-   text-transform: uppercase;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   margin-top: 10px;
-   text-align: center;
-   text-decoration: none;
-   display: block;
- }
+textarea {
+resize: none;
+height: 80px;
+}
 
- .gold-action-btn:hover {
-   background: var(--gold-champagne);
-   color: var(--bg-obsidian);
-   box-shadow: 0 0 25px var(--gold-glow);
- }
+.interactive-stack-container {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-bottom: 15px;
+}
 
- .field-group {
-   display: flex;
-   gap: 12px;
-   margin-bottom: 16px;
- }
+.btn-pregunta-crisis {
+width: 100%;
+background: rgba(255, 255, 255, 0.02);
+border: 1px solid rgba(197, 160, 89, 0.15);
+color: var(--white-ivory);
+padding: 14px 16px;
+border-radius: 14px;
+font-size: 13px;
+text-align: left;
+cursor: pointer;
+transition: all 0.25s ease;
+line-height: 1.4;
+}
 
- .field-group label {
-   display: block;
-   font-size: 11px;
-   text-transform: uppercase;
-   color: var(--text-muted);
-   margin-bottom: 6px;
-   letter-spacing: 1px;
- }
+.btn-pregunta-crisis:hover {
+border-color: var(--gold-champagne);
+background: rgba(197, 160, 89, 0.06);
+transform: translateY(-1px);
+}
 
- .field-group input, .field-group select {
-   width: 100%;
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid var(--border-subtle);
-   color: #fff;
-   padding: 12px;
-   border-radius: 12px;
-   font-size: 13px;
-   outline: none;
-   transition: border-color 0.3s ease;
- }
+.gold-action-btn {
+width: 100%;
+background: transparent !important;
+border: 1px solid var(--gold-champagne) !important;
+color: var(--gold-champagne) !important;
+padding: 16px;
+border-radius: 50px;
+font-size: 12.5px;
+font-weight: 600;
+letter-spacing: 2.5px !important;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+margin-top: 10px;
+text-align: center;
+text-decoration: none;
+display: block;
+position: relative;
+overflow: hidden;
+}
 
- textarea {
-   width: 100%;
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid var(--border-subtle);
-   color: #fff;
-   padding: 12px;
-   border-radius: 12px;
-   font-size: 13px;
-   outline: none;
-   resize: none;
-   height: 80px;
-   font-family: inherit;
-   transition: border-color 0.3s ease;
- }
+.gold-action-btn:hover {
+background: var(--gold-champagne) !important;
+color: var(--bg-obsidian) !important;
+box-shadow: 0 0 30px var(--gold-glow) !important;
+transform: translateY(-1px) !important;
+}
 
- /* ESTILOS DEL CIERRE CONSCIENTE INTEGRAL */
- #pantalla-cierre {
-   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-   background: var(--bg-obsidian); display: flex; justify-content: center;
-   align-items: center; flex-direction: column; text-align: center; z-index: 9998; padding: 20px;
- }
+.gold-action-btn:active {
+transform: translateY(1px) !important;
+}
+/* =========================================================================
+WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 100% OPEN THAN GO
+PARTE 4 DE 6: TEMPORIZADOR MAESTRO, PULMÓN BIO-VISUAL Y CIERRE CONSCIENTE
+========================================================================= */
 
- .cierre-content {
-   background: var(--bg-surface); border: 1px solid var(--border-subtle);
-   padding: 30px; border-radius: 24px; max-width: 400px; width: 100%;
-   box-shadow: 0 40px 80px rgba(0,0,0,0.9);
- }
+.timer-header-bar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: rgba(197, 160, 89, 0.04);
+border: 1px solid rgba(197, 160, 89, 0.15);
+border-radius: 14px;
+padding: 10px 18px;
+margin-bottom: 20px;
+}
 
- #reto-img { max-width: 70px; height: auto; margin-bottom: 15px; }
- #reto-titulo { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold-champagne); margin-bottom: 10px; }
- #reto-descripcion { font-size: 0.95rem; color: #eee; margin-bottom: 20px; line-height: 1.5; }
- #cierre-timer { font-size: 3.5rem; font-weight: 900; color: var(--alert-crimson); margin: 15px 0; font-family: monospace; }
- #cierre-mensaje-final { font-size: 1.15rem; color: var(--wellness-green); margin: 20px 0; font-weight: bold; }
+.timer-title {
+font-size: 11px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(--gold-light);
+}
 
- /* BOTONES FLOTANTES INTEGRADOS */
- .floating-btn {
-   position: fixed; bottom: 20px; width: 45px; height: 45px;
-   border-radius: 50%; display: flex; justify-content: center;
-   align-items: center; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-   cursor: pointer; z-index: 1000; border: 1px solid rgba(255, 255, 255, 0.1);
-   transition: transform 0.2s, background-color 0.2s;
- }
+.timer-value {
+font-family: monospace;
+font-size: 22px;
+color: var(--alert-crimson);
+font-weight: 600;
+letter-spacing: 1px;
+}
 
- #btn-volver-app { left: 20px; background: var(--bg-surface); color: var(--gold-champagne); border-color: var(--border-subtle); }
- #btn-whatsapp { right: 75px; background: #25d366; border-color: #25d366; }
- #btn-messenger { right: 20px; background: #0078FF; border-color: #0078FF; }
- .floating-btn:hover { transform: translateY(-2px); }
- </style>
+.bio-respiration-dock {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+position: relative;
+min-height: 150px;
+}
+
+.lung-circle-master {
+width: 125px;
+height: 125px;
+border-radius: 50%;
+background: radial-gradient(circle at 35% 35%, var(--gold-light) 0%, var(--gold-champagne) 40%, var(--gold-dark) 100%) !important;
+border: 1px solid rgba(255, 255, 255, 0.1) !important;
+box-shadow: 0 0 40px rgba(197, 160, 89, 0.2), inset 0 -4px 12px rgba(0, 0, 0, 0.3) !important;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: 'Cinzel', serif !important;
+font-size: 13px !important;
+font-weight: 600;
+letter-spacing: 2px !important;
+color: var(--bg-obsidian) !important;
+text-transform: uppercase;
+text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2) !important;
+transition: transform 4000ms cubic-bezier(0.4, 0, 0.2, 1), background 4000ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 4000ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+text-align: center;
+padding: 10px;
+will-change: transform, background, box-shadow;
+}
+
+.lung-inhale-state {
+transform: scale(1.35) translateZ(0) !important;
+background: radial-gradient(circle at 35% 35%, #5dade2 0%, #3498db 45%, #1f618d 100%) !important;
+box-shadow: 0 0 60px rgba(52, 152, 219, 0.45), inset 0 -4px 15px rgba(0, 0, 0, 0.4) !important;
+color: var(--white-ivory) !important;
+text-shadow: 0 0 8px rgba(255, 255, 255, 0.6) !important;
+}
+
+.lung-exhale-state {
+transform: scale(0.82) translateZ(0) !important;
+background: radial-gradient(circle at 35% 35%, #f1948a 0%, #e74c3c 45%, #922b21 100%) !important;
+box-shadow: 0 0 35px rgba(231, 76, 60, 0.3), inset 0 -3px 10px rgba(0, 0, 0, 0.5) !important;
+color: var(--white-ivory) !important;
+text-shadow: 0 0 8px rgba(255, 255, 255, 0.4) !important;
+}
+
+#txt-pulmon {
+font-family: 'Inter', sans-serif !important;
+letter-spacing: 2px !important;
+color: var(--gold-champagne) !important;
+opacity: 0.85;
+animation: premiumPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes premiumPulse {
+0% { opacity: 0.6; transform: scale(0.98); }
+100% { opacity: 0.95; transform: scale(1); }
+}
+
+#pantalla-cierre {
+position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+background: var(--bg-obsidian) !important; display: flex; justify-content: center;
+align-items: center; flex-direction: column; text-align: center; z-index: 99999 !important; padding: 20px;
+backdrop-filter: blur(60px) !important; -webkit-backdrop-filter: blur(60px) !important;
+transition: opacity 0.6s ease-in-out !important;
+}
+
+.cierre-content {
+background: rgba(10, 10, 14, 0.85) !important; border: 1px solid rgba(197, 160, 89, 0.25) !important;
+padding: 40px 32px !important; border-radius: 24px !important; max-width: 400px; width: 100%;
+box-shadow: 0 50px 120px rgba(0, 0, 0, 0.95) !important;
+}
+
+#reto-img { max-width: 70px; height: auto; margin-bottom: 15px; }
+#reto-titulo { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold-champagne); margin-bottom: 10px; }
+#reto-descripcion { font-size: 0.95rem; color: #eee; margin-bottom: 20px; line-height: 1.5; }
+#cierre-timer { font-family: monospace !important; font-size: 4rem !important; font-weight: 700 !important; color: var(--alert-crimson) !important; text-shadow: 0 0 20px rgba(192, 57, 43, 0.4) !important; letter-spacing: -2px !important; margin: 20px 0 !important; }
+#cierre-mensaje-final { font-size: 1.15rem; color: var(--wellness-green); margin: 20px 0; font-weight: bold; }
+/* =========================================================================
+WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 100% OPEN THAN GO
+PARTE 5 DE 6: BOTONES FLOTANTES INMUNIZADOS Y ÁRBOL DOM DE INICIO ÉLITE
+========================================================================= */
+
+.floating-btn {
+position: fixed; bottom: 20px; width: 48px !important; height: 48px !important;
+border-radius: 50% !important; display: flex; justify-content: center;
+align-items: center; font-size: 1.3rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+cursor: pointer; z-index: 100000; border: 1px solid rgba(255, 255, 255, 0.08) !important;
+transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#btn-volver-app { left: 20px; background: var(--bg-surface) !important; color: var(--gold-champagne) !important; border-color: rgba(197, 160, 89, 0.2) !important; }
+#btn-whatsapp { right: 75px; background: #1ebd56 !important; }
+#btn-messenger { right: 20px; background: #0066e4 !important; }
+.floating-btn:hover { transform: translateY(-3px) scale(1.05) !important; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8) !important; }
+</style>
 </head>
 <body>
- <!-- =========================================================================
-    WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
-    PARTE 3: ARBOL DOM DEL CUERPO, BIENVENIDA Y DASHBOARD EXCLUSIVO
-    ========================================================================= -->
- 
- <!-- Pantalla de Bienvenida Privada Élite -->
- <div id="pantalla-bienvenida" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:var(--bg-obsidian); display:flex; justify-content:center; align-items:center; z-index:9999;">
-   <button class="gold-action-btn" onclick="KERNEL.despertarInicial();" style="width:auto; padding:20px 45px; border-radius:50px; font-size:14px; letter-spacing:2px;">
-     INICIAR SESIÓN PRIVADA / START
-   </button>
- </div>
 
- <!-- Contenedor Principal de la Arquitectura de Sintonía -->
- <div class="container hidden" id="wrapper-form">
-   <div class="lang-bar">
-     <button class="btn-lang active" id="lang-es" onclick="KERNEL.cambiarIdioma('es')">ESP</button>
-     <button class="btn-lang" id="lang-en" onclick="KERNEL.cambiarIdioma('en')">ENG</button>
-   </div>
-   
-   <header>
-     <h1 id="brandTitleField">MAY ROGA LLC</h1>
-     <div class="subtitle-elite" id="lblBrandSub">Arquitectura de Santuarios Ejecutivos</div>
-   </header>
+<!-- Pantalla de Bienvenida Privada Élite -->
+<div id="pantalla-bienvenida" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:var(--bg-obsidian); display:flex; justify-content:center; align-items:center; z-index:999999;">
+<button class="gold-action-btn" onclick="KERNEL.despertarInicial();" style="width:auto; padding:20px 45px; border-radius:50px; font-size:14px; letter-spacing:2px;">
+INICIAR SESIÓN PRIVADA / START
+</button>
+</div>
 
-   <!-- Configuración de Coordenadas Logísticas -->
-   <div class="field-group">
-     <div style="flex: 2; display: flex; flex-direction: column;">
-       <label id="lbl-zip">Código Postal / Zip Code</label>
-       <input type="text" id="inp-zip" placeholder="Ej: 33167" maxlength="5" pattern="[0-9]{5}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-     </div>
-     <div style="flex: 1; display: flex; flex-direction: column;">
-       <label>Modo</label>
-       <select id="modo-selector">
-         <option value="SALIR" selected>SALIR</option>
-         <option value="CASA">CASA</option>
-       </select>
-     </div>
-   </div>
+<!-- Contenedor Principal de la Arquitectura de Sintonía -->
+<div class="container hidden" id="wrapper-form">
+<div class="lang-bar">
+<button class="btn-lang active" id="lang-es" onclick="KERNEL.cambiarIdioma('es')">ESP</button>
+<button class="btn-lang" id="lang-en" onclick="KERNEL.cambiarIdioma('en')">ENG</button>
+</div>
+<header>
+<h1 id="brandTitleField">MAY ROGA LLC</h1>
+<div class="subtitle-elite" id="lblBrandSub">Arquitectura de Santuarios Ejecutivos</div>
+</header>
 
-   <!-- Filtros Analíticos de Sintonía Élite -->
-   <div class="field-group">
-     <div style="flex: 1; display: flex; flex-direction: column;">
-       <label>Mente</label>
-       <select id="mente-selector">
-         <option value="aburrido" selected>Aburrido</option>
-         <option value="agotado">Agotado</option>
-         <option value="estresado">Estresado</option>
-         <option value="cansado">Cansado</option>
-         <option value="ansioso">Ansioso</option>
-       </select>
-     </div>
-     <div style="flex: 1; display: flex; flex-direction: column;">
-       <label>Gasto</label>
-       <select id="budget-selector">
-         <option value="abierto" selected>Abierto</option>
-         <option value="ilimitado">Ilimitado</option>
-       </select>
-     </div>
-     <div style="flex: 1; display: flex; flex-direction: column;">
-       <label>Perfil</label>
-       <select id="perfil-selector">
-         <option value="solo" selected>Solo</option>
-         <option value="acompanado">Acompañado</option>
-         <option value="familia">Familia</option>
-         <option value="empresa">Empresa</option>
-         <option value="accesible">Accesible</option>
-       </select>
-     </div>
-   </div>
+<!-- Configuración de Coordenadas Logísticas Blindadas -->
+<div class="field-group">
+<div style="flex: 2; display: flex; flex-direction: column;">
+<label id="lbl-zip">Código Postal</label>
+<input type="text" id="inp-zip" placeholder="Ej: 33167" maxlength="5" pattern="[0-9]{5}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+</div>
+<div style="flex: 1; display: flex; flex-direction: column;">
+<label>Modo</label>
+<select id="modo-selector">
+<option value="SALIR" selected>SALIR</option>
+<option value="CASA">CASA</option>
+</select>
+</div>
+</div>
+<!-- =========================================================================
+WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 100% OPEN THAN GO
+PARTE 6 DE 6: PANEL DE CONTROL ÉLITE, LIENZO ACTIVO, MODALES Y MOTOR LÓGICO
+========================================================================= -->
 
-   <!-- Panel Interactiva del Oráculo Cascáda Flotante (3 en 3) -->
-   <p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 1.5px; text-align: center; margin-bottom: 15px;"></p>
-   <div style="position: relative; min-height: 120px; overflow: hidden; margin-bottom: 20px;">
-     <div class="interactive-stack-container" id="contenedor-preguntas-oraculo"></div>
-   </div>
+<!-- Filtros Analíticos de Sintonía Élite -->
+<div class="field-group">
+<div style="flex: 1; display: flex; flex-direction: column;">
+<label>Mente</label>
+<select id="mente-selector">
+<option value="aburrido" selected>Aburrido</option>
+<option value="agotado">Agotado</option>
+<option value="estresado">Estresado</option>
+<option value="cansado">Cansado</option>
+<option value="ansioso">Ansioso</option>
+</select>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column;">
+<label>Gasto</label>
+<select id="budget-selector">
+<option value="abierto" selected>Abierto</option>
+<option value="ilimitado">Ilimitado</option>
+</select>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column;">
+<label>Perfil</label>
+<select id="perfil-selector">
+<option value="solo" selected>Solo</option>
+<option value="acompanado">Acompañado</option>
+<option value="familia">Familia</option>
+<option value="empresa">Empresa</option>
+<option value="accesible">Accesible</option>
+</select>
+</div>
+</div>
 
-   <!-- Caja de Entrada Libre Healed 100% con Mando de Sintonía -->
-   <div style="margin-bottom: 16px;">
-     <label id="lbl-desahogo" style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; font-weight: 500;"></label>
-     <textarea id="inp-text-libre"></textarea>
-     <button id="btn-activar-libre" onclick="KERNEL.ejecutar();" class="gold-action-btn"></button>
-   </div>
- </div>
- <!-- =========================================================================
-    WELLNESS TRAVEL FRONTEND WINDOW — INTEGRIDAD TOTAL 99% OPEN THAN GO
-    PARTE 4: LIENZO DE SESIÓN ACTIVA, PANTALLA DE CIERRE Y ENLACES COMPLETO
-    ========================================================================= -->
- 
- <!-- Lienzo Dinámico de Sesión Activa (Pulmón y Terapia Acústica) -->
- <div class="container hidden" id="activeSessionDock">
-   <div class="timer-header-bar">
-     <span class="timer-title" id="lblTimerTitle">Ventana de Sintonía Activa</span>
-     <span class="timer-value" id="clockDisplay">10:00</span>
-   </div>
-   
-   <!-- Guía Box Breathing Sincronizada -->
-   <div class="bio-respiration-dock">
-     <div class="lung-circle-master" id="lungCircle">Inhala</div>
-   </div>
-   
-   <div id="txt-pulmon" style="text-align: center; font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 20px;">
-     Sincronización de Enfoque
-   </div>
-   
-   <!-- Contenedor para Videos de YouTube e Inyecciones en Rojo de Mapas -->
-   <div class="interactive-stack-container" id="interactiveStack"></div>
- </div>
+<!-- Panel Interactiva del Oráculo Cascada Flotante (3 en 3) -->
+<p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 1.5px; text-align: center; margin-bottom: 15px;"></p>
+<div style="position: relative; min-height: 120px; overflow: hidden; margin-bottom: 20px;">
+<div class="interactive-stack-container" id="contenedor-preguntas-oraculo"></div>
+</div>
 
- <!-- Pantalla de Cierre Consciente Unificada — Réplica Inmutable -->
- <div id="pantalla-cierre" class="hidden">
-   <div class="cierre-content">
-     <h1 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:22px; letter-spacing:4px; margin-bottom:15px;">MAY ROGA</h1>
-     <div id="cierre-message">
-       <img id="reto-img" src="" alt="Reto" class="hidden">
-       <h3 id="reto-titulo" style="text-transform: uppercase;"></h3>
-       <p id="reto-descripcion"></p>
-     </div>
-     <div id="cierre-timer">60</div>
-     <p id="cierre-mensaje-final" class="hidden"></p>
-     <button id="btn-recomenzar-experiencia" class="gold-action-btn hidden" onclick="location.reload();">Reiniciar Experiencia</button>
-   </div>
- </div>
+<!-- Caja de Entrada Libre Healed con Mando de Sintonía -->
+<div style="margin-bottom: 16px;">
+<label id="lbl-desahogo" style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; font-weight: 500;"></label>
+<textarea id="inp-text-libre"></textarea>
+<button id="btn-activar-libre" onclick="KERNEL.ejecutar();" class="gold-action-btn"></button>
+</div>
+</div>
 
- <!-- Botones Flotantes Inmunizados de Comunicación y Retorno -->
- <button id="btn-volver-app" class="floating-btn hidden" onclick="location.reload();" title="Volver">&#x2190;</button>
- 
- <a id="btn-whatsapp" class="floating-btn hidden" href="https://wa.me" target="_blank" title="WhatsApp">
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px">
-     <path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2Z"/>
-   </svg>
- </a>
- 
- <a id="btn-messenger" class="floating-btn hidden" href="https://m.me" target="_blank" title="Messenger">
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px">
-     <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.06 17.65L10.02 11.2L16.28 6.35L13.06 17.65Z"/>
-   </svg>
- </a>
+<!-- Lienzo Dinámico de Sesión Activa (Pulmón y Terapia Acústica) -->
+<div class="container hidden" id="activeSessionDock">
+<div class="timer-header-bar">
+<span class="timer-title" id="lblTimerTitle">Ventana de Sintonía Activa</span>
+<span class="timer-value" id="clockDisplay">10:00</span>
+</div>
+<!-- Guía Box Breathing Sincronizada -->
+<div class="bio-respiration-dock">
+<div class="lung-circle-master" id="lungCircle">Inhala</div>
+</div>
+<div id="txt-pulmon" style="text-align: center; font-size: 12px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 20px;">
+Sincronización de Enfoque
+</div>
+<!-- Contenedor para Videos de YouTube e Inyecciones en Rojo de Mapas -->
+<div class="interactive-stack-container" id="interactiveStack"></div>
+</div>
 
- <!-- Pre-carga Silenciosa de Recursos Gráficos SVG para los Retos -->
- <div class="hidden">
-   <img src="/static/silence.svg" alt="Silence">
-   <img src="/static/observe.svg" alt="Observe">
-   <img src=" /static/words.svg" alt="Words">
-   <img src="/static/laugh.svg" alt="Laugh">
-   <img src="/static/stretch.svg" alt="Stretch">
-   <img src="/static/nature_sound.svg" alt="Nature Sound">
-   <img src="/static/gratitude.svg" alt="Gratitude">
-   <img src="/static/square_breath.svg" alt="Square Breath">
- </div>
+<!-- Pantalla de Cierre Consciente Unificada — Réplica Inmutable -->
+<div id="pantalla-cierre" class="hidden">
+<div class="cierre-content">
+<h1 style="font-family:'Cinzel', serif; color:var(--gold-champagne); font-size:22px; letter-spacing:4px; margin-bottom:15px;">MAY ROGA</h1>
+<div id="cierre-message">
+<img id="reto-img" src="" alt="Reto" class="hidden">
+<h3 id="reto-titulo" style="text-transform: uppercase;"></h3>
+<p id="reto-descripcion"></p>
+</div>
+<div id="cierre-timer">60</div>
+<p id="cierre-mensaje-final" class="hidden"></p>
+<button id="btn-recomenzar-experiencia" class="gold-action-btn hidden" onclick="location.reload();">Reiniciar Experiencia</button>
+</div>
+</div>
 
- <!-- Carga del Motor Lógico Unificado -->
- <script src="/static/engine.js"></script>
+<!-- Botones Flotantes Inmunizados de Comunicación y Retorno -->
+<button id="btn-volver-app" class="floating-btn hidden" onclick="location.reload();" title="Volver">&#x2190;</button>
+<a id="btn-whatsapp" class="floating-btn hidden" href="https://wa.me" target="_blank" title="WhatsApp">
+<svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px">
+<path d="M12.04 2C6.58 2 2.11 6.47 2.11 11.93C2.11 13.66 2.59 15.26 3.44 16.63L2 22L7.61 20.61C8.98 21.46 10.58 21.94 12.31 21.94H12.04C17.5 21.94 21.97 17.47 21.97 12C21.97 7.08 18.06 2 12.04 2Z"/>
+</svg>
+</a>
+<a id="btn-messenger" class="floating-btn hidden" href="https://m.me" target="_blank" title="Messenger">
+<svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="white" width="20px" height="20px">
+<path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.06 17.65L10.02 11.2L16.28 6.35L13.06 17.65Z"/>
+</svg>
+</a>
+
+<!-- Pre-carga Silenciosa de Recursos Gráficos SVG para los Retos -->
+<div class="hidden">
+<img src="/static/silence.svg" alt="Silence">
+<img src="/static/observe.svg" alt="Observe">
+<img src="/static/words.svg" alt="Words">
+<img src="/static/laugh.svg" alt="Laugh">
+<img src="/static/stretch.svg" alt="Stretch">
+<img src="/static/nature_sound.svg" alt="Nature Sound">
+<img src="/static/gratitude.svg" alt="Gratitude">
+<img src="/static/square_breath.svg" alt="Square Breath">
+</div>
+
+<!-- Carga del Motor Lógico Unificado -->
+<script src="/static/engine.js"></script>
 </body>
 </html>
