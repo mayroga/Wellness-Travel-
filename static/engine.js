@@ -216,19 +216,46 @@ const KERNEL = {
         this.conectarMantenimientoDesarrollador();
     },
 
-    cambiarIdioma(lang) {
-        this.idiomaActual = lang;
-        const diccionario = this.TRADUCCIONES[lang];
-       
-        document.getElementById('lblBrandSub').innerText = diccionario.brandSub;
-        document.getElementById('lblTimerTitle').innerText = diccionario.timerTitle;
-        document.getElementById('lbl-oraculo-instruccion').innerText = diccionario.oraculoInstruccion;
-        document.getElementById('lbl-desahogo').innerText = diccionario.desahogoLabel;
-        document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
-        document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
-       
-        this.inyectarPreguntasOraculo();
-    },
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — BLOQUE 2: SINCRONIZACIÓN DEL DOM ÉLITE
+// =========================================================================
+
+cambiarIdioma(lang) {
+    this.idiomaActual = lang;
+    const diccionario = this.TRADUCCIONES[lang];
+   
+    // Inyección de textos estáticos respetando las jerarquías CSS avanzadas
+    document.getElementById('lblBrandSub').innerText = diccionario.brandSub;
+    document.getElementById('lblTimerTitle').innerText = diccionario.timerTitle;
+    document.getElementById('lbl-oraculo-instruccion').innerText = diccionario.oraculoInstruccion;
+    document.getElementById('lbl-desahogo').innerText = diccionario.desahogoLabel;
+    document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
+    document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
+   
+    // CORRECCIÓN PROTEGIDA: Actualización semántica de la etiqueta de Código Postal
+    const lblZip = document.getElementById('lbl-zip');
+    if (lblZip) {
+        lblZip.innerText = lang === 'es' 
+            ? "Código Postal" 
+            : "Zip Code";
+    }
+
+    // Alternar estados activos en los selectores de idioma de alta gama
+    const btnEs = document.getElementById('lang-es');
+    const btnEn = document.getElementById('lang-en');
+    if (btnEs && btnEn) {
+        if (lang === 'es') {
+            btnEs.classList.add('active');
+            btnEn.classList.remove('active');
+        } else {
+            btnEn.classList.add('active');
+            btnEs.classList.remove('active');
+        }
+    }
+   
+    // Refrescar el pool de preguntas flotantes analíticas sin alterar el hilo principal
+    this.inyectarPreguntasOraculo();
+}
 
     despertarInicial() {
         document.getElementById('pantalla-bienvenida').style.display = 'none';
@@ -276,220 +303,151 @@ const KERNEL = {
         window.speechSynthesis.speak(utterance);
     },
 
-    async ejecutar() {
-        if (this.isLocked) return;
-        this.isLocked = true;
-        clearTimeout(this.timerInaccion);
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — BLOQUE 3: INTEGRACIÓN ANTI-REPETICIÓN DINÁMICA
+// =========================================================================
 
-        // Bloqueo y transición estética de viewports
-        document.getElementById('wrapper-form').classList.add('hidden');
-        document.getElementById('activeSessionDock').classList.remove('hidden');
+async ejecutar() {
+    if (this.isLocked) return;
+    this.isLocked = true;
+    clearTimeout(this.timerInaccion);
 
-        this.activarSintonizaAcusticaYouTube();
-        this.iniciarPulmonVisual();
+    // Capturar coordenadas logísticas y filtros seleccionados por el usuario
+    const zipCode = document.getElementById('inp-zip').value || "33167";
+    const modoActivo = document.getElementById('modo-selector').value;
+    const menteActiva = document.getElementById('mente-selector').value;
+    const budgetActivo = document.getElementById('budget-selector').value;
+    const perfilActivo = document.getElementById('perfil-selector').value;
+    const textoLibreStr = document.getElementById('inp-text-libre').value;
 
-        // Cronómetro maestro síncrono de 10 minutos (600s) idéntico a Open Than Go
-        this.serviceTimer = setInterval(() => {
-            this.timeLeft--;
-            this.actualizarRelojInterfaz();
+    // Transición estética inmediata de viewports para el control de la atención
+    document.getElementById('wrapper-form').classList.add('hidden');
+    document.getElementById('activeSessionDock').classList.remove('hidden');
 
-            // INYECCIÓN OBLIGATORIA DEL DESTINO EN ROJO 4 MINUTOS ANTES DE EXPIRAR (MINUTO 6 / 240s RESTANTES)
-            if (this.timeLeft === 240) {
-                this.inyectarDestinoOpcionalRojo();
-            }
+    this.activarSintonizaAcusticaYouTube();
+    this.iniciarPulmonVisual();
 
-            if (this.timeLeft <= 0) {
-                clearInterval(this.serviceTimer);
-                clearInterval(this.breatheInterval);
-                clearInterval(this.voiceInterval);
-                this.activarCierreConscienteCronometrado();
-            }
-        }, 1000);
+    // Cronómetro maestro síncrono de 10 minutos (600s) idéntico a Open Than Go
+    this.serviceTimer = setInterval(() => {
+        this.timeLeft--;
+        this.actualizarRelojInterfaz();
 
-        this.activarVozAsesorContinuo();
-    },
-
-    activarSintonizaAcusticaYouTube() {
-        const dic = this.TRADUCCIONES[this.idiomaActual];
-        this.emitirVoz(dic.vozSintonialAcustica);
-        const stack = document.getElementById('interactiveStack');
-
-        const poolVideos = [
-            { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", id: "1ZYbU82GVz4" },
-            { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", id: "WPni755-Krg" }
-        ];
-
-        let html = `<div style="margin-bottom:10px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
-        poolVideos.forEach((v) => {
-            // CORREGIDO: Se cambió de comillas simples a backticks y interpolación correcta ${v.id}
-            html += `
-                <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
-                    <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
-                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                </div>`;
-        });
-        stack.innerHTML = html;
-    },
-
-    iniciarPulmonVisual() {
-        let paso = 0;
-        const dic = this.TRADUCCIONES[this.idiomaActual];
-       
-        // Ciclo síncrono inmutable de respiración clínica en 4 tiempos fijos
-        this.breatheInterval = setInterval(() => {
-            const circle = document.getElementById('lungCircle');
-            if (!circle) return;
-           
-            circle.innerText = dic.pasosRespiracion[paso];
-           
-            if (paso === 0) {
-                circle.className = "lung-circle-master lung-inhale-state";
-            } else if (paso === 2) {
-                circle.className = "lung-circle-master lung-exhale-state";
-            } else {
-                circle.className = "lung-circle-master";
-            }
-           
-            paso = (paso + 1) % 4;
-        }, 4000);
-    },
-
-    actualizarRelojInterfaz() {
-        let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
-        let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-        document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
-    },
-
-    activarVozAsesorContinuo() {
-        const emitir = () => this.emitirVoz(this.TRADUCCIONES[this.idiomaActual].frecuenciaVoz);
-        emitir();
-        this.voiceInterval = setInterval(emitir, 45000);
-    },
-
-    // Inyección interactiva obligatoria destacada en ROJO a los 4 minutos finales
-    inyectarDestinoOpcionalRojo() {
-        const stack = document.getElementById('interactiveStack');
-        const dic = this.TRADUCCIONES[this.idiomaActual];
-        this.emitirVoz(dic.discursoMin4);
-       
-        const divDestino = document.createElement('div');
-        divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
-       
-        // CORREGIDO: Uso correcto de backticks para la URL de Google Search
-        divDestino.onclick = () => window.open(`https://google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
-       
-        divDestino.innerHTML = `
-            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div>
-            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div>
-            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} </p>
-            <span style="font-size:10px; background:var(--alert-crimson); color:#fff; padding:4px 8px; border-radius:4px; font-weight:bold; text-transform:uppercase;">${dic.mapsBtn}</span>
-        `;
-        stack.insertBefore(divDestino, stack.firstChild);
-    },
-
-    // MÓDULO COMPLETO CRONOMETRADO DEL CIERRE CONSCIENTE (99% OPEN THAN GO)
-    activarCierreConscienteCronometrado() {
-        // Desplegar viewport de cierre inyectando un reto conductual aleatorio
-        document.getElementById('activeSessionDock').classList.add('hidden');
-        document.getElementById('pantalla-cierre').classList.remove('hidden');
-
-        const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
-        const imgTag = document.getElementById('reto-img');
-       
-        imgTag.src = retoSeleccionado.img;
-        imgTag.classList.remove('hidden');
-       
-        if (this.idiomaActual === 'es') {
-            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_es;
-            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_es;
-        } else {
-            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_en;
-            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_en;
+        // Inyección obligatoria destacada a los 4 minutos finales (240 segundos restantes)
+        if (this.timeLeft === 240) {
+            this.inyectarDestinoOpcionalRojo();
         }
 
-        // Ejecutar cuenta atrás obligatoria de 60 segundos
-        this.cierreTimerInterval = setInterval(() => {
-            this.cierreTimeLeft--;
-            document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
+        if (this.timeLeft <= 0) {
+            clearInterval(this.serviceTimer);
+            clearInterval(this.breatheInterval);
+            clearInterval(this.voiceInterval);
+            this.activarCierreConscienteCronometrado();
+        }
+    }, 1000);
 
-            if (this.cierreTimeLeft <= 0) {
-                clearInterval(this.cierreTimerInterval);
-                this.finalizarCierreYMostrarDescarga();
-            }
-        }, 1000);
-    },
+    this.activarVozAsesorContinuo();
 
-    finalizarCierreYMostrarDescarga() {
-        const dic = this.TRADUCCIONES[this.idiomaActual];
-        this.emitirVoz(dic.cierreFinalizado);
-       
-        document.getElementById('cierre-timer').classList.add('hidden');
-       
-        const msgFinal = document.getElementById('cierre-mensaje-final');
-        msgFinal.innerText = dic.cierreFinalizado;
-        msgFinal.classList.remove('hidden');
+    // ENLACE ASÍNCRONO DE ALTA SINTONÍA: Llamada al motor predictivo del Backend
+    try {
+        const respuesta = await fetch("https://onrender.com", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({
+                zip_code: zipCode,
+                modo: modoActivo,
+                mente: menteActiva,
+                budget: budgetActivo,
+                perfil: perfilActivo,
+                historial_vistos: this.historialVistos, // Envío del estado actual de exclusividad
+                texto_libre: textoLibreStr
+            })
+        });
 
-        const btnReiniciar = document.getElementById('btn-recomenzar-experiencia');
-        btnReiniciar.classList.remove('hidden');
+        if (!respuesta.ok) throw new Error("Fallo transaccional en el nodo analítico.");
+        
+        const data = await respuesta.json();
 
-        // Transformación dinámica del contenedor para habilitar la descarga del PDF fiduciario
-        const root = document.getElementById('cierre-message');
-        const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
-       
-        root.innerHTML = `
-            <div style="text-align:center; padding:10px 0;">
-                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
-                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
-                </p>
-                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
-            </div>
-        `;
-    },
+        // Registrar los IDs de los nuevos destinos prescritos para inmunizar el CRM contra repeticiones
+        if (data.opciones_escape_vip && data.opciones_escape_vip.length > 0) {
+            data.opciones_escape_vip.forEach(destino => {
+                if (!this.historialVistos.includes(destino.id)) {
+                    this.historialVistos.push(destino.id);
+                }
+            });
+            console.log("[CRM EXCLUSIVO] Historial de Santuarios Actualizado:", this.historialVistos);
+        }
+
+    } catch (error) {
+        console.error("[CRITICAL] Error en el motor analítico de escape:", error);
+        // Salvaguarda fiduciaria: Inyectar un ID por defecto para evitar rupturas de compilación en el PDF
+        if (this.historialVistos.length === 0) {
+            this.historialVistos.push("S1");
+        }
+    }
+}
 
 // Solución definitiva al error de compilación 404
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — BLOQUE 1: CORE DE LOGÍSTICA FIDUCIARIA API
+// =========================================================================
+
 descargarPDF(folio) {
+    // Activar estado de carga en el cursor del terminal ejecutivo
     document.body.style.cursor = "wait";
-    
-    // Captura los valores reales del selector del DOM antes de enviar
-    const destinoPrescrito = this.historialVistos.length > 0 ? this.historialVistos[this.historialVistos.length - 1] : "S1";
-    
-    fetch("https://onrender.com", { // Subruta corregida
+   
+    // Extraer dinámicamente el último destino validado en el historial anti-repeticiones
+    const destinoPrescrito = this.historialVistos.length > 0 
+        ? this.historialVistos[this.historialVistos.length - 1] 
+        : "S1";
+
+    // Petición síncrona hacia el compilador asíncrono ReportLab en FastAPI
+    fetch("https://onrender.com", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+            "Content-Type": "application/json" 
+        },
         body: JSON.stringify({
             servicio_id: folio,
             lang: this.idiomaActual,
-            score_inicial: parseFloat(document.getElementById('clockDisplay') ? 45.0 : 30.0), 
-            score_actual: 95.0, 
+            score_inicial: 45.0, 
+            score_actual: 90.0, 
             respiracion_score: 100.0, 
             adivinanzas_score: 100.0,
-            iev: 99.0, 
+            iev: 95.0, 
             variante: "ELITE_WELLNESS", 
-            destino_id: destinoPrescrito // Vinculación dinámica
+            destino_id: destinoPrescrito
         })
     })
-    // Manejo de respuesta...
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Fallo en la verificación del nodo de enlace fiduciario.");
+        }
+        return res.blob();
+    })
+    .then(blob => {
+        // Restaurar interfaz táctil premium
+        document.body.style.cursor = "default";
+        
+        // Algoritmo de descarga limpia en segundo plano sin ventanas emergentes
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Wellness_Elite_Passport_${folio}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(err => {
+        document.body.style.cursor = "default";
+        console.error("[CRITICAL] Error de compilación:", err);
+        alert(this.idiomaActual === 'es' 
+            ? "Fallo al estructurar su documentación premium. Contacte a su Concierge." 
+            : "Failed to compile your premium documentation. Please contact Concierge.");
+    });
 }
-
-        .then(res => {
-            if (!res.ok) throw new Error("Fallo transaccional");
-            return res.blob();
-        })
-        .then(blob => {
-            document.body.style.cursor = "default";
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Wellness_Elite_Passport_${folio}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        })
-        .catch(() => {
-            document.body.style.cursor = "default";
-            alert("Error al compilar el pasaporte.");
-        });
-    },
 
     conectarMantenimientoDesarrollador() {
         const brand = document.getElementById("brandTitleField");
