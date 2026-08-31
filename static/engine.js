@@ -8,12 +8,12 @@ const KERNEL = {
     breatheInterval: null,
     voiceInterval: null,
     cierreTimerInterval: null,
-    timeLeft: 600,         
+    timeLeft: 600,          
     cierreTimeLeft: 60,    
     isLocked: false,
     idiomaActual: 'es',
     devClickCount: 0,
-    historialVistos: [],   
+    historialVistos: [],    
 
     TRADUCCIONES: {
         es: {
@@ -119,100 +119,94 @@ const KERNEL = {
         document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
         document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
 
-const lblZip = document.getElementById('lbl-zip');
-if (lblZip) {
-    lblZip.innerText = lang === 'es' ? "Código Postal" : "Zip Code";
-}
+        const lblZip = document.getElementById('lbl-zip');
+        if (lblZip) {
+            lblZip.innerText = lang === 'es' ? "Código Postal" : "Zip Code";
+        }
 
-this.inyectarPreguntasOraculo();
-},
+        this.inyectarPreguntasOraculo();
+    },
 
-       
-despertarInicial() {
-    document.getElementById('pantalla-bienvenida').style.display = 'none';
-    document.getElementById('wrapper-form').classList.remove('hidden');
-    this.resetearTemporizadorInaccion();
-},
-
-resetearTemporizadorInaccion() {
-    clearTimeout(this.timerInaccion);
-    if (this.isLocked) return;
-    this.timerInaccion = setTimeout(() => {
-        this.emitirVoz(this.TRADUCCIONES[this.idiomaActual].atencionInaccion);
+    despertarInicial() {
+        document.getElementById('pantalla-bienvenida').style.display = 'none';
+        document.getElementById('wrapper-form').classList.remove('hidden');
         this.resetearTemporizadorInaccion();
-    }, 8000);
-},
+    },
 
-inyectarPreguntasOraculo() {
-    const contenedor = document.getElementById('contenedor-preguntas-oraculo');
-    if (!contenedor) return;
-    contenedor.innerHTML = "";
-    
-    const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
-    let seleccionadas = [...lista].sort(() => 0.5 - Math.random()).slice(0, 3);
-    
-    seleccionadas.forEach((pregunta, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-pregunta-crisis';
-        // CORREGIDO: Inyección de literales de plantilla con backticks correctos
-        btn.innerText = `${idx + 1}. ${pregunta}`;
-        btn.onclick = () => {
-            document.getElementById('inp-text-libre').value = pregunta;
-            this.ejecutar();
-        };
-        contenedor.appendChild(btn);
-    });
-},
+    resetearTemporizadorInaccion() {
+        clearTimeout(this.timerInaccion);
+        if (this.isLocked) return;
+        this.timerInaccion = setTimeout(() => {
+            this.emitirVoz(this.TRADUCCIONES[this.idiomaActual].atencionInaccion);
+            this.resetearTemporizadorInaccion();
+        }, 8000);
+    },
 
-emitirVoz(texto) {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(texto);
-    utterance.lang = this.idiomaActual === 'es' ? 'es-US' : 'en-US';
-    utterance.rate = 0.90;
-    window.speechSynthesis.speak(utterance);
-},
-
-async ejecutar() {
-    if (this.isLocked) return;
-    this.isLocked = true;
-    clearTimeout(this.timerInaccion);
-    
-    const zipCode = document.getElementById('inp-zip').value || "33167";
-    const modoActivo = document.getElementById('modo-selector').value;
-    const menteActiva = document.getElementById('mente-selector').value;
-    const budgetActivo = document.getElementById('budget-selector').value;
-    const perfilActivo = document.getElementById('perfil-selector').value;
-    const textoLibreStr = document.getElementById('inp-text-libre').value;
-    
-    document.getElementById('wrapper-form').classList.add('hidden');
-    document.getElementById('activeSessionDock').classList.remove('hidden');
-    
-    this.activarSintonizaAcusticaYouTube();
-    this.iniciarPulmonVisual();
-    
-    this.serviceTimer = setInterval(() => {
-        this.timeLeft--;
-        this.actualizarRelojInterfaz();
+    inyectarPreguntasOraculo() {
+        const contenedor = document.getElementById('contenedor-preguntas-oraculo');
+        if (!contenedor) return;
+        contenedor.innerHTML = "";
         
-        if (this.timeLeft === 240) {
-            this.inyectarDestinoOpcionalRojo();
-        }
+        const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
+        let seleccionadas = [...lista].sort(() => 0.5 - Math.random()).slice(0, 3);
         
-        if (this.timeLeft <= 0) {
-            clearInterval(this.serviceTimer);
-            clearInterval(this.breatheInterval);
-            clearInterval(this.voiceInterval);
-            this.activarCierreConscienteCronometrado();
-        }
-    }, 1000);
-    
-    this.activarVozAsesorContinuo();
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — FRAGMENTO DE LÓGICA CONTINUACIÓN
-// =========================================================================
+        seleccionadas.forEach((pregunta, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-pregunta-crisis';
+            btn.innerText = `${idx + 1}. ${pregunta}`;
+            btn.onclick = () => {
+                document.getElementById('inp-text-libre').value = pregunta;
+                this.ejecutar();
+            };
+            contenedor.appendChild(btn);
+        });
+    },
 
-        // Bloque final del try/catch dentro de la función async ejecutar()
+    emitirVoz(texto) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = this.idiomaActual === 'es' ? 'es-US' : 'en-US';
+        utterance.rate = 0.90;
+        window.speechSynthesis.speak(utterance);
+    },
+
+    async ejecutar() {
+        if (this.isLocked) return;
+        this.isLocked = true;
+        clearTimeout(this.timerInaccion);
+        
+        const zipCode = document.getElementById('inp-zip').value || "33167";
+        const modoActivo = document.getElementById('modo-selector').value;
+        const menteActiva = document.getElementById('mente-selector').value;
+        const budgetActivo = document.getElementById('budget-selector').value;
+        const perfilActivo = document.getElementById('perfil-selector').value;
+        const textoLibreStr = document.getElementById('inp-text-libre').value;
+        
+        document.getElementById('wrapper-form').classList.add('hidden');
+        document.getElementById('activeSessionDock').classList.remove('hidden');
+        
+        this.activarSintonizaAcusticaYouTube();
+        this.iniciarPulmonVisual();
+        
+        this.serviceTimer = setInterval(() => {
+            this.timeLeft--;
+            this.actualizarRelojInterfaz();
+            
+            if (this.timeLeft === 240) {
+                this.inyectarDestinoOpcionalRojo();
+            }
+            
+            if (this.timeLeft <= 0) {
+                clearInterval(this.serviceTimer);
+                clearInterval(this.breatheInterval);
+                clearInterval(this.voiceInterval);
+                this.activarCierreConscienteCronometrado();
+            }
+        }, 1000);
+        
+        this.activarVozAsesorContinuo();
+
         try {
             const respuesta = await fetch("/api/sintonizar", {
                 method: "POST",
@@ -247,20 +241,18 @@ async ejecutar() {
         this.emitirVoz(dic.vozSintonialAcustica);
         const stack = document.getElementById('interactiveStack');
 
-        // IDs limpios de YouTube sin anuncios ni marcas externas
         const poolVideos = [
             { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", id: "1ZYbU82GVz4" },
             { t: "Frecuencia Alfa 8Hz — Ondas de Espacio Natural", id: "WPni755-Krg" }
         ];
 
-        // CORREGIDO: Inyección estructurada mediante backticks legítimos
         let html = `<div style="margin-bottom:10px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
         
         poolVideos.forEach((v) => {
             html += `
                 <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
                     <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
-                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://youtube.com{v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>`;
         });
         stack.innerHTML = html;
@@ -273,7 +265,6 @@ async ejecutar() {
         const circle = document.getElementById('lungCircle');
         const txtPulmon = document.getElementById('txt-pulmon');
        
-        // Sincronización profesional de 4 segundos por fase (Box Breathing Real)
         this.breatheInterval = setInterval(() => {
             segundoInterno++;
             
@@ -283,7 +274,6 @@ async ejecutar() {
             }
 
             const faseActual = dic.fases[paso];
-            // CORREGIDO: Interpolación de texto con backticks literales
             if (circle) circle.innerText = `${faseActual.texto}\n(${4 - segundoInterno}s)`;
             if (txtPulmon) txtPulmon.innerText = faseActual.desc;
            
@@ -300,7 +290,6 @@ async ejecutar() {
     actualizarRelojInterfaz() {
         let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-        // CORREGIDO: Interpolación del cronómetro digital
         document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
     },
 
@@ -316,15 +305,10 @@ async ejecutar() {
         this.emitirVoz(dic.discursoMin4);
        
         const divDestino = document.createElement('div');
-        divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer;";
+        divDestino.style.cssText = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer;";
         
-        // CORREGIDO: Estructuración de URL de búsqueda ejecutiva y backticks en innerHTML
-        divDestino.onclick = () => window.open(`https://google.com{encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — FRAGMENTO DE LÓGICA FINALIZACIÓN
-// =========================================================================
+        divDestino.onclick = () => window.open(`https://www.google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
 
-        // Bloque final de la función inyectarDestinoOpcionalRojo()
         divDestino.innerHTML = `
             <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
             <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div> 
@@ -343,7 +327,6 @@ async ejecutar() {
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
         const contenedorMensaje = document.getElementById('cierre-message');
        
-        // CORREGIDO: Inyección directa de SVG Inline con backticks legítimos
         contenedorMensaje.innerHTML = `
             <div style="margin-bottom:15px;">${this.SVGS[retoSeleccionado.id]}</div> 
             <h3 id="reto-titulo" style="text-transform: uppercase; font-family:'Cinzel', serif; color:var(--gold-champagne); margin-bottom:10px;"> 
@@ -368,11 +351,7 @@ async ejecutar() {
     finalizarCierreYMostrarDescarga() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — FRAGMENTO DE LÓGICA PASAPORTE Y DESCARGA
-// =========================================================================
 
-        // Bloque final de la función finalizarCierreYMostrarDescarga()
         document.getElementById('cierre-timer').classList.add('hidden');
         const msgFinal = document.getElementById('cierre-mensaje-final');
         msgFinal.innerText = dic.cierreFinalizado;
@@ -383,7 +362,6 @@ async ejecutar() {
         const root = document.getElementById('cierre-message');
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
         
-        // CORREGIDO: Envoltura con backticks legítimos para la plantilla HTML del folio
         root.innerHTML = `
             <div style="text-align:center; padding:10px 0;"> 
                 <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;"> 
@@ -398,7 +376,6 @@ async ejecutar() {
         document.body.style.cursor = "wait";
         const destinoPrescrito = this.historialVistos.length > 0 ? this.historialVistos[this.historialVistos.length - 1] : "S1";
        
-        // RUTA RELATIVA CORREGIDA: Elimina problemas de puertos y URLs absolutas en Render
         fetch("/api/pdf", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -424,7 +401,6 @@ async ejecutar() {
             const a = document.createElement('a');
             a.href = url;
             
-            // CORREGIDO: Envoltura con backticks para el string dinámico del nombre del PDF
             a.download = `Wellness_Elite_Passport_${folio}.pdf`;
             
             document.body.appendChild(a);
@@ -437,9 +413,6 @@ async ejecutar() {
             alert(this.idiomaActual === 'es' ? "Error al compilar el pasaporte." : "Error compiling passport.");
         });
     },
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — FRAGMENTO FINAL DE INTEGRACIÓN CIERRE
-// =========================================================================
 
     conectarMantenimientoDesarrollador() {
         const brand = document.getElementById("brandTitleField");
@@ -453,10 +426,8 @@ async ejecutar() {
             }
         });
     }
-}; // Cierre hermético del objeto maestro KERNEL
+};
 
-// Inicialización automática del núcleo táctico tras la carga completa del DOM
 document.addEventListener('DOMContentLoaded', () => KERNEL.init());
 
-// Exposición global del módulo en el objeto Window
 window.KERNEL = KERNEL;
