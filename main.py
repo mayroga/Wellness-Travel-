@@ -355,6 +355,10 @@ async def endpoint_raiz_post(request: Request):
     except Exception:
         return JSONResponse(status_code=200, content={"status": "success", "message": "Conexión establecida"})
 
+# =========================================================================
+# WELLNESS TRAVEL MASTER BACKEND — CORRECCIÓN DINÁMICA DEL COMPILADOR PDF
+# =========================================================================
+
 @app.post("/api/pdf")
 def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
     """
@@ -422,12 +426,15 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         ]))
         story.append(t)
         
+        # CORRECCIÓN DINÁMICA: Extraer el santuario exacto que envió el Frontend
+        santuario_actual = SANTUARIOS_VIP.get(payload.destino_id, SANTUARIOS_VIP["S1"])
+        h_info = santuario_actual[lang_key.lower()]
+        
         # Sección 2: Prescripción Logística Exclusiva de Transporte y Hospedaje
         story.append(Paragraph(lang_map['sec2_title'], h2_style))
-        h_info = SANTUARIOS_VIP.get(payload.destino_id, SANTUARIOS_VIP["S1"])[lang_key.lower()]
         
         dest_html = (
-            f"• <b>{lang_map['stay_lbl']}</b>: {SANTUARIOS_VIP.get(payload.destino_id, SANTUARIOS_VIP['S1'])['nombre']}<br/>"
+            f"• <b>{lang_map['stay_lbl']}</b>: {santuario_actual['nombre']}<br/>"
             f"• <b>{lang_map['desc_lbl']}</b>: {h_info['desc']}<br/>"
             f"• <b>Logística de Actividad</b>: {h_info['actividad']}<br/>"
             f"• <b>{lang_map['air_lbl']}</b>: {h_info['logistica_aerea']}<br/>"
@@ -451,7 +458,6 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Fallo en compilador ReportLab: {str(e)}")
-
 
 # Montaje y enlace físico de recursos del frontend estático
 if os.path.exists("static"):
