@@ -1,6 +1,6 @@
 # =========================================================================
-# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 99% OPEN THAN GO
-# PARTE 1: ARQUITECTURA DE ENRUTAMIENTO, ESQUEMAS Y DICCIONARIO DE ALTA GAMA
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 1 DE 5: IMPORTACIONES CORE, CONFIGURACIÓN FASTAPI Y PASARELA STRIPE
 # =========================================================================
 import os
 import random
@@ -14,6 +14,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
+
 app = FastAPI(
     title="Wellness Travel — Private Premium Engine",
     description="Núcleo de enrutamiento y balance fiduciario de estilo de vida premium sin alteraciones lógicas.",
@@ -44,6 +45,10 @@ class PDFPassportPayload(BaseModel):
     iev: float
     variante: str
     destino_id: str
+# =========================================================================
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 2 DE 5: DICCIONARIO MAESTRO BILINGÜE ÉLITE Y MATRIZ DE SANTUARIOS VIP
+# =========================================================================
 
 # Diccionario Maestro Bilingüe Élite — Inmunizado contra términos médicos o clínicos
 DICTIONARY_BILINGUAL = {
@@ -52,7 +57,7 @@ DICTIONARY_BILINGUAL = {
         "folio": "Folio de Sintonía Premium",
         "status": "Estatus: Validado en Red Render",
         "sec1_title": "1. BALANCE DE ENFOQUE Y BIENESTAR INDIVIDUAL",
-        "m1": "Indicador Evaluado", "m2": "Nivel Inicial", "m3": "Nivel de Cierre",
+        "m1": "Indicador Evaluated", "m2": "Nivel Inicial", "m3": "Nivel de Cierre",
         "m_pace": "Índice de Saturación Externa", 
         "m_breathe": "Tasa de Sincronización Respiratoria", 
         "m_logic": "Eficiencia de Enfoque Mental",
@@ -62,7 +67,7 @@ DICTIONARY_BILINGUAL = {
         "air_lbl": "Logística Aérea Privada", 
         "sea_lbl": "Línea Marítima Élite",
         "consorcio": "Beneficios de Consorcio: Elegible automáticamente para créditos de cortesía Virtuoso/Signature ($100 USD para experiencias de sintonía y mejoras de suite).",
-        "sec3_title": "3. CONCLUSIONES DE ESTILO DE VIDA PREMIUM",
+        "sec3_title": "3. CONCLUSIONES DE ESTILO DE VIAJE PREMIUM",
         "cta": "Este resumen certifica su descompresión y optimización de bienestar. Diseñado para disolver la saturación del entorno y asegurar el control total de su tiempo.",
         "sec4_title": "4. COMPLIANCE DE PRIVACIDAD MAY ROGA LLC",
         "disclaimer": "Toda la información de sintonía se procesa de forma local y anónima en su terminal mediante almacenamiento fiduciario seguro (localStorage). El líder retiene el control de sus registros.",
@@ -90,13 +95,8 @@ DICTIONARY_BILINGUAL = {
         "ai_foot": "This document is for informational and promotional travel purposes only. It does not constitute clinical or medical advice."
     }
 }
-# =========================================================================
-# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 99% OPEN THAN GO
-# PARTE 2: MATRIZ DE SANTUARIOS VIP Y MOTOR DE RECOMENDACIÓN CONTEXTUAL
-# =========================================================================
 
 # Matriz completa de ultra-lujo para millonarios, clase alta y adinerada.
-# Cruzados estrictamente por perfil (solo, acompanado, familia, empresa, accesible)
 SANTUARIOS_VIP = {
     "S1": {
         "nombre": "Amanera Resort — Playa Grande",
@@ -129,7 +129,15 @@ SANTUARIOS_VIP = {
             "logistica_aerea": "VIP access via private FBO terminal and executive helicopter connection directly to the resort pad.",
             "logistica_maritima": "Premium Riva Aquarama vessel operational for direct boarding from the private marina."
         }
-    },
+    }
+}
+# =========================================================================
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 3 DE 5: CIERRE DE SANTUARIOS VIP Y MOTOR ANALÍTICO DE SINTONÍA
+# =========================================================================
+
+# Continuación de la Matriz de Ultra-Lujo
+SANTUARIOS_VIP.update({
     "S3": {
         "nombre": "Amangiri Sanctuary — Desert Solitude",
         "perfil_compatible": ["solo", "acompanado", "empresa"],
@@ -162,10 +170,9 @@ SANTUARIOS_VIP = {
             "logistica_maritima": "Premium river exploration on a private bespoke eco-friendly high-end vessel."
         }
     }
-}
+})
 
 # Motor analítico de puntuación - Réplica exacta del CWRE V2.1 de Open Than Go
-# Calcula el Índice de Estabilización de Enfoque sin usar terminología clínica
 def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
     base_score = 45.0  # Baseline inicial estándar
     
@@ -183,17 +190,17 @@ def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
         "solo": 10.0,
         "acompanado": 5.0,
         "familia": -5.0,
-        "empresa": -15.0,  # Alta demanda de atención directiva / subordinados
+        "empresa": -15.0,  # Alta demanda de atención directiva
         "accesible": 0.0
     }
     
     score_inicial = base_score + modificadores_mente.get(payload.mente, 0.0) + modificadores_perfil.get(payload.perfil, 0.0)
     score_inicial = max(10.0, min(95.0, score_inicial))
     
-    # Análisis del texto libre (Mando de Sintonía) para detectar fricciones sin alusiones laborales
+    # Análisis del texto libre (Mando de Sintonía) para detectar fricciones
     interceptor_friccion = 0.0
     if payload.texto_libre:
-        palabras_saturacion = ["ruido", "saturacion", "agenda", "tiempo", "vuelo", "reunion", "entorno", "exceso", "entorno"]
+        palabras_saturacion = ["ruido", "saturacion", "agenda", "tiempo", "vuelo", "reunion", "entorno", "exceso"]
         conteo = sum(1 for palabra in palabras_saturacion if palabra in payload.texto_libre.lower())
         interceptor_friccion = conteo * -3.5
         
@@ -209,8 +216,8 @@ def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
         "enfoque_mental": 100.0
     }
 # =========================================================================
-# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 99% OPEN THAN GO
-# PARTE 3: ENDPOINTS CONTEXTUALES, ANTI-REPETICIÓN Y PASARELA DE ULTRA-LUJO
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 4 DE 5: MOTOR RECOMENDADOR VIP Y PASARELA DE CHECKOUT PREMIUM
 # =========================================================================
 
 @app.post("/api/sintonizar")
@@ -305,16 +312,16 @@ async def crear_sesion_checkout_elite(request: Request):
             }],
             mode='payment' if "unico" in price_id else 'subscription',
             # BLINDAJE INMUTABLE CON TU URL OFICIAL EN RENDER:
-            success_url=f"https://wellness-travel.onrender.com{folio_servicio}",
-            cancel_url="https://wellness-travel.onrender.com",
+            success_url=f"https://onrender.com{folio_servicio}",
+            cancel_url="https://onrender.com",
             client_reference_id=folio_servicio
         )
         return JSONResponse(status_code=200, content={"id": session.id, "url": session.url})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error en pasarela Stripe Élite: {str(e)}")
 # =========================================================================
-# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 99% OPEN THAN GO
-# PARTE 4: WEBHOOKS DE VERIFICACIÓN, COMPILADOR PDF PASSPORT Y RUTEADOR FINAL
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 5 DE 5: WEBHOOKS, COMPILADOR PDF DINÁMICO Y RUTEADOR DE FRONTEND
 # =========================================================================
 
 @app.post("/api/stripe-webhook")
@@ -343,6 +350,7 @@ async def stripe_webhook_receptor(request: Request):
 
     return JSONResponse(status_code=200, content={"received": True})
 
+
 @app.post("/")
 async def endpoint_raiz_post(request: Request):
     """
@@ -355,9 +363,6 @@ async def endpoint_raiz_post(request: Request):
     except Exception:
         return JSONResponse(status_code=200, content={"status": "success", "message": "Conexión establecida"})
 
-# =========================================================================
-# WELLNESS TRAVEL MASTER BACKEND — CORRECCIÓN DINÁMICA DEL COMPILADOR PDF
-# =========================================================================
 
 @app.post("/api/pdf")
 def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
@@ -458,6 +463,7 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Fallo en compilador ReportLab: {str(e)}")
+
 
 # Montaje y enlace físico de recursos del frontend estático
 if os.path.exists("static"):
