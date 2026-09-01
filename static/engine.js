@@ -1,69 +1,67 @@
 // =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — EDICIÓN COMPLETA ULTRA-PREMIUM (SIN ERRORES)
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
+// PARTE 1 DE 6: ARQUITECTURA DE DATOS Y LOGÍSTICA DE ESTADO CORE
 // =========================================================================
 
 const KERNEL = {
+    // Variables de Estado de Ingeniería (Sincronizadas con Open Than Go)
     timerInaccion: null,
     serviceTimer: null,
     breatheInterval: null,
     voiceInterval: null,
     cierreTimerInterval: null,
-    timeLeft: 600,          
-    cierreTimeLeft: 60,    
+    timeLeft: 600,         // 10 minutos matemáticos de sesión activa obligatoria
+    cierreTimeLeft: 60,    // 60 segundos obligatorios de Limpieza Mental Profunda en Cierre
     isLocked: false,
     idiomaActual: 'es',
     devClickCount: 0,
-    historialVistos: [],    
+    historialVistos: [],   // Control local anti-repeticiones para enrutamiento
 
+    // Diccionarios VIP Extendidos (Absolutamente libres de términos médicos o laborales)
     TRADUCCIONES: {
         es: {
-            brandSub: "Arquitectura de Santuarios Ejecutivos y Bienestar",
+            brandSub: "Arquitectura de Santuarios Ejecutivos",
             timerTitle: "Ventana de Sintonía Activa",
             oraculoInstruccion: "¿Qué vector bloquea tu sintonía hoy?",
-            desahogoLabel: "O declare aquí su saturación ambiental o exigencia de viaje:",
-            placeholderLibre: "Escriba libremente sobre su destino de lujo, hotel, yate o estímulo del entorno...",
+            desahogoLabel: "O declare aquí su saturación ambiental:",
+            placeholderLibre: "Escriba libremente los estímulos o ruidos del entorno que experimenta hoy...",
             btnActivar: "Activar Mando de Sintonía",
-            atencionInaccion: "Atención. Mantenga el enfoque en su pantalla de sintonía ejecutiva.",
-            vozSintonialAcustica: "Líder. Frecuencias acústicas activadas para aislamiento total y máximo bienestar.",
+            atencionInaccion: "Atención. Mantenga el enfoque en su pantalla de sintonía.",
+            vozSintonialAcustica: "Líder. Frecuencias acústicas activadas para aislamiento total.",
             tituloAcustico: "SINTONÍA ACÚSTICA ACTIVA (432HZ / ALFA)",
-            misionTitulo: "SANTUARIOS Y VIAJES DE LUJO CURADOS DISPONIBLES",
-            discursoMin4: "Calibración completada. Santuario de ultra-lujo e itinerario VIP listo.",
+            misionTitulo: "SANTUARIOS CURADOS DISPONIBLES",
+            discursoMin4: "Calibración completada. Santuario de ultra-lujo disponible.",
             mapsBtn: "ABRIR RUTA EXCLUSIVA",
-            compilarBtn: "COMPILACIÓN PASAPORTE DE BIENESTAR Y VIAJE",
-            frecuenciaVoz: "La pausa precisa disuelve el desgaste y asegura el control absoluto sobre su experiencia de viaje y estilo de vida.",
-            cierreFinalizado: "Calibración completada con éxito. Su pasaporte premium de bienestar y viajes está listo.",
-            fases: [
-                { texto: "Inhala", desc: "Expande tu diafragma. Introduce oxígeno puro para resetear el enfoque y claridad mental." },
-                { texto: "Retén", desc: "Mantén el aire. Siente la quietud interna y estabiliza tu ritmo cardíaco." },
-                { texto: "Exhala", desc: "Suelta despacio. Elimina la presión del entorno y disuelve la fatiga ejecutiva." },
-                { texto: "Pausa", desc: "Vacío absoluto. Permanece en silencio antes de diseñar su próxima travesía de lujo." }
-            ]
+            compilarBtn: "COMPILACIÓN PASAPORTE DE BIENESTAR",
+            frecuenciaVoz: "La pausa precisa disuelve el desgaste y asegura el control absoluto sobre su entorno.",
+            pasosRespiracion: ["Inhala", "Retén", "Exhala", "Pausa"],
+            cierreFinalizado: "Calibración completada con éxito. Su pasaporte premium está listo."
         },
         en: {
-            brandSub: "Executive Sanctuary & Luxury Travel Architecture",
+            brandSub: "Executive Sanctuary Architecture",
             timerTitle: "Active Tuning Window",
             oraculoInstruccion: "What vector blocks your tuning today?",
-            desahogoLabel: "Or declare your environmental saturation or travel requirements here:",
-            placeholderLibre: "Freely outline your luxury destination, hotel, yacht or ambient stimuli...",
+            desahogoLabel: "Or declare your environmental saturation here:",
+            placeholderLibre: "Freely outline the stimuli or ambient noise you experience today...",
             btnActivar: "Activate Tuning Directive",
-            atencionInaccion: "Attention. Maintain absolute focus on your executive tuning screen.",
-            vozSintonialAcustica: "Leader. Acoustic frequencies activated for complete isolation and elite wellbeing.",
+            atencionInaccion: "Attention. Maintain absolute focus on your tuning screen.",
+            vozSintonialAcustica: "Leader. Acoustic frequencies activated for complete isolation.",
             tituloAcustico: "ACTIVE ACOUSTIC TUNING (432HZ / ALPHA)",
-            misionTitulo: "CURATED SANCTUARIES & LUXURY TRAVEL AVAILABLE",
-            discursoMin4: "Calibration completed. Ultra-luxury sanctuary and VIP itinerary fully unlocked.",
+            misionTitulo: "CURATED SANCTUARIES AVAILABLE",
+            discursoMin4: "Calibration completed. Ultra-luxury sanctuary fully unlocked.",
             mapsBtn: "OPEN EXCLUSIVE ROUTE",
-            compilarBtn: "COMPILE WELLNESS & TRAVEL PASSPORT",
-            frecuenciaVoz: "The precise pause dissolves exhaustion and ensures absolute control over your travel experience and lifestyle.",
-            cierreFinalizado: "Calibration successfully completed. Your premium wellness and travel passport is ready.",
-            fases: [
-                { texto: "Inhale", desc: "Expand your chest. Introduce pure oxygen to reset focus index." },
-                { texto: "Hold", desc: "Sustain breath. Feel internal quietness and balance heart rate." },
-                { texto: "Exhale", desc: "Release smoothly. Discharging environmental saturation and tension." },
-                { texto: "Pause", desc: "Absolute void. Remain in perfect stillness before designing your next luxury journey." }
-            ]
+            compilarBtn: "COMPILE WELLNESS PASSPORT",
+            frecuenciaVoz: "The precise pause dissolves exhaustion and ensures absolute control over your surroundings.",
+            pasosRespiracion: ["Inhale", "Hold", "Exhale", "Pause"],
+            cierreFinalizado: "Calibration successfully completed. Your premium passport is ready."
         }
     },
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
+// PARTE 2 DE 6: MATRIZ DE RETOS VIP Y POOL DE PREGUNTAS ANALÍTICAS (PARTE 1)
+// =========================================================================
 
+    // Matriz de Retos Conductuales del Cierre Consciente (Réplica exacta 1:1)
     // BANCO DE SVGs INTEGRADOS EN CÓDIGO (Elimina los errores 404 del servidor)
     SVGS: {
         R1: `<svg viewBox="0 0 24 24" width="60" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M19 11A7 7 0 0112 18m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 10-6 0v3a3 3 0 003 3z"/><line x1="1" y1="1" x2="23" y2="23" stroke="#C0392B" stroke-width="2"/></svg>`,
@@ -77,6 +75,46 @@ const KERNEL = {
     },
 
     CATALOGO_RETOS: [
+        {
+            id: "R1", img: "/static/silence.svg",
+            titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.",
+            titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room."
+        },
+        {
+            id: "R2", img: "/static/observe.svg",
+            titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.",
+            titulo_en: "Fixed Contemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment."
+        },
+        {
+            id: "R3", img: "/static/words.svg",
+            titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.",
+            titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air."
+        },
+        {
+            id: "R4", img: "/static/laugh.svg",
+            titulo_es: "Distensión Facial", desc_es: "Libera la tensión acumulada sonriendo de manera forzada durante 10 segundos para activar tus terminales nerviosas de alivio.",
+            titulo_en: "Facial Release", desc_en: "Release accumulated jaw tension by forcing a smile for 10 seconds to activate your biological relaxation pathways."
+        },
+        {
+            id: "R5", img: "/static/stretch.svg",
+            titulo_es: "Alineación Física", desc_es: "Estira los brazos hacia arriba de forma lenta, expandiendo el torso, y mantén la postura soltando el aire despacio.",
+            titulo_en: "Physical Alignment", desc_en: "Slowly extend your arms upward, expanding your chest, and hold the posture while breathing out smoothly."
+        },
+        {
+            id: "R6", img: "/static/nature_sound.svg",
+            titulo_es: "Enfoque Auditivo", desc_es: "Cierra los ojos y busca aislar el sonido más lejano que se escuche en tu entorno actual. Concéntrate solo en esa onda.",
+            titulo_en: "Auditory Tracking", desc_en: "Close your eyes and isolate the most distant ambient sound in your current perimeter. Focus solely on that soundwave."
+        },
+        {
+            id: "R7", img: "/static/gratitude.svg",
+            titulo_es: "Anclaje de Logro", desc_es: "Evoca un momento reciente donde experimentaste control absoluto sobre tu tiempo y retén esa memoria en tu mente.",
+            titulo_en: "Milestone Anchoring", desc_en: "Recall a recent moment where you experienced complete control over your time and hold that mental imprint firmly."
+        },
+        {
+            id: "R8", img: "/static/square_breath.svg",
+            titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.",
+            titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace."
+        }
         { id: "R1", titulo_es: "Silencio Absoluto", desc_es: "Permanece 60 segundos sin emitir sonido ni interactuar con pantallas. Escucha el vacío físico de tu habitación.", titulo_en: "Absolute Silence", desc_en: "Spend 60 seconds without making any sound or interacting with screens. Listen to the physical void of your room." },
         { id: "R2", titulo_es: "Contemplación Fija", desc_es: "Elige un objeto inanimado en tu entorno visual y observa sus detalles físicos, texturas y sombras sin juzgar.", titulo_en: "Fixed Contemplation", desc_en: "Pick an inanimate object in your visual field and observe its physical details, textures, and shadows without judgment." },
         { id: "R3", titulo_es: "Escritura de Purga", desc_es: "Anota mentalmente tres ideas recurrentes que ronden tu enfoque actual y visualiza cómo se disuelven en el aire.", titulo_en: "Purge Inscription", desc_en: "Mentally note three recurring thoughts hovering over your active focus and visualize them dissolving into thin air." },
@@ -87,23 +125,106 @@ const KERNEL = {
         { id: "R8", titulo_es: "Respiración Cuadrada", desc_es: "Realiza un ciclo completo de respiración conteniendo el aire de manera consciente, alineando tu ritmo biológico.", titulo_en: "Box Respiration", desc_en: "Perform a complete square breathing cycle, consciously holding your breath to harmonize your internal biological pace." }
     ],
 
+    // Pool de Preguntas Analíticas — Primer Bloque (1 a 24)
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
-        "¿Se diluye tu enfoque en redes digitales buscando llenar vacíos de desconexión?",
-        "¿Buscas un refugio de ultra-lujo, hotel exclusivo o experiencia de entretenimiento privado?",
-        "¿El exceso de control sobre tu agenda te priva de disfrutar el entorno en paz?",
-        "¿Deseas planificar tu próximo viaje ejecutivo con estándares de élite inquebrantables?",
-        "¿Percibes que el ritmo acelerado del entorno nubla tu claridad mental hoy?"
+@@ -132,458 +110,452 @@
+        "¿Te dejas llevar por la corriente de la rutina sin evaluar tu balance individual?",
+        "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?"
+    ],
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
+// PARTE 3 DE 6: COMPLEMENTO DE PREGUNTAS ANALÍTICAS (ESPAÑOL E INGLÉS)
+// =========================================================================
+
+    // Continuación Pool de Preguntas Analíticas — Segundo Bloque (25 a 48)
+    CATALOGO_PREGUNTAS_ES_2: [
+    [
+        "¿El ritmo automatizado de tus días disminuye la calidad de tus descansos?",
+        "¿Buscas un entorno exclusivo pero las opciones comunes te generan saturación?",
+        "¿La exposición continua a entornos densivos limita tu claridad reflexiva?",
+        "¿Sientes la necesidad de resetear tus estímulos sensoriales de manera urgente?",
+        "¿El dinamismo excesivo de tu agenda reduce tu capacidad de contemplación?",
+        "¿Te cuesta ver la sensación de calma ante la presión de los tiempos?",
+        "¿Sientes que el entorno te exige una velocidad que no deseas mantener?",
+        "¿La sobrecarga de interacciones superficiales desgasta tu nivel de sintonía?",
+        "¿Te resulta difícil aislar tus pensamientos del bullicio general de la ciudad?",
+        "¿La falta de un santuario personal fragmenta tu consistencia en el enfoque?",
+        "¿Sientes que el tiempo transcurre sin permitirte asimilar tus logros?",
+        "¿El exceso de opciones y alternativas del día a día nubla tu dirección?",
+        "¿La prisa por cumplir expectativas externas drena tu sintonía individual?",
+        "¿Te cuesta trabajo establecer un límite firme ante las demandas de tu entorno?",
+        "¿Sientes que la desconexión con la naturaleza acelera tu fatiga ambiental?",
+        "¿El ruido de fondo constante en tus actividades impide tu concentración profunda?",
+        "¿Te percibes atrapado en patrones de consumo digital que no aportan valor?",
+        "¿La falta de una estructura de bienestar adaptada fragmenta tu estabilidad?",
+        "¿Sientes que la prisa de los demás dicta el ritmo de tus propias pausas?",
+        "¿La saturación en los espacios habituales limita tu libertad de pensamiento?",
+        "¿Te cuesta encontrar un balance armónico entre tu vida social y tu espacio solo?",
+        "¿El ritmo vertiginoso del entorno obstaculiza tu claridad a largo plazo?",
+        "¿Sientes que la rutina se repite sin ofrecerte un espacio genuino de renovación?",
+        "¿La presión constante del entorno compromete la calidad de tu enfoque mental?"
     ],
 
+    // Pool Completo de Preguntas Analíticas en Inglés (1 a 48)
     CATALOGO_PREGUNTAS_EN: [
         "Do you feel environmental stimuli saturate your ability to contemplate calm?",
         "Does your strategic focus dissolve in digital networks trying to fill moments of friction?",
-        "Are you seeking an ultra-luxury sanctuary, exclusive hotel or private entertainment experience?",
-        "Does excessive schedule control deprive you of calmly observing your environment?"
+        "Do you surrender your peace to external noise to drown out the daily rush?",
+        "Does excessive schedule control deprive you of calmly observing your environment?",
+        "Are you overspending on micro-stimuli looking for satisfaction that expires immediately?",
+        "Do you perceive that the fast pace of your surroundings clouds your clarity today?",
+        "Do you remain connected to screens out of inertia, sacrificing your isolation space?",
+        "Is it difficult to find a moment of absolute acoustic silence in your routine?",
+        "Do you feel that daily inertia blocks your appreciation of the present time?",
+        "Does the speed of the surroundings make it difficult to tune your internal balance?",
+        "Are you experiencing a constant demand for attention that fragments your focus?",
+        "Does the excess of environmental information create friction in your life choices?",
+        "Is it hard for you to disconnect from the constant stream of notifications?",
+        "Do you feel your personal space has been invaded by unnecessary external stimuli?",
+        "Does the collective rush push you to act without a clear intention today?",
+        "Do you perceive a disconnect between your wellness goals and daily habits?",
+        "Do you seek shelter in isolation but the urban landscape complicates silence?",
+        "Does the saturation of social commitments limit your time for introspection?",
+        "Do you feel that the lack of curated spaces affects your daily perspective?",
+        "Is it complex to draw a firm line between the environment and your peace?",
+        "Does the lack of conscious pauses reduce the clarity of your personal vision?",
+        "Do you perceive that daily demands consume your reserved focus index?",
+        "Are you carried away by the current of routine without assessing your balance?",
+        "Do you feel the visual noise of your habitual environment interrupts your calm?",
+        "Does the automated rhythm of your days decrease the quality of your rests?",
+        "Are you looking for an exclusive environment but common options cause overload?",
+        "Does continuous exposure to dense surroundings limit your reflective clarity?",
+        "Do you feel an urgent need to reset your internal sensory stimuli?",
+        "Does the excessive dynamism of your schedule reduce your contemplation capacity?",
+        "Is it hard to retain the feeling of calm under the pressure of timelines?",
+        "Do you feel the environment demands a speed you do not wish to maintain?",
+        "Does the overload of superficial interactions wear down your tuning level?",
+        "Is it difficult to isolate your thoughts from the general city bustle?",
+        "Does the lack of a personal sanctuary fragment your deep focus consistency?",
+        "Do you feel time passes without allowing you to assimilate your milestones?",
+        "Does the excess of daily options and alternatives cloud your direction?",
+        "Does the rush to meet external expectations drench your individual tuning?",
+        "Is it hard for you to establish a firm boundary against surrounding demands?",
+        "Do you feel that disconnecting from nature accelerates your environmental fatigue?",
+        "Does constant background noise in your actions prevent deep concentration?",
+        "Do you perceive yourself trapped in digital patterns that provide no value?",
+        "Does the lack of a tailored wellness structure fragment your stability?",
+        "Do you feel that the rush of others dictates the pace of your own pauses?",
+        "Does saturation in habitual spaces limit your freedom of thought?",
+        "Is it hard to find a harmonious balance between social life and solo space?",
+        "Does the dizzying pace of the environment hinder your long-term clarity?",
+        "Do you feel routine repeats itself without offering a genuine space for renewal?",
+        "Does the constant pressure of the surroundings compromise your mental focus?"
     ],
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
+// PARTE 4 DE 6: MÓDULOS DE INICIALIZACIÓN, CAMBIO DE IDIOMA E INACCIÓN CORE
+// =========================================================================
 
     init() {
+        // Unificar estructuralmente los dos bloques de preguntas en español al arrancar
+        this.CATALOGO_PREGUNTAS_ES = [...this.CATALOGO_PREGUNTAS_ES, ...this.CATALOGO_PREGUNTAS_ES_2];
         this.cambiarIdioma(this.idiomaActual);
         this.conectarMantenimientoDesarrollador();
     },
@@ -112,45 +233,47 @@ const KERNEL = {
         this.idiomaActual = lang;
         const diccionario = this.TRADUCCIONES[lang];
 
-        const lblBrandSub = document.getElementById('lblBrandSub');
-        if (lblBrandSub) lblBrandSub.innerText = diccionario.brandSub;
+        // Traducción e inyección masiva de cadenas de texto estáticas en la UI
+        document.getElementById('lblBrandSub').innerText = diccionario.brandSub;
+        document.getElementById('lblTimerTitle').innerText = diccionario.timerTitle;
+        document.getElementById('lbl-oraculo-instruccion').innerText = diccionario.oraculoInstruccion;
+        document.getElementById('lbl-desahogo').innerText = diccionario.desahogoLabel;
+        document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
+        document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
 
-        const lblTimerTitle = document.getElementById('lblTimerTitle');
-        if (lblTimerTitle) lblTimerTitle.innerText = diccionario.timerTitle;
-
-        const lblOraculo = document.getElementById('lbl-oraculo-instruccion');
-        if (lblOraculo) lblOraculo.innerText = diccionario.oraculoInstruccion;
-
-        const lblDesahogo = document.getElementById('lbl-desahogo');
-        if (lblDesahogo) lblDesahogo.innerText = diccionario.desahogoLabel;
-
-        const inpTextLibre = document.getElementById('inp-text-libre');
-        if (inpTextLibre) inpTextLibre.placeholder = diccionario.placeholderLibre;
-
-        const btnActivarLibre = document.getElementById('btn-activar-libre');
-        if (btnActivarLibre) btnActivarLibre.innerText = diccionario.btnActivar;
-
+        // CORRECCIÓN PROTEGIDA: Sincronización precisa de la etiqueta de coordenadas logísticas
         const lblZip = document.getElementById('lbl-zip');
         if (lblZip) {
             lblZip.innerText = lang === 'es' ? "Código Postal" : "Zip Code";
+        }
+
+        // Alternancia de estados visuales activos en la barra de idiomas
+        const btnEs = document.getElementById('lang-es');
+        const btnEn = document.getElementById('lang-en');
+        if (btnEs && btnEn) {
+            if (lang === 'es') {
+                btnEs.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                btnEn.classList.add('active');
+                btnEs.classList.remove('active');
+            }
         }
 
         this.inyectarPreguntasOraculo();
     },
 
     despertarInicial() {
-        const pBienvenida = document.getElementById('pantalla-bienvenida');
-        if (pBienvenida) pBienvenida.style.display = 'none';
-
-        const wrapperForm = document.getElementById('wrapper-form');
-        if (wrapperForm) wrapperForm.classList.remove('hidden');
-
+        document.getElementById('pantalla-bienvenida').style.display = 'none';
+        document.getElementById('wrapper-form').classList.remove('hidden');
         this.resetearTemporizadorInaccion();
     },
 
     resetearTemporizadorInaccion() {
         clearTimeout(this.timerInaccion);
         if (this.isLocked) return;
+
+        // Disparador cronometrado de 8 segundos para evitar la dispersión de la atención
         this.timerInaccion = setTimeout(() => {
             this.emitirVoz(this.TRADUCCIONES[this.idiomaActual].atencionInaccion);
             this.resetearTemporizadorInaccion();
@@ -161,17 +284,18 @@ const KERNEL = {
         const contenedor = document.getElementById('contenedor-preguntas-oraculo');
         if (!contenedor) return;
         contenedor.innerHTML = "";
-        
+
         const lista = this.idiomaActual === 'es' ? this.CATALOGO_PREGUNTAS_ES : this.CATALOGO_PREGUNTAS_EN;
+
+        // Algoritmo inmutable de desordenamiento y extracción limpia de 3 vectores flotantes
         let seleccionadas = [...lista].sort(() => 0.5 - Math.random()).slice(0, 3);
-        
+
         seleccionadas.forEach((pregunta, idx) => {
             const btn = document.createElement('button');
             btn.className = 'btn-pregunta-crisis';
             btn.innerText = `${idx + 1}. ${pregunta}`;
             btn.onclick = () => {
-                const inpLibre = document.getElementById('inp-text-libre');
-                if (inpLibre) inpLibre.value = pregunta;
+                document.getElementById('inp-text-libre').value = pregunta;
                 this.ejecutar();
             };
             contenedor.appendChild(btn);
@@ -183,46 +307,44 @@ const KERNEL = {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(texto);
         utterance.lang = this.idiomaActual === 'es' ? 'es-US' : 'en-US';
-        utterance.rate = 0.90;
+        utterance.rate = 0.95; // Cadencia ralentizada para transmitir control y elegancia
         window.speechSynthesis.speak(utterance);
     },
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
+// PARTE 5 DE 6: NÚCLEO ASÍNCRONO EJECUTAR, CRONÓMETRO, PULMÓN Y FRECUENCIAS
+// =========================================================================
 
     async ejecutar() {
         if (this.isLocked) return;
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
-        
-        const zipInput = document.getElementById('inp-zip');
-        const modoSelector = document.getElementById('modo-selector');
-        const menteSelector = document.getElementById('mente-selector');
-        const budgetSelector = document.getElementById('budget-selector');
-        const perfilSelector = document.getElementById('perfil-selector');
-        const textLibreInput = document.getElementById('inp-text-libre');
 
-        const zipCode = zipInput ? zipInput.value : "33139";
-        const modoActivo = modoSelector ? modoSelector.value : "SALIR";
-        const menteActiva = menteSelector ? menteSelector.value : "SILENCIO";
-        const budgetActivo = budgetSelector ? budgetSelector.value : "ILIMITADO";
-        const perfilActivo = perfilSelector ? perfilSelector.value : "solo";
-        const textoLibreStr = textLibreInput ? textLibreInput.value : "";
-        
-        const wrapperForm = document.getElementById('wrapper-form');
-        if (wrapperForm) wrapperForm.classList.add('hidden');
+        // Captura dinámica de coordenadas logísticas y filtros VIP
+        const zipCode = document.getElementById('inp-zip').value || "33167";
+        const modoActivo = document.getElementById('modo-selector').value;
+        const menteActiva = document.getElementById('mente-selector').value;
+        const budgetActivo = document.getElementById('budget-selector').value;
+        const perfilActivo = document.getElementById('perfil-selector').value;
+        const textoLibreStr = document.getElementById('inp-text-libre').value;
 
-        const activeDock = document.getElementById('activeSessionDock');
-        if (activeDock) activeDock.classList.remove('hidden');
-        
+        // Transición y bloqueo visual inmediato de los viewports
+        document.getElementById('wrapper-form').classList.add('hidden');
+        document.getElementById('activeSessionDock').classList.remove('hidden');
+
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
-        
+
+        // Cronómetro maestro síncrono de 10 minutos (600s) Open Than Go
         this.serviceTimer = setInterval(() => {
             this.timeLeft--;
             this.actualizarRelojInterfaz();
-            
+
+            // Inyección interactiva destacada en rojo a los 4 minutos finales (240s restantes)
             if (this.timeLeft === 240) {
                 this.inyectarDestinoOpcionalRojo();
             }
-            
+
             if (this.timeLeft <= 0) {
                 clearInterval(this.serviceTimer);
                 clearInterval(this.breatheInterval);
@@ -230,13 +352,16 @@ const KERNEL = {
                 this.activarCierreConscienteCronometrado();
             }
         }, 1000);
-        
+
         this.activarVozAsesorContinuo();
 
+        // ENLACE CONTEXTUAL ASÍNCRONO: Conexión con el motor predictivo en Render
         try {
-            const respuesta = await fetch("/api/sintonizar", {
+            const respuesta = await fetch("https://onrender.com", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json" 
+                },
                 body: JSON.stringify({
                     zip_code: zipCode,
                     modo: modoActivo,
@@ -248,17 +373,26 @@ const KERNEL = {
                 })
             });
 
-            if (!respuesta.ok) throw new Error("Error en red.");
+            if (!respuesta.ok) throw new Error("Fallo en el nodo de enlace analítico.");
+
             const data = await respuesta.json();
 
-            if (data.opciones_escape_vip) {
-                data.opciones_escape_vip.forEach(d => {
-                    if (!this.historialVistos.includes(d.id)) this.historialVistos.push(d.id);
+            // Sincronizar el historial local anti-repeticiones con la respuesta del servidor
+            if (data.opciones_escape_vip && data.opciones_escape_vip.length > 0) {
+                data.opciones_escape_vip.forEach(destino => {
+                    if (!this.historialVistos.includes(destino.id)) {
+                        this.historialVistos.push(destino.id);
+                    }
                 });
+                console.log("[CRM EXCLUSIVO] Historial de Santuarios Sincronizado:", this.historialVistos);
             }
+
         } catch (error) {
-            console.error("[CRITICAL] Fallo en motor:", error);
-            if (this.historialVistos.length === 0) this.historialVistos.push("S1");
+            console.error("[CRITICAL] Fallo en el motor de escape:", error);
+            // Salvaguarda fiduciaria para prevenir rupturas en el PDF Passport
+            if (this.historialVistos.length === 0) {
+                this.historialVistos.push("S1");
+            }
         }
     },
 
@@ -266,7 +400,6 @@ const KERNEL = {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.vozSintonialAcustica);
         const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
 
         const poolVideos = [
             { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", id: "1ZYbU82GVz4" },
@@ -274,12 +407,11 @@ const KERNEL = {
         ];
 
         let html = `<div style="margin-bottom:10px; font-size:11px; color:var(--gold-champagne); font-weight:bold; letter-spacing:1px; text-transform:uppercase;">${dic.tituloAcustico}</div>`;
-        
         poolVideos.forEach((v) => {
             html += `
                 <div style="background:var(--bg-surface); border:1px solid rgba(197,160,89,0.1); padding:12px; border-radius:14px; margin-bottom:12px;">
                     <div style="font-size:12px; font-weight:600; color:#fff; margin-bottom:8px;">${v.t}</div>
-                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://www.youtube.com/embed/${v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe style="width:100%; height:140px; border:0; border-radius:8px;" src="https://youtube.com{v.id}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>`;
         });
         stack.innerHTML = html;
@@ -287,41 +419,35 @@ const KERNEL = {
 
     iniciarPulmonVisual() {
         let paso = 0;
-        let segundoInterno = 0;
         const dic = this.TRADUCCIONES[this.idiomaActual];
-        const circle = document.getElementById('lungCircle');
-        const txtPulmon = document.getElementById('txt-pulmon');
-       
+
+        // Ciclo síncrono inmutable de respiración clínica en 4 tiempos fijos
         this.breatheInterval = setInterval(() => {
-            segundoInterno++;
-            
-            if (segundoInterno >= 4) {
-                segundoInterno = 0;
-                paso = (paso + 1) % 4;
+            const circle = document.getElementById('lungCircle');
+            if (!circle) return;
+
+            circle.innerText = dic.pasosRespiracion[paso];
+
+            if (paso === 0) {
+                circle.className = "lung-circle-master lung-inhale-state";
+            } else if (paso === 2) {
+                circle.className = "lung-circle-master lung-exhale-state";
+            } else {
+                circle.className = "lung-circle-master";
             }
 
-            const faseActual = dic.fases[paso];
-            if (circle) circle.innerText = `${faseActual.texto}\n(${4 - segundoInterno}s)`;
-            if (txtPulmon) txtPulmon.innerText = faseActual.desc;
-           
-            if (circle) {
-                if (paso === 0) {
-                    circle.className = "lung-circle-master lung-inhale-state";
-                } else if (paso === 2) {
-                    circle.className = "lung-circle-master lung-exhale-state";
-                } else {
-                    circle.className = "lung-circle-master";
-                }
-            }
-        }, 1000);
+            paso = (paso + 1) % 4;
+        }, 4000);
     },
+// =========================================================================
+// WELLNESS TRAVEL FRONTEND LOGIC — INTEGRIDAD TOTAL 100% OPEN THAN GO
+// PARTE 6 DE 6: LOGÍSTICA DE INTERFAZ, CIERRE CONSCIENTE Y COMPILACIÓN FINAL
+// =========================================================================
 
     actualizarRelojInterfaz() {
-        const clockDisplay = document.getElementById('clockDisplay');
-        if (!clockDisplay) return;
         let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-        clockDisplay.innerText = `${mins}:${secs}`;
+        document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
     },
 
     activarVozAsesorContinuo() {
@@ -332,52 +458,46 @@ const KERNEL = {
 
     inyectarDestinoOpcionalRojo() {
         const stack = document.getElementById('interactiveStack');
-        if (!stack) return;
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.discursoMin4);
-       
+
         const divDestino = document.createElement('div');
-        divDestino.style.cssText = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer;";
-        
-        divDestino.onclick = () => window.open(`https://www.google.com/search?q=${encodeURIComponent('Amanera Resort Luxury Travel & Hotel')}`, '_blank');
+        divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer; transition:all 0.3s;";
+
+        divDestino.onclick = () => window.open(`https://google.com{encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
 
         divDestino.innerHTML = `
-            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO Y HOTEL VIP PROPUESTO</div> 
-            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort & Elite Travel Oasis</div> 
-            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> 
-                ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta exclusiva hacia el hotel y santuario de lujo.' : 'Click to open the exclusive route towards the luxury hotel and sanctuary.'} 
-            </p> 
+            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div>
+            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div>
+            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} </p>
             <span style="font-size:10px; background:var(--alert-crimson); color:#fff; padding:4px 8px; border-radius:4px; font-weight:bold; text-transform:uppercase;">${dic.mapsBtn}</span>
         `;
         stack.insertBefore(divDestino, stack.firstChild);
     },
 
     activarCierreConscienteCronometrado() {
-        const activeDock = document.getElementById('activeSessionDock');
-        if (activeDock) activeDock.classList.add('hidden');
+        document.getElementById('activeSessionDock').classList.add('hidden');
+        document.getElementById('pantalla-cierre').classList.remove('hidden');
 
-        const pantallaCierre = document.getElementById('pantalla-cierre');
-        if (pantallaCierre) pantallaCierre.classList.remove('hidden');
-        
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
-        const contenedorMensaje = document.getElementById('cierre-message');
-        if (!contenedorMensaje) return;
-       
-        contenedorMensaje.innerHTML = `
-            <div style="margin-bottom:15px;">${this.SVGS[retoSeleccionado.id]}</div> 
-            <h3 id="reto-titulo" style="text-transform: uppercase; font-family:'Cinzel', serif; color:var(--gold-champagne); margin-bottom:10px;"> 
-                ${this.idiomaActual === 'es' ? retoSeleccionado.titulo_es : retoSeleccionado.titulo_en} 
-            </h3> 
-            <p id="reto-descripcion" style="font-size:0.95rem; color:#eee; line-height:1.5; margin-bottom:20px;"> 
-                ${this.idiomaActual === 'es' ? retoSeleccionado.desc_es : retoSeleccionado.desc_en} 
-            </p>
-        `;
+        const imgTag = document.getElementById('reto-img');
+
+        imgTag.src = retoSeleccionado.img;
+        imgTag.classList.remove('hidden');
+
+        if (this.idiomaActual === 'es') {
+            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_es;
+            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_es;
+        } else {
+            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_en;
+            document.getElementById('reto-titulo').innerText = retoSeleccionado.titulo_en;
+            document.getElementById('reto-descripcion').innerText = retoSeleccionado.desc_en;
+        }
 
         this.cierreTimerInterval = setInterval(() => {
             this.cierreTimeLeft--;
-            const cierreTimerEl = document.getElementById('cierre-timer');
-            if (cierreTimerEl) cierreTimerEl.innerText = this.cierreTimeLeft;
-            
+            document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
+
             if (this.cierreTimeLeft <= 0) {
                 clearInterval(this.cierreTimerInterval);
                 this.finalizarCierreYMostrarDescarga();
@@ -389,38 +509,35 @@ const KERNEL = {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
 
-        const cierreTimerEl = document.getElementById('cierre-timer');
-        if (cierreTimerEl) cierreTimerEl.classList.add('hidden');
+        document.getElementById('cierre-timer').classList.add('hidden');
 
         const msgFinal = document.getElementById('cierre-mensaje-final');
-        if (msgFinal) {
-            msgFinal.innerText = dic.cierreFinalizado;
-            msgFinal.classList.remove('hidden');
-        }
-        
-        const btnRecomenzar = document.getElementById('btn-recomenzar-experiencia');
-        if (btnRecomenzar) btnRecomenzar.classList.remove('hidden');
-        
-        const root = document.getElementById('cierre-message');
-        if (!root) return;
+        msgFinal.innerText = dic.cierreFinalizado;
+        msgFinal.classList.remove('hidden');
 
-        const folio = "WT-" + Math.floor(100000 + Math.random() * 900000);
-        
+        document.getElementById('btn-recomenzar-experiencia').classList.remove('hidden');
+
+        const root = document.getElementById('cierre-message');
+        const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
+
         root.innerHTML = `
-            <div style="text-align:center; padding:10px 0;"> 
-                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;"> 
-                    ${this.idiomaActual === 'es' ? 'Su pasaporte de bienestar y viajes de lujo ha sido estructurado.' : 'Your wellness and luxury travel passport has been fully structured.'} 
-                </p> 
-                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button> 
+            <div style="text-align:center; padding:10px 0;">
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
+                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
+                </p>
+                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
             </div>
         `;
     },
 
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
-        const destinoPrescrito = this.historialVistos.length > 0 ? this.historialVistos[this.historialVistos.length - 1] : "S1";
-       
-        fetch("/api/pdf", {
+
+        const destinoPrescrito = this.historialVistos.length > 0 
+            ? this.historialVistos[this.historialVistos.length - 1] 
+            : "S1";
+
+        fetch("https://onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -431,12 +548,12 @@ const KERNEL = {
                 respiracion_score: 100.0, 
                 adivinanzas_score: 100.0,
                 iev: 95.0, 
-                variante: "WELLNESS_TRAVEL_ELITE", 
+                variante: "ELITE_WELLNESS", 
                 destino_id: destinoPrescrito
             })
         })
         .then(res => {
-            if (!res.ok) throw new Error("Error.");
+            if (!res.ok) throw new Error("Fallo transaccional de comunicación.");
             return res.blob();
         })
         .then(blob => {
@@ -444,7 +561,7 @@ const KERNEL = {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Wellness_Travel_Elite_Passport_${folio}.pdf`;
+            a.download = `Wellness_Elite_Passport_${folio}.pdf`;
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -459,7 +576,6 @@ const KERNEL = {
     conectarMantenimientoDesarrollador() {
         const brand = document.getElementById("brandTitleField");
         if (!brand) return;
-        
         brand.addEventListener("click", () => {
             this.devClickCount++;
             if (this.devClickCount === 3) {
@@ -471,5 +587,4 @@ const KERNEL = {
 };
 
 document.addEventListener('DOMContentLoaded', () => KERNEL.init());
-
 window.KERNEL = KERNEL;
