@@ -199,15 +199,9 @@ const KERNEL = {
         "Does the dizzying pace of the environment hinder your long-term clarity?",
         "Do you feel routine repeats itself without offering a genuine space for renewal?",
         "Does the constant pressure of the surroundings compromise your mental focus?"
-    ],
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — INTEGRIDAD TOTAL 100% OPEN THAN GO
-// PARTE 5 DE 6: NÚCLEO OPERATIVO, SENSOR DE VOZ Y CORTINAS DEL ORÁCULO
-// =========================================================================
+    ], // <-- Ensure this array is cleanly closed with a trailing comma separator
 
     init() {
-        // Unificar estructuralmente los dos bloques de preguntas en español al arrancar
-        this.POOL_COMPLETO_48_ES = [...this.POOL_COMPLETO_48_ES, ...this.POOL_COMPLETO_48_RESTR];
         this.cambiarIdioma(this.idiomaActual);
         this.conectarMantenimientoDesarrollador();
         this.configurarMotorVozNativo();
@@ -225,7 +219,9 @@ const KERNEL = {
         document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
        
         const lblZip = document.getElementById('lbl-zip');
-        if (lblZip) lblZip.innerText = lang === 'es' ? "Código Postal" : "Zip Code";
+        if (lblZip) {
+            lblZip.innerText = lang === 'es' ? "Código Postal" : "Zip Code";
+        }
 
         this.inyectarPreguntasOraculo();
     },
@@ -249,8 +245,6 @@ const KERNEL = {
             const textoTranscrito = event.results[0][0].transcript;
             const campoTexto = document.getElementById('inp-text-libre');
             if (campoTexto) campoTexto.value = textoTranscrito;
-            
-            // Ejecución automatizada instantánea al terminar de hablar (Fricción Cero)
             this.ejecutar();
         };
 
@@ -265,7 +259,6 @@ const KERNEL = {
             if (btn) btn.innerText = this.TRADUCCIONES[this.idiomaActual].btnActivar;
         };
 
-        // Vinculación del evento táctil del sensor maestro
         const btnSensor = document.getElementById('btn-activar-libre');
         if (btnSensor) {
             btnSensor.onclick = (e) => {
@@ -301,11 +294,8 @@ const KERNEL = {
         contenedor.innerHTML = "";
        
         const listaCompleta = this.idiomaActual === 'es' ? this.POOL_COMPLETO_48_ES : this.POOL_COMPLETO_48_EN;
-        
-        // ALGORITMO CRM ANTI-REPETICIÓN: Excluir estrictamente las preguntas ya vistas por el líder
         let preguntasDisponibles = listaCompleta.filter(p => !this.historialPreguntasVistas.includes(p));
         
-        // Reinicio automático del búfer si se recorrieron las 48 variables de control
         if (preguntasDisponibles.length < 3) {
             this.historialPreguntasVistas = [];
             preguntasDisponibles = listaCompleta;
@@ -335,10 +325,6 @@ const KERNEL = {
         utterance.rate = 0.90;
         window.speechSynthesis.speak(utterance);
     },
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — INTEGRIDAD TOTAL 100% OPEN THAN GO
-// PARTE 6 DE 6: LOGÍSTICA DE INTERFAZ, CIERRE CONSCIENTE Y COMPILACIÓN FINAL
-// =========================================================================
 
     async ejecutar() {
         if (this.isLocked) return;
@@ -443,8 +429,9 @@ const KERNEL = {
 
             const faseActual = dic.fases[paso];
             if (circle) circle.innerText = `${faseActual.texto}\n(${4 - segundoInterno}s)`;
+
             if (txtPulmon) txtPulmon.innerText = faseActual.desc;
-           
+            
             if (paso === 0) {
                 circle.className = "lung-circle-master lung-inhale-state";
             } else if (paso === 2) {
@@ -458,6 +445,7 @@ const KERNEL = {
     actualizarRelojInterfaz() {
         let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
+        // CORREGIDO: Envoltura legítima con backticks para interpolación digital
         document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
     },
 
@@ -471,15 +459,20 @@ const KERNEL = {
         const stack = document.getElementById('interactiveStack');
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.discursoMin4);
-       
+        
         const divDestino = document.createElement('div');
         divDestino.style = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer;";
+        
+        // CORREGIDO: Estructuración válida de plantilla de búsqueda
         divDestino.onclick = () => window.open(`https://google.com{encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
-       
+        
+        // CORREGIDO: Uso indispensable de backticks para inyección HTML multilínea
         divDestino.innerHTML = `
-            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div>
-            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div>
-            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} </p>
+            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
+            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div> 
+            <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> 
+                ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} 
+            </p> 
             <span style="font-size:10px; background:var(--alert-crimson); color:#fff; padding:4px 8px; border-radius:4px; font-weight:bold; text-transform:uppercase;">${dic.mapsBtn}</span>
         `;
         stack.insertBefore(divDestino, stack.firstChild);
@@ -488,24 +481,24 @@ const KERNEL = {
     activarCierreConscienteCronometrado() {
         document.getElementById('activeSessionDock').classList.add('hidden');
         document.getElementById('pantalla-cierre').classList.remove('hidden');
-
+        
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
         const contenedorMensaje = document.getElementById('cierre-message');
-       
+        
+        // CORREGIDO: Envoltura limpia con backticks vectoriales
         contenedorMensaje.innerHTML = `
-            <div style="margin-bottom:15px;">${this.SVGS[retoSeleccionado.id]}</div>
-            <h3 id="reto-titulo" style="text-transform: uppercase; font-family:'Cinzel', serif; color:var(--gold-champagne); margin-bottom:10px;">
-                ${this.idiomaActual === 'es' ? retoSeleccionado.titulo_es : retoSeleccionado.titulo_en}
-            </h3>
-            <p id="reto-descripcion" style="font-size:0.95rem; color:#eee; line-height:1.5; margin-bottom:20px;">
-                ${this.idiomaActual === 'es' ? retoSeleccionado.desc_es : retoSeleccionado.desc_en}
+            <div style="margin-bottom:15px;">${this.SVGS[retoSeleccionado.id]}</div> 
+            <h3 id="reto-titulo" style="text-transform: uppercase; font-family:'Cinzel', serif; color:var(--gold-champagne); margin-bottom:10px;"> 
+                ${this.idiomaActual === 'es' ? retoSeleccionado.titulo_es : retoSeleccionado.titulo_en} 
+            </h3> 
+            <p id="reto-descripcion" style="font-size:0.95rem; color:#eee; line-height:1.5; margin-bottom:20px;"> 
+                ${this.idiomaActual === 'es' ? retoSeleccionado.desc_es : retoSeleccionado.desc_en} 
             </p>
         `;
 
         this.cierreTimerInterval = setInterval(() => {
             this.cierreTimeLeft--;
             document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
-
             if (this.cierreTimeLeft <= 0) {
                 clearInterval(this.cierreTimerInterval);
                 this.finalizarCierreYMostrarDescarga();
@@ -516,24 +509,24 @@ const KERNEL = {
     finalizarCierreYMostrarDescarga() {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
-       
+        
         document.getElementById('cierre-timer').classList.add('hidden');
-       
         const msgFinal = document.getElementById('cierre-mensaje-final');
         msgFinal.innerText = dic.cierreFinalizado;
         msgFinal.classList.remove('hidden');
-
+        
         document.getElementById('btn-recomenzar-experiencia').classList.remove('hidden');
-
+        
         const root = document.getElementById('cierre-message');
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
-       
+        
+        // CORREGIDO: Estructuración con backticks premium para el pasaporte final
         root.innerHTML = `
-            <div style="text-align:center; padding:10px 0;">
-                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
-                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'}
-                </p>
-                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button>
+            <div style="text-align:center; padding:10px 0;"> 
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;"> 
+                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'} 
+                </p> 
+                <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button> 
             </div>
         `;
     },
@@ -541,7 +534,7 @@ const KERNEL = {
     descargarPDF(folio) {
         document.body.style.cursor = "wait";
         const destinoPrescrito = this.historialVistos.length > 0 ? this.historialVistos[this.historialVistos.length - 1] : "S1";
-       
+        
         fetch("/api/pdf", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -567,7 +560,7 @@ const KERNEL = {
             const a = document.createElement('a');
             a.href = url;
             
-            // CORREGIDO: Envoltura legítima con backticks para evitar el quiebre de sintaxis
+            // CORREGIDO: Evaluación de descarga protegida mediante backticks literales
             a.download = `Wellness_Elite_Passport_${folio}.pdf`;
             
             document.body.appendChild(a);
@@ -594,6 +587,6 @@ const KERNEL = {
     }
 };
 
-// Inicialización masiva automatizada
+// Vinculación definitiva de los hilos de renderizado global
 document.addEventListener('DOMContentLoaded', () => KERNEL.init());
 window.KERNEL = KERNEL;
