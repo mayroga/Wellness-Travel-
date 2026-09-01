@@ -74,49 +74,28 @@ textarea{resize:none;height:80px}
 <div class="subtitle-elite" id="lblBrandSub">Arquitectura de Santuarios Ejecutivos</div>
 </header>
 
+<!-- =========================================================================
+WELLNESS TRAVEL WINDOW — CONTROLES DE PODER Y SOBERANÍA EJECUTIVA
+========================================================================= -->
 <div class="field-group">
-<div style="flex:2;display:flex;flex-direction:column;">
-<label id="lbl-zip">Código Postal</label>
-<input type="text" id="inp-zip" placeholder="Ej: 33167" maxlength="5" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+<div style="flex: 1; display: flex; flex-direction: column;">
+<label>Ecosistema de Entrada</label>
+<select id="mente-selector">
+<option value="estresado" selected>Fricción Directiva (Alta Demanda)</option>
+<option value="agotado">Saturación Ambiental Corporativa</option>
+<option value="ansioso">Asedio del Entorno (Escrutinio Público)</option>
+</select>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;">
-<label>Modo</label>
-<select id="modo-selector">
-<option value="SALIR" selected>SALIR</option>
-<option value="CASA">CASA</option>
+<div style="flex: 1; display: flex; flex-direction: column;">
+<label>Asignación de Capital</label>
+<select id="budget-selector">
+<option value="ilimitado" selected>Fiduciario Ilimitado (Firma Premium)</option>
+<option value="abierto">Créditos de Consorcio Virtuoso Élite</option>
 </select>
 </div>
 </div>
 
-<div class="field-group">
-<div style="flex:1;display:flex;flex-direction:column;">
-<label>Mente</label>
-<select id="mente-selector">
-<option value="aburrido" selected>Aburrido</option>
-<option value="agotado">Agotado</option>
-<option value="estresado">Estresado</option>
-<option value="cansado">Cansado</option>
-<option value="ansioso">Ansioso</option>
-</select>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;">
-<label>Gasto</label>
-<select id="budget-selector">
-<option value="abierto" selected>Abierto</option>
-<option value="ilimitado">Ilimitado</option>
-</select>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;">
-<label>Perfil</label>
-<select id="perfil-selector">
-<option value="solo" selected>Solo</option>
-<option value="acompanado">Acompañado</option>
-<option value="familia">Familia</option>
-<option value="empresa">Empresa</option>
-<option value="accesible">Accesible</option>
-</select>
-</div>
-</div>
+<p id="lbl-oraculo-instruccion" style="font-size: 11px; text-transform: uppercase; color: var(--gold-champagne); font-weight: bold; letter-spacing: 2px; text-align: center; margin-bottom: 15px;"></p>
 
 <p id="lbl-oraculo-instruccion" style="font-size:11px;text-transform:uppercase;color:var(--gold-champagne);font-weight:bold;letter-spacing:1.5px;text-align:center;margin-bottom:15px;"></p>
 <div style="position:relative;min-height:120px;overflow:hidden;margin-bottom:20px;">
