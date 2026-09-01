@@ -1,502 +1,291 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellness-Travel- — Elite Executive Wellbeing & Luxury Travel</title>
-    <style>
-        :root {
-            --bg-primary: #0a0b0e;
-            --bg-secondary: #13161f;
-            --card-surface: #1b1f2b;
-            --border-line: #2a3042;
-            --accent-gold: #d4af37;
-            --accent-glow: rgba(212, 175, 55, 0.15);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --danger-red: #ef4444;
-            --success-green: #10b981;
+/* =========================================================================
+   WELLNESS TRAVEL FRONTEND ENGINE — KERNEL MAESTRO ELITE
+   ========================================================================= */
+
+const KERNEL = (() => {
+    let currentLang = 'ES';
+    let sessionTimer = null;
+    let secondsLeft = 600; // 10 minutos
+    let idlesSeconds = 0;
+    let idleChecker = null;
+    let currentServicioId = "MR-SOVEREIGN-" + Math.floor(Math.random() * 90000 + 10000);
+
+    const dictionary = {
+        ES: {
+            title: "MAY ROGA LLC — OPEN THAN GO ELITE",
+            sub: "Arquitectura de Santuarios Ejecutivos",
+            zipLbl: "Código Postal / Zip Code",
+            desahogoLbl: "Canal de Sintonía y Descarga de Enfoque",
+            btnActivar: "ACTIVAR ENRUTAMIENTO SOBERANO",
+            timerTitle: "Ventana de Sintonía Activa",
+            oraculoInstruccion: "Seleccione enfoque de optimización ejecutiva:",
+            preguntas: [
+                "¿Priorizar descompresión acústica en acantilado protegido?",
+                "¿Establecer enlace privado de alta frecuencia y aislamiento?",
+                "¿Activar protocolo de claridad estratégica sin saturación?"
+            ],
+            lungInhale: "Inhala",
+            lungExhale: "Exhala",
+            pulmonSub: "Sincronización de Enfoque (432Hz)"
+        },
+        EN: {
+            title: "MAY ROGA LLC — OPEN THAN GO ELITE",
+            sub: "Executive Sanctuary Architecture",
+            zipLbl: "Zip Code / Postal Code",
+            desahogoLbl: "Focus Download & Tuning Channel",
+            btnActivar: "ACTIVATE SOVEREIGN ROUTING",
+            timerTitle: "Active Tuning Window",
+            oraculoInstruccion: "Select executive optimization focus:",
+            preguntas: [
+                "Prioritize acoustic decompression in protected cliffside?",
+                "Establish high-frequency private isolation link?",
+                "Activate strategic clarity protocol without saturation?"
+            ],
+            lungInhale: "Inhale",
+            lungExhale: "Exhale",
+            pulmonSub: "Focus Synchronization (432Hz)"
         }
+    };
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            padding: 25px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .platform-container {
-            width: 100%;
-            max-width: 1100px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-line);
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-        }
-
-        header {
-            background: var(--card-surface);
-            padding: 25px 35px;
-            border-bottom: 1px solid var(--border-line);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-block h1 {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            letter-spacing: 1.5px;
-            font-weight: 700;
-        }
-
-        .brand-block p {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .global-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            background: var(--card-surface);
-            color: var(--text-main);
-            border: 1px solid var(--border-line);
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            border-color: var(--accent-gold);
-            background: var(--accent-glow);
-        }
-
-        .btn-primary {
-            background: var(--accent-gold);
-            color: var(--bg-primary);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.95;
-            background: var(--accent-gold);
-        }
-
-        .btn-danger {
-            color: var(--danger-red);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-danger:hover {
-            background: rgba(239, 68, 68, 0.15);
-            border-color: var(--danger-red);
-        }
-
-        .workspace-body {
-            padding: 35px;
-        }
-
-        .grid-matrix {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .input-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .input-control {
-            background: var(--card-surface);
-            border: 1px solid var(--border-line);
-            color: var(--text-main);
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-control:focus {
-            border-color: var(--accent-gold);
-        }
-
-        .control-panel-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        /* Círculo Respiratorio / Bienestar (432Hz) */
-        .breathing-section {
-            background: var(--card-surface);
-            border: 1px solid var(--border-line);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            text-align: center;
-        }
-
-        .breath-circle-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .breath-circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--accent-glow);
-            border: 2px solid var(--accent-gold);
-            animation: pulse-breath 4s infinite ease-in-out;
-            position: absolute;
-        }
-
-        @keyframes pulse-breath {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 25px var(--accent-gold); }
-            100% { transform: scale(0.8); opacity: 0.5; }
-        }
-
-        .results-wrapper {
-            background: var(--card-surface);
-            border: 1px solid var(--border-line);
-            border-radius: 8px;
-            padding: 22px;
-            margin-bottom: 30px;
-            display: none;
-        }
-
-        .results-wrapper h3 {
-            color: var(--accent-gold);
-            font-size: 1.05rem;
-            margin-bottom: 12px;
-        }
-
-        .results-content {
-            font-size: 0.92rem;
-            line-height: 1.6;
-            color: var(--text-main);
-        }
-
-        .data-table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card-surface);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-line);
-        }
-
-        th, td {
-            padding: 13px 18px;
-            text-align: left;
-            font-size: 0.9rem;
-            border-bottom: 1px solid var(--border-line);
-        }
-
-        th {
-            background: #10131c;
-            color: var(--accent-gold);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.9px;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .status-pill {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success-green);
-        }
-
-        @media print {
-            body { background: white; color: black; padding: 0; }
-            .platform-container { border: none; box-shadow: none; width: 100%; max-width: 100%; }
-            .global-actions, .control-panel-bar, .input-control, .breathing-section { display: none !important; }
-            table { border: 1px solid #ccc; }
-            th { background: #eee !important; color: black !important; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="platform-container">
-    <header>
-        <div class="brand-block">
-            <h1 id="ui-title">Wellness-Travel-</h1>
-            <p id="ui-subtitle">Elite Wellbeing, Luxury Travel, VIP Hotels & High-End Entertainment</p>
-        </div>
-        <div class="global-actions">
-            <button class="btn" id="lang-btn" onclick="toggleLanguage()">Español</button>
-            <button class="btn btn-danger" id="btn-clear" onclick="clearWorkspace()">Borrar / Clear</button>
-        </div>
-    </header>
-
-    <div class="workspace-body">
-        <div class="grid-matrix">
-            <div class="input-group">
-                <label id="lbl-zip" for="zip-input">ZIP Code (USA Coverage):</label>
-                <input type="text" id="zip-input" class="input-control" maxlength="5" placeholder="e.g. 33139">
-            </div>
-            <div class="input-group">
-                <label id="lbl-mode" for="mode-select">Operation Mode / Modo:</label>
-                <select id="mode-select" class="input-control">
-                    <option value="SALIR">SALIR (Elite Departure / Private Transit)</option>
-                    <option value="CASA">CASA (Executive Sanctuary / Baseline)</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="grid-matrix">
-            <div class="input-group">
-                <label id="lbl-profile" for="profile-select">Client Profile / Perfil:</label>
-                <select id="profile-select" class="input-control">
-                    <option value="solo">Solo Elite / Individual</option>
-                    <option value="acompanado">Accompanied / Acompañado</option>
-                    <option value="familia">Family Wealth / Familia</option>
-                    <option value="empresa">Corporate Board / Empresa</option>
-                    <option value="accesible">Discreet Access / Accesible</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label id="lbl-free" for="free-text">Luxury Requirements & Travel Preferences:</label>
-                <input type="text" id="free-text" class="input-control" placeholder="e.g. private jet, luxury hotel, spa...">
-            </div>
-        </div>
-
-        <div class="control-panel-bar">
-            <button class="btn btn-primary" id="btn-submit" onclick="ejecutarSintonizacionNode()">Process Luxury Itinerary</button>
-            <button class="btn" id="btn-print" onclick="window.print()">Print / PDF Report</button>
-        </div>
-
-        <div class="breathing-section">
-            <div>
-                <h4 id="breath-title" style="color:var(--accent-gold); margin-bottom: 5px;">Acoustic Wellbeing & Frequency (432Hz)</h4>
-                <p id="breath-desc" style="font-size: 0.85rem; color:var(--text-muted);">Synchronize breath cycle for elite cognitive clarity.</p>
-            </div>
-            <div class="breath-circle-container">
-                <div class="breath-circle"></div>
-            </div>
-        </div>
-
-        <div id="results-box" class="results-wrapper">
-            <h3 id="res-header-title">Elite Advisory Output & Luxury Travel Solutions</h3>
-            <div id="res-content" class="results-content"></div>
-        </div>
-
-        <div class="data-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th id="th-col1">Wellbeing & Travel Parameter</th>
-                        <th id="th-col2">Initial Status</th>
-                        <th id="th-col3">Optimized Elite Level</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="td-m1">Wellbeing & Stress Decompression Index</td>
-                        <td><span class="status-pill" style="color:var(--danger-red); background:rgba(239,68,68,0.1)">Moderate (60%)</span></td>
-                        <td><span class="status-pill">Elite Harmony (100%)</span></td>
-                    </tr>
-                    <tr>
-                        <td id="td-m2">Acoustic Frequency Alignment (432Hz)</td>
-                        <td><span class="status-pill" style="color:var(--text-muted); background:rgba(156,163,175,0.1)">Inactive</span></td>
-                        <td><span class="status-pill">Synchronized</span></td>
-                    </tr>
-                    <tr>
-                        <td id="td-m3">Luxury Travel, Hotels & Entertainment Vector</td>
-                        <td><span class="status-pill" style="color:var(--danger-red); background:rgba(239,68,68,0.1)">Pending Selection</span></td>
-                        <td><span class="status-pill">VIP Confirmed</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<script>
-    let currentLanguage = 'en';
-
-    function toggleLanguage() {
-        currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
-        const langBtn = document.getElementById('lang-btn');
-        const uiTitle = document.getElementById('ui-title');
-        const uiSubtitle = document.getElementById('ui-subtitle');
-        const btnClear = document.getElementById('btn-clear');
-        const lblZip = document.getElementById('lbl-zip');
-        const lblMode = document.getElementById('lbl-mode');
-        const lblProfile = document.getElementById('lbl-profile');
-        const lblFree = document.getElementById('lbl-free');
-        const btnSubmit = document.getElementById('btn-submit');
-        const btnPrint = document.getElementById('btn-print');
-        const breathTitle = document.getElementById('breath-title');
-        const breathDesc = document.getElementById('breath-desc');
-        const resHeaderTitle = document.getElementById('res-header-title');
-        const thCol1 = document.getElementById('th-col1');
-        const thCol2 = document.getElementById('th-col2');
-        const thCol3 = document.getElementById('th-col3');
-        const tdM1 = document.getElementById('td-m1');
-        const tdM2 = document.getElementById('td-m2');
-        const tdM3 = document.getElementById('td-m3');
-
-        if (currentLanguage === 'es') {
-            langBtn.innerText = 'English';
-            uiTitle.innerText = 'Wellness-Travel-';
-            uiSubtitle.innerText = 'Bienestar Exclusivo, Viajes de Lujo, Hoteles VIP y Entretenimiento de Élite';
-            btnClear.innerText = 'Borrar';
-            lblZip.innerText = 'Código Postal (Cobertura USA):';
-            lblMode.innerText = 'Modo de Operación:';
-            lblProfile.innerText = 'Perfil de Cliente:';
-            lblFree.innerText = 'Requisitos de Lujo y Preferencias de Viaje:';
-            btnSubmit.innerText = 'Procesar Itinerario de Lujo';
-            btnPrint.innerText = 'Imprimir / Reporte PDF';
-            breathTitle.innerText = 'Bienestar Acústico y Frecuencia (432Hz)';
-            breathDesc.innerText = 'Sincroniza tu ciclo de respiración para máxima claridad cognitiva.';
-            resHeaderTitle.innerText = 'Salida de Asesoría Élite y Soluciones de Viaje';
-            thCol1.innerText = 'Parámetro de Bienestar y Viaje';
-            thCol2.innerText = 'Estado Inicial';
-            thCol3.innerText = 'Nivel Élite Optimizado';
-            tdM1.innerText = 'Índice de Bienestar y Descompresión de Estrés';
-            tdM2.innerText = 'Alineación de Frecuencia Acústica (432Hz)';
-            tdM3.innerText = 'Vector de Viajes de Lujo, Hoteles y Entretenimiento';
-        } else {
-            langBtn.innerText = 'Español';
-            uiTitle.innerText = 'Wellness-Travel-';
-            uiSubtitle.innerText = 'Elite Wellbeing, Luxury Travel, VIP Hotels & High-End Entertainment';
-            btnClear.innerText = 'Clear';
-            lblZip.innerText = 'ZIP Code (USA Coverage):';
-            lblMode.innerText = 'Mode / Modo:';
-            lblProfile.innerText = 'Client Profile / Perfil:';
-            lblFree.innerText = 'Luxury Requirements & Travel Preferences:';
-            btnSubmit.innerText = 'Process Luxury Itinerary';
-            btnPrint.innerText = 'Print / PDF Report';
-            breathTitle.innerText = 'Acoustic Wellbeing & Frequency (432Hz)';
-            breathDesc.innerText = 'Synchronize breath cycle for elite cognitive clarity.';
-            resHeaderTitle.innerText = 'Elite Advisory Output & Luxury Travel Solutions';
-            thCol1.innerText = 'Wellbeing & Travel Parameter';
-            thCol2.innerText = 'Initial Status';
-            thCol3.innerText = 'Optimized Elite Level';
-            tdM1.innerText = 'Wellbeing & Stress Decompression Index';
-            tdM2.innerText = 'Acoustic Frequency Alignment (432Hz)';
-            tdM3.innerText = 'Luxury Travel, Hotels & Entertainment Vector';
-        }
+    function despertarInicial() {
+        document.getElementById('pantalla-bienvenida').classList.add('hidden');
+        document.getElementById('wrapper-form').classList.remove('hidden');
+        renderOraculo();
+        traducirInterfaz();
+        iniciarControlInactividad();
     }
 
-    function clearWorkspace() {
-        document.getElementById('zip-input').value = '';
-        document.getElementById('free-text').value = '';
-        document.getElementById('results-box').style.display = 'none';
-        alert(currentLanguage === 'es' ? 'Datos limpiados correctamente.' : 'Workspace cleared successfully.');
+    function cambiarIdioma(lang) {
+        currentLang = lang.toUpperCase();
+        document.getElementById('lang-es').classList.toggle('active', currentLang === 'ES');
+        document.getElementById('lang-en').classList.toggle('active', currentLang === 'EN');
+        traducirInterfaz();
+        renderOraculo();
     }
 
-    async function ejecutarSintonizacionNode() {
-        const zip = document.getElementById('zip-input').value;
-        const modo = document.getElementById('mode-select').value;
-        const perfil = document.getElementById('profile-select').value;
-        const texto_libre = document.getElementById('free-text').value;
+    function traducirInterfaz() {
+        const d = dictionary[currentLang];
+        document.getElementById('html-title').innerText = d.title;
+        document.getElementById('brandTitleField').innerText = "MAY ROGA LLC";
+        document.getElementById('lblBrandSub').innerText = d.sub;
+        document.getElementById('lbl-zip').innerText = d.zipLbl;
+        document.getElementById('lbl-desahogo').innerText = d.desahogoLbl;
+        document.getElementById('btn-activar-libre').innerText = d.btnActivar;
+        document.getElementById('lblTimerTitle').innerText = d.timerTitle;
+        document.getElementById('lbl-oraculo-instruccion').innerText = d.oraculoInstruccion;
+        document.getElementById('txt-pulmon').innerText = d.pulmonSub;
+    }
 
+    function renderOraculo() {
+        const contenedor = document.getElementById('contenedor-preguntas-oraculo');
+        contenedor.innerHTML = '';
+        const preguntas = dictionary[currentLang].preguntas;
+        
+        preguntas.forEach((p) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-pregunta-crisis';
+            btn.innerText = p;
+            btn.onclick = () => {
+                document.getElementById('inp-text-libre').value = p;
+                ejecutar();
+            };
+            contenedor.appendChild(btn);
+        });
+    }
+
+    async function ejecutar() {
+        const zip = document.getElementById('inp-zip').value.trim();
         if (!zip || zip.length !== 5) {
-            alert(currentLanguage === 'es' ? 'Por favor ingrese un código postal de 5 dígitos válido.' : 'Please enter a valid 5-digit ZIP code.');
+            alert(currentLang === 'ES' ? "Por favor ingrese un Código Postal de 5 dígitos válido." : "Please enter a valid 5-digit Zip Code.");
             return;
         }
+
+        const modo = document.getElementById('modo-selector').value;
+        const perfil = document.getElementById('perfil-selector').value;
+        const textoLibre = document.getElementById('inp-text-libre').value;
+
+        const payload = {
+            zip_code: zip,
+            modo: modo,
+            perfil: perfil,
+            historial_vistos: [],
+            texto_libre: textoLibre
+        };
 
         try {
             const response = await fetch('/api/sintonizar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    zip_code: zip, 
-                    modo: modo, 
-                    perfil: perfil, 
-                    historial_vistos: [], 
-                    texto_libre: texto_libre 
-                })
+                body: JSON.stringify(payload)
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                renderizarResultados(data);
-            } else {
-                alert(currentLanguage === 'es' ? 'Error al procesar la respuesta del servidor.' : 'Error processing server response.');
-            }
-        } catch (e) {
-            alert(currentLanguage === 'es' ? 'Fallo de comunicación con el nodo central.' : 'Communication failure with central node.');
+            if (!response.ok) throw new Error("Error en el motor backend");
+
+            const data = await response.json();
+            transicionarASessionActiva(data);
+        } catch (error) {
+            console.error("Fallo de conexión:", error);
+            // Modo de respaldo local garantizado si la red presenta latencia
+            transicionarASessionActivaMock(zip, perfil);
         }
     }
 
-    function renderizarResultados(data) {
-        const box = document.getElementById('results-box');
-        const content = document.getElementById('res-content');
-        box.style.display = 'block';
+    function transicionarASessionActiva(data) {
+        document.getElementById('wrapper-form').classList.add('hidden');
+        document.getElementById('activeSessionDock').classList.remove('hidden');
+        document.getElementById('btn-whatsapp').classList.remove('hidden');
+        document.getElementById('btn-messenger').classList.remove('hidden');
+        document.getElementById('btn-volver-app').classList.remove('hidden');
 
-        let html = `<p><b>ZIP:</b> ${data.codigo_postal} | <b>Mode:</b> ${data.modo_activo} | <b>Harmony Vector:</b> ${data.balance_bienestar.inicial}% → <b>${data.balance_bienestar.cierre_proyectado}%</b></p><br>`;
-        html += `<table><tr><th>Luxury Sanctuary / Hotel</th><th>Wellbeing & Entertainment Directives</th><th>Private Logistics & Travel</th></tr>`;
-        
-        data.opciones_escape_vip.forEach(opt => {
-            const info = currentLanguage === 'es' ? opt.detalles_es : opt.detalles_en;
-            html += `<tr>
-                <td><b>${opt.nombre}</b></td>
-                <td>${info.descripcion}<br><em>${info.actividad_sintonía}</em></td>
-                <td>✈️ ${info.logistica_aerea}<br>⚓ ${info.logistica_maritima}</td>
-            </tr>`;
-        });
-        html += `</table>`;
-        content.innerHTML = html;
+        iniciarPulmonRespiracion();
+        iniciarRelojSesion();
+        inyectarSantuariosVIP(data.opciones_escape_vip);
     }
-</script>
 
-</body>
-</html>
+    function transicionarASessionActivaMock(zip, perfil) {
+        const mockData = {
+            opciones_escape_vip: [
+                {
+                    id: "S1",
+                    nombre: "Amanera Resort — Playa Grande",
+                    video_url: "https://www.youtube.com/embed/mock_amanera_432hz",
+                    detalles_es: { descripcion: "Casitas zen minimalistas suspendidas sobre acantilados.", logistica_aerea: "Charter privado Gulfstream G650." },
+                    detalles_en: { descripcion: "Minimalist zen casitas suspended over protected cliffs.", logistica_aerea: "Private Gulfstream G650 charter." }
+                }
+            ]
+        };
+        transicionarASessionActiva(mockData);
+    }
+
+    function inyectarSantuariosVIP(opciones) {
+        const stack = document.getElementById('interactiveStack');
+        stack.innerHTML = '';
+
+        opciones.forEach(s => {
+            const info = currentLang === 'ES' ? s.detalles_es : s.detalles_en;
+            const card = document.createElement('div');
+            card.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid rgba(197,160,89,0.2); border-radius:16px; padding:16px; margin-bottom:12px;";
+            card.innerHTML = `
+                <h3 style="color:var(--gold-champagne); font-family:'Cinzel',serif; font-size:14px; margin-bottom:8px;">${s.nombre}</h3>
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px; line-height:1.4;">${info.descripcion}</p>
+                <p style="font-size:11px; color:var(--white-ivory); margin-bottom:12px;">✈️ ${info.logistica_aerea}</p>
+                <a href="/api/pdf" onclick="event.preventDefault(); descargarPasaportePDF('${s.id}');" class="gold-action-btn" style="padding:10px; font-size:11px; text-align:center;">
+                    ${currentLang === 'ES' ? 'DESCARGAR PASAPORTE PDF' : 'DOWNLOAD PDF PASSPORT'}
+                </a>
+            `;
+            stack.appendChild(card);
+        });
+    }
+
+    async function descargarPasaportePDF(destinoId) {
+        const payload = {
+            servicio_id: currentServicioId,
+            lang: currentLang,
+            score_inicial: 50.0,
+            score_actual: 90.0,
+            respiracion_score: 100.0,
+            adivinanzas_score: 100.0,
+            iev: 1.0,
+            variante: "standard",
+            destino_id: destinoId
+        };
+
+        try {
+            const res = await fetch('/api/pdf', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error("Error al compilar PDF");
+            
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Sovereign_Passport_${currentServicioId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } catch (e) {
+            alert(currentLang === 'ES' ? "Error al generar el documento PDF institucional." : "Error generating institutional PDF document.");
+        }
+    }
+
+    function iniciarPulmonRespiracion() {
+        const lung = document.getElementById('lungCircle');
+        let phase = 0; // 0: Inhala, 1: Exhala
+        setInterval(() => {
+            if (phase === 0) {
+                lung.className = "lung-circle-master lung-inhale-state";
+                lung.innerText = dictionary[currentLang].lungInhale;
+                phase = 1;
+            } else {
+                lung.className = "lung-circle-master lung-exhale-state";
+                lung.innerText = dictionary[currentLang].lungExhale;
+                phase = 0;
+            }
+        }, 4000);
+    }
+
+    function iniciarRelojSesion() {
+        const display = document.getElementById('clockDisplay');
+        sessionTimer = setInterval(() => {
+            secondsLeft--;
+            let mins = Math.floor(secondsLeft / 60);
+            let secs = secondsLeft % 60;
+            display.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if (secondsLeft <= 0) {
+                clearInterval(sessionTimer);
+                activarPantallaCierreConsciente();
+            }
+        }, 1000);
+    }
+
+    function iniciarControlInactividad() {
+        ['mousemove', 'keydown', 'touchstart', 'click'].forEach(evt => {
+            window.addEventListener(evt, () => { idlesSeconds = 0; });
+        });
+
+        idleChecker = setInterval(() => {
+            idlesSeconds++;
+            if (idlesSeconds === 59) {
+                // Advertencia de inactividad de 59 segundos
+                console.warn("Advertencia de inactividad: toque la pantalla para mantener los datos.");
+            }
+            if (idlesSeconds >= 240) { // 4 minutos
+                clearInterval(idleChecker);
+                activarPantallaCierreConsciente();
+            }
+        }, 1000);
+    }
+
+    function activarPantallaCierreConsciente() {
+        document.getElementById('activeSessionDock').classList.add('hidden');
+        document.getElementById('pantalla-cierre').classList.remove('hidden');
+        document.getElementById('reto-titulo').innerText = currentLang === 'ES' ? "CICLO DE SESIÓN CONCLUIDO" : "SESSION CYCLE COMPLETED";
+        document.getElementById('reto-descripcion').innerText = currentLang === 'ES' ? "Su tiempo soberano ha sido preservado y optimizado con éxito." : "Your sovereign time has been successfully preserved and optimized.";
+        
+        let cierreSegs = 60;
+        const cTimer = document.getElementById('cierre-timer');
+        const finalMsg = document.getElementById('cierre-mensaje-final');
+        const btnReiniciar = document.getElementById('btn-recomenzar-experiencia');
+
+        const timerInterval = setInterval(() => {
+            cierreSegs--;
+            cTimer.innerText = cierreSegs;
+            if (cierreSegs <= 0) {
+                clearInterval(timerInterval);
+                cTimer.classList.add('hidden');
+                finalMsg.innerText = currentLang === 'ES' ? "Integridad Total Registrada" : "Total Integrity Recorded";
+                finalMsg.classList.remove('hidden');
+                btnReiniciar.classList.remove('hidden');
+            }
+        }, 1000);
+    }
+
+    return {
+        despertarInicial,
+        cambiarIdioma,
+        ejecutar
+    };
+})();
