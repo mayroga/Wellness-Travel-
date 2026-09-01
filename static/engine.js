@@ -112,12 +112,23 @@ const KERNEL = {
         this.idiomaActual = lang;
         const diccionario = this.TRADUCCIONES[lang];
 
-        document.getElementById('lblBrandSub').innerText = diccionario.brandSub;
-        document.getElementById('lblTimerTitle').innerText = diccionario.timerTitle;
-        document.getElementById('lbl-oraculo-instruccion').innerText = diccionario.oraculoInstruccion;
-        document.getElementById('lbl-desahogo').innerText = diccionario.desahogoLabel;
-        document.getElementById('inp-text-libre').placeholder = diccionario.placeholderLibre;
-        document.getElementById('btn-activar-libre').innerText = diccionario.btnActivar;
+        const lblBrandSub = document.getElementById('lblBrandSub');
+        if (lblBrandSub) lblBrandSub.innerText = diccionario.brandSub;
+
+        const lblTimerTitle = document.getElementById('lblTimerTitle');
+        if (lblTimerTitle) lblTimerTitle.innerText = diccionario.timerTitle;
+
+        const lblOraculo = document.getElementById('lbl-oraculo-instruccion');
+        if (lblOraculo) lblOraculo.innerText = diccionario.oraculoInstruccion;
+
+        const lblDesahogo = document.getElementById('lbl-desahogo');
+        if (lblDesahogo) lblDesahogo.innerText = diccionario.desahogoLabel;
+
+        const inpTextLibre = document.getElementById('inp-text-libre');
+        if (inpTextLibre) inpTextLibre.placeholder = diccionario.placeholderLibre;
+
+        const btnActivarLibre = document.getElementById('btn-activar-libre');
+        if (btnActivarLibre) btnActivarLibre.innerText = diccionario.btnActivar;
 
         const lblZip = document.getElementById('lbl-zip');
         if (lblZip) {
@@ -128,8 +139,12 @@ const KERNEL = {
     },
 
     despertarInicial() {
-        document.getElementById('pantalla-bienvenida').style.display = 'none';
-        document.getElementById('wrapper-form').classList.remove('hidden');
+        const pBienvenida = document.getElementById('pantalla-bienvenida');
+        if (pBienvenida) pBienvenida.style.display = 'none';
+
+        const wrapperForm = document.getElementById('wrapper-form');
+        if (wrapperForm) wrapperForm.classList.remove('hidden');
+
         this.resetearTemporizadorInaccion();
     },
 
@@ -155,7 +170,8 @@ const KERNEL = {
             btn.className = 'btn-pregunta-crisis';
             btn.innerText = `${idx + 1}. ${pregunta}`;
             btn.onclick = () => {
-                document.getElementById('inp-text-libre').value = pregunta;
+                const inpLibre = document.getElementById('inp-text-libre');
+                if (inpLibre) inpLibre.value = pregunta;
                 this.ejecutar();
             };
             contenedor.appendChild(btn);
@@ -176,15 +192,25 @@ const KERNEL = {
         this.isLocked = true;
         clearTimeout(this.timerInaccion);
         
-        const zipCode = document.getElementById('inp-zip').value || "33167";
-        const modoActivo = document.getElementById('modo-selector').value;
-        const menteActiva = document.getElementById('mente-selector').value;
-        const budgetActivo = document.getElementById('budget-selector').value;
-        const perfilActivo = document.getElementById('perfil-selector').value;
-        const textoLibreStr = document.getElementById('inp-text-libre').value;
+        const zipInput = document.getElementById('inp-zip');
+        const modoSelector = document.getElementById('modo-selector');
+        const menteSelector = document.getElementById('mente-selector');
+        const budgetSelector = document.getElementById('budget-selector');
+        const perfilSelector = document.getElementById('perfil-selector');
+        const textLibreInput = document.getElementById('inp-text-libre');
+
+        const zipCode = zipInput ? zipInput.value : "33167";
+        const modoActivo = modoSelector ? modoSelector.value : "SALIR";
+        const menteActiva = menteSelector ? menteSelector.value : "SILENCIO";
+        const budgetActivo = budgetSelector ? budgetSelector.value : "ILIMITADO";
+        const perfilActivo = perfilSelector ? perfilSelector.value : "solo";
+        const textoLibreStr = textLibreInput ? textLibreInput.value : "";
         
-        document.getElementById('wrapper-form').classList.add('hidden');
-        document.getElementById('activeSessionDock').classList.remove('hidden');
+        const wrapperForm = document.getElementById('wrapper-form');
+        if (wrapperForm) wrapperForm.classList.add('hidden');
+
+        const activeDock = document.getElementById('activeSessionDock');
+        if (activeDock) activeDock.classList.remove('hidden');
         
         this.activarSintonizaAcusticaYouTube();
         this.iniciarPulmonVisual();
@@ -240,6 +266,7 @@ const KERNEL = {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.vozSintonialAcustica);
         const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
 
         const poolVideos = [
             { t: "Frecuencia Solfeggio 432Hz — Océano Profundo", id: "1ZYbU82GVz4" },
@@ -277,20 +304,24 @@ const KERNEL = {
             if (circle) circle.innerText = `${faseActual.texto}\n(${4 - segundoInterno}s)`;
             if (txtPulmon) txtPulmon.innerText = faseActual.desc;
            
-            if (paso === 0) {
-                circle.className = "lung-circle-master lung-inhale-state";
-            } else if (paso === 2) {
-                circle.className = "lung-circle-master lung-exhale-state";
-            } else {
-                circle.className = "lung-circle-master";
+            if (circle) {
+                if (paso === 0) {
+                    circle.className = "lung-circle-master lung-inhale-state";
+                } else if (paso === 2) {
+                    circle.className = "lung-circle-master lung-exhale-state";
+                } else {
+                    circle.className = "lung-circle-master";
+                }
             }
         }, 1000);
     },
 
     actualizarRelojInterfaz() {
+        const clockDisplay = document.getElementById('clockDisplay');
+        if (!clockDisplay) return;
         let mins = Math.floor(this.timeLeft / 60).toString().padStart(2, '0');
         let secs = (this.timeLeft % 60).toString().padStart(2, '0');
-        document.getElementById('clockDisplay').innerText = `${mins}:${secs}`;
+        clockDisplay.innerText = `${mins}:${secs}`;
     },
 
     activarVozAsesorContinuo() {
@@ -301,6 +332,7 @@ const KERNEL = {
 
     inyectarDestinoOpcionalRojo() {
         const stack = document.getElementById('interactiveStack');
+        if (!stack) return;
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.discursoMin4);
        
@@ -321,11 +353,15 @@ const KERNEL = {
     },
 
     activarCierreConscienteCronometrado() {
-        document.getElementById('activeSessionDock').classList.add('hidden');
-        document.getElementById('pantalla-cierre').classList.remove('hidden');
+        const activeDock = document.getElementById('activeSessionDock');
+        if (activeDock) activeDock.classList.add('hidden');
+
+        const pantallaCierre = document.getElementById('pantalla-cierre');
+        if (pantallaCierre) pantallaCierre.classList.remove('hidden');
         
         const retoSeleccionado = this.CATALOGO_RETOS[Math.floor(Math.random() * this.CATALOGO_RETOS.length)];
         const contenedorMensaje = document.getElementById('cierre-message');
+        if (!contenedorMensaje) return;
        
         contenedorMensaje.innerHTML = `
             <div style="margin-bottom:15px;">${this.SVGS[retoSeleccionado.id]}</div> 
@@ -339,7 +375,8 @@ const KERNEL = {
 
         this.cierreTimerInterval = setInterval(() => {
             this.cierreTimeLeft--;
-            document.getElementById('cierre-timer').innerText = this.cierreTimeLeft;
+            const cierreTimerEl = document.getElementById('cierre-timer');
+            if (cierreTimerEl) cierreTimerEl.innerText = this.cierreTimeLeft;
             
             if (this.cierreTimeLeft <= 0) {
                 clearInterval(this.cierreTimerInterval);
@@ -352,14 +389,21 @@ const KERNEL = {
         const dic = this.TRADUCCIONES[this.idiomaActual];
         this.emitirVoz(dic.cierreFinalizado);
 
-        document.getElementById('cierre-timer').classList.add('hidden');
+        const cierreTimerEl = document.getElementById('cierre-timer');
+        if (cierreTimerEl) cierreTimerEl.classList.add('hidden');
+
         const msgFinal = document.getElementById('cierre-mensaje-final');
-        msgFinal.innerText = dic.cierreFinalizado;
-        msgFinal.classList.remove('hidden');
+        if (msgFinal) {
+            msgFinal.innerText = dic.cierreFinalizado;
+            msgFinal.classList.remove('hidden');
+        }
         
-        document.getElementById('btn-recomenzar-experiencia').classList.remove('hidden');
+        const btnRecomenzar = document.getElementById('btn-recomenzar-experiencia');
+        if (btnRecomenzar) btnRecomenzar.classList.remove('hidden');
         
         const root = document.getElementById('cierre-message');
+        if (!root) return;
+
         const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
         
         root.innerHTML = `
@@ -400,9 +444,7 @@ const KERNEL = {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            
             a.download = `Wellness_Elite_Passport_${folio}.pdf`;
-            
             document.body.appendChild(a);
             a.click();
             a.remove();
