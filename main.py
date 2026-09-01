@@ -310,8 +310,8 @@ async def crear_sesion_checkout_elite(request: Request):
             }],
             mode='payment' if "unico" in price_id else 'subscription',
             # BLINDAJE CON LA URL OFICIAL DE LA APLICACIÓN EN RENDER:
-            success_url=f"https://onrender.com{folio_servicio}",
-            cancel_url="https://onrender.com",
+            success_url=f"https://wellness-travel.onrender.com{folio_servicio}",
+            cancel_url="https://wellnes-travel.onrender.com",
             client_reference_id=folio_servicio
         )
         return JSONResponse(status_code=200, content={"id": session.id, "url": session.url})
