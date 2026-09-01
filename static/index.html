@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AL CIELO — Executive Advisory & Logistics Platform</title>
+    <title>Wellness-Travel- — Elite Executive Wellbeing & Luxury Travel</title>
     <style>
         :root {
-            --bg-primary: #080a0f;
-            --bg-secondary: #101622;
-            --card-surface: #171f30;
-            --border-line: #222d44;
-            --accent-cyan: #00e5ff;
-            --accent-glow: rgba(0, 229, 255, 0.15);
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --danger-red: #ff3366;
-            --success-green: #00ffcc;
+            --bg-primary: #0a0b0e;
+            --bg-secondary: #13161f;
+            --card-surface: #1b1f2b;
+            --border-line: #2a3042;
+            --accent-gold: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.15);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --danger-red: #ef4444;
+            --success-green: #10b981;
         }
 
         * {
@@ -28,7 +28,7 @@
         body {
             background-color: var(--bg-primary);
             color: var(--text-main);
-            padding: 20px;
+            padding: 25px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -41,13 +41,13 @@
             background: var(--bg-secondary);
             border: 1px solid var(--border-line);
             border-radius: 12px;
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
             overflow: hidden;
         }
 
         header {
             background: var(--card-surface);
-            padding: 20px 30px;
+            padding: 25px 35px;
             border-bottom: 1px solid var(--border-line);
             display: flex;
             justify-content: space-between;
@@ -55,16 +55,16 @@
         }
 
         .brand-block h1 {
-            font-size: 1.35rem;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            letter-spacing: 1.5px;
             font-weight: 700;
         }
 
         .brand-block p {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
-            margin-top: 3px;
+            margin-top: 4px;
             letter-spacing: 0.5px;
         }
 
@@ -77,7 +77,7 @@
             background: var(--card-surface);
             color: var(--text-main);
             border: 1px solid var(--border-line);
-            padding: 9px 16px;
+            padding: 10px 18px;
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -86,33 +86,33 @@
         }
 
         .btn:hover {
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-gold);
             background: var(--accent-glow);
         }
 
         .btn-primary {
-            background: var(--accent-cyan);
+            background: var(--accent-gold);
             color: var(--bg-primary);
             border: none;
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
-            background: var(--accent-cyan);
+            opacity: 0.95;
+            background: var(--accent-gold);
         }
 
         .btn-danger {
             color: var(--danger-red);
-            border-color: rgba(255, 51, 102, 0.3);
+            border-color: rgba(239, 68, 68, 0.3);
         }
 
         .btn-danger:hover {
-            background: rgba(255, 51, 102, 0.15);
+            background: rgba(239, 68, 68, 0.15);
             border-color: var(--danger-red);
         }
 
         .workspace-body {
-            padding: 30px;
+            padding: 35px;
         }
 
         .grid-matrix {
@@ -138,7 +138,7 @@
             background: var(--card-surface);
             border: 1px solid var(--border-line);
             color: var(--text-main);
-            padding: 11px 14px;
+            padding: 12px 16px;
             border-radius: 6px;
             font-size: 0.95rem;
             outline: none;
@@ -146,7 +146,7 @@
         }
 
         .input-control:focus {
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-gold);
         }
 
         .control-panel-bar {
@@ -155,28 +155,65 @@
             margin-bottom: 30px;
         }
 
+        /* Círculo Respiratorio / Bienestar (432Hz) */
+        .breathing-section {
+            background: var(--card-surface);
+            border: 1px solid var(--border-line);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .breath-circle-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breath-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--accent-glow);
+            border: 2px solid var(--accent-gold);
+            animation: pulse-breath 4s infinite ease-in-out;
+            position: absolute;
+        }
+
+        @keyframes pulse-breath {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 25px var(--accent-gold); }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
         .results-wrapper {
             background: var(--card-surface);
             border: 1px solid var(--border-line);
             border-radius: 8px;
-            padding: 20px;
+            padding: 22px;
             margin-bottom: 30px;
             display: none;
         }
 
         .results-wrapper h3 {
-            color: var(--accent-cyan);
-            font-size: 1rem;
+            color: var(--accent-gold);
+            font-size: 1.05rem;
             margin-bottom: 12px;
         }
 
         .results-content {
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.92rem;
+            line-height: 1.6;
             color: var(--text-main);
         }
 
-        /* Structured Tables */
         .data-table-container {
             overflow-x: auto;
         }
@@ -191,19 +228,19 @@
         }
 
         th, td {
-            padding: 12px 16px;
+            padding: 13px 18px;
             text-align: left;
             font-size: 0.9rem;
             border-bottom: 1px solid var(--border-line);
         }
 
         th {
-            background: #0d121c;
-            color: var(--accent-cyan);
+            background: #10131c;
+            color: var(--accent-gold);
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.75rem;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.9px;
         }
 
         tr:last-child td {
@@ -220,14 +257,14 @@
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 700;
-            background: rgba(0, 255, 204, 0.1);
+            background: rgba(16, 185, 129, 0.1);
             color: var(--success-green);
         }
 
         @media print {
             body { background: white; color: black; padding: 0; }
             .platform-container { border: none; box-shadow: none; width: 100%; max-width: 100%; }
-            .global-actions, .control-panel-bar, .input-control { display: none !important; }
+            .global-actions, .control-panel-bar, .input-control, .breathing-section { display: none !important; }
             table { border: 1px solid #ccc; }
             th { background: #eee !important; color: black !important; }
         }
@@ -238,8 +275,8 @@
 <div class="platform-container">
     <header>
         <div class="brand-block">
-            <h1 id="ui-title">AL CIELO — Sovereign Advisory Node</h1>
-            <p id="ui-subtitle">High-Performance Logistics, Transit & Sanctuary Architecture</p>
+            <h1 id="ui-title">Wellness-Travel-</h1>
+            <p id="ui-subtitle">Elite Wellbeing, Luxury Travel, VIP Hotels & High-End Entertainment</p>
         </div>
         <div class="global-actions">
             <button class="btn" id="lang-btn" onclick="toggleLanguage()">Español</button>
@@ -251,41 +288,51 @@
         <div class="grid-matrix">
             <div class="input-group">
                 <label id="lbl-zip" for="zip-input">ZIP Code (USA Coverage):</label>
-                <input type="text" id="zip-input" class="input-control" maxlength="5" placeholder="e.g. 33166">
+                <input type="text" id="zip-input" class="input-control" maxlength="5" placeholder="e.g. 33139">
             </div>
             <div class="input-group">
                 <label id="lbl-mode" for="mode-select">Operation Mode / Modo:</label>
                 <select id="mode-select" class="input-control">
-                    <option value="SALIR">SALIR (Departure / Transit)</option>
-                    <option value="CASA">CASA (Sanctuary / Baseline)</option>
+                    <option value="SALIR">SALIR (Elite Departure / Private Transit)</option>
+                    <option value="CASA">CASA (Executive Sanctuary / Baseline)</option>
                 </select>
             </div>
         </div>
 
         <div class="grid-matrix">
             <div class="input-group">
-                <label id="lbl-profile" for="profile-select">Execution Profile / Perfil:</label>
+                <label id="lbl-profile" for="profile-select">Client Profile / Perfil:</label>
                 <select id="profile-select" class="input-control">
-                    <option value="solo">Solo / Individual Operator</option>
+                    <option value="solo">Solo Elite / Individual</option>
                     <option value="acompanado">Accompanied / Acompañado</option>
-                    <option value="familia">Family Enterprise / Familia</option>
-                    <option value="empresa">Corporate Node / Empresa</option>
-                    <option value="accesible">Accessible Transit / Accesible</option>
+                    <option value="familia">Family Wealth / Familia</option>
+                    <option value="empresa">Corporate Board / Empresa</option>
+                    <option value="accesible">Discreet Access / Accesible</option>
                 </select>
             </div>
             <div class="input-group">
-                <label id="lbl-free" for="free-text">Context & Specific Parameters:</label>
-                <input type="text" id="free-text" class="input-control" placeholder="e.g. carga aerea, saturacion, aduana...">
+                <label id="lbl-free" for="free-text">Luxury Requirements & Travel Preferences:</label>
+                <input type="text" id="free-text" class="input-control" placeholder="e.g. private jet, luxury hotel, spa...">
             </div>
         </div>
 
         <div class="control-panel-bar">
-            <button class="btn btn-primary" id="btn-submit" onclick="ejecutarSintonizacionNode()">Process Execution</button>
+            <button class="btn btn-primary" id="btn-submit" onclick="ejecutarSintonizacionNode()">Process Luxury Itinerary</button>
             <button class="btn" id="btn-print" onclick="window.print()">Print / PDF Report</button>
         </div>
 
+        <div class="breathing-section">
+            <div>
+                <h4 id="breath-title" style="color:var(--accent-gold); margin-bottom: 5px;">Acoustic Wellbeing & Frequency (432Hz)</h4>
+                <p id="breath-desc" style="font-size: 0.85rem; color:var(--text-muted);">Synchronize breath cycle for elite cognitive clarity.</p>
+            </div>
+            <div class="breath-circle-container">
+                <div class="breath-circle"></div>
+            </div>
+        </div>
+
         <div id="results-box" class="results-wrapper">
-            <h3 id="res-header-title">Advisory Output & Tactical Directives</h3>
+            <h3 id="res-header-title">Elite Advisory Output & Luxury Travel Solutions</h3>
             <div id="res-content" class="results-content"></div>
         </div>
 
@@ -293,26 +340,26 @@
             <table>
                 <thead>
                     <tr>
-                        <th id="th-col1">Parameter / Directive</th>
+                        <th id="th-col1">Wellbeing & Travel Parameter</th>
                         <th id="th-col2">Initial Status</th>
-                        <th id="th-col3">Optimized Baseline</th>
+                        <th id="th-col3">Optimized Elite Level</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td id="td-m1">Environmental & Operational Saturation</td>
-                        <td><span class="status-pill" style="color:var(--danger-red); background:rgba(255,51,102,0.1)">Critical (85%)</span></td>
-                        <td><span class="status-pill">Stable (100%)</span></td>
+                        <td id="td-m1">Wellbeing & Stress Decompression Index</td>
+                        <td><span class="status-pill" style="color:var(--danger-red); background:rgba(239,68,68,0.1)">Moderate (60%)</span></td>
+                        <td><span class="status-pill">Elite Harmony (100%)</span></td>
                     </tr>
                     <tr>
-                        <td id="td-m2">Acoustic & Frequency Alignment (432Hz)</td>
-                        <td><span class="status-pill" style="color:var(--text-muted); background:rgba(148,163,184,0.1)">Inactive</span></td>
+                        <td id="td-m2">Acoustic Frequency Alignment (432Hz)</td>
+                        <td><span class="status-pill" style="color:var(--text-muted); background:rgba(156,163,175,0.1)">Inactive</span></td>
                         <td><span class="status-pill">Synchronized</span></td>
                     </tr>
                     <tr>
-                        <td id="td-m3">Executive Decision Efficiency (DOT / Transit)</td>
-                        <td><span class="status-pill" style="color:var(--danger-red); background:rgba(255,51,102,0.1)">Restricted</span></td>
-                        <td><span class="status-pill">Optimal Vector</span></td>
+                        <td id="td-m3">Luxury Travel, Hotels & Entertainment Vector</td>
+                        <td><span class="status-pill" style="color:var(--danger-red); background:rgba(239,68,68,0.1)">Pending Selection</span></td>
+                        <td><span class="status-pill">VIP Confirmed</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -335,6 +382,8 @@
         const lblFree = document.getElementById('lbl-free');
         const btnSubmit = document.getElementById('btn-submit');
         const btnPrint = document.getElementById('btn-print');
+        const breathTitle = document.getElementById('breath-title');
+        const breathDesc = document.getElementById('breath-desc');
         const resHeaderTitle = document.getElementById('res-header-title');
         const thCol1 = document.getElementById('th-col1');
         const thCol2 = document.getElementById('th-col2');
@@ -345,40 +394,44 @@
 
         if (currentLanguage === 'es') {
             langBtn.innerText = 'English';
-            uiTitle.innerText = 'AL CIELO — Nodo de Asesoría Soberana';
-            uiSubtitle.innerText = 'Logística de Alto Rendimiento, Tránsito y Arquitectura de Bienestar';
+            uiTitle.innerText = 'Wellness-Travel-';
+            uiSubtitle.innerText = 'Bienestar Exclusivo, Viajes de Lujo, Hoteles VIP y Entretenimiento de Élite';
             btnClear.innerText = 'Borrar';
             lblZip.innerText = 'Código Postal (Cobertura USA):';
             lblMode.innerText = 'Modo de Operación:';
-            lblProfile.innerText = 'Perfil de Ejecución:';
-            lblFree.innerText = 'Contexto y Parámetros Específicos:';
-            btnSubmit.innerText = 'Procesar Ejecución';
+            lblProfile.innerText = 'Perfil de Cliente:';
+            lblFree.innerText = 'Requisitos de Lujo y Preferencias de Viaje:';
+            btnSubmit.innerText = 'Procesar Itinerario de Lujo';
             btnPrint.innerText = 'Imprimir / Reporte PDF';
-            resHeaderTitle.innerText = 'Salida de Asesoría y Directivas Tácticas';
-            thCol1.innerText = 'Parámetro / Directiva';
+            breathTitle.innerText = 'Bienestar Acústico y Frecuencia (432Hz)';
+            breathDesc.innerText = 'Sincroniza tu ciclo de respiración para máxima claridad cognitiva.';
+            resHeaderTitle.innerText = 'Salida de Asesoría Élite y Soluciones de Viaje';
+            thCol1.innerText = 'Parámetro de Bienestar y Viaje';
             thCol2.innerText = 'Estado Inicial';
-            thCol3.innerText = 'Línea Base Optimizada';
-            tdM1.innerText = 'Saturación Ambiental y Operativa';
-            tdM2.innerText = 'Alineación Acústica y de Frecuencia (432Hz)';
-            tdM3.innerText = 'Eficiencia de Decisión Ejecutiva (DOT / Tránsito)';
+            thCol3.innerText = 'Nivel Élite Optimizado';
+            tdM1.innerText = 'Índice de Bienestar y Descompresión de Estrés';
+            tdM2.innerText = 'Alineación de Frecuencia Acústica (432Hz)';
+            tdM3.innerText = 'Vector de Viajes de Lujo, Hoteles y Entretenimiento';
         } else {
             langBtn.innerText = 'Español';
-            uiTitle.innerText = 'AL CIELO — Sovereign Advisory Node';
-            uiSubtitle.innerText = 'High-Performance Logistics, Transit & Sanctuary Architecture';
+            uiTitle.innerText = 'Wellness-Travel-';
+            uiSubtitle.innerText = 'Elite Wellbeing, Luxury Travel, VIP Hotels & High-End Entertainment';
             btnClear.innerText = 'Clear';
             lblZip.innerText = 'ZIP Code (USA Coverage):';
             lblMode.innerText = 'Mode / Modo:';
-            lblProfile.innerText = 'Execution Profile / Perfil:';
-            lblFree.innerText = 'Context & Specific Parameters:';
-            btnSubmit.innerText = 'Process Execution';
+            lblProfile.innerText = 'Client Profile / Perfil:';
+            lblFree.innerText = 'Luxury Requirements & Travel Preferences:';
+            btnSubmit.innerText = 'Process Luxury Itinerary';
             btnPrint.innerText = 'Print / PDF Report';
-            resHeaderTitle.innerText = 'Advisory Output & Tactical Directives';
-            thCol1.innerText = 'Parameter / Directive';
+            breathTitle.innerText = 'Acoustic Wellbeing & Frequency (432Hz)';
+            breathDesc.innerText = 'Synchronize breath cycle for elite cognitive clarity.';
+            resHeaderTitle.innerText = 'Elite Advisory Output & Luxury Travel Solutions';
+            thCol1.innerText = 'Wellbeing & Travel Parameter';
             thCol2.innerText = 'Initial Status';
-            thCol3.innerText = 'Optimized Baseline';
-            tdM1.innerText = 'Environmental & Operational Saturation';
-            tdM2.innerText = 'Acoustic & Frequency Alignment (432Hz)';
-            tdM3.innerText = 'Executive Decision Efficiency (DOT / Transit)';
+            thCol3.innerText = 'Optimized Elite Level';
+            tdM1.innerText = 'Wellbeing & Stress Decompression Index';
+            tdM2.innerText = 'Acoustic Frequency Alignment (432Hz)';
+            tdM3.innerText = 'Luxury Travel, Hotels & Entertainment Vector';
         }
     }
 
@@ -429,8 +482,8 @@
         const content = document.getElementById('res-content');
         box.style.display = 'block';
 
-        let html = `<p><b>ZIP:</b> ${data.codigo_postal} | <b>Mode:</b> ${data.modo_activo} | <b>Balance Vector:</b> ${data.balance_bienestar.inicial}% → <b>${data.balance_bienestar.cierre_proyectado}%</b></p><br>`;
-        html += `<table><tr><th>Sanctuary / Route</th><th>Directives & Action</th><th>Logistics (Air/Maritime)</th></tr>`;
+        let html = `<p><b>ZIP:</b> ${data.codigo_postal} | <b>Mode:</b> ${data.modo_activo} | <b>Harmony Vector:</b> ${data.balance_bienestar.inicial}% → <b>${data.balance_bienestar.cierre_proyectado}%</b></p><br>`;
+        html += `<table><tr><th>Luxury Sanctuary / Hotel</th><th>Wellbeing & Entertainment Directives</th><th>Private Logistics & Travel</th></tr>`;
         
         data.opciones_escape_vip.forEach(opt => {
             const info = currentLanguage === 'es' ? opt.detalles_es : opt.detalles_en;
