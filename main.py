@@ -556,7 +556,9 @@ if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/{catchall:path}")
-async def catch_all_routing():
+async def catch_all_routing(catchall: str):
+    if catchall.startswith("api/"):
+        raise HTTPException(status_code=404, detail="API endpoint not found")
     if os.path.exists("static/index.html"):
         return FileResponse("static/index.html")
     return HTMLResponse(content="<h1>Sovereign Wellness Node Operational</h1>", status_code=200)
