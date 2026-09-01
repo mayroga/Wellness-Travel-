@@ -45,12 +45,12 @@ class PDFPassportPayload(BaseModel):
     iev: float
     variante: str
     destino_id: str
-
 # =========================================================================
 # WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
 # PARTE 2 DE 5: DICCIONARIO BILINGÜE ÉLITE Y MATRIZ DE SANTUARIOS VIP (PARTE 1)
 # =========================================================================
 
+# Diccionario Maestro Bilingüe Élite — Inmunizado contra términos médicos o clínicos
 DICTIONARY_BILINGUAL = {
     "ES": {
         "doc_title": "PASAPORTE DE BIENESTAR INDIVIDUAL",
@@ -96,6 +96,7 @@ DICTIONARY_BILINGUAL = {
     }
 }
 
+# Matriz completa de ultra-lujo para millonarios, clase alta y adinerada
 SANTUARIOS_VIP = {
     "S1": {
         "nombre": "Amanera Resort — Playa Grande",
@@ -132,9 +133,10 @@ SANTUARIOS_VIP = {
 }
 # =========================================================================
 # WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
-# PARTE 5 DE 5: WEBHOOK RECEIVER, DYNAMIC PDF COMPILER & PERIMETER ROUTING (Cont.)
+# PARTE 3 DE 5: COMPLETACIÓN DE MATRIZ VIP Y MOTOR PREDICTIVO EN FASTAPI
 # =========================================================================
 
+# Continuación de la Matriz de Ultra-Lujo Curada
 SANTUARIOS_VIP.update({
     "S3": {
         "nombre": "Amangiri Sanctuary — Desert Solitude",
@@ -170,8 +172,11 @@ SANTUARIOS_VIP.update({
     }
 })
 
+# Motor analítico de puntuación - Réplica del CWRE V2.1 con Bio-hacking
 def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
-    base_score = 45.0
+    base_score = 45.0  # Baseline inicial estándar
+    
+    # Modificadores de estado mental (Mente)
     modificadores_mente = {
         "aburrido": 5.0,
         "cansado": -10.0,
@@ -179,16 +184,20 @@ def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
         "agotado": -25.0,
         "ansioso": -30.0
     }
+    
+    # Modificadores de entorno y acompañamiento (Perfil VIP)
     modificadores_perfil = {
         "solo": 10.0,
         "acompanado": 5.0,
         "familia": -5.0,
-        "empresa": -15.0,
+        "empresa": -15.0,  # Alta fricción directiva
         "accesible": 0.0
     }
+    
     score_inicial = base_score + modificadores_mente.get(payload.mente, 0.0) + modificadores_perfil.get(payload.perfil, 0.0)
     score_inicial = max(10.0, min(95.0, score_inicial))
     
+    # Análisis táctico de la purga mental para medir la fatiga ejecutiva
     interceptor_friccion = 0.0
     if payload.texto_libre:
         palabras_saturacion = ["ruido", "saturacion", "agenda", "tiempo", "vuelo", "reunion", "entorno", "exceso", "junta", "directiva"]
@@ -196,6 +205,8 @@ def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
         interceptor_friccion = conteo * -4.0
         
     score_inicial = max(5.0, score_inicial + interceptor_friccion)
+    
+    # Proyección óptima de bio-hacking al completar los 10 minutos
     score_cierre = min(100.0, score_inicial + 50.0)
     
     return {
@@ -204,29 +215,47 @@ def calcular_indice_estabilizacion(payload: SintonizacionPayload) -> dict:
         "eficiencia_respiratoria": 100.0,
         "enfoque_mental": 100.0
     }
+# =========================================================================
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 4 DE 5: ENDPOINT PREDICTIVO MULTI-DESTINO Y LOGÍSTICA FIDUCIARIA STRIPE
+# =========================================================================
 
 @app.post("/api/sintonizar")
 async def endpoint_sintonizar_contextual(payload: SintonizacionPayload):
+    """
+    Motor analítico premium. Detecta la fricción implícita de la mente del líder
+    y prescribe una única solución logística cerrada y perfecta de forma invisible.
+    """
     try:
+        # 1. Ejecutar el cálculo métrico analítico basal
         metricas = calcular_indice_estabilizacion(payload)
+        
+        # 2. Algoritmo de Detección Psicológica Invisible (Redirección Cruzada Analítica)
         texto_analisis = payload.texto_libre.lower() if payload.texto_libre else ""
-        santuario_prescrito = "S1"
+        santuario_prescrito = "S1"  # Por defecto: Aislamiento Zen en Amanera (Playa Grande)
         
         if any(p in texto_analisis for p in ["junta", "directiva", "empresa", "subordinados", "control", "tiempo", "capital"]):
-            santuario_prescrito = "S3"
+            # Fricción Directiva / Pérdida de control del tiempo -> Silencio Monolítico del Desierto
+            santuario_prescrito = "S3"  # Amangiri Sanctuary — Desert Solitude
         elif any(p in texto_analisis for p in ["ruido", "ciudad", "saturacion", "exceso", "entorno", "bullicio", "estrepito"]):
-            santuario_prescrito = "S1"
+            # Saturación Acústica Urbana / Densidad Ambiental -> Privación Acústica de Selva y Mar
+            santuario_prescrito = "S1"  # Amanera Resort — Playa Grande
         elif payload.perfil == "familia" or any(p in texto_analisis for p in ["hijos", "familia", "dinastia", "herencia"]):
-            santuario_prescrito = "S2"
+            # Fricción de Continuidad Dinástica / Sucesión del Legado -> Bungalows de Acceso Restringido
+            santuario_prescrito = "S2"  # Eden Roc Cap Cana — Boutique Sanctuary
         elif payload.perfil == "empresa" or any(p in texto_analisis for p in ["estrategia", "reunion", "corporativo", "alianza"]):
-            santuario_prescrito = "S4"
+            # Optimización de Visión Estratégica / Enfoque Directivo Élite -> Villas Elevadas de Cristal
+            santuario_prescrito = "S4"  # Singita Lebombo — Private Wilderness Lodge
 
+        # 3. Filtro CRM Estricto Anti-Repetición Inmutable
         if santuario_prescrito in payload.historial_vistos:
+            # Si el destino ideal ya expiró en su historial de exclusividad, alternar el corredor de inmediato
             opciones_restantes = [k for k in SANTUARIOS_VIP.keys() if k not in payload.historial_vistos]
             santuario_prescrito = opciones_restantes[0] if opciones_restantes else "S1"
 
         datos_santuario = SANTUARIOS_VIP[santuario_prescrito]
         
+        # 4. Estructuración de la Respuesta Predictiva Inmediata para el Frontend
         return JSONResponse(status_code=200, content={
             "status": "success",
             "codigo_postal": payload.zip_code,
@@ -254,11 +283,17 @@ async def endpoint_sintonizar_contextual(payload: SintonizacionPayload):
                 }
             }]
         })
+        
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Fallo crítico en el motor contextual CRM: {str(e)}")
 
+
 @app.post("/api/checkout-premium")
 async def crear_sesion_checkout_elite(request: Request):
+    """
+    Pasarela de pagos específica de Wellness Travel blindada estáticamente con tu dominio.
+    Procesa las órdenes transaccionales e inyecta las variables de control fiduciario.
+    """
     try:
         body = await request.json()
         price_id = body.get("price_id")
@@ -274,6 +309,7 @@ async def crear_sesion_checkout_elite(request: Request):
                 'quantity': 1,
             }],
             mode='payment' if "unico" in price_id else 'subscription',
+            # BLINDAJE CON LA URL OFICIAL DE LA APLICACIÓN EN RENDER:
             success_url=f"https://onrender.com{folio_servicio}",
             cancel_url="https://onrender.com",
             client_reference_id=folio_servicio
@@ -281,9 +317,17 @@ async def crear_sesion_checkout_elite(request: Request):
         return JSONResponse(status_code=200, content={"id": session.id, "url": session.url})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error en pasarela Stripe Élite: {str(e)}")
+# =========================================================================
+# WELLNESS TRAVEL MASTER BACKEND — INTEGRIDAD TOTAL 100% OPEN THAN GO
+# PARTE 5 DE 5: WEBHOOK RECEIVER, DYNAMIC PDF COMPILER & PERIMETER ROUTING
+# =========================================================================
 
 @app.post("/api/stripe-webhook")
 async def stripe_webhook_receptor(request: Request):
+    """
+    Asynchronous fiduciary event interceptor. Captures Stripe checkout 
+    confirmations and validates execution folios on Render.
+    """
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature")
 
@@ -291,11 +335,12 @@ async def stripe_webhook_receptor(request: Request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, STRIPE_WEBHOOK_SECRET
         )
-    except ValueError:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail="Unreadable transactional payload.")
-    except stripe.error.SignatureVerificationError:
+    except stripe.error.SignatureVerificationError as e:
         raise HTTPException(status_code=400, detail="Invalid webhook signature verification.")
 
+    # Process client confirmation once payment transaction settles successfully
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
         folio_cliente = session.get("client_reference_id", "MR-ASYNC-DIRECT")
@@ -303,23 +348,35 @@ async def stripe_webhook_receptor(request: Request):
 
     return JSONResponse(status_code=200, content={"received": True})
 
+
 @app.post("/")
 async def endpoint_raiz_post(request: Request):
+    """
+    Root POST fallback handler. Operational safeguard built to mitigate 
+    HTTP 405 Method Not Allowed exceptions thrown by direct frontend hooks.
+    """
     try:
-        await request.json()
+        body = await request.json()
         return JSONResponse(status_code=200, content={"status": "success", "message": "Node operational payload received."})
     except Exception:
         return JSONResponse(status_code=200, content={"status": "success", "message": "Secure channel link established."})
 
+
 @app.post("/api/pdf")
 def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
+    """
+    Asynchronous ReportLab graphic engine compiler. Designs a clean, 
+    highly minimalist individual passport using an Obsidian/Gold premium colorway.
+    """
     try:
+        # Guarantee secure data folder structure persistence for temporary compilation
         if not os.path.exists("temp"):
             os.makedirs("temp")
 
         pdf_filename = f"Wellness_Elite_Passport_{payload.servicio_id}.pdf"
         pdf_path = os.path.join("temp", pdf_filename)
         
+        # Initialize canvas layout using clean, highly breathable document margins
         doc = SimpleDocTemplate(
             pdf_path, 
             pagesize=letter, 
@@ -330,11 +387,14 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         )
         
         styles = getSampleStyleSheet()
+        
+        # High-fidelity elite brand color space metrics
         c_primary = colors.HexColor("#030305")
         c_gold = colors.HexColor("#C5A059")
         c_text = colors.HexColor("#222222")
         c_legal = colors.HexColor("#777777")
         
+        # Typographic hierarchies and styles mapped cleanly without visual saturation
         title_style = ParagraphStyle('Title', fontSize=22, leading=26, textColor=c_primary, alignment=1)
         subtitle_style = ParagraphStyle('Sub', fontSize=9, leading=12, textColor=c_legal, alignment=1)
         h2_style = ParagraphStyle('H2', fontSize=11, leading=14, textColor=c_gold, spaceBefore=15, spaceAfter=6)
@@ -345,6 +405,7 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         lang_key = "EN" if payload.lang.upper() == "EN" else "ES"
         lang_map = DICTIONARY_BILINGUAL[lang_key]
 
+        # Sequential layout structural stack injection
         story.append(Paragraph("MAY ROGA LLC", title_style))
         story.append(Paragraph("Wellness Travel Architecture & Lifestyle Optimization", subtitle_style))
         story.append(Spacer(1, 15))
@@ -352,6 +413,7 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         story.append(Paragraph(f"{lang_map['folio']}: {payload.servicio_id} | {lang_map['status']}", body_style))
         story.append(Spacer(1, 10))
         
+        # Section 1: Stabilization Metric Vector Board
         story.append(Paragraph(lang_map['sec1_title'], h2_style))
         metrics_data = [
             [Paragraph(lang_map['m1'], body_style), Paragraph(lang_map['m2'], body_style), Paragraph(lang_map['m3'], body_style)],
@@ -367,10 +429,13 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         ]))
         story.append(t)
         
+        # CORRECCIÓN DEFINITIVA EXTRA-PREMIUM: Extraer el santuario exacto que arrojó el motor CRM
         santuario_actual = SANTUARIOS_VIP.get(payload.destino_id, SANTUARIOS_VIP["S1"])
         h_info = santuario_actual[lang_key.lower()]
         
+        # Section 2: Prescribed Luxury Sanctuary Logistics Routing
         story.append(Paragraph(lang_map['sec2_title'], h2_style))
+        
         dest_html = (
             f"• <b>{lang_map['stay_lbl']}</b>: {santuario_actual['nombre']}<br/>"
             f"• <b>{lang_map['desc_lbl']}</b>: {h_info['desc']}<br/>"
@@ -381,6 +446,7 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         )
         story.append(Paragraph(dest_html, body_style))
         
+        # Section 3 & 4: Compliance Assurances & Legal Lifestyle Limitations
         story.append(Spacer(1, 10))
         story.append(Paragraph(lang_map['sec3_title'], h2_style))
         story.append(Paragraph(lang_map['cta'], body_style))
@@ -389,17 +455,25 @@ def generate_pdf_passport_reportlab(payload: PDFPassportPayload):
         story.append(Paragraph(lang_map['disclaimer'], disclaimer_style))
         story.append(Paragraph(lang_map['ai_foot'], disclaimer_style))
 
+        # Build document and stream the compiled binary stream array response
         doc.build(story)
         return FileResponse(pdf_path, media_type='application/pdf', filename=pdf_filename)
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"ReportLab backend graphic thread exception: {str(e)}")
 
+
+# Static file system mounting for high speed delivery nodes
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
 @app.get("/{catchall:path}")
 async def catch_all_routing():
+    """
+    Perimeter asset delivery catch-all routing router. Redirects subroutes 
+    and document refreshes to clean initialization frames on Render.
+    """
     if os.path.exists("static/index.html"):
         return FileResponse("static/index.html")
     return HTMLResponse(content="<h1>Wellness Travel Node Operational</h1>", status_code=200)
