@@ -129,14 +129,6 @@ const KERNEL = {
         "¿Percibes que las demandas del día a día consumen tu reserva de enfoque?",
         "¿Te dejas llevar por la corriente de la rutina sin evaluar tu balance individual?",
         "¿Sientes que el ruido visual de tu entorno habitual interrumpe tu calma?"
-    ],
-// =========================================================================
-// WELLNESS TRAVEL FRONTEND ENGINE — INTEGRIDAD TOTAL 100% OPEN THAN GO
-// PARTE 4 DE 6: COMPLEMENTO DEL POOL DE PREGUNTAS ÉLITE (ESPAÑOL E INGLÉS)
-// =========================================================================
-
-    // Continuación Pool de Preguntas Analíticas — Segundo Bloque (25 a 48)
-    POOL_COMPLETO_48_ES_2: [
         "¿El ritmo automatizado de tus días disminuye la calidad de tus descansos?",
         "¿Buscas un entorno exclusivo pero las opciones comunes te generan saturación?",
         "¿La exposición continua a entornos densivos limita tu claridad reflexiva?",
