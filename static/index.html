@@ -1,1 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Than Go Elite — May Roga LLC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-obsidian: #030305;
+            --bg-surface: #0a0a0f;
+            --gold-champagne: #C5A059;
+            --gold-light: #dfbc77;
+            --alert-crimson: #c0392b;
+            --text-main: #f0f0f0;
+            --text-muted: #888888;
+            --border-subtle: rgba(197, 160, 89, 0.2);
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .app-wrapper {
+            width: 100%;
+            max-width: 620px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #brandTitleField {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            color: var(--gold-champagne);
+            letter-spacing: 2px;
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        #interactiveStack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .gold-action-btn {
+            background: linear-gradient(135deg, var(--gold-champagne), #a6823c);
+            color: var(--bg-obsidian);
+            border: none;
+            padding: 12px 24px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.2);
+        }
+
+        .gold-action-btn:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-champagne));
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+        }
+
+        #pantalla-cierre {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        #cierre-message h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-champagne);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        #cierre-timer {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold-champagne);
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        #cierre-mensaje-final {
+            font-size: 1rem;
+            color: #2ecc71;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+        <header>
+            <h1 id="brandTitleField">MAY ROGA LLC</h1>
+            <p class="subtitle">Open Than Go Elite — Private Architecture</p>
+        </header>
+
+        <!-- Dynamic Active Session Dock -->
+        <div id="activeSessionDock">
+            <div id="interactiveStack"></div>
+        </div>
+
+        <!-- Conscious Closing Screen -->
+        <div id="pantalla-cierre" class="hidden">
+            <div id="cierre-message"></div>
+            <div id="cierre-timer">60</div>
+            <p id="cierre-mensaje-final" class="hidden"></p>
+            <button id="btn-recomenzar-experiencia" class="gold-action-btn hidden" onclick="window.location.reload()">Recomenzar Experiencia</button>
+        </div>
+    </div>
+
+    <!-- Core Interactive Execution Engine Script -->
+    <script src="/static/engine.js"></script>
+</body>
+</html>
