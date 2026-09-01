@@ -17,49 +17,49 @@ const KERNEL = {
 
     TRADUCCIONES: {
         es: {
-            brandSub: "Arquitectura de Santuarios Ejecutivos",
+            brandSub: "Arquitectura de Santuarios Ejecutivos y Bienestar",
             timerTitle: "Ventana de Sintonía Activa",
             oraculoInstruccion: "¿Qué vector bloquea tu sintonía hoy?",
-            desahogoLabel: "O declare aquí su saturación ambiental:",
-            placeholderLibre: "Escriba libremente los estímulos o ruidos del entorno que experimenta hoy...",
+            desahogoLabel: "O declare aquí su saturación ambiental o exigencia de viaje:",
+            placeholderLibre: "Escriba libremente sobre su destino de lujo, hotel, yate o estímulo del entorno...",
             btnActivar: "Activar Mando de Sintonía",
-            atencionInaccion: "Atención. Mantenga el enfoque en su pantalla de sintonía.",
-            vozSintonialAcustica: "Líder. Frecuencias acústicas activadas para aislamiento total.",
+            atencionInaccion: "Atención. Mantenga el enfoque en su pantalla de sintonía ejecutiva.",
+            vozSintonialAcustica: "Líder. Frecuencias acústicas activadas para aislamiento total y máximo bienestar.",
             tituloAcustico: "SINTONÍA ACÚSTICA ACTIVA (432HZ / ALFA)",
-            misionTitulo: "SANTUARIOS CURADOS DISPONIBLES",
-            discursoMin4: "Calibración completada. Santuario de ultra-lujo disponible.",
+            misionTitulo: "SANTUARIOS Y VIAJES DE LUJO CURADOS DISPONIBLES",
+            discursoMin4: "Calibración completada. Santuario de ultra-lujo e itinerario VIP listo.",
             mapsBtn: "ABRIR RUTA EXCLUSIVA",
-            compilarBtn: "COMPILACIÓN PASAPORTE DE BIENESTAR",
-            frecuenciaVoz: "La pausa precisa disuelve el desgaste y asegura el control absoluto sobre su entorno.",
-            cierreFinalizado: "Calibración completada con éxito. Su pasaporte premium está listo.",
+            compilarBtn: "COMPILACIÓN PASAPORTE DE BIENESTAR Y VIAJE",
+            frecuenciaVoz: "La pausa precisa disuelve el desgaste y asegura el control absoluto sobre su experiencia de viaje y estilo de vida.",
+            cierreFinalizado: "Calibración completada con éxito. Su pasaporte premium de bienestar y viajes está listo.",
             fases: [
-                { texto: "Inhala", desc: "Expande tu diafragma. Introduce oxígeno puro para resetear el enfoque." },
+                { texto: "Inhala", desc: "Expande tu diafragma. Introduce oxígeno puro para resetear el enfoque y claridad mental." },
                 { texto: "Retén", desc: "Mantén el aire. Siente la quietud interna y estabiliza tu ritmo cardíaco." },
-                { texto: "Exhala", desc: "Suelta despacio. Elimina la presión del entorno y disuelve la fatiga." },
-                { texto: "Pausa", desc: "Vacío absoluto. Permanece en silencio antes del siguiente ciclo." }
+                { texto: "Exhala", desc: "Suelta despacio. Elimina la presión del entorno y disuelve la fatiga ejecutiva." },
+                { texto: "Pausa", desc: "Vacío absoluto. Permanece en silencio antes de diseñar su próxima travesía de lujo." }
             ]
         },
         en: {
-            brandSub: "Executive Sanctuary Architecture",
+            brandSub: "Executive Sanctuary & Luxury Travel Architecture",
             timerTitle: "Active Tuning Window",
             oraculoInstruccion: "What vector blocks your tuning today?",
-            desahogoLabel: "Or declare your environmental saturation here:",
-            placeholderLibre: "Freely outline the stimuli or ambient noise you experience today...",
+            desahogoLabel: "Or declare your environmental saturation or travel requirements here:",
+            placeholderLibre: "Freely outline your luxury destination, hotel, yacht or ambient stimuli...",
             btnActivar: "Activate Tuning Directive",
-            atencionInaccion: "Attention. Maintain absolute focus on your tuning screen.",
-            vozSintonialAcustica: "Leader. Acoustic frequencies activated for complete isolation.",
+            atencionInaccion: "Attention. Maintain absolute focus on your executive tuning screen.",
+            vozSintonialAcustica: "Leader. Acoustic frequencies activated for complete isolation and elite wellbeing.",
             tituloAcustico: "ACTIVE ACOUSTIC TUNING (432HZ / ALPHA)",
-            misionTitulo: "CURATED SANCTUARIES AVAILABLE",
-            discursoMin4: "Calibration completed. Ultra-luxury sanctuary fully unlocked.",
+            misionTitulo: "CURATED SANCTUARIES & LUXURY TRAVEL AVAILABLE",
+            discursoMin4: "Calibration completed. Ultra-luxury sanctuary and VIP itinerary fully unlocked.",
             mapsBtn: "OPEN EXCLUSIVE ROUTE",
-            compilarBtn: "COMPILE WELLNESS PASSPORT",
-            frecuenciaVoz: "The precise pause dissolves exhaustion and ensures absolute control over your surroundings.",
-            cierreFinalizado: "Calibration successfully completed. Your premium passport is ready.",
+            compilarBtn: "COMPILE WELLNESS & TRAVEL PASSPORT",
+            frecuenciaVoz: "The precise pause dissolves exhaustion and ensures absolute control over your travel experience and lifestyle.",
+            cierreFinalizado: "Calibration successfully completed. Your premium wellness and travel passport is ready.",
             fases: [
                 { texto: "Inhale", desc: "Expand your chest. Introduce pure oxygen to reset focus index." },
                 { texto: "Hold", desc: "Sustain breath. Feel internal quietness and balance heart rate." },
                 { texto: "Exhale", desc: "Release smoothly. Discharging environmental saturation and tension." },
-                { texto: "Pause", desc: "Absolute void. Remain in perfect stillness before next cycle." }
+                { texto: "Pause", desc: "Absolute void. Remain in perfect stillness before designing your next luxury journey." }
             ]
         }
     },
@@ -90,16 +90,16 @@ const KERNEL = {
     CATALOGO_PREGUNTAS_ES: [
         "¿Sientes que los estímulos del entorno saturan tu capacidad de contemplar la calma?",
         "¿Se diluye tu enfoque en redes digitales buscando llenar vacíos de desconexión?",
-        "¿Delegas tu tranquilidad al ruido externo para evadir la prisa diaria?",
+        "¿Buscas un refugio de ultra-lujo, hotel exclusivo o experiencia de entretenimiento privado?",
         "¿El exceso de control sobre tu agenda te priva de disfrutar el entorno en paz?",
-        "¿Buscas micro-estímulos rápidos que expiran sin dejar satisfacción real?",
+        "¿Deseas planificar tu próximo viaje ejecutivo con estándares de élite inquebrantables?",
         "¿Percibes que el ritmo acelerado del entorno nubla tu claridad mental hoy?"
     ],
 
     CATALOGO_PREGUNTAS_EN: [
         "Do you feel environmental stimuli saturate your ability to contemplate calm?",
         "Does your strategic focus dissolve in digital networks trying to fill moments of friction?",
-        "Do you surrender your peace to external noise to drown out the daily rush?",
+        "Are you seeking an ultra-luxury sanctuary, exclusive hotel or private entertainment experience?",
         "Does excessive schedule control deprive you of calmly observing your environment?"
     ],
 
@@ -199,7 +199,7 @@ const KERNEL = {
         const perfilSelector = document.getElementById('perfil-selector');
         const textLibreInput = document.getElementById('inp-text-libre');
 
-        const zipCode = zipInput ? zipInput.value : "33167";
+        const zipCode = zipInput ? zipInput.value : "33139";
         const modoActivo = modoSelector ? modoSelector.value : "SALIR";
         const menteActiva = menteSelector ? menteSelector.value : "SILENCIO";
         const budgetActivo = budgetSelector ? budgetSelector.value : "ILIMITADO";
@@ -339,13 +339,13 @@ const KERNEL = {
         const divDestino = document.createElement('div');
         divDestino.style.cssText = "background:rgba(192,57,43,0.15); border:2px solid var(--alert-crimson); padding:16px; border-radius:16px; margin-top:15px; text-align:left; cursor:pointer;";
         
-        divDestino.onclick = () => window.open(`https://www.google.com/search?q=${encodeURIComponent('Luxury Resort Amanera Playa Grande')}`, '_blank');
+        divDestino.onclick = () => window.open(`https://www.google.com/search?q=${encodeURIComponent('Amanera Resort Luxury Travel & Hotel')}`, '_blank');
 
         divDestino.innerHTML = `
-            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO EXCLUSIVO PROPUESTO</div> 
-            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort — Luxury Oasis</div> 
+            <div style="font-size:11px; color:var(--alert-crimson); font-weight:bold; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">💥 SANTUARIO Y HOTEL VIP PROPUESTO</div> 
+            <div style="font-size:14px; font-weight:bold; color:#fff; margin-bottom:4px;">Amanera Resort & Elite Travel Oasis</div> 
             <p style="font-size:12px; color:#eee; line-height:1.4; margin-bottom:8px;"> 
-                ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta directa hacia el aislamiento absoluto.' : 'Click to open the direct route towards absolute environmental isolation.'} 
+                ${this.idiomaActual === 'es' ? 'Haga clic para abrir la ruta exclusiva hacia el hotel y santuario de lujo.' : 'Click to open the exclusive route towards the luxury hotel and sanctuary.'} 
             </p> 
             <span style="font-size:10px; background:var(--alert-crimson); color:#fff; padding:4px 8px; border-radius:4px; font-weight:bold; text-transform:uppercase;">${dic.mapsBtn}</span>
         `;
@@ -404,12 +404,12 @@ const KERNEL = {
         const root = document.getElementById('cierre-message');
         if (!root) return;
 
-        const folio = "MR-" + Math.floor(100000 + Math.random() * 900000);
+        const folio = "WT-" + Math.floor(100000 + Math.random() * 900000);
         
         root.innerHTML = `
             <div style="text-align:center; padding:10px 0;"> 
                 <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;"> 
-                    ${this.idiomaActual === 'es' ? 'Su documentación de sintonía ejecutiva ha sido estructurada.' : 'Your executive tuning passport has been fully structured.'} 
+                    ${this.idiomaActual === 'es' ? 'Su pasaporte de bienestar y viajes de lujo ha sido estructurado.' : 'Your wellness and luxury travel passport has been fully structured.'} 
                 </p> 
                 <button class="gold-action-btn" onclick="KERNEL.descargarPDF('${folio}')">${dic.compilarBtn}</button> 
             </div>
@@ -431,7 +431,7 @@ const KERNEL = {
                 respiracion_score: 100.0, 
                 adivinanzas_score: 100.0,
                 iev: 95.0, 
-                variante: "ELITE_WELLNESS", 
+                variante: "WELLNESS_TRAVEL_ELITE", 
                 destino_id: destinoPrescrito
             })
         })
@@ -444,7 +444,7 @@ const KERNEL = {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Wellness_Elite_Passport_${folio}.pdf`;
+            a.download = `Wellness_Travel_Elite_Passport_${folio}.pdf`;
             document.body.appendChild(a);
             a.click();
             a.remove();
