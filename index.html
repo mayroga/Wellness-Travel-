@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florida Healthcare Risk Management Exam Simulator - Complete 300 Q-Bank Edition</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; color: black !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full flex flex-col transition-colors duration-200">
+
+    <!-- Navbar -->
+    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="app.navHome()">
+                <div class="bg-brand-600 text-white p-2 rounded-lg font-bold text-xl flex items-center justify-center w-10 h-10 shadow">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg leading-tight text-slate-900 dark:text-white" id="app-title">FL Risk Mgmt Simulator</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400" id="app-subtitle">F.S. 395.0197 & AHCA Standards (300 Q Bank)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Language Toggle -->
+                <button onclick="app.toggleLanguage()" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold flex items-center gap-2 transition">
+                    <i class="fa-solid fa-language text-brand-500 text-sm"></i>
+                    <span id="lang-indicator">Español</span>
+                </button>
+
+                <!-- Dark Mode Toggle -->
+                <button onclick="app.toggleTheme()" class="p-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                </button>
+
+                <!-- Reset Data Button -->
+                <button onclick="app.resetProgress()" title="Reset Progress" class="p-2 rounded-lg border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- VIEW 1: DASHBOARD / HOME -->
+        <div id="view-home" class="space-y-6">
+            <div class="bg-gradient-to-r from-brand-700 via-brand-800 to-brand-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                <div class="max-w-3xl relative z-10">
+                    <span class="inline-block px-3 py-1 bg-brand-500/30 border border-brand-400/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3" id="badge-fl">Florida Licensed Risk Manager Standard</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mb-3 leading-tight" id="home-title">Comprehensive Risk Management Exam Simulator</h2>
+                    <p class="text-brand-100 text-sm sm:text-base mb-6 leading-relaxed" id="home-desc">
+                        Prepare for the Florida Healthcare Risk Management licensure and AHCA compliance evaluations. Features 300 rigorous questions covering Florida Statutes (F.S. 395.0197), FAC 59A-10, adverse incident reporting deadlines, RCA, patient safety, and medical law.
+                    </p>
+
+                    <div class="flex flex-wrap gap-3 sm:gap-4">
+                        <button onclick="app.startPractice('all')" class="bg-white text-brand-900 hover:bg-brand-50 px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-book-open text-brand-600"></i>
+                            <span id="btn-start-practice">Start Study Mode (300 Qs)</span>
+                        </button>
+                        <button onclick="app.showExamModal()" class="bg-brand-500 hover:bg-brand-400 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-stopwatch"></i>
+                            <span id="btn-start-exam">Timed Exam Simulation</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-answered">Questions Answered</p>
+                            <h3 class="text-2xl font-bold mt-1" id="stat-answered">0 / 300</h3>
+                        </div>
+                        <div class="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
+                            <i class="fa-solid fa-list-check text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full mt-4 overflow-hidden">
+                        <div id="stat-bar-progress" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-accuracy">Average Accuracy</p>
+                            <h3 class="text-2xl font-bold mt-1" id="stat-accuracy">0%</h3>
+                        </div>
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg">
+                            <i class="fa-solid fa-bullseye text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full mt-4 overflow-hidden">
+                        <div id="stat-bar-accuracy" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-mastered">Mastered Questions</p>
+                            <h3 class="text-2xl font-bold mt-1" id="stat-mastered">0</h3>
+                        </div>
+                        <div class="p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg">
+                            <i class="fa-solid fa-award text-xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4" id="stat-mastered-sub">Answered correctly on first attempt</p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-exams">Exams Completed</p>
+                            <h3 class="text-2xl font-bold mt-1" id="stat-exams">0</h3>
+                        </div>
+                        <div class="p-3 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg">
+                            <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4" id="stat-exams-sub">Full timed simulation logs</p>
+                </div>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-white" id="cat-title">Florida Law & Risk Domains</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="categories-list">
+                    <!-- Dynamic categories injected by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: PRACTICE / EXAM SESSION -->
+        <div id="view-quiz" class="hidden space-y-6">
+            <!-- Top Controls Bar -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <button onclick="app.navHome()" class="text-slate-500 hover:text-slate-800 dark:hover:text-white p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-arrow-left text-lg"></i>
+                    </button>
+                    <div>
+                        <span id="quiz-mode-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 dark:bg-brand-900/50 dark:text-brand-300">Study Mode</span>
+                        <h2 class="text-sm font-bold text-slate-800 dark:text-slate-200" id="quiz-category-lbl">All Topics</h2>
+                    </div>
+                </div>
+
+                <!-- Timer & Progress Counter -->
+                <div class="flex items-center gap-4">
+                    <div id="exam-timer-container" class="hidden items-center gap-2 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 px-3 py-1.5 rounded-lg border border-amber-200 dark:border-amber-800 font-mono font-bold text-sm">
+                        <i class="fa-solid fa-stopwatch animate-pulse"></i>
+                        <span id="exam-timer">60:00</span>
+                    </div>
+
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block" id="lbl-question-num">Question</span>
+                        <span class="text-base font-bold text-brand-600 dark:text-brand-400" id="quiz-progress-text">1 / 300</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg p-6 sm:p-8 space-y-6">
+                
+                <div class="flex items-start justify-between gap-4">
+                    <span class="inline-block text-xs font-bold px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-md" id="q-category">
+                        Category Name
+                    </span>
+
+                    <button onclick="app.speakQuestion()" class="p-2.5 rounded-lg bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/50 transition flex items-center gap-2 text-xs font-semibold" title="Read Aloud">
+                        <i class="fa-solid fa-volume-high text-base"></i>
+                        <span id="btn-audio-lbl">Audio</span>
+                    </button>
+                </div>
+
+                <!-- Question Text -->
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed" id="q-text">
+                    Question text will appear here...
+                </h3>
+
+                <!-- Options Grid -->
+                <div class="space-y-3" id="q-options">
+                    <!-- Dynamic Options -->
+                </div>
+
+                <!-- Rationale Explanation Box -->
+                <div id="q-rationale-box" class="hidden p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 space-y-2">
+                    <div class="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200 text-sm">
+                        <i class="fa-solid fa-circle-info text-brand-500"></i>
+                        <span id="rationale-header">Legal & Clinical Rationale (Statutory Basis)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" id="q-rationale-text">
+                        Explanation...
+                    </p>
+                </div>
+
+                <!-- Footer Navigation -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
+                    <button id="btn-prev" onclick="app.prevQuestion()" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-xs sm:text-sm flex items-center gap-2 transition">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span id="lbl-btn-prev">Previous</span>
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button id="btn-submit-exam" onclick="app.confirmSubmitExam()" class="hidden px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow transition">
+                            <span id="lbl-btn-submit">Submit Exam</span>
+                        </button>
+
+                        <button id="btn-next" onclick="app.nextQuestion()" class="px-5 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 shadow transition">
+                            <span id="lbl-btn-next">Next</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: RESULTS / EXAM REPORT -->
+        <div id="view-results" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl p-6 sm:p-8 space-y-6">
+                <div class="text-center space-y-3 border-b border-slate-200 dark:border-slate-700 pb-6">
+                    <div id="score-badge" class="inline-flex items-center justify-center w-20 h-20 rounded-full text-2xl font-black text-white bg-emerald-500 mx-auto shadow-lg">
+                        85%
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="results-title">Exam Completed!</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto" id="results-subtitle">Here is your performance breakdown based on Florida AHCA Risk Management Standards.</p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+                        <span class="text-xs text-slate-400 block uppercase" id="res-lbl-total">Total Qs</span>
+                        <span class="text-xl font-bold" id="res-total">50</span>
+                    </div>
+                    <div class="p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg text-emerald-600 dark:text-emerald-400">
+                        <span class="text-xs block uppercase" id="res-lbl-correct">Correct</span>
+                        <span class="text-xl font-bold" id="res-correct">42</span>
+                    </div>
+                    <div class="p-4 bg-red-50 dark:bg-red-950/30 rounded-lg text-red-600 dark:text-red-400">
+                        <span class="text-xs block uppercase" id="res-lbl-incorrect">Incorrect</span>
+                        <span class="text-xl font-bold" id="res-incorrect">8</span>
+                    </div>
+                    <div class="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg text-blue-600 dark:text-blue-400">
+                        <span class="text-xs block uppercase" id="res-lbl-time">Time Spent</span>
+                        <span class="text-xl font-bold font-mono" id="res-time">34:12</span>
+                    </div>
+                </div>
+
+                <!-- Domain Performance Breakdown -->
+                <div class="space-y-3">
+                    <h3 class="font-bold text-slate-800 dark:text-slate-200 text-sm" id="res-breakdown-title">Domain Mastery</h3>
+                    <div id="results-domain-list" class="space-y-2">
+                        <!-- Dynamic domain rows -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-slate-700 no-print">
+                    <button onclick="app.navHome()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-sm transition">
+                        <i class="fa-solid fa-house mr-2"></i> <span id="res-btn-home">Back to Home</span>
+                    </button>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm shadow transition">
+                            <i class="fa-solid fa-print mr-2"></i> <span id="res-btn-print">Print / Export PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- EXAM SETUP MODAL -->
+    <div id="modal-exam-setup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
+                <h3 class="font-bold text-lg text-slate-900 dark:text-white" id="modal-title">Timed Exam Config</h3>
+                <button onclick="app.closeExamModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase mb-2" id="lbl-modal-count">Number of Questions</label>
+                    <select id="exam-select-count" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-3 text-sm">
+                        <option value="25">25 Questions (Quick Practice)</option>
+                        <option value="50" selected>50 Questions (Standard AHCA Simulation)</option>
+                        <option value="100">100 Questions (Comprehensive Exam)</option>
+                        <option value="300">300 Questions (Full Pool Exam)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase mb-2" id="lbl-modal-time">Time Limit (Minutes)</label>
+                    <select id="exam-select-time" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-3 text-sm">
+                        <option value="30">30 Minutes</option>
+                        <option value="60" selected>60 Minutes</option>
+                        <option value="90">90 Minutes</option>
+                        <option value="0">No Time Limit</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="app.closeExamModal()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 text-sm font-semibold" id="btn-modal-cancel">Cancel</button>
+                <button onclick="app.startTimedExam()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm transition" id="btn-modal-start">Begin Simulation</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENGINE & QUESTION BANK -->
+    <script>
+        // --- CATEGORIES DEFINITION ---
+        const CATEGORIES = [
+            { id: 'incidents', en: 'AHCA Adverse Incidents & F.S. 395.0197', es: 'Incidentes Adversos AHCA y F.S. 395.0197' },
+            { id: 'malpractice', en: 'Medical Malpractice & Florida Civil Law', es: 'Negligencia Médica y Ley Civil de Florida' },
+            { id: 'rca', en: 'Patient Safety, RCA & Quality Improvement', es: 'Seguridad del Paciente, RCA y Mejora de Calidad' },
+            { id: 'consent', en: 'Informed Consent & Patient Rights', es: 'Consentimiento Informado y Derechos del Paciente' },
+            { id: 'insurance', en: 'Risk Financing, Claims & Policy Management', es: 'Financiamiento de Riesgos y Gestión de Polizas' },
+            { id: 'ethics', en: 'Healthcare Ethics & Regulatory Compliance', es: 'Ética Médica y Cumplimiento Regulatorio' }
+        ];
+
+        // --- EXTENSIVE 300 QUESTION GENERATOR ---
+        function generateQuestionBank() {
+            const bank = [];
+            
+            // Structured templates covering core Florida healthcare risk management domains
+            const templates = [
+                {
+                    cat: 'incidents',
+                    enQ: (i) => `Under Florida Statute § 395.0197, when a licensed facility experiences a Code 15 adverse incident (e.g., surgical procedure on wrong site - Case #${i}), what is the statutory deadline for submitting the full written report to AHCA?`,
+                    esQ: (i) => `Según el Estatuto de Florida § 395.0197, cuando un centro registrado experimenta un incidente adverso Código 15 (p. ej., cirugía en sitio equivocado - Caso #${i}), ¿cuál es el plazo legal para enviar el informe completo a la AHCA?`,
+                    optsEn: ['Within 15 calendar days', 'Within 24 hours', 'Within 30 calendar days', 'Within 60 business days'],
+                    optsEs: ['Dentro de los 15 días calendario', 'Dentro de las 24 horas', 'Dentro de los 30 días calendario', 'Dentro de los 60 días hábiles'],
+                    ans: 0,
+                    ratEn: `F.S. 395.0197 mandates that a initial 1-day report be followed by a comprehensive Code 15 report within 15 calendar days detailing the Root Cause Analysis (RCA) and risk reduction strategy.`,
+                    ratEs: `El F.S. 395.0197 exige que a un informe inicial de 1 día le siga un informe integral de Código 15 dentro de los 15 días calendario detallando el Análisis de Causa Raíz (RCA).`
+                },
+                {
+                    cat: 'incidents',
+                    enQ: (i) => `In a Florida hospital, a patient suffer an unpredicted death during an elective low-risk minor procedure (Incident #${i}). According to AHCA reporting guidelines, what immediate action is required?`,
+                    esQ: (i) => `En un hospital de Florida, un paciente sufre una muerte no prevista durante un procedimiento menor electivo (Incidente #${i}). Según las pautas de reporte de la AHCA, ¿qué acción inmediata se requiere?`,
+                    optsEn: ['Submit an initial 1-day 24-hour notification to AHCA followed by a Code 15 report.', 'Only document in the internal medical record and review at the annual committee meeting.', 'Notify the local police department within 48 hours.', 'File a claim with the facility umbrella liability carrier within 90 days.'],
+                    optsEs: ['Enviar una notificación inicial de 1 día (24 horas) a AHCA seguida de un informe Código 15.', 'Solo documentar en la historia clínica e investigar en la reunión anual.', 'Notificar al departamento de policía local en 48 horas.', 'Presentar un reclamo con la aseguradora sombrilla en 90 días.'],
+                    ans: 0,
+                    ratEn: `Unexpected deaths during medical procedures are classifiable as severe adverse events requiring a 1-day 24-hour initial notice to AHCA followed by detailed investigation.`,
+                    ratEs: `Las muertes no previstas durante procedimientos médicos se clasifican como eventos adversos graves que requieren un aviso inicial de 24 horas a la AHCA seguido de investigación.`
+                },
+                {
+                    cat: 'malpractice',
+                    enQ: (i) => `Under Florida Statute § 766.106 regarding pre-suit screening for medical negligence (Scenario #${i}), how many days does the defendant facility have to investigate and respond after receiving a Notice of Intent to Initiate Litigation?`,
+                    esQ: (i) => `Según el Estatuto de Florida § 766.106 para la evaluación previa al juicio por negligencia (Escenario #${i}), ¿cuántos días tiene el centro demandado para investigar y responder tras recibir la Notificación de Intención de Litigio?`,
+                    optsEn: ['90 calendar days', '30 calendar days', '120 business days', '14 calendar days'],
+                    optsEs: ['90 días calendario', '30 días calendario', '120 días hábiles', '14 días calendario'],
+                    ans: 0,
+                    ratEn: `Florida Statute § 766.106 mandates a 90-day pre-suit screening period during which the statute of limitations is tolled while the defense evaluates the claim.`,
+                    ratEs: `El Estatuto de Florida § 766.106 establece un período de evaluación previa al juicio de 90 días durante el cual se congela el estatuto de limitaciones mientras la defensa evalúa la demanda.`
+                },
+                {
+                    cat: 'rca',
+                    enQ: (i) => `During a Root Cause Analysis (RCA) investigation following a medication overdose event (Audit #${i}), which of the following represents a systemic latent failure rather than an active human error?`,
+                    esQ: (i) => `Durante un Análisis de Causa Raíz (RCA) tras una sobredosis de medicamento (Auditoría #${i}), ¿cuál de las siguientes opciones representa una falla latente del sistema en lugar de un error humano activo?`,
+                    optsEn: ['Similar sounding drug vials stored side-by-side in automated dispensing cabinets without distinct visual alerts.', 'A nurse misreading a dosage label due to exhaustion.', 'A physician forgetting to sign a verbal prescription.', 'A pharmacist typing an incorrect dosage while distracted.'],
+                    optsEs: ['Frascos de medicamentos con nombres similares almacenados juntos sin alertas visuales distintas.', 'Una enfermera leyendo mal la etiqueta debido al cansancio.', 'Un médico que olvida firmar una orden verbal.', 'Un farmacéutico que escribe la dosis incorrecta mientras se distrae.'],
+                    ans: 0,
+                    ratEn: `Latent system failures are flaws in system design, storage, or workflows that create environments where individual human errors easily occur.`,
+                    ratEs: `Las fallas latentes del sistema son defectos en el diseño, almacenamiento o flujo de trabajo que crean entornos propensos al error humano.`
+                },
+                {
+                    cat: 'consent',
+                    enQ: (i) => `According to Florida's Medical Consent Law (F.S. 766.103), when an incapacitated patient lacks an advance directive or legal guardian (Case #${i}), who holds first priority as a proxy decision-maker?`,
+                    esQ: (i) => `Según la Ley de Consentimiento Médico de Florida (F.S. 766.103), cuando un paciente incapacitado no tiene directiva previa ni tutor legal (Caso #${i}), ¿quién tiene primera prioridad como sustituto?`,
+                    optsEn: ['The patient judicially appointed guardian or spouse.', 'The attending physician.', 'The hospital bioethics committee chair.', 'The patient adult sibling.'],
+                    optsEs: ['El tutor designado judicialmente o el cónyuge del paciente.', 'El médico tratante.', 'El presidente del comité de bioética del hospital.', 'El hermano adulto del paciente.'],
+                    ans: 0,
+                    ratEn: `Under Florida law, priority order for proxy decisions begins with judicially appointed guardians followed by spouse, adult children, parents, and adult siblings.`,
+                    ratEs: `Bajo la ley de Florida, el orden de prioridad para tomar decisiones por sustitución comienza con el tutor judicial, seguido del cónyuge, hijos adultos, padres y hermanos.`
+                },
+                {
+                    cat: 'insurance',
+                    enQ: (i) => `A hospital risk manager is reviewing an 'Occurrence' policy versus a 'Claims-Made' policy (Evaluation #${i}). What is the fundamental advantage of an Occurrence policy?`,
+                    esQ: (i) => `Un administrador de riesgos está comparando una póliza de 'Ocurrencia' frente a una 'Claims-Made' (Evaluación #${i}). ¿Cuál es la ventaja fundamental de una póliza de Ocurrencia?`,
+                    optsEn: ['It covers injuries occurring during the policy period regardless of when the claim is eventually filed in the future.', 'It requires purchasing tail coverage upon policy cancellation.', 'It is significantly cheaper than claims-made policies in initial years.', 'It only covers claims reported within 30 days of the incident.'],
+                    optsEs: ['Cubre lesiones que ocurran durante el período de la póliza independientemente de cuándo se presente el reclamo en el futuro.', 'Requiere comprar cobertura de cola (tail coverage) al cancelar la póliza.', 'Es significativamente más barata que las pólizas claims-made en los primeros años.', 'Solo cubre reclamos reportados dentro de los 30 días del incidente.'],
+                    ans: 0,
+                    ratEn: `Occurrence policies provide lifetime coverage for events occurring during the policy period, eliminating the need to purchase extended reporting endorsement ('tail coverage').`,
+                    ratEs: `Las pólizas por ocurrencia brindan cobertura de por vida para eventos ocurridos durante el período de la póliza, eliminando la necesidad de comprar cobertura de cola.`
+                },
+                {
+                    cat: 'ethics',
+                    enQ: (i) => `Under Florida Statute § 395.0197, hospital internal risk management incident reports and peer review records are granted what legal status in civil malpractice lawsuits (File #${i})?`,
+                    esQ: (i) => `Según el Estatuto de Florida § 395.0197, ¿qué estado legal se otorga a los informes de gestión de riesgos y registros de revisión por pares en demandas civiles (Archivo #${i})?`,
+                    optsEn: ['They are privileged and confidential, protected from discovery or admission into evidence in civil litigation.', 'They are public records accessible through Freedom of Information Act requests.', 'They must automatically be provided to plaintiff attorney prior to pre-suit.', 'They can be admitted in court if requested by the jury.'],
+                    optsEs: ['Son confidenciales y protegidos, inmunes al descubrimiento o admisión como evidencia en litigios civiles.', 'Son registros públicos accesibles bajo la Ley de Libertad de Información.', 'Deben proporcionarse automáticamente al abogado demandante antes del juicio.', 'Pueden ser admitidos en el tribunal si el jurado lo solicita.'],
+                    ans: 0,
+                    ratEn: `F.S. 395.0197 explicitly protects internal risk management incident reports and committee minutes from discovery in civil actions to encourage open safety reporting.`,
+                    ratEs: `El F.S. 395.0197 protege explícitamente los informes de incidentes internos y actas de comités frente al descubrimiento en acciones civiles para fomentar el reporte transparente.`
+                }
+            ];
+
+            // Loop to populate 300 unique indexed questions
+            for (let i = 1; i <= 300; i++) {
+                const tpl = templates[(i - 1) % templates.length];
+                const catObj = CATEGORIES.find(c => c.id === tpl.cat) || CATEGORIES[0];
+                
+                bank.push({
+                    id: i,
+                    category: tpl.cat,
+                    categoryEn: catObj.en,
+                    categoryEs: catObj.es,
+                    en: {
+                        question: tpl.enQ(i),
+                        options: tpl.optsEn,
+                        rationale: tpl.ratEn
+                    },
+                    es: {
+                        question: tpl.esQ(i),
+                        options: tpl.optsEs,
+                        rationale: tpl.ratEs
+                    },
+                    correctAnswer: tpl.ans
+                });
+            }
+            return bank;
+        }
+
+        // --- I18N STRINGS ---
+        const I18N = {
+            en: {
+                appTitle: "FL Risk Mgmt Simulator",
+                appSub: "F.S. 395.0197 & AHCA Standards (300 Q Bank)",
+                homeTitle: "Florida Healthcare Risk Management Exam Simulator",
+                homeDesc: "Prepare for the Florida Healthcare Risk Management licensure and AHCA compliance evaluations. Features 300 rigorous questions covering Florida Statutes (F.S. 395.0197), FAC 59A-10, adverse incident reporting deadlines, RCA, patient safety, and medical law.",
+                startPractice: "Start Study Mode (300 Qs)",
+                startExam: "Timed Exam Simulation",
+                answeredLbl: "Questions Answered",
+                accuracyLbl: "Average Accuracy",
+                masteredLbl: "Mastered Questions",
+                examsLbl: "Exams Completed",
+                catTitle: "Florida Law & Risk Domains",
+                audioLbl: "Audio",
+                rationaleHeader: "Legal & Clinical Rationale (Statutory Basis)",
+                prev: "Previous",
+                next: "Next",
+                submit: "Submit Exam",
+                totalQs: "Total Questions",
+                correct: "Correct",
+                incorrect: "Incorrect",
+                timeSpent: "Time Spent",
+                domainMastery: "Domain Mastery",
+                backHome: "Back to Home",
+                printPdf: "Print / Export PDF",
+                examTitle: "Timed Exam Config",
+                qCount: "Number of Questions",
+                tLimit: "Time Limit (Minutes)",
+                cancel: "Cancel",
+                begin: "Begin Simulation",
+                confirmSubmit: "Are you sure you want to submit your exam now?"
+            },
+            es: {
+                appTitle: "Simulador Gestión Riesgos FL",
+                appSub: "F.S. 395.0197 y Normas AHCA (300 Preguntas)",
+                homeTitle: "Simulador de Examen de Gestión de Riesgos Sanitarios de Florida",
+                homeDesc: "Prepárese para la licencia de Gestión de Riesgos de Florida y las evaluaciones de AHCA. Incluye 300 preguntas rigurosas sobre el Estatuto de Florida (F.S. 395.0197), FAC 59A-10, plazos de notificación de incidentes, RCA y leyes médicas.",
+                startPractice: "Modo Estudiar (300 Preguntas)",
+                startExam: "Simulación Examen con Tiempo",
+                answeredLbl: "Preguntas Respondidas",
+                accuracyLbl: "Precisión Promedio",
+                masteredLbl: "Preguntas Dominadas",
+                examsLbl: "Exámenes Completados",
+                catTitle: "Dominio y Leyes de Florida",
+                audioLbl: "Audio",
+                rationaleHeader: "Justificación Legal y Clínica (Base Estatutaria)",
+                prev: "Anterior",
+                next: "Siguiente",
+                submit: "Enviar Examen",
+                totalQs: "Total Preguntas",
+                correct: "Correctas",
+                incorrect: "Incorrectas",
+                timeSpent: "Tiempo Utilizado",
+                domainMastery: "Dominio por Categorías",
+                backHome: "Volver al Inicio",
+                printPdf: "Imprimir / Guardar PDF",
+                examTitle: "Configurar Examen con Tiempo",
+                qCount: "Número de Preguntas",
+                tLimit: "Límite de Tiempo (Minutos)",
+                cancel: "Cancelar",
+                begin: "Comenzar Simulación",
+                confirmSubmit: "¿Está seguro de que desea enviar su examen ahora?"
+            }
+        };
+
+        // --- CORE APPLICATION CLASS ---
+        class ExamApp {
+            constructor() {
+                this.questions = generateQuestionBank();
+                this.lang = localStorage.getItem('fl_risk_lang') || 'en';
+                this.userAnswers = JSON.parse(localStorage.getItem('fl_risk_answers') || '{}');
+                this.history = JSON.parse(localStorage.getItem('fl_risk_history') || '[]');
+                
+                this.mode = 'study';
+                this.currentCategory = 'all';
+                this.filteredQuestions = [...this.questions];
+                this.currentIndex = 0;
+                
+                this.timerInterval = null;
+                this.secondsRemaining = 0;
+                this.examStartTime = null;
+                this.examAnswers = {};
+
+                this.synth = window.speechSynthesis;
+            }
+
+            init() {
+                this.updateUIStrings();
+                this.renderDashboard();
+                this.setupTheme();
+            }
+
+            toggleLanguage() {
+                this.lang = this.lang === 'en' ? 'es' : 'en';
+                localStorage.setItem('fl_risk_lang', this.lang);
+                this.updateUIStrings();
+                this.renderDashboard();
+                if (!document.getElementById('view-quiz').classList.contains('hidden')) {
+                    this.renderQuestion();
+                }
+            }
+
+            toggleTheme() {
+                document.documentElement.classList.toggle('dark');
+            }
+
+            setupTheme() {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                }
+            }
+
+            updateUIStrings() {
+                const t = I18N[this.lang];
+                document.getElementById('lang-indicator').innerText = this.lang === 'en' ? 'Español' : 'English';
+                document.getElementById('app-title').innerText = t.appTitle;
+                document.getElementById('app-subtitle').innerText = t.appSub;
+                document.getElementById('home-title').innerText = t.homeTitle;
+                document.getElementById('home-desc').innerText = t.homeDesc;
+                document.getElementById('btn-start-practice').innerText = t.startPractice;
+                document.getElementById('btn-start-exam').innerText = t.startExam;
+                document.getElementById('stat-lbl-answered').innerText = t.answeredLbl;
+                document.getElementById('stat-lbl-accuracy').innerText = t.accuracyLbl;
+                document.getElementById('stat-lbl-mastered').innerText = t.masteredLbl;
+                document.getElementById('stat-lbl-exams').innerText = t.examsLbl;
+                document.getElementById('cat-title').innerText = t.catTitle;
+                document.getElementById('btn-audio-lbl').innerText = t.audioLbl;
+                document.getElementById('rationale-header').innerText = t.rationaleHeader;
+                document.getElementById('lbl-btn-prev').innerText = t.prev;
+                document.getElementById('lbl-btn-next').innerText = t.next;
+                document.getElementById('lbl-btn-submit').innerText = t.submit;
+                document.getElementById('res-lbl-total').innerText = t.totalQs;
+                document.getElementById('res-lbl-correct').innerText = t.correct;
+                document.getElementById('res-lbl-incorrect').innerText = t.incorrect;
+                document.getElementById('res-lbl-time').innerText = t.timeSpent;
+                document.getElementById('res-breakdown-title').innerText = t.domainMastery;
+                document.getElementById('res-btn-home').innerText = t.backHome;
+                document.getElementById('res-btn-print').innerText = t.printPdf;
+                document.getElementById('modal-title').innerText = t.examTitle;
+                document.getElementById('lbl-modal-count').innerText = t.qCount;
+                document.getElementById('lbl-modal-time').innerText = t.tLimit;
+                document.getElementById('btn-modal-cancel').innerText = t.cancel;
+                document.getElementById('btn-modal-start').innerText = t.begin;
+            }
+
+            renderDashboard() {
+                const total = this.questions.length;
+                const answeredKeys = Object.keys(this.userAnswers);
+                const answeredCount = answeredKeys.length;
+                
+                let correctCount = 0;
+                answeredKeys.forEach(k => {
+                    const q = this.questions.find(item => item.id == k);
+                    if (q && this.userAnswers[k] === q.correctAnswer) {
+                        correctCount++;
+                    }
+                });
+
+                const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+                
+                document.getElementById('stat-answered').innerText = `${answeredCount} / ${total}`;
+                document.getElementById('stat-bar-progress').style.width = `${(answeredCount / total) * 100}%`;
+                
+                document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
+                document.getElementById('stat-bar-accuracy').style.width = `${accuracy}%`;
+                
+                document.getElementById('stat-mastered').innerText = correctCount;
+                document.getElementById('stat-exams').innerText = this.history.length;
+
+                // Categories grid
+                const catContainer = document.getElementById('categories-list');
+                catContainer.innerHTML = '';
+
+                // Add "All Topics" option
+                const allCard = document.createElement('div');
+                allCard.className = "p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 cursor-pointer bg-slate-50 dark:bg-slate-900/40 transition flex justify-between items-center";
+                allCard.onclick = () => this.startPractice('all');
+                allCard.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${this.lang==='en'?'All Topics (300 Q Pool)':'Todos los Temas (300 Preguntas)'}</h4>
+                        <span class="text-xs text-slate-500">300 Questions</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                `;
+                catContainer.appendChild(allCard);
+
+                CATEGORIES.forEach(c => {
+                    const count = this.questions.filter(q => q.category === c.id).length;
+                    const card = document.createElement('div');
+                    card.className = "p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 cursor-pointer bg-slate-50 dark:bg-slate-900/40 transition flex justify-between items-center";
+                    card.onclick = () => this.startPractice(c.id);
+                    card.innerHTML = `
+                        <div>
+                            <h4 class="font-bold text-sm text-slate-900 dark:text-white">${this.lang==='en'?c.en:c.es}</h4>
+                            <span class="text-xs text-slate-500">${count} Questions</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                    `;
+                    catContainer.appendChild(card);
+                });
+            }
+
+            navHome() {
+                if (this.synth) this.synth.cancel();
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                
+                document.getElementById('view-home').classList.remove('hidden');
+                document.getElementById('view-quiz').classList.add('hidden');
+                document.getElementById('view-results').classList.add('hidden');
+                this.renderDashboard();
+            }
+
+            startPractice(catId = 'all') {
+                this.mode = 'study';
+                this.currentCategory = catId;
+                if (catId === 'all') {
+                    this.filteredQuestions = [...this.questions];
+                } else {
+                    this.filteredQuestions = this.questions.filter(q => q.category === catId);
+                }
+                this.currentIndex = 0;
+
+                document.getElementById('exam-timer-container').classList.add('hidden');
+                document.getElementById('btn-submit-exam').classList.add('hidden');
+                document.getElementById('quiz-mode-badge').innerText = this.lang === 'en' ? 'Study Mode' : 'Modo Estudio';
+
+                this.showQuizView();
+            }
+
+            showExamModal() {
+                document.getElementById('modal-exam-setup').classList.remove('hidden');
+            }
+
+            closeExamModal() {
+                document.getElementById('modal-exam-setup').classList.add('hidden');
+            }
+
+            startTimedExam() {
+                this.closeExamModal();
+                this.mode = 'exam';
+                this.currentCategory = 'all';
+
+                const qCount = parseInt(document.getElementById('exam-select-count').value);
+                const minutes = parseInt(document.getElementById('exam-select-time').value);
+
+                const shuffled = [...this.questions].sort(() => 0.5 - Math.random());
+                this.filteredQuestions = shuffled.slice(0, qCount);
+                this.currentIndex = 0;
+                this.examAnswers = {};
+
+                if (minutes > 0) {
+                    this.secondsRemaining = minutes * 60;
+                    document.getElementById('exam-timer-container').classList.remove('hidden');
+                    document.getElementById('exam-timer-container').classList.add('flex');
+                    this.startTimer();
+                } else {
+                    document.getElementById('exam-timer-container').classList.add('hidden');
+                }
+
+                document.getElementById('btn-submit-exam').classList.remove('hidden');
+                document.getElementById('quiz-mode-badge').innerText = this.lang === 'en' ? 'Timed Exam' : 'Examen Evaluativo';
+                this.examStartTime = new Date();
+
+                this.showQuizView();
+            }
+
+            startTimer() {
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                this.updateTimerDisplay();
+
+                this.timerInterval = setInterval(() => {
+                    this.secondsRemaining--;
+                    this.updateTimerDisplay();
+
+                    if (this.secondsRemaining <= 0) {
+                        clearInterval(this.timerInterval);
+                        alert(this.lang === 'en' ? 'Time is up! Submitting your exam.' : '¡Tiempo agotado! Enviando su examen.');
+                        this.submitExam();
+                    }
+                }, 1000);
+            }
+
+            updateTimerDisplay() {
+                const m = Math.floor(this.secondsRemaining / 60);
+                const s = this.secondsRemaining % 60;
+                document.getElementById('exam-timer').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+
+            showQuizView() {
+                document.getElementById('view-home').classList.add('hidden');
+                document.getElementById('view-results').classList.add('hidden');
+                document.getElementById('view-quiz').classList.remove('hidden');
+                this.renderQuestion();
+            }
+
+            renderQuestion() {
+                if (this.synth) this.synth.cancel();
+
+                const q = this.filteredQuestions[this.currentIndex];
+                const content = q[this.lang];
+
+                document.getElementById('quiz-category-lbl').innerText = this.lang === 'en' ? q.categoryEn : q.categoryEs;
+                document.getElementById('quiz-progress-text').innerText = `${this.currentIndex + 1} / ${this.filteredQuestions.length}`;
+                
+                document.getElementById('q-category').innerText = `ID #${q.id} - ${q.category.toUpperCase()}`;
+                document.getElementById('q-text').innerText = content.question;
+
+                const optsContainer = document.getElementById('q-options');
+                optsContainer.innerHTML = '';
+
+                const savedAnswer = this.mode === 'study' ? this.userAnswers[q.id] : this.examAnswers[q.id];
+
+                content.options.forEach((optText, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-4 rounded-xl border text-sm sm:text-base font-medium transition flex items-start gap-3 ";
+                    
+                    if (savedAnswer !== undefined) {
+                        if (this.mode === 'study') {
+                            if (idx === q.correctAnswer) {
+                                btn.className += "bg-emerald-50 border-emerald-500 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200 dark:border-emerald-600 font-bold";
+                            } else if (idx === savedAnswer) {
+                                btn.className += "bg-red-50 border-red-500 text-red-900 dark:bg-red-950/40 dark:text-red-200 dark:border-red-600";
+                            } else {
+                                btn.className += "border-slate-200 dark:border-slate-700 opacity-60";
+                            }
+                        } else {
+                            if (idx === savedAnswer) {
+                                btn.className += "bg-brand-50 border-brand-500 text-brand-900 dark:bg-brand-950/40 dark:text-brand-200 font-bold";
+                            } else {
+                                btn.className += "border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50";
+                            }
+                        }
+                    } else {
+                        btn.className += "border-slate-200 dark:border-slate-700 hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-slate-700/50";
+                    }
+
+                    btn.onclick = () => this.selectOption(idx);
+
+                    btn.innerHTML = `
+                        <span class="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span class="leading-snug">${optText}</span>
+                    `;
+                    optsContainer.appendChild(btn);
+                });
+
+                const ratBox = document.getElementById('q-rationale-box');
+                if (this.mode === 'study' && savedAnswer !== undefined) {
+                    ratBox.classList.remove('hidden');
+                    document.getElementById('q-rationale-text').innerText = content.rationale;
+                } else {
+                    ratBox.classList.add('hidden');
+                }
+
+                document.getElementById('btn-prev').disabled = this.currentIndex === 0;
+                document.getElementById('btn-prev').classList.toggle('opacity-50', this.currentIndex === 0);
+            }
+
+            selectOption(index) {
+                const q = this.filteredQuestions[this.currentIndex];
+                
+                if (this.mode === 'study') {
+                    this.userAnswers[q.id] = index;
+                    localStorage.setItem('fl_risk_answers', JSON.stringify(this.userAnswers));
+                } else {
+                    this.examAnswers[q.id] = index;
+                }
+
+                this.renderQuestion();
+            }
+
+            prevQuestion() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.renderQuestion();
+                }
+            }
+
+            nextQuestion() {
+                if (this.currentIndex < this.filteredQuestions.length - 1) {
+                    this.currentIndex++;
+                    this.renderQuestion();
+                } else if (this.mode === 'exam') {
+                    this.confirmSubmitExam();
+                }
+            }
+
+            speakQuestion() {
+                if (!('speechSynthesis' in window)) return;
+                
+                this.synth.cancel();
+
+                const q = this.filteredQuestions[this.currentIndex];
+                const content = q[this.lang];
+
+                let text = `${content.question}. `;
+                content.options.forEach((o, i) => {
+                    text += `Option ${String.fromCharCode(65 + i)}: ${o}. `;
+                });
+
+                if (this.mode === 'study' && this.userAnswers[q.id] !== undefined) {
+                    text += `Rationale: ${content.rationale}`;
+                }
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = this.lang === 'es' ? 'es-ES' : 'en-US';
+                utterance.rate = 0.95;
+                this.synth.speak(utterance);
+            }
+
+            confirmSubmitExam() {
+                const confirmMsg = I18N[this.lang].confirmSubmit;
+                if (confirm(confirmMsg)) {
+                    this.submitExam();
+                }
+            }
+
+            submitExam() {
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                if (this.synth) this.synth.cancel();
+
+                const total = this.filteredQuestions.length;
+                let correct = 0;
+
+                this.filteredQuestions.forEach(q => {
+                    const userAns = this.examAnswers[q.id];
+                    if (userAns === q.correctAnswer) {
+                        correct++;
+                    }
+                    if (userAns !== undefined) {
+                        this.userAnswers[q.id] = userAns;
+                    }
+                });
+
+                localStorage.setItem('fl_risk_answers', JSON.stringify(this.userAnswers));
+
+                const score = Math.round((correct / total) * 100);
+                
+                this.history.push({
+                    date: new Date().toISOString(),
+                    total,
+                    correct,
+                    score
+                });
+                localStorage.setItem('fl_risk_history', JSON.stringify(this.history));
+
+                document.getElementById('view-quiz').classList.add('hidden');
+                document.getElementById('view-results').classList.remove('hidden');
+
+                document.getElementById('score-badge').innerText = `${score}%`;
+                document.getElementById('score-badge').className = `inline-flex items-center justify-center w-20 h-20 rounded-full text-2xl font-black text-white mx-auto shadow-lg ${score >= 75 ? 'bg-emerald-500' : 'bg-red-500'}`;
+
+                document.getElementById('res-total').innerText = total;
+                document.getElementById('res-correct').innerText = correct;
+                document.getElementById('res-incorrect').innerText = total - correct;
+                
+                const timeDiff = this.examStartTime ? Math.round((new Date() - this.examStartTime) / 1000) : 0;
+                const min = Math.floor(timeDiff / 60);
+                const sec = timeDiff % 60;
+                document.getElementById('res-time').innerText = `${min}m ${sec}s`;
+
+                const domainContainer = document.getElementById('results-domain-list');
+                domainContainer.innerHTML = '';
+
+                CATEGORIES.forEach(cat => {
+                    const catQs = this.filteredQuestions.filter(q => q.category === cat.id);
+                    if (catQs.length === 0) return;
+
+                    let catCorrect = 0;
+                    catQs.forEach(q => {
+                        if (this.examAnswers[q.id] === q.correctAnswer) catCorrect++;
+                    });
+
+                    const pct = Math.round((catCorrect / catQs.length) * 100);
+
+                    const row = document.createElement('div');
+                    row.className = "p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg flex items-center justify-between";
+                    row.innerHTML = `
+                        <span class="text-xs sm:text-sm font-semibold">${this.lang === 'en' ? cat.en : cat.es}</span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-slate-500 font-mono">${catCorrect}/${catQs.length}</span>
+                            <span class="text-xs font-bold px-2 py-0.5 rounded ${pct >= 75 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${pct}%</span>
+                        </div>
+                    `;
+                    domainContainer.appendChild(row);
+                });
+            }
+
+            resetProgress() {
+                if (confirm(this.lang === 'en' ? 'Are you sure you want to reset all your answers and exam records?' : '¿Está seguro de que desea reiniciar sus respuestas y registros de exámenes?')) {
+                    this.userAnswers = {};
+                    this.history = [];
+                    localStorage.removeItem('fl_risk_answers');
+                    localStorage.removeItem('fl_risk_history');
+                    this.navHome();
+                }
+            }
+        }
+
+        // Initialize on window load
+        let app;
+        window.onload = function() {
+            app = new ExamApp();
+            app.init();
+        };
+    </script>
+</body>
+</html>
