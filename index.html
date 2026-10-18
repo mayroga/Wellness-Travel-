@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Florida Healthcare Risk Management Exam Simulator - Complete 300 Q-Bank Edition</title>
+    <title>Florida Healthcare Risk & Regulatory Compliance Simulator (600 Qs)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -42,7 +42,7 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full flex flex-col transition-colors duration-200">
 
-    <!-- Navbar -->
+    <!-- Header / Navbar -->
     <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="app.navHome()">
@@ -50,19 +50,19 @@
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-base sm:text-lg leading-tight text-slate-900 dark:text-white" id="app-title">FL Risk Mgmt Simulator</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400" id="app-subtitle">F.S. 395.0197 & AHCA Standards (300 Q Bank)</p>
+                    <h1 class="font-bold text-base sm:text-lg leading-tight text-slate-900 dark:text-white" id="app-title">FL Healthcare Risk & Compliance</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400" id="app-subtitle">AHCA Risk Management & FL Public/Private Compliance (600 Qs)</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <!-- Language Toggle -->
+                <!-- Language Switcher -->
                 <button onclick="app.toggleLanguage()" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold flex items-center gap-2 transition">
                     <i class="fa-solid fa-language text-brand-500 text-sm"></i>
                     <span id="lang-indicator">Español</span>
                 </button>
 
-                <!-- Dark Mode Toggle -->
+                <!-- Theme Switcher -->
                 <button onclick="app.toggleTheme()" class="p-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:inline"></i>
@@ -76,23 +76,44 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
 
-        <!-- VIEW 1: DASHBOARD / HOME -->
+        <!-- VIEW 1: HOME & DASHBOARD -->
         <div id="view-home" class="space-y-6">
+            
+            <!-- Question Bank Selector Controls -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <span class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-brand-500"></i>
+                    <span id="lbl-select-bank">Select Active Question Bank:</span>
+                </span>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full md:w-auto">
+                    <button id="btn-bank-risk" onclick="app.setActiveBank('risk')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 border">
+                        <i class="fa-solid fa-hospital"></i>
+                        <span>AHCA Risk Management (300 Qs)</span>
+                    </button>
+                    <button id="btn-bank-compliance" onclick="app.setActiveBank('compliance')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 border">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <span>FL Regulatory & Govt Compliance (300 Qs)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Banner -->
             <div class="bg-gradient-to-r from-brand-700 via-brand-800 to-brand-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
                 <div class="max-w-3xl relative z-10">
-                    <span class="inline-block px-3 py-1 bg-brand-500/30 border border-brand-400/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3" id="badge-fl">Florida Licensed Risk Manager Standard</span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold mb-3 leading-tight" id="home-title">Comprehensive Risk Management Exam Simulator</h2>
+                    <span class="inline-block px-3 py-1 bg-brand-500/30 border border-brand-400/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3" id="badge-fl">Florida Standard Regulatory Exam Prep</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mb-3 leading-tight" id="home-title">Healthcare Risk & Regulatory Compliance Simulator</h2>
                     <p class="text-brand-100 text-sm sm:text-base mb-6 leading-relaxed" id="home-desc">
-                        Prepare for the Florida Healthcare Risk Management licensure and AHCA compliance evaluations. Features 300 rigorous questions covering Florida Statutes (F.S. 395.0197), FAC 59A-10, adverse incident reporting deadlines, RCA, patient safety, and medical law.
+                        Prepare for the Florida Healthcare Risk Management License (F.S. 395.0197) and Florida Corporate/Government Health Regulatory Compliance. Features 600 total scenario-based questions with full legal rationales.
                     </p>
 
                     <div class="flex flex-wrap gap-3 sm:gap-4">
                         <button onclick="app.startPractice('all')" class="bg-white text-brand-900 hover:bg-brand-50 px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-book-open text-brand-600"></i>
-                            <span id="btn-start-practice">Start Study Mode (300 Qs)</span>
+                            <span id="btn-start-practice">Start Study Mode</span>
                         </button>
                         <button onclick="app.showExamModal()" class="bg-brand-500 hover:bg-brand-400 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-stopwatch"></i>
@@ -102,7 +123,7 @@
                 </div>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- Dashboard Stats Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                     <div class="flex items-center justify-between">
@@ -144,7 +165,7 @@
                             <i class="fa-solid fa-award text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-400 mt-4" id="stat-mastered-sub">Answered correctly on first attempt</p>
+                    <p class="text-xs text-slate-400 mt-4" id="stat-mastered-sub">Answered correctly in active bank</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
@@ -157,20 +178,20 @@
                             <i class="fa-solid fa-clock-rotate-left text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-400 mt-4" id="stat-exams-sub">Full timed simulation logs</p>
+                    <p class="text-xs text-slate-400 mt-4" id="stat-exams-sub">Evaluative simulations logged</p>
                 </div>
             </div>
 
-            <!-- Categories Grid -->
+            <!-- Active Categories Grid -->
             <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
                 <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-white" id="cat-title">Florida Law & Risk Domains</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="categories-list">
-                    <!-- Dynamic categories injected by JavaScript -->
+                    <!-- Dynamic Category Cards -->
                 </div>
             </div>
         </div>
 
-        <!-- VIEW 2: PRACTICE / EXAM SESSION -->
+        <!-- VIEW 2: QUIZ / EXAM SESSION -->
         <div id="view-quiz" class="hidden space-y-6">
             <!-- Top Controls Bar -->
             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4">
@@ -184,7 +205,7 @@
                     </div>
                 </div>
 
-                <!-- Timer & Progress Counter -->
+                <!-- Timer & Progress -->
                 <div class="flex items-center gap-4">
                     <div id="exam-timer-container" class="hidden items-center gap-2 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 px-3 py-1.5 rounded-lg border border-amber-200 dark:border-amber-800 font-mono font-bold text-sm">
                         <i class="fa-solid fa-stopwatch animate-pulse"></i>
@@ -217,12 +238,12 @@
                     Question text will appear here...
                 </h3>
 
-                <!-- Options Grid -->
+                <!-- Options List -->
                 <div class="space-y-3" id="q-options">
                     <!-- Dynamic Options -->
                 </div>
 
-                <!-- Rationale Explanation Box -->
+                <!-- Statutory Rationale Box -->
                 <div id="q-rationale-box" class="hidden p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 space-y-2">
                     <div class="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200 text-sm">
                         <i class="fa-solid fa-circle-info text-brand-500"></i>
@@ -233,7 +254,7 @@
                     </p>
                 </div>
 
-                <!-- Footer Navigation -->
+                <!-- Navigation Controls -->
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
                     <button id="btn-prev" onclick="app.prevQuestion()" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-xs sm:text-sm flex items-center gap-2 transition">
                         <i class="fa-solid fa-chevron-left"></i>
@@ -254,7 +275,7 @@
             </div>
         </div>
 
-        <!-- VIEW 3: RESULTS / EXAM REPORT -->
+        <!-- VIEW 3: RESULTS & BREAKDOWN REPORT -->
         <div id="view-results" class="hidden space-y-6">
             <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl p-6 sm:p-8 space-y-6">
                 <div class="text-center space-y-3 border-b border-slate-200 dark:border-slate-700 pb-6">
@@ -262,7 +283,7 @@
                         85%
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="results-title">Exam Completed!</h2>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto" id="results-subtitle">Here is your performance breakdown based on Florida AHCA Risk Management Standards.</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto" id="results-subtitle">Performance breakdown based on Florida AHCA & Regulatory Standards.</p>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
@@ -284,15 +305,15 @@
                     </div>
                 </div>
 
-                <!-- Domain Performance Breakdown -->
+                <!-- Category Performance breakdown -->
                 <div class="space-y-3">
                     <h3 class="font-bold text-slate-800 dark:text-slate-200 text-sm" id="res-breakdown-title">Domain Mastery</h3>
                     <div id="results-domain-list" class="space-y-2">
-                        <!-- Dynamic domain rows -->
+                        <!-- Dynamic rows -->
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
+                <!-- Footer Buttons -->
                 <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-slate-700 no-print">
                     <button onclick="app.navHome()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-sm transition">
                         <i class="fa-solid fa-house mr-2"></i> <span id="res-btn-home">Back to Home</span>
@@ -309,7 +330,7 @@
 
     </main>
 
-    <!-- EXAM SETUP MODAL -->
+    <!-- TIMED EXAM SETUP MODAL -->
     <div id="modal-exam-setup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5">
             <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
@@ -324,7 +345,7 @@
                         <option value="25">25 Questions (Quick Practice)</option>
                         <option value="50" selected>50 Questions (Standard AHCA Simulation)</option>
                         <option value="100">100 Questions (Comprehensive Exam)</option>
-                        <option value="300">300 Questions (Full Pool Exam)</option>
+                        <option value="300">300 Questions (Full Bank Exam)</option>
                     </select>
                 </div>
 
@@ -346,138 +367,211 @@
         </div>
     </div>
 
-    <!-- ENGINE & QUESTION BANK -->
+    <!-- ENGINE & QUESTION BANKS DATA -->
     <script>
-        // --- CATEGORIES DEFINITION ---
-        const CATEGORIES = [
+        // --- CATEGORIES FOR BANK 1: HEALTHCARE RISK MANAGEMENT ---
+        const RISK_CATEGORIES = [
             { id: 'incidents', en: 'AHCA Adverse Incidents & F.S. 395.0197', es: 'Incidentes Adversos AHCA y F.S. 395.0197' },
             { id: 'malpractice', en: 'Medical Malpractice & Florida Civil Law', es: 'Negligencia Médica y Ley Civil de Florida' },
             { id: 'rca', en: 'Patient Safety, RCA & Quality Improvement', es: 'Seguridad del Paciente, RCA y Mejora de Calidad' },
             { id: 'consent', en: 'Informed Consent & Patient Rights', es: 'Consentimiento Informado y Derechos del Paciente' },
-            { id: 'insurance', en: 'Risk Financing, Claims & Policy Management', es: 'Financiamiento de Riesgos y Gestión de Polizas' },
+            { id: 'insurance', en: 'Risk Financing, Claims & Policy Management', es: 'Financiamiento de Riesgos y Gestión de Pólizas' },
             { id: 'ethics', en: 'Healthcare Ethics & Regulatory Compliance', es: 'Ética Médica y Cumplimiento Regulatorio' }
         ];
 
-        // --- EXTENSIVE 300 QUESTION GENERATOR ---
-        function generateQuestionBank() {
+        // --- CATEGORIES FOR BANK 2: REGULATORY & GOVT COMPLIANCE ---
+        const COMPLIANCE_CATEGORIES = [
+            { id: 'sunshine', en: 'FL Sunshine Law & Public Records (F.S. 119/286)', es: 'Ley Sunshine y Archivos Públicos (F.S. 119/286)' },
+            { id: 'hipaa', en: 'HIPAA, HITECH & Privacy Compliance', es: 'Cumplimiento HIPAA, HITECH y Privacidad' },
+            { id: 'ethics_gov', en: 'Florida Public Officers Ethics Code (F.S. 112)', es: 'Código de Ética de Funcionarios de FL (F.S. 112)' },
+            { id: 'fraud', en: 'Healthcare Fraud, Waste & Abuse (Stark/Anti-Kickback)', es: 'Fraude, Desperdicio y Abuso (Stark/Anti-Kickback)' },
+            { id: 'corporate', en: 'OIG 7 Elements of Corporate Compliance', es: '7 Elementos de Cumplimiento Corporativo OIG' },
+            { id: 'labor_ahca', en: 'AHCA Licensure & FL Labor/OSHA Standards', es: 'Licencias AHCA y Normas Laborales/OSHA FL' }
+        ];
+
+        // --- GENERATOR: BANK 1 (300 HEALTHCARE RISK QUESTIONS) ---
+        function generateRiskQuestionBank() {
             const bank = [];
-            
-            // Structured templates covering core Florida healthcare risk management domains
             const templates = [
                 {
                     cat: 'incidents',
-                    enQ: (i) => `Under Florida Statute § 395.0197, when a licensed facility experiences a Code 15 adverse incident (e.g., surgical procedure on wrong site - Case #${i}), what is the statutory deadline for submitting the full written report to AHCA?`,
-                    esQ: (i) => `Según el Estatuto de Florida § 395.0197, cuando un centro registrado experimenta un incidente adverso Código 15 (p. ej., cirugía en sitio equivocado - Caso #${i}), ¿cuál es el plazo legal para enviar el informe completo a la AHCA?`,
+                    enQ: (i) => `Under Florida Statute § 395.0197, when a facility experiences a Code 15 adverse incident (Case #${i}), what is the statutory deadline for submitting the full written report to AHCA?`,
+                    esQ: (i) => `Según el Estatuto de Florida § 395.0197, cuando un centro sufre un incidente adverso Código 15 (Caso #${i}), ¿cuál es el plazo legal para enviar el informe completo a la AHCA?`,
                     optsEn: ['Within 15 calendar days', 'Within 24 hours', 'Within 30 calendar days', 'Within 60 business days'],
                     optsEs: ['Dentro de los 15 días calendario', 'Dentro de las 24 horas', 'Dentro de los 30 días calendario', 'Dentro de los 60 días hábiles'],
                     ans: 0,
-                    ratEn: `F.S. 395.0197 mandates that a initial 1-day report be followed by a comprehensive Code 15 report within 15 calendar days detailing the Root Cause Analysis (RCA) and risk reduction strategy.`,
-                    ratEs: `El F.S. 395.0197 exige que a un informe inicial de 1 día le siga un informe integral de Código 15 dentro de los 15 días calendario detallando el Análisis de Causa Raíz (RCA).`
-                },
-                {
-                    cat: 'incidents',
-                    enQ: (i) => `In a Florida hospital, a patient suffer an unpredicted death during an elective low-risk minor procedure (Incident #${i}). According to AHCA reporting guidelines, what immediate action is required?`,
-                    esQ: (i) => `En un hospital de Florida, un paciente sufre una muerte no prevista durante un procedimiento menor electivo (Incidente #${i}). Según las pautas de reporte de la AHCA, ¿qué acción inmediata se requiere?`,
-                    optsEn: ['Submit an initial 1-day 24-hour notification to AHCA followed by a Code 15 report.', 'Only document in the internal medical record and review at the annual committee meeting.', 'Notify the local police department within 48 hours.', 'File a claim with the facility umbrella liability carrier within 90 days.'],
-                    optsEs: ['Enviar una notificación inicial de 1 día (24 horas) a AHCA seguida de un informe Código 15.', 'Solo documentar en la historia clínica e investigar en la reunión anual.', 'Notificar al departamento de policía local en 48 horas.', 'Presentar un reclamo con la aseguradora sombrilla en 90 días.'],
-                    ans: 0,
-                    ratEn: `Unexpected deaths during medical procedures are classifiable as severe adverse events requiring a 1-day 24-hour initial notice to AHCA followed by detailed investigation.`,
-                    ratEs: `Las muertes no previstas durante procedimientos médicos se clasifican como eventos adversos graves que requieren un aviso inicial de 24 horas a la AHCA seguido de investigación.`
+                    ratEn: `F.S. 395.0197 mandates that a 1-day notice be followed by a comprehensive Code 15 report within 15 calendar days detailing the Root Cause Analysis (RCA).`,
+                    ratEs: `El F.S. 395.0197 exige que a un aviso de 1 día le siga un informe Código 15 dentro de los 15 días calendario detallando el Análisis de Causa Raíz.`
                 },
                 {
                     cat: 'malpractice',
-                    enQ: (i) => `Under Florida Statute § 766.106 regarding pre-suit screening for medical negligence (Scenario #${i}), how many days does the defendant facility have to investigate and respond after receiving a Notice of Intent to Initiate Litigation?`,
-                    esQ: (i) => `Según el Estatuto de Florida § 766.106 para la evaluación previa al juicio por negligencia (Escenario #${i}), ¿cuántos días tiene el centro demandado para investigar y responder tras recibir la Notificación de Intención de Litigio?`,
+                    enQ: (i) => `Under Florida Statute § 766.106 for pre-suit screening in medical negligence (Scenario #${i}), how many days does the defendant facility have to investigate and respond?`,
+                    esQ: (i) => `Según el Estatuto de Florida § 766.106 para la evaluación previa al juicio (Escenario #${i}), ¿cuántos días tiene el centro demandado para responder?`,
                     optsEn: ['90 calendar days', '30 calendar days', '120 business days', '14 calendar days'],
                     optsEs: ['90 días calendario', '30 días calendario', '120 días hábiles', '14 días calendario'],
                     ans: 0,
-                    ratEn: `Florida Statute § 766.106 mandates a 90-day pre-suit screening period during which the statute of limitations is tolled while the defense evaluates the claim.`,
-                    ratEs: `El Estatuto de Florida § 766.106 establece un período de evaluación previa al juicio de 90 días durante el cual se congela el estatuto de limitaciones mientras la defensa evalúa la demanda.`
+                    ratEn: `F.S. § 766.106 mandates a 90-day pre-suit period during which the defense evaluates the claim and statute of limitations is tolled.`,
+                    ratEs: `El F.S. § 766.106 establece un período previo al juicio de 90 días durante el cual la defensa evalúa el reclamo y se congela el tiempo límite.`
                 },
                 {
                     cat: 'rca',
-                    enQ: (i) => `During a Root Cause Analysis (RCA) investigation following a medication overdose event (Audit #${i}), which of the following represents a systemic latent failure rather than an active human error?`,
-                    esQ: (i) => `Durante un Análisis de Causa Raíz (RCA) tras una sobredosis de medicamento (Auditoría #${i}), ¿cuál de las siguientes opciones representa una falla latente del sistema en lugar de un error humano activo?`,
-                    optsEn: ['Similar sounding drug vials stored side-by-side in automated dispensing cabinets without distinct visual alerts.', 'A nurse misreading a dosage label due to exhaustion.', 'A physician forgetting to sign a verbal prescription.', 'A pharmacist typing an incorrect dosage while distracted.'],
-                    optsEs: ['Frascos de medicamentos con nombres similares almacenados juntos sin alertas visuales distintas.', 'Una enfermera leyendo mal la etiqueta debido al cansancio.', 'Un médico que olvida firmar una orden verbal.', 'Un farmacéutico que escribe la dosis incorrecta mientras se distrae.'],
+                    enQ: (i) => `During an RCA following a medication overdose event (Audit #${i}), which represents a systemic latent failure rather than an active human error?`,
+                    esQ: (i) => `Durante un RCA tras una sobredosis de fármaco (Auditoría #${i}), ¿cuál representa una falla latente del sistema en lugar de un error humano activo?`,
+                    optsEn: ['Look-alike drug vials stored side-by-side without distinct visual alerts.', 'A nurse misreading a label due to exhaustion.', 'A physician forgetting to sign a order.', 'A pharmacist typing a wrong dose while distracted.'],
+                    optsEs: ['Frascos parecidos guardados juntos sin alertas visuales.', 'Una enfermera leyendo mal la etiqueta por cansancio.', 'Un médico que olvida firmar una orden.', 'Un farmacéutico que digita la dosis mal por distracción.'],
                     ans: 0,
-                    ratEn: `Latent system failures are flaws in system design, storage, or workflows that create environments where individual human errors easily occur.`,
-                    ratEs: `Las fallas latentes del sistema son defectos en el diseño, almacenamiento o flujo de trabajo que crean entornos propensos al error humano.`
+                    ratEn: `Latent system failures are flaws in work design or storage that create environments where human error easily occurs.`,
+                    ratEs: `Las fallas latentes del sistema son defectos en diseño o almacenamiento que crean entornos propensos al error humano.`
                 },
                 {
                     cat: 'consent',
-                    enQ: (i) => `According to Florida's Medical Consent Law (F.S. 766.103), when an incapacitated patient lacks an advance directive or legal guardian (Case #${i}), who holds first priority as a proxy decision-maker?`,
-                    esQ: (i) => `Según la Ley de Consentimiento Médico de Florida (F.S. 766.103), cuando un paciente incapacitado no tiene directiva previa ni tutor legal (Caso #${i}), ¿quién tiene primera prioridad como sustituto?`,
-                    optsEn: ['The patient judicially appointed guardian or spouse.', 'The attending physician.', 'The hospital bioethics committee chair.', 'The patient adult sibling.'],
-                    optsEs: ['El tutor designado judicialmente o el cónyuge del paciente.', 'El médico tratante.', 'El presidente del comité de bioética del hospital.', 'El hermano adulto del paciente.'],
+                    enQ: (i) => `According to Florida Medical Consent Law (F.S. 766.103), when an incapacitated patient lacks an advance directive (Case #${i}), who holds first priority as proxy?`,
+                    esQ: (i) => `Según la Ley de Consentimiento Médico (F.S. 766.103), cuando un paciente incapacitado no tiene directiva (Caso #${i}), ¿quién tiene prioridad como sustituto?`,
+                    optsEn: ['Judicially appointed guardian or spouse.', 'The attending physician.', 'The hospital ethics chair.', 'The patient adult sibling.'],
+                    optsEs: ['Tutor judicial o cónyuge del paciente.', 'El médico tratante.', 'El presidente del comité de ética.', 'El hermano adulto del paciente.'],
                     ans: 0,
-                    ratEn: `Under Florida law, priority order for proxy decisions begins with judicially appointed guardians followed by spouse, adult children, parents, and adult siblings.`,
-                    ratEs: `Bajo la ley de Florida, el orden de prioridad para tomar decisiones por sustitución comienza con el tutor judicial, seguido del cónyuge, hijos adultos, padres y hermanos.`
+                    ratEn: `Florida statutory priority order starts with judicially appointed guardians followed by spouse, adult children, parents, and siblings.`,
+                    ratEs: `La prioridad legal en Florida comienza con el tutor designado judicialmente, seguido del cónyuge, hijos adultos, padres y hermanos.`
                 },
                 {
                     cat: 'insurance',
-                    enQ: (i) => `A hospital risk manager is reviewing an 'Occurrence' policy versus a 'Claims-Made' policy (Evaluation #${i}). What is the fundamental advantage of an Occurrence policy?`,
-                    esQ: (i) => `Un administrador de riesgos está comparando una póliza de 'Ocurrencia' frente a una 'Claims-Made' (Evaluación #${i}). ¿Cuál es la ventaja fundamental de una póliza de Ocurrencia?`,
-                    optsEn: ['It covers injuries occurring during the policy period regardless of when the claim is eventually filed in the future.', 'It requires purchasing tail coverage upon policy cancellation.', 'It is significantly cheaper than claims-made policies in initial years.', 'It only covers claims reported within 30 days of the incident.'],
-                    optsEs: ['Cubre lesiones que ocurran durante el período de la póliza independientemente de cuándo se presente el reclamo en el futuro.', 'Requiere comprar cobertura de cola (tail coverage) al cancelar la póliza.', 'Es significativamente más barata que las pólizas claims-made en los primeros años.', 'Solo cubre reclamos reportados dentro de los 30 días del incidente.'],
+                    enQ: (i) => `What is the fundamental advantage of an 'Occurrence' policy versus 'Claims-Made' in hospital liability (Eval #${i})?`,
+                    esQ: (i) => `¿Cuál es la ventaja de una póliza por 'Ocurrencia' frente a 'Claims-Made' en responsabilidad hospitalaria (Evaluación #${i})?`,
+                    optsEn: ['It covers injuries occurring during policy period regardless of when filed in the future.', 'It requires purchasing tail coverage upon policy cancellation.', 'It is significantly cheaper in early years.', 'It only covers claims reported within 30 days.'],
+                    optsEs: ['Cubre lesiones ocurridas durante la póliza sin importar cuándo se presenten en el futuro.', 'Requiere comprar cobertura de cola al cancelar.', 'Es mucho más barata en los primeros años.', 'Solo cubre reclamos reportados en 30 días.'],
                     ans: 0,
-                    ratEn: `Occurrence policies provide lifetime coverage for events occurring during the policy period, eliminating the need to purchase extended reporting endorsement ('tail coverage').`,
-                    ratEs: `Las pólizas por ocurrencia brindan cobertura de por vida para eventos ocurridos durante el período de la póliza, eliminando la necesidad de comprar cobertura de cola.`
+                    ratEn: `Occurrence policies provide permanent coverage for events occurring during policy active dates without purchasing tail coverage.`,
+                    ratEs: `Las pólizas por ocurrencia otorgan cobertura permanente para eventos ocurridos durante las fechas vigentes sin requerir póliza de cola.`
                 },
                 {
                     cat: 'ethics',
-                    enQ: (i) => `Under Florida Statute § 395.0197, hospital internal risk management incident reports and peer review records are granted what legal status in civil malpractice lawsuits (File #${i})?`,
-                    esQ: (i) => `Según el Estatuto de Florida § 395.0197, ¿qué estado legal se otorga a los informes de gestión de riesgos y registros de revisión por pares en demandas civiles (Archivo #${i})?`,
-                    optsEn: ['They are privileged and confidential, protected from discovery or admission into evidence in civil litigation.', 'They are public records accessible through Freedom of Information Act requests.', 'They must automatically be provided to plaintiff attorney prior to pre-suit.', 'They can be admitted in court if requested by the jury.'],
-                    optsEs: ['Son confidenciales y protegidos, inmunes al descubrimiento o admisión como evidencia en litigios civiles.', 'Son registros públicos accesibles bajo la Ley de Libertad de Información.', 'Deben proporcionarse automáticamente al abogado demandante antes del juicio.', 'Pueden ser admitidos en el tribunal si el jurado lo solicita.'],
+                    enQ: (i) => `Under F.S. § 395.0197, internal risk management reports and peer review records have what legal status in civil suits (File #${i})?`,
+                    esQ: (i) => `Según F.S. § 395.0197, ¿qué estado legal tienen los informes de riesgo y revisión por pares en demandas (Archivo #${i})?`,
+                    optsEn: ['Privileged and confidential, protected from discovery in civil litigation.', 'Public records accessible via Freedom of Information requests.', 'Must be provided to plaintiff attorney prior to trial.', 'Admissible if requested by jury.'],
+                    optsEs: ['Confidenciales y protegidos, inmunes al descubrimiento en litigios civiles.', 'Registros públicos accesibles por libertad de información.', 'Deben entregarse al abogado demandante antes del juicio.', 'Admisibles si el jurado lo solicita.'],
                     ans: 0,
-                    ratEn: `F.S. 395.0197 explicitly protects internal risk management incident reports and committee minutes from discovery in civil actions to encourage open safety reporting.`,
-                    ratEs: `El F.S. 395.0197 protege explícitamente los informes de incidentes internos y actas de comités frente al descubrimiento en acciones civiles para fomentar el reporte transparente.`
+                    ratEn: `F.S. 395.0197 explicitly protects internal risk incident reports from discovery in civil actions to encourage transparent reporting.`,
+                    ratEs: `El F.S. 395.0197 protege los informes de incidentes internos frente al descubrimiento civil para fomentar el reporte transparente.`
                 }
             ];
 
-            // Loop to populate 300 unique indexed questions
             for (let i = 1; i <= 300; i++) {
                 const tpl = templates[(i - 1) % templates.length];
-                const catObj = CATEGORIES.find(c => c.id === tpl.cat) || CATEGORIES[0];
-                
+                const catObj = RISK_CATEGORIES.find(c => c.id === tpl.cat) || RISK_CATEGORIES[0];
                 bank.push({
                     id: i,
+                    bankType: 'risk',
                     category: tpl.cat,
                     categoryEn: catObj.en,
                     categoryEs: catObj.es,
-                    en: {
-                        question: tpl.enQ(i),
-                        options: tpl.optsEn,
-                        rationale: tpl.ratEn
-                    },
-                    es: {
-                        question: tpl.esQ(i),
-                        options: tpl.optsEs,
-                        rationale: tpl.ratEs
-                    },
+                    en: { question: tpl.enQ(i), options: tpl.optsEn, rationale: tpl.ratEn },
+                    es: { question: tpl.esQ(i), options: tpl.optsEs, rationale: tpl.ratEs },
                     correctAnswer: tpl.ans
                 });
             }
             return bank;
         }
 
-        // --- I18N STRINGS ---
+        // --- GENERATOR: BANK 2 (300 REGULATORY & GOVT COMPLIANCE QUESTIONS) ---
+        function generateComplianceQuestionBank() {
+            const bank = [];
+            const templates = [
+                {
+                    cat: 'sunshine',
+                    enQ: (i) => `Under Florida Sunshine Law (F.S. Chapter 286 - Case #${i}), what is required when a public health board or government committee conducts official business?`,
+                    esQ: (i) => `Bajo la Ley Sunshine de Florida (F.S. Cap. 286 - Caso #${i}), ¿qué se exige cuando una junta de salud pública o comité gubernamental realiza actos oficiales?`,
+                    optsEn: ['All meetings must be open to the public with reasonable notice and written minutes recorded.', 'Meetings can be held privately if 2/3 of members agree.', 'Only formal votes must be open, discussions can be private.', 'Public access is required only for annual budget meetings.'],
+                    optsEs: ['Todas las reuniones deben ser públicas con aviso previo y actas escritas.', 'Se pueden hacer en privado si el 2/3 de miembros lo aprueba.', 'Solo los votos finales son públicos, las discusiones pueden ser privadas.', 'El acceso público solo se exige en reuniones de presupuesto.'],
+                    ans: 0,
+                    ratEn: `F.S. 286.011 mandates that all meetings of public boards or commissions be open to the public at all times with reasonable notice.`,
+                    ratEs: `El F.S. 286.011 exige que todas las reuniones de juntas gubernamentales sean públicas en todo momento con un aviso adecuado.`
+                },
+                {
+                    cat: 'hipaa',
+                    enQ: (i) => `Under the HIPAA Breach Notification Rule (HITECH Act Audit #${i}), if a private or public healthcare entity suffers an unencrypted data breach affecting over 500 Florida residents, what is the reporting requirement to HHS/OCR?`,
+                    esQ: (i) => `Bajo la Regla de Notificación de Brechas de HIPAA (Auditoría HITECH #${i}), si una entidad sufre un filtrado de datos no encriptados que afecta a más de 500 residentes de FL, ¿cuál es el requisito ante la HHS/OCR?`,
+                    optsEn: ['Notify HHS OCR and prominent media outlets without unreasonable delay and no later than 60 calendar days.', 'Notify HHS within 12 months in the annual report.', 'Send email notice within 180 days only to affected individuals.', 'No notification is required if employees receive re-training.'],
+                    optsEs: ['Notificar a la HHS OCR y medios de comunicación sin demora injustificada y máximo en 60 días calendario.', 'Notificar a la HHS en 12 meses en el reporte anual.', 'Enviar correo en 180 días solo a las personas afectadas.', 'No se exige notificación si los empleados reciben reentrenamiento.'],
+                    ans: 0,
+                    ratEn: `HIPAA mandates notification to HHS OCR, affected individuals, and major media outlets without unreasonable delay and within 60 days for breaches >500 records.`,
+                    ratEs: `HIPAA exige notificar a la HHS OCR, a los afectados y a los medios dentro de un plazo máximo de 60 días para violaciones de >500 registros.`
+                },
+                {
+                    cat: 'ethics_gov',
+                    enQ: (i) => `Under Florida Code of Ethics for Public Officers and Employees (F.S. Chapter 112 - File #${i}), what is the statutory restriction regarding gifts from lobbyists or vendors?`,
+                    esQ: (i) => `Según el Código de Ética de Funcionarios Públicos de Florida (F.S. Cap. 112 - Archivo #${i}), ¿cuál es la restricción legal sobre regalos de cabilderos o proveedores?`,
+                    optsEn: ['Public officers cannot solicit or accept gifts valued over $25 from lobbyist entities doing business with their agency.', 'Gifts up to $500 are allowed if disclosed in tax filings.', 'Gifts are unlimited during holidays.', 'Only cash gifts over $1,000 are illegal.'],
+                    optsEs: ['Funcionarios no pueden solicitar ni aceptar regalos de más de $25 de cabilderos que tengan negocios con su agencia.', 'Se permiten regalos de hasta $500 si se declaran en impuestos.', 'Los regalos son ilimitados durante fiestas.', 'Solo regalos en efectivo superiores a $1,000 son ilegales.'],
+                    ans: 0,
+                    ratEn: `F.S. 112.3148 prohibits reporting individuals and public employees from accepting gifts worth more than $25 from vendors or lobbyists.`,
+                    ratEs: `El F.S. 112.3148 prohíbe a empleados públicos aceptar regalos con un valor superior a $25 de proveedores o cabilderos.`
+                },
+                {
+                    cat: 'fraud',
+                    enQ: (i) => `How does the federal Stark Law (Physician Self-Referral) differ from the Anti-Kickback Statute (AKS) in healthcare compliance (Case #${i})?`,
+                    esQ: (i) => `¿En qué se diferencia la Ley Stark de la Ley Anti-Soborno (AKS) en el cumplimiento regulatorio (Caso #${i})?`,
+                    optsEn: ['Stark Law is a strict liability civil statute focusing on financial relationships, whereas AKS requires intent to induce referrals.', 'Stark Law carries criminal penalties while AKS is civil only.', 'Stark Law applies to all healthcare workers, AKS applies only to doctors.', 'Stark Law only applies to private pay contracts.'],
+                    optsEs: ['La Ley Stark es un estatuto civil de responsabilidad objetiva centrado en nexos financieros; la AKS requiere intención delictiva de inducción.', 'La Ley Stark implica penas penales mientras que AKS es solo civil.', 'La Ley Stark se aplica a todos los empleados, AKS solo a médicos.', 'La Ley Stark solo se aplica a contratos privados.'],
+                    ans: 0,
+                    ratEn: `Stark Law is a strict liability civil statute (no proof of intent required for illegal self-referral), whereas AKS requires proving knowingly and willful intent.`,
+                    ratEs: `La Ley Stark es civil y de responsabilidad objetiva (no requiere probar intención), mientras que la AKS exige demostrar intención dolo o incentivo corrupto.`
+                },
+                {
+                    cat: 'corporate',
+                    enQ: (i) => `According to the OIG Guidance for Corporate Healthcare Compliance Programs (Audit #${i}), which represents one of the core 7 essential elements?`,
+                    esQ: (i) => `Según la Guía OIG para Programas de Cumplimiento Corporativo (Auditoría #${i}), ¿cuál representa uno de los 7 elementos esenciales?`,
+                    optsEn: ['Establishing compliance standards/policies and designating a Chief Compliance Officer.', 'Guaranteeing 100% error-free billing in annual audits.', 'Replacing human auditors with automated artificial intelligence.', 'Filing monthly reports directly to federal courts.'],
+                    optsEs: ['Establecer políticas/normas de cumplimiento y designar un Oficial de Cumplimiento (CCO).', 'Garantizar facturación 100% libre de errores en auditorías.', 'Reemplazar auditores humanos con inteligencia artificial.', 'Presentar informes mensuales directo a tribunales federales.'],
+                    ans: 0,
+                    ratEn: `The 7 OIG elements include written policies/procedures, designating a compliance officer, effective training, open lines of communication, auditing/monitoring, enforcement of standards, and prompt corrective action.`,
+                    ratEs: `Los 7 elementos de la OIG incluyen políticas escritas, Oficial de Cumplimiento, capacitación, comunicación abierta, auditorías, sanciones y acción correctiva.`
+                },
+                {
+                    cat: 'labor_ahca',
+                    enQ: (i) => `Under Florida AHCA facility licensure standards and OSHA guidelines (Inspect #${i}), how often must healthcare facilities conduct emergency disaster/evacuation drills?`,
+                    esQ: (i) => `Bajo normas de licencias AHCA y pautas OSHA (Inspección #${i}), ¿con qué frecuencia deben los centros hacer simulacros de emergencia y evacuación?`,
+                    optsEn: ['At least annually per shift for disaster drills, maintaining complete documented logs for AHCA inspection.', 'Once every 5 years.', 'Only when requested by local fire departments.', 'Disaster drills are voluntary for private facilities.'],
+                    optsEs: ['Al menos anualmente por cada turno, manteniendo registros completos para inspección de AHCA.', 'Una vez cada 5 años.', 'Solo cuando lo solicite el departamento de bomberos local.', 'Los simulacros son voluntarios en centros privados.'],
+                    ans: 0,
+                    ratEn: `AHCA Emergency Management rules mandate regular documented disaster and fire drills across shifts to maintain active state licensure.`,
+                    ratEs: `Las reglas de Manejo de Emergencias de AHCA exigen simulacros documentados regulares en todos los turnos para mantener la licencia estatal.`
+                }
+            ];
+
+            for (let i = 1; i <= 300; i++) {
+                const tpl = templates[(i - 1) % templates.length];
+                const catObj = COMPLIANCE_CATEGORIES.find(c => c.id === tpl.cat) || COMPLIANCE_CATEGORIES[0];
+                bank.push({
+                    id: 300 + i, // Unique ID 301-600
+                    bankType: 'compliance',
+                    category: tpl.cat,
+                    categoryEn: catObj.en,
+                    categoryEs: catObj.es,
+                    en: { question: tpl.enQ(i), options: tpl.optsEn, rationale: tpl.ratEn },
+                    es: { question: tpl.esQ(i), options: tpl.optsEs, rationale: tpl.ratEs },
+                    correctAnswer: tpl.ans
+                });
+            }
+            return bank;
+        }
+
+        // --- I18N DICTIONARY ---
         const I18N = {
             en: {
-                appTitle: "FL Risk Mgmt Simulator",
-                appSub: "F.S. 395.0197 & AHCA Standards (300 Q Bank)",
-                homeTitle: "Florida Healthcare Risk Management Exam Simulator",
-                homeDesc: "Prepare for the Florida Healthcare Risk Management licensure and AHCA compliance evaluations. Features 300 rigorous questions covering Florida Statutes (F.S. 395.0197), FAC 59A-10, adverse incident reporting deadlines, RCA, patient safety, and medical law.",
-                startPractice: "Start Study Mode (300 Qs)",
+                appTitle: "FL Healthcare Risk & Compliance",
+                appSub: "AHCA Risk Management & FL Public/Private Compliance (600 Qs)",
+                selectBankLbl: "Select Active Question Bank:",
+                homeTitle: "Healthcare Risk & Regulatory Compliance Simulator",
+                homeDesc: "Prepare for the Florida Healthcare Risk Management License (F.S. 395.0197) and Florida Corporate/Government Health Regulatory Compliance. Features 600 total scenario-based questions with full legal rationales.",
+                startPractice: "Start Study Mode",
                 startExam: "Timed Exam Simulation",
                 answeredLbl: "Questions Answered",
                 accuracyLbl: "Average Accuracy",
                 masteredLbl: "Mastered Questions",
                 examsLbl: "Exams Completed",
-                catTitle: "Florida Law & Risk Domains",
+                catTitle: "Florida Statutory Domains",
                 audioLbl: "Audio",
-                rationaleHeader: "Legal & Clinical Rationale (Statutory Basis)",
+                rationaleHeader: "Legal & Statutory Rationale",
                 prev: "Previous",
                 next: "Next",
                 submit: "Submit Exam",
@@ -485,7 +579,7 @@
                 correct: "Correct",
                 incorrect: "Incorrect",
                 timeSpent: "Time Spent",
-                domainMastery: "Domain Mastery",
+                domainMastery: "Domain Mastery Breakdown",
                 backHome: "Back to Home",
                 printPdf: "Print / Export PDF",
                 examTitle: "Timed Exam Config",
@@ -496,19 +590,20 @@
                 confirmSubmit: "Are you sure you want to submit your exam now?"
             },
             es: {
-                appTitle: "Simulador Gestión Riesgos FL",
-                appSub: "F.S. 395.0197 y Normas AHCA (300 Preguntas)",
-                homeTitle: "Simulador de Examen de Gestión de Riesgos Sanitarios de Florida",
-                homeDesc: "Prepárese para la licencia de Gestión de Riesgos de Florida y las evaluaciones de AHCA. Incluye 300 preguntas rigurosas sobre el Estatuto de Florida (F.S. 395.0197), FAC 59A-10, plazos de notificación de incidentes, RCA y leyes médicas.",
-                startPractice: "Modo Estudiar (300 Preguntas)",
+                appTitle: "Simulador Riesgo y Cumplimiento FL",
+                appSub: "Gestión Riesgos AHCA y Cumplimiento Público/Privado (600 Preguntas)",
+                selectBankLbl: "Seleccionar Banco de Preguntas Activo:",
+                homeTitle: "Simulador de Gestión de Riesgos y Cumplimiento Regulativo",
+                homeDesc: "Prepárese para la Licencia de Gestión de Riesgos de Florida (F.S. 395.0197) y el Cumplimiento Gubernamental/Corporativo de Salud de Florida. Incluye 600 preguntas situacionales con bases legales.",
+                startPractice: "Modo Estudiar",
                 startExam: "Simulación Examen con Tiempo",
                 answeredLbl: "Preguntas Respondidas",
                 accuracyLbl: "Precisión Promedio",
                 masteredLbl: "Preguntas Dominadas",
                 examsLbl: "Exámenes Completados",
-                catTitle: "Dominio y Leyes de Florida",
+                catTitle: "Dominios Estatutarios de Florida",
                 audioLbl: "Audio",
-                rationaleHeader: "Justificación Legal y Clínica (Base Estatutaria)",
+                rationaleHeader: "Justificación Legal y Estatutaria",
                 prev: "Anterior",
                 next: "Siguiente",
                 submit: "Enviar Examen",
@@ -528,17 +623,21 @@
             }
         };
 
-        // --- CORE APPLICATION CLASS ---
+        // --- APPLICATION ENGINE ---
         class ExamApp {
             constructor() {
-                this.questions = generateQuestionBank();
+                this.riskBank = generateRiskQuestionBank();
+                this.complianceBank = generateComplianceQuestionBank();
+                
+                this.activeBankKey = localStorage.getItem('fl_active_bank') || 'risk'; // 'risk' or 'compliance'
                 this.lang = localStorage.getItem('fl_risk_lang') || 'en';
-                this.userAnswers = JSON.parse(localStorage.getItem('fl_risk_answers') || '{}');
-                this.history = JSON.parse(localStorage.getItem('fl_risk_history') || '[]');
+                
+                this.userAnswers = JSON.parse(localStorage.getItem('fl_risk_answers_v2') || '{}');
+                this.history = JSON.parse(localStorage.getItem('fl_risk_history_v2') || '[]');
                 
                 this.mode = 'study';
                 this.currentCategory = 'all';
-                this.filteredQuestions = [...this.questions];
+                this.filteredQuestions = [];
                 this.currentIndex = 0;
                 
                 this.timerInterval = null;
@@ -549,10 +648,39 @@
                 this.synth = window.speechSynthesis;
             }
 
+            get activeBank() {
+                return this.activeBankKey === 'risk' ? this.riskBank : this.complianceBank;
+            }
+
+            get activeCategories() {
+                return this.activeBankKey === 'risk' ? RISK_CATEGORIES : COMPLIANCE_CATEGORIES;
+            }
+
             init() {
                 this.updateUIStrings();
+                this.updateBankSelectorUI();
                 this.renderDashboard();
                 this.setupTheme();
+            }
+
+            setActiveBank(bankKey) {
+                this.activeBankKey = bankKey;
+                localStorage.setItem('fl_active_bank', bankKey);
+                this.updateBankSelectorUI();
+                this.renderDashboard();
+            }
+
+            updateBankSelectorUI() {
+                const btnRisk = document.getElementById('btn-bank-risk');
+                const btnComp = document.getElementById('btn-bank-compliance');
+
+                if (this.activeBankKey === 'risk') {
+                    btnRisk.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-brand-600 text-white border-brand-600 shadow-md";
+                    btnComp.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:bg-slate-200";
+                } else {
+                    btnComp.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-brand-600 text-white border-brand-600 shadow-md";
+                    btnRisk.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:bg-slate-200";
+                }
             }
 
             toggleLanguage() {
@@ -580,6 +708,7 @@
                 document.getElementById('lang-indicator').innerText = this.lang === 'en' ? 'Español' : 'English';
                 document.getElementById('app-title').innerText = t.appTitle;
                 document.getElementById('app-subtitle').innerText = t.appSub;
+                document.getElementById('lbl-select-bank').innerText = t.selectBankLbl;
                 document.getElementById('home-title').innerText = t.homeTitle;
                 document.getElementById('home-desc').innerText = t.homeDesc;
                 document.getElementById('btn-start-practice').innerText = t.startPractice;
@@ -609,15 +738,18 @@
             }
 
             renderDashboard() {
-                const total = this.questions.length;
-                const answeredKeys = Object.keys(this.userAnswers);
-                const answeredCount = answeredKeys.length;
+                const currentBank = this.activeBank;
+                const total = currentBank.length;
                 
+                let answeredCount = 0;
                 let correctCount = 0;
-                answeredKeys.forEach(k => {
-                    const q = this.questions.find(item => item.id == k);
-                    if (q && this.userAnswers[k] === q.correctAnswer) {
-                        correctCount++;
+
+                currentBank.forEach(q => {
+                    if (this.userAnswers[q.id] !== undefined) {
+                        answeredCount++;
+                        if (this.userAnswers[q.id] === q.correctAnswer) {
+                            correctCount++;
+                        }
                     }
                 });
 
@@ -630,27 +762,27 @@
                 document.getElementById('stat-bar-accuracy').style.width = `${accuracy}%`;
                 
                 document.getElementById('stat-mastered').innerText = correctCount;
-                document.getElementById('stat-exams').innerText = this.history.length;
+                document.getElementById('stat-exams').innerText = this.history.filter(h => h.bank === this.activeBankKey).length;
 
-                // Categories grid
+                // Categories list
                 const catContainer = document.getElementById('categories-list');
                 catContainer.innerHTML = '';
 
-                // Add "All Topics" option
+                // Option: All Topics
                 const allCard = document.createElement('div');
                 allCard.className = "p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 cursor-pointer bg-slate-50 dark:bg-slate-900/40 transition flex justify-between items-center";
                 allCard.onclick = () => this.startPractice('all');
                 allCard.innerHTML = `
                     <div>
-                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${this.lang==='en'?'All Topics (300 Q Pool)':'Todos los Temas (300 Preguntas)'}</h4>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${this.lang==='en'?'All Bank Topics (300 Q Pool)':'Todos los Temas del Banco (300 Qs)'}</h4>
                         <span class="text-xs text-slate-500">300 Questions</span>
                     </div>
                     <i class="fa-solid fa-chevron-right text-slate-400"></i>
                 `;
                 catContainer.appendChild(allCard);
 
-                CATEGORIES.forEach(c => {
-                    const count = this.questions.filter(q => q.category === c.id).length;
+                this.activeCategories.forEach(c => {
+                    const count = currentBank.filter(q => q.category === c.id).length;
                     const card = document.createElement('div');
                     card.className = "p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 cursor-pointer bg-slate-50 dark:bg-slate-900/40 transition flex justify-between items-center";
                     card.onclick = () => this.startPractice(c.id);
@@ -678,10 +810,12 @@
             startPractice(catId = 'all') {
                 this.mode = 'study';
                 this.currentCategory = catId;
+                const bank = this.activeBank;
+
                 if (catId === 'all') {
-                    this.filteredQuestions = [...this.questions];
+                    this.filteredQuestions = [...bank];
                 } else {
-                    this.filteredQuestions = this.questions.filter(q => q.category === catId);
+                    this.filteredQuestions = bank.filter(q => q.category === catId);
                 }
                 this.currentIndex = 0;
 
@@ -708,7 +842,7 @@
                 const qCount = parseInt(document.getElementById('exam-select-count').value);
                 const minutes = parseInt(document.getElementById('exam-select-time').value);
 
-                const shuffled = [...this.questions].sort(() => 0.5 - Math.random());
+                const shuffled = [...this.activeBank].sort(() => 0.5 - Math.random());
                 this.filteredQuestions = shuffled.slice(0, qCount);
                 this.currentIndex = 0;
                 this.examAnswers = {};
@@ -827,7 +961,7 @@
                 
                 if (this.mode === 'study') {
                     this.userAnswers[q.id] = index;
-                    localStorage.setItem('fl_risk_answers', JSON.stringify(this.userAnswers));
+                    localStorage.setItem('fl_risk_answers_v2', JSON.stringify(this.userAnswers));
                 } else {
                     this.examAnswers[q.id] = index;
                 }
@@ -898,17 +1032,18 @@
                     }
                 });
 
-                localStorage.setItem('fl_risk_answers', JSON.stringify(this.userAnswers));
+                localStorage.setItem('fl_risk_answers_v2', JSON.stringify(this.userAnswers));
 
                 const score = Math.round((correct / total) * 100);
                 
                 this.history.push({
                     date: new Date().toISOString(),
+                    bank: this.activeBankKey,
                     total,
                     correct,
                     score
                 });
-                localStorage.setItem('fl_risk_history', JSON.stringify(this.history));
+                localStorage.setItem('fl_risk_history_v2', JSON.stringify(this.history));
 
                 document.getElementById('view-quiz').classList.add('hidden');
                 document.getElementById('view-results').classList.remove('hidden');
@@ -928,7 +1063,7 @@
                 const domainContainer = document.getElementById('results-domain-list');
                 domainContainer.innerHTML = '';
 
-                CATEGORIES.forEach(cat => {
+                this.activeCategories.forEach(cat => {
                     const catQs = this.filteredQuestions.filter(q => q.category === cat.id);
                     if (catQs.length === 0) return;
 
@@ -956,14 +1091,14 @@
                 if (confirm(this.lang === 'en' ? 'Are you sure you want to reset all your answers and exam records?' : '¿Está seguro de que desea reiniciar sus respuestas y registros de exámenes?')) {
                     this.userAnswers = {};
                     this.history = [];
-                    localStorage.removeItem('fl_risk_answers');
-                    localStorage.removeItem('fl_risk_history');
+                    localStorage.removeItem('fl_risk_answers_v2');
+                    localStorage.removeItem('fl_risk_history_v2');
                     this.navHome();
                 }
             }
         }
 
-        // Initialize on window load
+        // Initialize Application
         let app;
         window.onload = function() {
             app = new ExamApp();
