@@ -4,75 +4,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f7f9fc">
+<meta name="theme-color" content="#f5f7fb">
 <title>MAY ROGA Live English</title>
 <style>
-:root{font-family:Arial,Helvetica,sans-serif;color:#172b4d;background:#f5f7fb;font-synthesis:none}
+:root{font-family:Arial,Helvetica,sans-serif;color:#172b4d;background:#f5f7fb}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh}
 button,select{font:inherit}
-button{cursor:pointer;border:0;border-radius:10px;padding:12px 15px;font-weight:700}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
 button:disabled{opacity:.45;cursor:not-allowed}
-.app{width:min(760px,100%);margin:auto;padding:20px 16px 36px}
-header{margin-bottom:20px}
-h1{font-size:25px;margin:0 0 7px;letter-spacing:-.5px}
-.subtitle{color:#64748b;font-size:14px;line-height:1.5}
-.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;margin-top:14px}
+.app{width:min(1000px,100%);margin:auto;padding:22px 18px 40px}
+header{margin-bottom:18px}
+h1{font-size:26px;margin:0 0 7px;letter-spacing:-.4px}
+.subtitle{font-size:14px;color:#64748b;line-height:1.6}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;margin-top:13px}
 .dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;flex:none}
 .dot.on{background:#16a34a}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
-.mode{background:white;border:1px solid #dce3ed;color:#334155;text-align:left;min-height:78px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.mode{background:white;border:1px solid #d8e0ec;color:#334155;text-align:left;min-height:78px}
 .mode.active{border:2px solid #245bd6;background:#eef4ff;color:#1746a2}
-.mode strong{display:block;font-size:15px;margin-bottom:5px}
-.mode small{display:block;font-weight:400;line-height:1.4}
+.mode strong{display:block;font-size:16px;margin-bottom:6px}
+.mode small{display:block;font-weight:400;line-height:1.5}
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
 .primary{background:#245bd6;color:white}
-.stop{background:#b42318;color:white}
+.stop,.delete{background:#b42318;color:white}
 .secondary{background:#e8edf5;color:#24344d}
-.light{background:white;border:1px solid #dce3ed;color:#334155}
-.panel{background:white;border:1px solid #e1e7ef;border-radius:14px;padding:16px;margin:13px 0}
-.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
-h2{font-size:15px;margin:0}
-.tag{font-size:11px;font-weight:700;color:#52627a;background:#eef2f7;padding:5px 8px;border-radius:20px}
-.transcript{font-size:18px;line-height:1.65;overflow-wrap:anywhere;min-height:54px;white-space:pre-wrap}
+.light{background:white;border:1px solid #d8e0ec;color:#334155}
+.panel{background:white;border:1px solid #dfe6ef;border-radius:14px;padding:20px;margin:16px 0}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+h2{font-size:16px;margin:0}
+.tag{font-size:11px;font-weight:700;color:#52627a;background:#eef2f7;padding:6px 9px;border-radius:20px}
+.transcript{font-size:19px;line-height:1.9;overflow-wrap:anywhere;white-space:pre-wrap}
+.line{padding:13px 0 17px;border-bottom:1px solid #e8edf4}
+.line:last-child{border-bottom:0}
+.interim{font-size:16px;line-height:1.7;color:#64748b;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.answer{font-size:22px;line-height:1.8;overflow-wrap:anywhere;white-space:pre-wrap}
 .placeholder{font-size:15px;color:#94a3b8}
-.answer{font-size:21px;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap}
-.note{font-size:13px;line-height:1.5;color:#64748b;margin-top:8px}
-.answer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.note{font-size:13px;line-height:1.6;color:#64748b;margin-top:10px;white-space:pre-wrap}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
 .settings{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.settings label{font-size:14px;line-height:1.5}
-select{max-width:100%;border:1px solid #dce3ed;background:white;border-radius:9px;padding:10px;color:#24344d}
-details{margin-top:16px}
-summary{cursor:pointer;font-size:14px;color:#52627a;padding:8px 0}
-#fullTranscript{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.6;max-height:300px;overflow:auto}
-.message{font-size:13px;line-height:1.5;color:#64748b;min-height:20px;margin:10px 0}
-footer{font-size:12px;line-height:1.6;color:#718096;margin-top:22px}
-.hidden{display:none!important}
-@media(max-width:440px){.app{padding:17px 12px 28px}h1{font-size:23px}.mode{padding:11px}.panel{padding:13px}.answer{font-size:19px}.transcript{font-size:17px}}
+.settings label{font-size:14px;line-height:1.6}
+select{max-width:100%;border:1px solid #d8e0ec;background:white;border-radius:9px;padding:11px;color:#24344d}
+details{margin-top:18px}
+summary{cursor:pointer;font-size:14px;color:#52627a;padding:10px 0}
+#fullTranscript{font-size:16px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.message{font-size:13px;line-height:1.6;color:#52627a;min-height:20px;margin:12px 0}
+footer{font-size:12px;line-height:1.7;color:#718096;margin-top:24px}
+@media(max-width:520px){.app{padding:17px 12px 30px}h1{font-size:23px}.panel{padding:15px}.answer{font-size:20px}.transcript{font-size:17px}.modes{gap:8px}.mode{padding:12px 10px}}
 </style>
 </head>
 <body>
 <main class="app">
 <header>
 <h1>MAY ROGA Live English</h1>
-<div class="subtitle">Escucha en inglés. Comprende la pregunta. Encuentra tus palabras.</div>
+<div class="subtitle">Escucha, comprende y encuentra una respuesta en inglés. Tú decides qué decir.</div>
 <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Listo para comenzar</span></div>
 </header>
 
-<section aria-label="Seleccionar modo" class="modes">
+<section class="modes" aria-label="Modo de funcionamiento">
 <button type="button" class="mode active" data-mode="conversation" aria-pressed="true">
 <strong>Conversación</strong>
-<small>Charlas, llamadas y diálogos reales.</small>
+<small>Para diálogos y conversaciones reales.</small>
 </button>
 <button type="button" class="mode" data-mode="interview" aria-pressed="false">
 <strong>Preguntas y respuestas</strong>
-<small>Entrevistas y preguntas profesionales.</small>
+<small>Para entrevistas y preguntas profesionales.</small>
 </button>
 </section>
 
 <div class="controls">
 <button id="startBtn" class="primary" type="button">Iniciar escucha</button>
 <button id="stopBtn" class="stop" type="button" disabled>Detener</button>
+<button id="clearBtn" class="delete" type="button">Borrar conversación</button>
 </div>
 
 <section class="panel" aria-live="polite">
@@ -80,18 +83,18 @@ footer{font-size:12px;line-height:1.6;color:#718096;margin-top:22px}
 <h2>Lo que escucho</h2>
 <span id="modeTag" class="tag">CONVERSACIÓN</span>
 </div>
-<div id="liveText" class="transcript"><span class="placeholder">El texto reconocido aparecerá aquí.</span></div>
-<div id="interimText" class="note"></div>
+<div id="liveText" class="transcript"><span class="placeholder">Las frases completas aparecerán aquí, separadas y fáciles de leer.</span></div>
+<div id="interimText" class="interim"></div>
 </section>
 
 <section class="panel" aria-live="polite">
 <div class="panel-head">
-<h2>Tu respuesta en inglés</h2>
-<span class="tag">SUGERENCIA</span>
+<h2>Respuesta en inglés</h2>
+<span class="tag">PROPUESTA</span>
 </div>
-<div id="answerText" class="answer"><span class="placeholder">Aquí aparecerá una respuesta que puedes decir con tus propias palabras.</span></div>
+<div id="answerText" class="answer"><span class="placeholder">Aquí aparecerá una respuesta relacionada con lo que escuches.</span></div>
 <div id="answerNote" class="note"></div>
-<div class="answer-actions">
+<div class="actions">
 <button id="copyBtn" class="secondary" type="button" disabled>Copiar respuesta</button>
 <button id="suggestBtn" class="light" type="button" disabled>Sugerir respuesta</button>
 </div>
@@ -99,7 +102,7 @@ footer{font-size:12px;line-height:1.6;color:#718096;margin-top:22px}
 
 <section class="panel">
 <div class="settings">
-<label for="responseMode"><strong>Cómo sugerir respuestas</strong><br><span class="note">Automático o cuando tú lo decidas.</span></label>
+<label for="responseMode"><strong>Cuándo preparar la respuesta</strong><br><span class="note">Automático: la prepara al reconocer una frase. Manual: tú decides cuándo pedirla.</span></label>
 <select id="responseMode">
 <option value="auto">Automático</option>
 <option value="manual">Manual</option>
@@ -112,7 +115,7 @@ footer{font-size:12px;line-height:1.6;color:#718096;margin-top:22px}
 <details>
 <summary>Ver transcripción completa</summary>
 <div id="fullTranscript">Todavía no hay texto reconocido.</div>
-<div class="answer-actions">
+<div class="actions">
 <button id="copyTranscriptBtn" class="light" type="button" disabled>Copiar transcripción</button>
 <button id="translateBtn" class="light" type="button" disabled>Traducir al español</button>
 </div>
@@ -120,75 +123,110 @@ footer{font-size:12px;line-height:1.6;color:#718096;margin-top:22px}
 </details>
 
 <footer>
-La aplicación propone respuestas escritas; tú decides qué decir y cómo pronunciarlo. El reconocimiento de voz depende del navegador y del micrófono. Puede captar tu voz y la de la otra persona, y no garantiza funcionar durante una llamada en el mismo teléfono.
+La aplicación muestra respuestas escritas; tú hablas con tu propia voz. Primero intenta reconocer lo que se dice y utiliza el contexto para orientar las sugerencias. El reconocimiento puede equivocarse, omitir palabras o captar ambas voces. Una palabra que no se haya escuchado con claridad no puede garantizarse mediante una reconstrucción automática.
 </footer>
 </main>
 
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
-const startBtn=$("startBtn"),stopBtn=$("stopBtn"),liveText=$("liveText"),interimText=$("interimText"),answerText=$("answerText"),answerNote=$("answerNote"),suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message"),fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn"),translateBtn=$("translateBtn"),translation=$("translation"),responseMode=$("responseMode");
+const startBtn=$("startBtn"),stopBtn=$("stopBtn"),clearBtn=$("clearBtn");
+const liveText=$("liveText"),interimText=$("interimText"),answerText=$("answerText"),answerNote=$("answerNote");
+const suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message");
+const fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn"),translateBtn=$("translateBtn"),translation=$("translation"),responseMode=$("responseMode");
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-let recognition=null,listening=false,stopping=false,mode="conversation",finalLines=[],latestSpeech="",interimSpeech="",requestBusy=false,pendingSpeech="",autoTimer=null,lastRequested="",requestNumber=0;
-const MAX_LINES=80;
+let recognition=null,listening=false,stopping=false,mode="conversation";
+let finalLines=[],latestSpeech="",interimSpeech="",requestBusy=false,pendingSpeech="",autoTimer=null,lastRequested="",sessionId=0;
+
+function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
 function setStatus(text,on=false){$("statusText").textContent=text;$("statusDot").classList.toggle("on",on)}
 function notify(text){message.textContent=text}
-function setPlaceholder(el,text,cls="placeholder"){el.innerHTML="";const span=document.createElement("span");span.className=cls;span.textContent=text;el.appendChild(span)}
-function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
-function allText(){return finalLines.join("\n")}
+function setPlaceholder(el,text){el.replaceChildren();const span=document.createElement("span");span.className="placeholder";span.textContent=text;el.appendChild(span)}
+function allText(){return finalLines.join("\n\n")}
 function renderTranscript(){
- const text=allText();
- if(!text)setPlaceholder(liveText,"El texto reconocido aparecerá aquí.");
- else liveText.textContent=finalLines.slice(-4).join("\n");
- fullTranscript.textContent=text||"Todavía no hay texto reconocido.";
- copyTranscriptBtn.disabled=!text;translateBtn.disabled=!text;
+ liveText.replaceChildren();
+ if(!finalLines.length)setPlaceholder(liveText,"Las frases completas aparecerán aquí, separadas y fáciles de leer.");
+ else finalLines.forEach(line=>{
+  const div=document.createElement("div");
+  div.className="line";
+  div.textContent=line;
+  liveText.appendChild(div);
+ });
+ fullTranscript.textContent=allText()||"Todavía no hay texto reconocido.";
+ copyTranscriptBtn.disabled=!finalLines.length;
+ translateBtn.disabled=!finalLines.length;
  suggestBtn.disabled=!latestSpeech;
 }
 function setMode(next){
  if(listening){notify("Detén la escucha antes de cambiar de modo.");return}
  mode=next;
- document.querySelectorAll("[data-mode]").forEach(b=>{const active=b.dataset.mode===mode;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
+ document.querySelectorAll("[data-mode]").forEach(b=>{
+  const active=b.dataset.mode===mode;
+  b.classList.toggle("active",active);
+  b.setAttribute("aria-pressed",String(active));
+ });
  $("modeTag").textContent=mode==="conversation"?"CONVERSACIÓN":"PREGUNTAS Y RESPUESTAS";
- answerText.textContent=mode==="conversation"?"Aquí aparecerá una respuesta natural para la conversación.":"Aquí aparecerá una respuesta clara para la pregunta.";
+ answerText.textContent=mode==="conversation"?"Aquí aparecerá una respuesta natural relacionada con la conversación.":"Aquí aparecerá una respuesta relacionada directamente con la pregunta.";
  answerNote.textContent="";
  translation.textContent="";
+ lastRequested="";
  notify("");
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+
 function initRecognition(){
  if(!SpeechRecognition){notify("Este navegador no ofrece reconocimiento de voz. Prueba Chrome actualizado.");return false}
  recognition=new SpeechRecognition();
  recognition.lang="en-US";
  recognition.continuous=true;
  recognition.interimResults=true;
- recognition.maxAlternatives=1;
- recognition.onstart=()=>{listening=true;stopping=false;startBtn.disabled=true;stopBtn.disabled=false;setStatus("Escuchando en inglés…",true);notify("")};
+ recognition.maxAlternatives=3;
+
+ recognition.onstart=()=>{
+  listening=true;stopping=false;
+  startBtn.disabled=true;stopBtn.disabled=false;
+  setStatus("Escuchando en inglés…",true);
+  notify("");
+ };
  recognition.onresult=e=>{
   let interim="";
   for(let i=e.resultIndex;i<e.results.length;i++){
-   const result=e.results[i],text=cleanText(result[0].transcript);
+   const result=e.results[i];
+   let text="";
+   if(result.length>1){
+    const alternatives=Array.from(result).filter(a=>cleanText(a.transcript));
+    alternatives.sort((a,b)=>(b.confidence||0)-(a.confidence||0));
+    text=cleanText((alternatives[0]||result[0]).transcript);
+   }else text=cleanText(result[0].transcript);
    if(!text)continue;
    if(result.isFinal){
     const previous=finalLines[finalLines.length-1]||"";
-    if(text!==previous){finalLines.push(text);if(finalLines.length>MAX_LINES)finalLines=finalLines.slice(-MAX_LINES)}
-    latestSpeech=text;interimSpeech="";
+    if(text!==previous)finalLines.push(text);
+    latestSpeech=text;
+    interim="";
     renderTranscript();
     if(responseMode.value==="auto")scheduleSuggestion(text);
-   }else interim+=text+" ";
+   }else interim+=(interim?" ":"")+text;
   }
   interimSpeech=cleanText(interim);
-  interimText.textContent=interimSpeech?("En curso: "+interimSpeech):"";
+  interimText.textContent=interimSpeech?"Escuchando: "+interimSpeech:"";
  };
  recognition.onerror=e=>{
   const err=e.error||"unknown";
-  if(err==="not-allowed"||err==="service-not-allowed"){stopping=true;listening=false;startBtn.disabled=false;stopBtn.disabled=true;setStatus("Micrófono no disponible");notify("Permite el acceso al micrófono y revisa los permisos del navegador.");return}
+  if(err==="not-allowed"||err==="service-not-allowed"){
+   stopping=true;listening=false;startBtn.disabled=false;stopBtn.disabled=true;
+   setStatus("Micrófono no disponible");
+   notify("Permite el acceso al micrófono en el navegador.");
+   return;
+  }
   if(err==="audio-capture"){notify("No se encontró un micrófono disponible.");return}
   if(err==="network"){notify("El reconocimiento de voz tiene un problema de conexión.");return}
   if(err!=="no-speech"&&err!=="aborted")notify("Problema de reconocimiento: "+err);
  };
  recognition.onend=()=>{
   if(listening&&!stopping){
-   try{recognition.start()}catch(e){setTimeout(()=>{if(listening&&!stopping){try{recognition.start()}catch(_){}}},500)}
+   try{recognition.start()}
+   catch(e){setTimeout(()=>{if(listening&&!stopping){try{recognition.start()}catch(_){}}},600)}
   }else{
    listening=false;startBtn.disabled=false;stopBtn.disabled=true;
    setStatus("Escucha detenida");
@@ -200,8 +238,8 @@ function startListening(){
  if(listening)return;
  if(!recognition&&!initRecognition())return;
  stopping=false;
- try{recognition.start();notify("")}
- catch(e){notify("No se pudo iniciar la escucha. Comprueba los permisos del micrófono.");setStatus("Listo para comenzar")}
+ try{recognition.start()}
+ catch(e){notify("No se pudo iniciar. Comprueba los permisos del micrófono.");setStatus("Listo para comenzar")}
 }
 function stopListening(){
  if(!recognition||!listening)return;
@@ -212,65 +250,96 @@ function stopListening(){
 }
 startBtn.addEventListener("click",startListening);
 stopBtn.addEventListener("click",stopListening);
+
+function clearConversation(){
+ sessionId++;
+ if(autoTimer){clearTimeout(autoTimer);autoTimer=null}
+ pendingSpeech="";lastRequested="";latestSpeech="";interimSpeech="";
+ finalLines=[];
+ answerNote.textContent="";translation.textContent="";interimText.textContent="";
+ setPlaceholder(answerText,"Aquí aparecerá una respuesta relacionada con lo que escuches.");
+ copyBtn.disabled=true;
+ renderTranscript();
+ notify("Conversación borrada.");
+}
+clearBtn.addEventListener("click",clearConversation);
+
 function scheduleSuggestion(text){
  if(autoTimer)clearTimeout(autoTimer);
- autoTimer=setTimeout(()=>requestSuggestion(text),1000);
+ autoTimer=setTimeout(()=>requestSuggestion(text),850);
 }
 async function requestSuggestion(text){
  text=cleanText(text||latestSpeech);
- if(!text){notify("Todavía no hay una pregunta o frase reconocida.");return}
+ if(!text){notify("Primero debes escuchar una frase o pregunta.");return}
  if(requestBusy){pendingSpeech=text;return}
  if(text===lastRequested&&responseMode.value==="auto")return;
  requestBusy=true;lastRequested=text;
- const id=++requestNumber;
+ const currentSession=sessionId;
  suggestBtn.disabled=true;
- answerNote.textContent="Preparando una respuesta…";
+ answerNote.textContent="Preparando una respuesta relacionada con lo escuchado…";
+ const instructions=mode==="conversation"
+ ?"MODE: REAL CONVERSATION. Reply only to the latest recognized speech. Stay strictly on the same topic. Do not introduce unrelated words, subjects, facts, stories, or questions. Never invent personal details for the user. If the speech is unclear, recommend a short polite clarification."
+ :"MODE: INTERVIEW AND QUESTIONS/ANSWERS. Respond directly to the recognized question or interview topic. Stay strictly on that topic. Do not introduce unrelated subjects, facts, qualifications, or personal experiences. Never invent details about the user. If the question is unclear, suggest asking the interviewer to repeat or clarify.";
+ const context=instructions+"\nRecent recognized speech for context:\n"+finalLines.slice(-7,-1).join("\n");
  try{
-  const context="SELECTED MODE: "+(mode==="conversation"?"REAL CONVERSATION":"INTERVIEW / QUESTIONS AND ANSWERS")+"\nRecent recognized English conversation:\n"+finalLines.slice(-8,-1).join("\n");
-  const res=await fetch("/api/respond",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({transcript:text,context})});
+  const res=await fetch("/api/respond",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({transcript:text,context})
+  });
   const data=await res.json();
   if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
-  if(id===requestNumber){
-   answerText.textContent=data.answer||"No se generó una respuesta.";
+  if(currentSession===sessionId){
+   answerText.textContent=cleanText(data.answer)||"No se recibió una respuesta útil.";
    answerNote.textContent=data.note||"";
-   copyBtn.disabled=!data.answer;
+   copyBtn.disabled=!cleanText(data.answer);
   }
  }catch(e){
-  if(id===requestNumber)answerNote.textContent=e.message||"No se pudo conectar con el servicio de respuestas.";
+  if(currentSession===sessionId)answerNote.textContent=e.message||"No se pudo conectar con el servicio de respuestas.";
  }finally{
-  requestBusy=false;suggestBtn.disabled=!latestSpeech;
-  if(pendingSpeech&&pendingSpeech!==text){const next=pendingSpeech;pendingSpeech="";if(responseMode.value==="auto")requestSuggestion(next)}
+  requestBusy=false;
+  suggestBtn.disabled=!latestSpeech;
+  if(pendingSpeech){
+   const next=pendingSpeech;pendingSpeech="";
+   if(responseMode.value==="auto"&&next!==text)requestSuggestion(next);
+  }
  }
 }
 suggestBtn.addEventListener("click",()=>requestSuggestion(latestSpeech));
 responseMode.addEventListener("change",()=>{
  if(responseMode.value==="auto"&&latestSpeech)scheduleSuggestion(latestSpeech);
 });
-copyBtn.addEventListener("click",async()=>{
- const text=answerText.textContent.trim();
+async function copyText(text,success){
  if(!text)return;
- try{await navigator.clipboard.writeText(text);notify("Respuesta copiada.")}
+ try{await navigator.clipboard.writeText(text);notify(success)}
  catch(e){notify("No se pudo copiar automáticamente. Selecciona el texto y cópialo.")}
-});
-copyTranscriptBtn.addEventListener("click",async()=>{
- const text=allText();if(!text)return;
- try{await navigator.clipboard.writeText(text);notify("Transcripción copiada.")}
- catch(e){notify("No se pudo copiar automáticamente.")}
-});
+}
+copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta copiada."));
+copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripción copiada."));
+
 translateBtn.addEventListener("click",async()=>{
- const text=allText();if(!text)return;
- translateBtn.disabled=true;translation.textContent="Traduciendo…";
+ const text=allText();
+ if(!text)return;
+ translateBtn.disabled=true;translation.textContent="Traduciendo al español…";
+ const currentSession=sessionId;
  try{
-  const res=await fetch("/api/translate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({transcript:text})});
+  const res=await fetch("/api/translate",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({transcript:text})
+  });
   const data=await res.json();
   if(!res.ok)throw new Error(data.detail||"No se pudo traducir.");
-  translation.textContent=data.translation||"No se recibió traducción.";
- }catch(e){translation.textContent=e.message||"Error de traducción."}
- finally{translateBtn.disabled=!allText()}
+  if(currentSession===sessionId)translation.textContent=data.translation||"No se recibió traducción.";
+ }catch(e){
+  if(currentSession===sessionId)translation.textContent=e.message||"Error de traducción.";
+ }finally{translateBtn.disabled=!finalLines.length}
 });
-window.addEventListener("beforeunload",()=>{if(recognition){stopping=true;listening=false;try{recognition.stop()}catch(e){}}});
+window.addEventListener("beforeunload",()=>{
+ if(recognition){stopping=true;listening=false;try{recognition.stop()}catch(e){}}
+});
 fetch("/api/health").then(r=>r.json()).then(data=>{
- if(!data.gemini_configured&&!data.openai_fallback_configured)notify("Falta configurar GEMINI_API_KEY u OPENAI_API_KEY en Render.");
+ if(!data.gemini_configured&&!data.openai_fallback_configured)notify("Configura GEMINI_API_KEY u OPENAI_API_KEY en Render.");
 }).catch(()=>{});
 </script>
 </body>
