@@ -12,85 +12,82 @@
 body{margin:0;min-height:100vh}
 button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
 button:disabled{opacity:.45;cursor:not-allowed}
-.app{width:min(1000px,100%);margin:auto;padding:22px 18px 40px}
-header{margin-bottom:18px}
-h1{font-size:26px;margin:0 0 7px;letter-spacing:-.4px}
-.subtitle{font-size:14px;color:#64748b;line-height:1.6}
-.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;margin-top:13px}
+.app{width:min(1000px,100%);margin:auto;padding:18px 16px 30px}
+header{margin-bottom:14px}
+h1{font-size:24px;margin:0;letter-spacing:-.4px}
+.status{display:flex;align-items:center;gap:8px;font-size:12px;color:#64748b;margin-top:10px}
 .dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;flex:none}
 .dot.on{background:#16a34a}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
-.mode{background:white;border:1px solid #d8e0ec;color:#334155;text-align:left;min-height:78px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.mode{background:white;border:1px solid #d8e0ec;color:#334155;text-align:left;min-height:58px}
 .mode.active{border:2px solid #245bd6;background:#eef4ff;color:#1746a2}
-.mode strong{display:block;font-size:16px;margin-bottom:6px}
-.mode small{display:block;font-weight:400;line-height:1.5}
-.controls,.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.mode strong{display:block;font-size:15px}
+.controls,.actions{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
 .primary{background:#245bd6;color:white}
 .stop,.delete{background:#b42318;color:white}
 .secondary{background:#e8edf5;color:#24344d}
 .light{background:white;border:1px solid #d8e0ec;color:#334155}
-.panel{background:white;border:1px solid #dfe6ef;border-radius:14px;padding:20px;margin:16px 0}
-.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-h2{font-size:16px;margin:0}
-.tag{font-size:11px;font-weight:700;color:#52627a;background:#eef2f7;padding:6px 9px;border-radius:20px}
-.transcript{font-size:19px;line-height:1.9;overflow-wrap:anywhere;white-space:pre-wrap}
-.line{padding:13px 0 17px;border-bottom:1px solid #e8edf4}
-.line:last-child{border-bottom:0}
-.interim{font-size:16px;line-height:1.7;color:#64748b;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
-.answer{font-size:22px;line-height:1.8;overflow-wrap:anywhere;white-space:pre-wrap}
+.panel{background:white;border:1px solid #dfe6ef;border-radius:14px;padding:17px;margin:14px 0}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+h2{font-size:15px;margin:0}
+.tag{font-size:10px;font-weight:700;color:#52627a;background:#eef2f7;padding:5px 8px;border-radius:20px}
+.transcript{font-size:21px;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}
+.line{padding:15px 13px;margin:0 0 12px;border-radius:12px;background:#f7f9fc;border:1px solid #e8edf4;overflow-wrap:anywhere}
+.line:last-child{margin-bottom:0}
+.line.new{background:#e8f9ed;border:1px solid #9bd9aa;box-shadow:0 0 13px rgba(34,197,94,.22);color:#14532d}
+.interim{display:none}
+.answer{font-size:21px;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}
 .placeholder{font-size:15px;color:#94a3b8}
-.note{font-size:13px;line-height:1.6;color:#64748b;margin-top:10px;white-space:pre-wrap}
-.actions{margin-top:15px;margin-bottom:0}
-.settings-note{font-size:14px;line-height:1.7;color:#52627a}
-details{margin-top:18px}
-summary{cursor:pointer;font-size:14px;color:#52627a;padding:10px 0}
-#fullTranscript{font-size:16px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
-.message{font-size:13px;line-height:1.6;color:#52627a;min-height:20px;margin:12px 0}
-footer{font-size:12px;line-height:1.7;color:#718096;margin-top:24px}
-@media(max-width:520px){.app{padding:17px 12px 30px}h1{font-size:23px}.panel{padding:15px}.answer{font-size:20px}.transcript{font-size:17px}.modes{gap:8px}.mode{padding:12px 10px}}
+.note{font-size:13px;line-height:1.6;color:#64748b;margin-top:9px;white-space:pre-wrap}
+.actions{margin-top:13px;margin-bottom:0}
+details{margin-top:16px}
+summary{cursor:pointer;font-size:13px;color:#52627a;padding:10px 0}
+#fullTranscript{font-size:16px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.message{font-size:12px;line-height:1.5;color:#52627a;min-height:0;margin:8px 0}
+.message:empty{display:none}
+#answerPanel[hidden]{display:none}
+@media(max-width:520px){
+.app{padding:14px 10px 24px}
+h1{font-size:22px}
+.panel{padding:12px}
+.transcript,.answer{font-size:19px}
+.modes{gap:7px}
+.mode{padding:11px 9px}
+.controls{gap:7px}
+.controls button,.actions button{padding:11px 12px}
+}
 </style>
 </head>
 <body>
 <main class="app">
 <header>
 <h1>MAY ROGA Live English</h1>
-<div class="subtitle">Escucha en inglés, consulta la transcripción y decide cuándo necesitas una respuesta.</div>
-<div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Listo para comenzar</span></div>
+<div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Listo</span></div>
 </header>
 
-<section class="modes" aria-label="Modo de respuestas">
-<button type="button" class="mode" data-mode="conversation" aria-pressed="false">
-<strong>Conversación</strong>
-<small>Actívalo para preparar respuestas a conversaciones reales.</small>
-</button>
-<button type="button" class="mode" data-mode="interview" aria-pressed="false">
-<strong>Preguntas y respuestas</strong>
-<small>Actívalo para preparar respuestas de entrevistas y preguntas profesionales.</small>
-</button>
+<section class="modes" aria-label="Modo">
+<button type="button" class="mode" data-mode="conversation" aria-pressed="false"><strong>Conversación</strong></button>
+<button type="button" class="mode" data-mode="interview" aria-pressed="false"><strong>Preguntas y respuestas</strong></button>
 </section>
 
 <div class="controls">
-<button id="startBtn" class="primary" type="button">Iniciar escucha</button>
+<button id="startBtn" class="primary" type="button">Escuchar</button>
 <button id="stopBtn" class="stop" type="button" disabled>Detener</button>
-<button id="clearBtn" class="delete" type="button">Borrar conversación</button>
+<button id="repeatAudioBtn" class="light" type="button" disabled>Repetir audio</button>
+<button id="clearBtn" class="delete" type="button">Borrar</button>
 </div>
 
 <section class="panel" aria-live="polite">
-<div class="panel-head">
-<h2>Últimas 3 líneas escuchadas</h2>
-<span class="tag">INGLÉS</span>
-</div>
-<div id="liveText" class="transcript"><span class="placeholder">Las últimas frases reconocidas aparecerán aquí.</span></div>
+<div id="liveText" class="transcript"></div>
 <div id="interimText" class="interim"></div>
-<div class="note">La pantalla muestra únicamente las últimas 3 líneas. El historial completo se conserva abajo.</div>
 </section>
 
-<section class="panel" aria-live="polite">
+<section id="answerPanel" class="panel" hidden aria-live="polite">
 <div class="panel-head">
 <h2>Respuesta en inglés</h2>
-<span id="answerTag" class="tag">INACTIVA</span>
+<span id="answerTag" class="tag"></span>
 </div>
-<div id="answerText" class="answer"><span class="placeholder">La aplicación solo escucha hasta que actives un modo de respuesta.</span></div>
+<div id="answerText" class="answer"></div>
 <div id="answerNote" class="note"></div>
 <div class="actions">
 <button id="suggestBtn" class="primary" type="button" disabled>Preparar respuesta</button>
@@ -98,17 +95,10 @@ footer{font-size:12px;line-height:1.7;color:#718096;margin-top:24px}
 </div>
 </section>
 
-<section class="panel">
-<div class="settings-note">
-<strong>Cómo funciona</strong><br>
-Iniciar escucha solo captura y transcribe el inglés. Selecciona Conversación o Preguntas y respuestas cuando quieras preparar una respuesta. Después, pulsa Preparar respuesta. La traducción al español también se realiza únicamente cuando la solicitas.
-</div>
-</section>
-
 <div id="message" class="message" role="status"></div>
 
 <details>
-<summary>Ver transcripción completa e historial</summary>
+<summary>Transcripción completa</summary>
 <div id="fullTranscript">Todavía no hay texto reconocido.</div>
 <div class="actions">
 <button id="copyTranscriptBtn" class="light" type="button" disabled>Copiar transcripción</button>
@@ -116,64 +106,77 @@ Iniciar escucha solo captura y transcribe el inglés. Selecciona Conversación o
 </div>
 <div id="translation" class="note"></div>
 </details>
-
-<footer>
-La aplicación prepara texto escrito; tú hablas con tu propia voz. El reconocimiento de voz puede equivocarse, omitir palabras o captar varias voces. El navegador puede no recuperar el audio original. No se inventan palabras que no puedan reconocerse con suficiente seguridad.
-</footer>
 </main>
 
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
 const startBtn=$("startBtn"),stopBtn=$("stopBtn"),clearBtn=$("clearBtn");
-const liveText=$("liveText"),interimText=$("interimText"),answerText=$("answerText"),answerNote=$("answerNote");
-const suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message");
-const fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn"),translateBtn=$("translateBtn"),translation=$("translation");
+const liveText=$("liveText"),interimText=$("interimText");
+const answerText=$("answerText"),answerNote=$("answerNote");
+const answerPanel=$("answerPanel"),suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn");
+const message=$("message"),fullTranscript=$("fullTranscript");
+const copyTranscriptBtn=$("copyTranscriptBtn"),translateBtn=$("translateBtn"),translation=$("translation");
+const repeatAudioBtn=$("repeatAudioBtn");
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
 let recognition=null,listening=false,stopping=false,mode=null;
 let finalLines=[],latestSpeech="",interimSpeech="",requestBusy=false,sessionId=0;
 let audioChunks=[],mediaRecorder=null,microphoneStream=null,audioUrl=null;
-let pendingResponse=false;
 
 function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
 function setStatus(text,on=false){$("statusText").textContent=text;$("statusDot").classList.toggle("on",on)}
 function notify(text){message.textContent=text}
-function setPlaceholder(el,text){el.replaceChildren();const span=document.createElement("span");span.className="placeholder";span.textContent=text;el.appendChild(span)}
 function allText(){return finalLines.join("\n\n")}
+
 function renderTranscript(){
  liveText.replaceChildren();
- const visibleLines=finalLines.slice(-3);
- if(!visibleLines.length)setPlaceholder(liveText,"Las últimas frases reconocidas aparecerán aquí.");
- else visibleLines.forEach(line=>{
-  const div=document.createElement("div");
-  div.className="line";
-  div.textContent=line;
-  liveText.appendChild(div);
- });
+ const visible=finalLines.slice(-2);
+ if(interimSpeech){
+  const old=visible.slice(-1);
+  old.forEach(line=>{
+   const div=document.createElement("div");
+   div.className="line";
+   div.textContent=line;
+   liveText.appendChild(div);
+  });
+  const current=document.createElement("div");
+  current.className="line new";
+  current.textContent=interimSpeech;
+  liveText.appendChild(current);
+ }else if(visible.length){
+  visible.forEach((line,index)=>{
+   const div=document.createElement("div");
+   div.className="line"+(index===visible.length-1?" new":"");
+   div.textContent=line;
+   liveText.appendChild(div);
+  });
+ }
  fullTranscript.textContent=allText()||"Todavía no hay texto reconocido.";
  copyTranscriptBtn.disabled=!finalLines.length;
  translateBtn.disabled=!finalLines.length;
  suggestBtn.disabled=!mode||!latestSpeech||requestBusy;
 }
+
 function setMode(next){
- if(listening){notify("Detén la escucha antes de cambiar el modo.");return}
+ if(listening){notify("Detén la escucha antes de cambiar de modo.");return}
  mode=next;
  document.querySelectorAll("[data-mode]").forEach(b=>{
   const active=b.dataset.mode===mode;
   b.classList.toggle("active",active);
   b.setAttribute("aria-pressed",String(active));
  });
+ answerPanel.hidden=false;
  $("answerTag").textContent=mode==="conversation"?"CONVERSACIÓN":"PREGUNTAS Y RESPUESTAS";
- setPlaceholder(answerText,"Modo activado. Pulsa Preparar respuesta cuando quieras una propuesta.");
+ answerText.textContent="";
  answerNote.textContent="";
- suggestBtn.disabled=!latestSpeech||requestBusy;
  copyBtn.disabled=true;
- notify(mode==="conversation"?"Modo Conversación activado. Las respuestas no se generan automáticamente.":"Modo Preguntas y respuestas activado. Las respuestas no se generan automáticamente.");
+ suggestBtn.disabled=!latestSpeech||requestBusy;
+ notify("");
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 
 function initRecognition(){
- if(!SpeechRecognition){notify("Este navegador no ofrece reconocimiento de voz. Prueba Chrome actualizado.");return false}
+ if(!SpeechRecognition){notify("El navegador no ofrece reconocimiento de voz.");return false}
  recognition=new SpeechRecognition();
  recognition.lang="en-US";
  recognition.continuous=true;
@@ -182,7 +185,7 @@ function initRecognition(){
  recognition.onstart=()=>{
   listening=true;stopping=false;
   startBtn.disabled=true;stopBtn.disabled=false;
-  setStatus("Escuchando en inglés…",true);
+  setStatus("Escuchando",true);
   notify("");
  };
  recognition.onresult=e=>{
@@ -197,26 +200,26 @@ function initRecognition(){
    }else text=cleanText(result[0].transcript);
    if(!text)continue;
    if(result.isFinal){
-    const previous=finalLines[finalLines.length-1]||"";
-    if(text!==previous)finalLines.push(text);
+    if(text!==finalLines[finalLines.length-1])finalLines.push(text);
     latestSpeech=text;
     interim="";
-    renderTranscript();
     translation.textContent="";
-    suggestBtn.disabled=!mode||requestBusy;
-   }else interim+=(interim?" ":"")+text;
+   }else{
+    interim+=(interim?" ":"")+text;
+   }
   }
   interimSpeech=cleanText(interim);
-  interimText.textContent=interimSpeech?"Escuchando: "+interimSpeech:"";
+  renderTranscript();
+  suggestBtn.disabled=!mode||!latestSpeech||requestBusy;
  };
  recognition.onerror=e=>{
   const err=e.error||"unknown";
   if(err==="not-allowed"||err==="service-not-allowed"){
    stopping=true;listening=false;startBtn.disabled=false;stopBtn.disabled=true;
-   setStatus("Micrófono no disponible");notify("Permite el acceso al micrófono en el navegador.");return;
+   setStatus("Micrófono no disponible");notify("Permite el acceso al micrófono.");return;
   }
-  if(err==="audio-capture"){notify("No se encontró un micrófono disponible.");return}
-  if(err==="network"){notify("El reconocimiento de voz tiene un problema de conexión.");return}
+  if(err==="audio-capture"){notify("No se encontró un micrófono.");return}
+  if(err==="network"){notify("Problema de conexión del reconocimiento.");return}
   if(err!=="no-speech"&&err!=="aborted")notify("Problema de reconocimiento: "+err);
  };
  recognition.onend=()=>{
@@ -225,39 +228,35 @@ function initRecognition(){
    catch(e){setTimeout(()=>{if(listening&&!stopping){try{recognition.start()}catch(_){}}},600)}
   }else{
    listening=false;startBtn.disabled=false;stopBtn.disabled=true;
-   setStatus("Escucha detenida");
+   setStatus("Detenido");
   }
  };
  return true;
 }
+
 async function startAudioRecording(){
  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return;
  try{
   microphoneStream=await navigator.mediaDevices.getUserMedia({audio:true});
+  if(!listening&&stopping){microphoneStream.getTracks().forEach(t=>t.stop());microphoneStream=null;return}
   if(typeof MediaRecorder==="undefined")return;
   audioChunks=[];
   mediaRecorder=new MediaRecorder(microphoneStream);
   mediaRecorder.ondataavailable=e=>{if(e.data&&e.data.size)audioChunks.push(e.data)};
   mediaRecorder.onstop=()=>{
-   if(!audioChunks.length)return;
-   const blob=new Blob(audioChunks,{type:mediaRecorder.mimeType||"audio/webm"});
-   if(audioUrl)URL.revokeObjectURL(audioUrl);
-   audioUrl=URL.createObjectURL(blob);
-   $("repeatAudioBtn").disabled=false;
+   if(audioChunks.length){
+    const blob=new Blob(audioChunks,{type:mediaRecorder.mimeType||"audio/webm"});
+    if(audioUrl)URL.revokeObjectURL(audioUrl);
+    audioUrl=URL.createObjectURL(blob);
+    repeatAudioBtn.disabled=false;
+   }
   };
   mediaRecorder.start();
- }catch(e){
-  notify("La transcripción puede funcionar sin grabar el audio. Revisa los permisos del micrófono si deseas repetir la grabación.");
- }
+ }catch(e){}
 }
 function stopAudioRecording(){
- if(mediaRecorder&&mediaRecorder.state!=="inactive"){
-  try{mediaRecorder.stop()}catch(e){}
- }
- if(microphoneStream){
-  microphoneStream.getTracks().forEach(track=>track.stop());
-  microphoneStream=null;
- }
+ if(mediaRecorder&&mediaRecorder.state!=="inactive"){try{mediaRecorder.stop()}catch(e){}}
+ if(microphoneStream){microphoneStream.getTracks().forEach(t=>t.stop());microphoneStream=null}
 }
 function startListening(){
  if(listening)return;
@@ -265,14 +264,14 @@ function startListening(){
  stopping=false;
  startAudioRecording();
  try{recognition.start()}
- catch(e){notify("No se pudo iniciar. Comprueba los permisos del micrófono.");setStatus("Listo para comenzar")}
+ catch(e){notify("No se pudo iniciar el micrófono.");setStatus("Listo")}
 }
 function stopListening(){
  if(!recognition||!listening)return;
  stopping=true;listening=false;
  try{recognition.stop()}catch(e){}
  stopAudioRecording();
- startBtn.disabled=false;stopBtn.disabled=true;setStatus("Escucha detenida");
+ startBtn.disabled=false;stopBtn.disabled=true;setStatus("Detenido");
 }
 startBtn.addEventListener("click",startListening);
 stopBtn.addEventListener("click",stopListening);
@@ -280,29 +279,29 @@ stopBtn.addEventListener("click",stopListening);
 function clearConversation(){
  sessionId++;
  finalLines=[];latestSpeech="";interimSpeech="";
- requestBusy=false;pendingResponse=false;
- answerNote.textContent="";translation.textContent="";interimText.textContent="";
- setPlaceholder(answerText,mode?"Modo activado. Pulsa Preparar respuesta cuando quieras una propuesta.":"La aplicación solo escucha hasta que actives un modo de respuesta.");
+ requestBusy=false;
+ answerNote.textContent="";answerText.textContent="";
+ translation.textContent="";interimText.textContent="";
  copyBtn.disabled=true;
  if(audioUrl){URL.revokeObjectURL(audioUrl);audioUrl=null}
  audioChunks=[];
  if(mediaRecorder&&mediaRecorder.state!=="inactive"){try{mediaRecorder.stop()}catch(e){}}
  if(microphoneStream){microphoneStream.getTracks().forEach(t=>t.stop());microphoneStream=null}
- $("repeatAudioBtn").disabled=true;
+ repeatAudioBtn.disabled=true;
  renderTranscript();
- notify("Transcripción y respuesta borradas.");
+ notify("");
 }
 clearBtn.addEventListener("click",clearConversation);
 
 async function requestSuggestion(){
  const text=cleanText(latestSpeech);
- if(!mode){notify("Primero activa Conversación o Preguntas y respuestas.");return}
- if(!text){notify("Primero debes escuchar una frase o pregunta.");return}
- if(requestBusy){notify("Espera a que termine la solicitud actual.");return}
+ if(!mode){notify("Activa Conversación o Preguntas y respuestas.");return}
+ if(!text){notify("Todavía no hay una frase reconocida.");return}
+ if(requestBusy)return;
  requestBusy=true;
  const currentSession=sessionId;
  suggestBtn.disabled=true;
- answerNote.textContent="Preparando una respuesta relacionada con lo escuchado…";
+ answerNote.textContent="Preparando…";
  const context=finalLines.slice(-7,-1).join("\n");
  try{
   const res=await fetch("/api/respond",{
@@ -311,14 +310,14 @@ async function requestSuggestion(){
    body:JSON.stringify({transcript:text,context,mode})
   });
   const data=await res.json();
-  if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
+  if(!res.ok)throw new Error(data.detail||"No se pudo obtener la respuesta.");
   if(currentSession===sessionId){
-   answerText.textContent=cleanText(data.answer)||"No se recibió una respuesta útil.";
+   answerText.textContent=cleanText(data.answer);
    answerNote.textContent=data.note||"";
    copyBtn.disabled=!cleanText(data.answer);
   }
  }catch(e){
-  if(currentSession===sessionId)answerNote.textContent=e.message||"No se pudo conectar con el servicio de respuestas.";
+  if(currentSession===sessionId)answerNote.textContent=e.message||"Error de conexión.";
  }finally{
   requestBusy=false;
   suggestBtn.disabled=!mode||!latestSpeech;
@@ -329,7 +328,7 @@ suggestBtn.addEventListener("click",requestSuggestion);
 async function copyText(text,success){
  if(!text)return;
  try{await navigator.clipboard.writeText(text);notify(success)}
- catch(e){notify("No se pudo copiar automáticamente. Selecciona el texto y cópialo.")}
+ catch(e){notify("No se pudo copiar. Selecciona el texto y cópialo.")}
 }
 copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta copiada."));
 copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripción copiada."));
@@ -338,7 +337,7 @@ translateBtn.addEventListener("click",async()=>{
  const text=allText();
  if(!text)return;
  translateBtn.disabled=true;
- translation.textContent="Traduciendo al español…";
+ translation.textContent="Traduciendo…";
  const currentSession=sessionId;
  try{
   const res=await fetch("/api/translate",{
@@ -348,10 +347,16 @@ translateBtn.addEventListener("click",async()=>{
   });
   const data=await res.json();
   if(!res.ok)throw new Error(data.detail||"No se pudo traducir.");
-  if(currentSession===sessionId)translation.textContent=data.translation||"No se recibió traducción.";
+  if(currentSession===sessionId)translation.textContent=data.translation||"";
  }catch(e){
   if(currentSession===sessionId)translation.textContent=e.message||"Error de traducción.";
  }finally{translateBtn.disabled=!finalLines.length}
+});
+
+repeatAudioBtn.addEventListener("click",()=>{
+ if(!audioUrl)return;
+ const audio=new Audio(audioUrl);
+ audio.play().catch(()=>notify("No se pudo reproducir la grabación."));
 });
 
 window.addEventListener("beforeunload",()=>{
@@ -360,21 +365,9 @@ window.addEventListener("beforeunload",()=>{
  if(audioUrl)URL.revokeObjectURL(audioUrl);
 });
 fetch("/api/health").then(r=>r.json()).then(data=>{
- if(!data.gemini_configured&&!data.openai_fallback_configured)notify("Configura GEMINI_API_KEY u OPENAI_API_KEY en Render.");
+ if(!data.gemini_configured&&!data.openai_fallback_configured)notify("Configura las claves de IA en Render.");
 }).catch(()=>{});
-
-const repeatButton=document.createElement("button");
-repeatButton.id="repeatAudioBtn";
-repeatButton.type="button";
-repeatButton.className="light";
-repeatButton.textContent="Repetir audio grabado";
-repeatButton.disabled=true;
-$("startBtn").parentElement.insertBefore(repeatButton,$("clearBtn"));
-repeatButton.addEventListener("click",()=>{
- if(!audioUrl){notify("Todavía no hay una grabación disponible.");return}
- const audio=new Audio(audioUrl);
- audio.play().catch(()=>notify("No se pudo reproducir la grabación."));
-});
+renderTranscript();
 </script>
 </body>
 </html>
