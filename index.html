@@ -10,7 +10,7 @@
 :root{font-family:Arial,Helvetica,sans-serif;color:#172b4d;background:#f5f7fb}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh}
-button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:700}
 button:disabled{opacity:.45;cursor:not-allowed}
 .app{width:min(1000px,100%);margin:auto;padding:18px 16px 30px}
 header{margin-bottom:12px}
@@ -19,7 +19,7 @@ h1{font-size:24px;margin:0 0 8px;letter-spacing:-.4px}
 .dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;flex:none}
 .dot.on{background:#16a34a}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.mode{background:white;border:1px solid #d8e0ec;color:#334155;text-align:left;min-height:52px}
+.mode{background:white;border:1px solid #d8e0ec;color:#334155;text-align:left;min-height:48px}
 .mode.active{border:2px solid #245bd6;background:#eef4ff;color:#1746a2}
 .mode strong{display:block;font-size:15px}
 .controls,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
@@ -32,7 +32,7 @@ h1{font-size:24px;margin:0 0 8px;letter-spacing:-.4px}
 h2{font-size:14px;margin:0}
 .tag{font-size:10px;font-weight:700;color:#52627a;background:#eef2f7;padding:5px 8px;border-radius:20px}
 .transcript{font-size:18px;line-height:1.55;overflow-wrap:anywhere}
-.line{padding:7px 10px;margin:3px 0;border-radius:8px;border-bottom:1px solid #e8edf4;white-space:pre-wrap}
+.line{padding:7px 10px;margin:4px 0;border-radius:8px;border-bottom:1px solid #e8edf4;white-space:pre-wrap;overflow-wrap:anywhere}
 .line.old{color:#52627a;background:#f8fafc}
 .line.new{color:#14532d;background:#e8f9ed;border:1px solid #9bd9aa;box-shadow:0 0 13px rgba(34,197,94,.22);font-weight:500}
 .line.current{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -54,7 +54,7 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
  .transcript,.interim{font-size:16px}
  .modes{gap:7px}
  .mode{padding:11px 9px}
- button{padding:11px 12px}
+ button{padding:10px 11px}
 }
 </style>
 </head>
@@ -72,9 +72,10 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 
 <div class="controls">
 <button id="startBtn" class="primary" type="button">Escuchar</button>
-<button id="stopBtn" class="stop" type="button" disabled>Detener</button>
+<button id="stopBtn" class="stop" type="button" disabled>Detener escucha</button>
 <button id="clearBtn" class="delete" type="button">Borrar</button>
 <button id="repeatAudioBtn" class="light" type="button" disabled>Repetir audio</button>
+<button id="deleteAudioBtn" class="light" type="button" disabled>Borrar audio</button>
 </div>
 
 <section class="panel" aria-live="polite">
@@ -117,32 +118,30 @@ const answerText=$("answerText"),answerNote=$("answerNote");
 const suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message");
 const fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn");
 const translateBtn=$("translateBtn"),translation=$("translation");
-const repeatAudioBtn=$("repeatAudioBtn");
+const repeatAudioBtn=$("repeatAudioBtn"),deleteAudioBtn=$("deleteAudioBtn");
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+
 let recognition=null,listening=false,stopping=false,mode=null;
-let finalLines=[],latestSpeech="",interimSpeech="",requestBusy=false,sessionId=0;
+let finalLines=[],latestSpeech="",interimSpeech="";
+let requestBusy=false,sessionId=0,modeVersion=0;
+let pendingAuto=null,lastAutoKey="";
 let audioChunks=[],mediaRecorder=null,microphoneStream=null,audioUrl=null;
-let recordingWanted=false,restartTimer=null;
+let recordingWanted=false,restartTimer=null,playback=null;
 
 function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
 
 function punctuate(text,final=true){
  let s=cleanText(text);
  if(!s)return "";
- s=s.replace(/\s+([,.!?;:])/g,"$1")
-    .replace(/([,.!?;:])([^\s])/g,"$1 $2")
-    .replace(/\bi\b/g,"I");
+ s=s.replace(/\s+([,.!?;:])/g,"$1").replace(/([,.!?;:])([^\s])/g,"$1 $2").replace(/\bi\b/g,"I");
  s=s.charAt(0).toUpperCase()+s.slice(1);
  if(final&&!/[.!?]$/.test(s)){
   const first=s.split(/\s+/)[0].toLowerCase();
-  const questionStarts=["who","what","when","where","why","how","which","whose","whom"];
-  const auxiliaryStarts=["do","does","did","is","are","am","was","were","will","would","can","could","should","have","has","had"];
-  if(questionStarts.includes(first)||auxiliaryStarts.includes(first))s+="?";
-  else s+=".";
+  const questions=["who","what","when","where","why","how","which","whose","whom","do","does","did","is","are","am","was","were","will","would","can","could","should","have","has","had"];
+  s+=questions.includes(first)?"?":".";
  }
  return s;
 }
-
 function setStatus(text,on=false){
  $("statusText").textContent=text;
  $("statusDot").classList.toggle("on",on);
@@ -150,6 +149,7 @@ function setStatus(text,on=false){
 function notify(text){message.textContent=text||""}
 function setPlaceholder(el,text){
  el.replaceChildren();
+ if(!text)return;
  const span=document.createElement("span");
  span.className="placeholder";
  span.textContent=text;
@@ -173,7 +173,6 @@ function renderTranscript(){
   div.textContent=finalLines[finalLines.length-1];
   liveText.appendChild(div);
  }
- if(!finalLines.length&&!hasInterim)setPlaceholder(liveText,"");
  interimText.replaceChildren();
  if(hasInterim){
   const div=document.createElement("div");
@@ -184,21 +183,27 @@ function renderTranscript(){
  fullTranscript.textContent=allText()||"Todavía no hay texto reconocido.";
  copyTranscriptBtn.disabled=!finalLines.length;
  translateBtn.disabled=!finalLines.length;
- suggestBtn.disabled=!mode||!latestSpeech||requestBusy;
+ suggestBtn.disabled=!mode||!latestSpeech;
 }
 
 function setMode(next){
- mode=next;
+ if(mode!==next){
+  mode=next;
+  modeVersion++;
+  pendingAuto=null;
+  lastAutoKey="";
+  setPlaceholder(answerText,"");
+  answerNote.textContent="";
+  copyBtn.disabled=true;
+ }
  document.querySelectorAll("[data-mode]").forEach(b=>{
   const active=b.dataset.mode===mode;
   b.classList.toggle("active",active);
   b.setAttribute("aria-pressed",String(active));
  });
  $("answerTag").textContent=mode==="conversation"?"CONVERSACIÓN":"PREGUNTAS Y RESPUESTAS";
- setPlaceholder(answerText,"");
- answerNote.textContent="";
- copyBtn.disabled=true;
  notify("");
+ renderTranscript();
  if(!listening)startListening();
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
@@ -215,15 +220,12 @@ function initRecognition(){
  recognition.maxAlternatives=3;
 
  recognition.onstart=()=>{
-  listening=true;
-  stopping=false;
-  startBtn.disabled=true;
-  startBtn.textContent="Escuchando";
+  listening=true;stopping=false;
+  startBtn.disabled=true;startBtn.textContent="Escuchando";
   stopBtn.disabled=false;
-  setStatus("Escuchando",true);
+  setStatus(mode?"Escuchando y preparando respuestas":"Escuchando",true);
   notify("");
  };
-
  recognition.onresult=e=>{
   let interim="";
   for(let i=e.resultIndex;i<e.results.length;i++){
@@ -235,10 +237,13 @@ function initRecognition(){
    if(result.isFinal){
     const formatted=punctuate(spoken,true);
     const previous=finalLines[finalLines.length-1]||"";
-    if(formatted!==previous)finalLines.push(formatted);
-    latestSpeech=formatted;
+    if(formatted!==previous){
+     finalLines.push(formatted);
+     latestSpeech=formatted;
+     translation.textContent="";
+     if(mode)queueAutoResponse(formatted,finalLines.slice(0,-1).slice(-7).join("\n"),mode);
+    }
     interim="";
-    translation.textContent="";
    }else{
     interim+=(interim?" ":"")+spoken;
    }
@@ -246,7 +251,6 @@ function initRecognition(){
   interimSpeech=cleanText(interim);
   renderTranscript();
  };
-
  recognition.onerror=e=>{
   const err=e.error||"unknown";
   if(err==="not-allowed"||err==="service-not-allowed"){
@@ -260,7 +264,6 @@ function initRecognition(){
   if(err==="network"){notify("Problema de conexión del reconocimiento.");return}
   if(err!=="no-speech"&&err!=="aborted")notify("Problema de reconocimiento: "+err);
  };
-
  recognition.onend=()=>{
   if(listening&&!stopping){
    clearTimeout(restartTimer);
@@ -271,15 +274,44 @@ function initRecognition(){
    },250);
   }else{
    listening=false;
-   startBtn.disabled=false;
-   startBtn.textContent="Continuar escuchando";
-   stopBtn.disabled=true;
-   setStatus("Escucha detenida");
+   startBtn.disabled=false;startBtn.textContent="Continuar escuchando";
+   stopBtn.disabled=true;setStatus("Escucha detenida");
   }
  };
  return true;
 }
 
+function setAudioAvailable(available){
+ repeatAudioBtn.disabled=!available;
+ deleteAudioBtn.disabled=!available&&!audioChunks.length&&!(mediaRecorder&&mediaRecorder.state==="recording");
+}
+function stopPlayback(){
+ if(playback){
+  playback.pause();
+  try{playback.currentTime=0}catch(e){}
+  playback=null;
+ }
+ repeatAudioBtn.textContent="Repetir audio";
+}
+function createRecorder(stream){
+ if(typeof MediaRecorder==="undefined"||!stream)return;
+ audioChunks=[];
+ const recorder=new MediaRecorder(stream);
+ mediaRecorder=recorder;
+ recorder.ondataavailable=e=>{
+  if(mediaRecorder===recorder&&e.data&&e.data.size)audioChunks.push(e.data);
+ };
+ recorder.onstop=()=>{
+  if(mediaRecorder!==recorder)return;
+  if(audioChunks.length){
+   const blob=new Blob(audioChunks,{type:recorder.mimeType||"audio/webm"});
+   if(audioUrl)URL.revokeObjectURL(audioUrl);
+   audioUrl=URL.createObjectURL(blob);
+  }
+  setAudioAvailable(!!audioUrl);
+ };
+ try{recorder.start();setAudioAvailable(true)}catch(e){}
+}
 async function startAudioRecording(){
  recordingWanted=true;
  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return;
@@ -290,25 +322,11 @@ async function startAudioRecording(){
    return;
   }
   microphoneStream=stream;
-  if(typeof MediaRecorder==="undefined")return;
-  audioChunks=[];
-  mediaRecorder=new MediaRecorder(stream);
-  mediaRecorder.ondataavailable=e=>{
-   if(e.data&&e.data.size)audioChunks.push(e.data);
-  };
-  mediaRecorder.onstop=()=>{
-   if(!audioChunks.length)return;
-   const blob=new Blob(audioChunks,{type:mediaRecorder.mimeType||"audio/webm"});
-   if(audioUrl)URL.revokeObjectURL(audioUrl);
-   audioUrl=URL.createObjectURL(blob);
-   repeatAudioBtn.disabled=false;
-  };
-  mediaRecorder.start();
+  createRecorder(stream);
  }catch(e){
-  if(listening)notify("No se pudo grabar el audio. La transcripción puede seguir funcionando.");
+  if(listening)notify("No se pudo grabar el audio.");
  }
 }
-
 function stopAudioRecording(){
  recordingWanted=false;
  if(mediaRecorder&&mediaRecorder.state!=="inactive"){
@@ -319,110 +337,125 @@ function stopAudioRecording(){
   microphoneStream=null;
  }
 }
-
 function startListening(){
  if(listening)return;
  if(!recognition&&!initRecognition())return;
- stopping=false;
- listening=true;
- startBtn.disabled=true;
- stopBtn.disabled=false;
+ stopping=false;listening=true;
+ startBtn.disabled=true;stopBtn.disabled=false;
  setStatus("Conectando micrófono",true);
  startAudioRecording();
  try{recognition.start()}
  catch(e){
-  listening=false;
-  startBtn.disabled=false;
+  listening=false;startBtn.disabled=false;
   startBtn.textContent="Continuar escuchando";
-  stopBtn.disabled=true;
-  setStatus("Listo");
+  stopBtn.disabled=true;setStatus("Listo");
   notify("No se pudo iniciar. Comprueba los permisos del micrófono.");
  }
 }
-
 function stopListening(){
  if(!recognition||!listening)return;
- stopping=true;
- listening=false;
+ stopping=true;listening=false;
  clearTimeout(restartTimer);
  try{recognition.stop()}catch(e){}
  stopAudioRecording();
- startBtn.disabled=false;
- startBtn.textContent="Continuar escuchando";
- stopBtn.disabled=true;
- setStatus("Escucha detenida");
+ startBtn.disabled=false;startBtn.textContent="Continuar escuchando";
+ stopBtn.disabled=true;setStatus("Escucha detenida");
 }
 startBtn.addEventListener("click",startListening);
 stopBtn.addEventListener("click",stopListening);
 
 function clearConversation(){
  sessionId++;
- finalLines=[];
- latestSpeech="";
- interimSpeech="";
+ finalLines=[];latestSpeech="";interimSpeech="";
+ pendingAuto=null;lastAutoKey="";
  requestBusy=false;
- answerNote.textContent="";
- translation.textContent="";
- interimText.replaceChildren();
- setPlaceholder(answerText,"");
- copyBtn.disabled=true;
- if(audioUrl){URL.revokeObjectURL(audioUrl);audioUrl=null}
- audioChunks=[];
- repeatAudioBtn.disabled=true;
-
- if(listening){
-  if(mediaRecorder&&mediaRecorder.state==="recording"){
-   try{mediaRecorder.requestData()}catch(e){}
-  }
- }else{
-  stopAudioRecording();
- }
+ answerNote.textContent="";translation.textContent="";
+ setPlaceholder(answerText,"");copyBtn.disabled=true;
  renderTranscript();
  notify("");
- if(listening)setStatus("Escuchando",true);
+ if(listening)setStatus(mode?"Escuchando y preparando respuestas":"Escuchando",true);
 }
 clearBtn.addEventListener("click",clearConversation);
 
-async function requestSuggestion(){
- const text=cleanText(latestSpeech);
- if(!mode){notify("Selecciona un modo.");return}
- if(!text){notify("Primero escucha una frase o pregunta.");return}
- if(requestBusy)return;
+function deleteAudio(){
+ stopPlayback();
+ if(audioUrl){URL.revokeObjectURL(audioUrl);audioUrl=null}
+ audioChunks=[];
+ repeatAudioBtn.textContent="Repetir audio";
+ setAudioAvailable(false);
+ if(mediaRecorder&&mediaRecorder.state==="recording"&&microphoneStream&&listening){
+  const oldRecorder=mediaRecorder;
+  const stream=microphoneStream;
+  mediaRecorder=null;
+  oldRecorder.addEventListener("stop",()=>{
+   if(listening&&recordingWanted&&microphoneStream===stream)createRecorder(stream);
+  },{once:true});
+  try{oldRecorder.stop()}catch(e){if(listening&&recordingWanted)createRecorder(stream)}
+ }
+ notify("");
+}
+deleteAudioBtn.addEventListener("click",deleteAudio);
+
+/* Cada frase final reconocida genera una respuesta automáticamente.
+   Si llega otra mientras el servidor responde, se conserva la más reciente. */
+function queueAutoResponse(text,context,selectedMode){
+ if(!selectedMode||!text)return;
+ const key=sessionId+"|"+modeVersion+"|"+selectedMode+"|"+text;
+ if(key===lastAutoKey)return;
+ lastAutoKey=key;
+ pendingAuto={text,context,mode:selectedMode,session:sessionId,version:modeVersion,key};
+ processAutoResponse();
+}
+async function processAutoResponse(){
+ if(requestBusy||!pendingAuto)return;
+ const job=pendingAuto;
+ pendingAuto=null;
+ if(job.session!==sessionId||job.version!==modeVersion||job.mode!==mode)return;
  requestBusy=true;
- const currentSession=sessionId;
  suggestBtn.disabled=true;
  answerNote.textContent="";
- const context=finalLines.slice(-7,-1).join("\n");
  try{
   const res=await fetch("/api/respond",{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({transcript:text,context,mode})
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({transcript:job.text,context:job.context,mode:job.mode})
   });
   const data=await res.json();
   if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
-  if(currentSession===sessionId){
+  if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
    answerText.textContent=cleanText(data.answer)||"No se recibió una respuesta útil.";
    answerNote.textContent=data.note||"";
    copyBtn.disabled=!cleanText(data.answer);
   }
  }catch(e){
-  if(currentSession===sessionId)answerNote.textContent=e.message||"No se pudo conectar con el servicio.";
+  if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
+   answerNote.textContent=(e.message||"No se pudo conectar con el servicio.")+" Puedes pulsar «Preparar respuesta» para intentarlo otra vez.";
+  }
  }finally{
   requestBusy=false;
   suggestBtn.disabled=!mode||!latestSpeech;
+  if(pendingAuto)processAutoResponse();
  }
+}
+
+/* El botón manual utiliza la frase más reciente como respaldo. */
+async function requestSuggestion(){
+ if(!mode){notify("Selecciona Conversación o Preguntas y respuestas.");return}
+ const text=cleanText(latestSpeech);
+ if(!text){notify("Primero escucha una frase o pregunta en inglés.");return}
+ if(requestBusy){
+  pendingAuto={text,context:finalLines.slice(0,-1).slice(-7).join("\n"),mode,session:sessionId,version:modeVersion,key:"manual-"+Date.now()};
+  notify("Preparando la respuesta más reciente.");
+  return;
+ }
+ pendingAuto={text,context:finalLines.slice(0,-1).slice(-7).join("\n"),mode,session:sessionId,version:modeVersion,key:"manual-"+Date.now()};
+ await processAutoResponse();
 }
 suggestBtn.addEventListener("click",requestSuggestion);
 
 async function copyText(text,success){
  if(!text)return;
- try{
-  await navigator.clipboard.writeText(text);
-  notify(success);
- }catch(e){
-  notify("Selecciona el texto y cópialo.");
- }
+ try{await navigator.clipboard.writeText(text);notify(success)}
+ catch(e){notify("Selecciona el texto y cópialo.")}
 }
 copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta copiada."));
 copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripción copiada."));
@@ -430,13 +463,11 @@ copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripció
 translateBtn.addEventListener("click",async()=>{
  const text=allText();
  if(!text)return;
- translateBtn.disabled=true;
- translation.textContent="Traduciendo…";
+ translateBtn.disabled=true;translation.textContent="Traduciendo…";
  const currentSession=sessionId;
  try{
   const res=await fetch("/api/translate",{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
+   method:"POST",headers:{"Content-Type":"application/json"},
    body:JSON.stringify({transcript:text})
   });
   const data=await res.json();
@@ -444,19 +475,36 @@ translateBtn.addEventListener("click",async()=>{
   if(currentSession===sessionId)translation.textContent=data.translation||"No se recibió traducción.";
  }catch(e){
   if(currentSession===sessionId)translation.textContent=e.message||"Error de traducción.";
- }finally{
-  translateBtn.disabled=!finalLines.length;
- }
+ }finally{translateBtn.disabled=!finalLines.length}
 });
 
 repeatAudioBtn.addEventListener("click",()=>{
- if(!audioUrl){notify("Todavía no hay una grabación disponible.");return}
- const audio=new Audio(audioUrl);
- audio.play().catch(()=>notify("No se pudo reproducir la grabación."));
+ if(playback&&!playback.paused){
+  stopPlayback();
+  return;
+ }
+ if(!audioUrl){notify("No hay audio grabado.");return}
+ playback=new Audio(audioUrl);
+ repeatAudioBtn.textContent="Detener audio";
+ playback.onended=()=>{
+  playback=null;
+  repeatAudioBtn.textContent="Repetir audio";
+ };
+ playback.onerror=()=>{
+  playback=null;
+  repeatAudioBtn.textContent="Repetir audio";
+  notify("No se pudo reproducir el audio.");
+ };
+ playback.play().catch(()=>{
+  playback=null;
+  repeatAudioBtn.textContent="Repetir audio";
+  notify("No se pudo reproducir el audio.");
+ });
 });
 
 window.addEventListener("beforeunload",()=>{
  listening=false;stopping=true;clearTimeout(restartTimer);
+ stopPlayback();
  if(recognition){try{recognition.stop()}catch(e){}}
  stopAudioRecording();
  if(audioUrl)URL.revokeObjectURL(audioUrl);
@@ -464,6 +512,7 @@ window.addEventListener("beforeunload",()=>{
 
 setPlaceholder(liveText,"");
 setPlaceholder(answerText,"");
+setAudioAvailable(false);
 </script>
 </body>
 </html>
