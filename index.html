@@ -1,1109 +1,553 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-50">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Florida Healthcare Risk & Regulatory Compliance Simulator (600 Qs)</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            900: '#0c4a6e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Font Awesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
-        @media print {
-            .no-print { display: none !important; }
-            .print-only { display: block !important; }
-            body { background: white !important; color: black !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173d35">
+<title>MAY ROGA Live English</title>
+<style>
+:root{color-scheme:light;--ink:#173d35;--bg:#f4f7f5;--muted:#65756e;--line:#dce6e0;--green:#176b4d;--red:#a33b3b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+button,textarea{font:inherit}
+button{border:0;border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+header{background:var(--ink);color:white;padding:17px}
+.wrap{width:min(760px,100%);margin:auto}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:13px;background:#ffffff20;display:grid;place-items:center;font-size:23px}
+h1{font-size:19px;margin:0}
+.sub{font-size:12px;color:#d0e2d9;margin-top:4px}
+main{padding:13px;display:grid;gap:12px}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:15px;min-width:0}
+.statusrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.status{font-size:12px;font-weight:800;color:var(--muted)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aab6b0;margin-right:6px}
+.dot.live{background:#1b9c69;box-shadow:0 0 0 4px #1b9c691c}
+.controls,.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.controls button,.row button{flex:1;min-width:110px}
+.primary{background:var(--green);color:white}
+.stop{background:#f9e8e8;color:var(--red)}
+.secondary{background:#edf3ef;color:var(--ink)}
+.ghost{background:white;color:var(--ink);border:1px solid var(--line)}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+h2{font-size:14px;margin:0 0 11px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{font-size:10px;border-radius:30px;background:#edf3ef;padding:5px 8px;color:var(--muted);white-space:nowrap}
+.feed{display:flex;flex-direction:column;gap:8px;max-height:290px;overflow:hidden}
+.bubble{background:#f1f5f2;border-radius:12px;padding:10px 12px;line-height:1.5;overflow-wrap:anywhere;animation:appear .2s ease}
+.bubble.interim{border:1px dashed #aebeb4;color:#65756e;background:#fafcfb}
+.time{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}
+.empty{font-size:13px;color:var(--muted);padding:10px 0;line-height:1.6}
+.answer{background:#eaf5ee;border:1px solid #d1e8d9;border-radius:13px;padding:13px;font-size:17px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+textarea{width:100%;min-height:145px;margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical;color:var(--ink);background:white;line-height:1.5}
+#translation{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
+#message{font-size:12px;color:var(--muted);margin-top:9px;min-height:18px}
+details summary{cursor:pointer;font-size:14px;font-weight:700}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:5px 18px 22px;line-height:1.6}
+@keyframes appear{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:650px){main{grid-template-columns:1fr 1fr;align-items:start}.wide{grid-column:1/-1}.feed{max-height:340px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full flex flex-col transition-colors duration-200">
-
-    <!-- Header / Navbar -->
-    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="app.navHome()">
-                <div class="bg-brand-600 text-white p-2 rounded-lg font-bold text-xl flex items-center justify-center w-10 h-10 shadow">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-base sm:text-lg leading-tight text-slate-900 dark:text-white" id="app-title">FL Healthcare Risk & Compliance</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400" id="app-subtitle">AHCA Risk Management & FL Public/Private Compliance (600 Qs)</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                <!-- Language Switcher -->
-                <button onclick="app.toggleLanguage()" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold flex items-center gap-2 transition">
-                    <i class="fa-solid fa-language text-brand-500 text-sm"></i>
-                    <span id="lang-indicator">Español</span>
-                </button>
-
-                <!-- Theme Switcher -->
-                <button onclick="app.toggleTheme()" class="p-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition">
-                    <i class="fa-solid fa-moon dark:hidden"></i>
-                    <i class="fa-solid fa-sun hidden dark:inline"></i>
-                </button>
-
-                <!-- Reset Data Button -->
-                <button onclick="app.resetProgress()" title="Reset Progress" class="p-2 rounded-lg border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition">
-                    <i class="fa-solid fa-arrow-rotate-left"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
-
-        <!-- VIEW 1: HOME & DASHBOARD -->
-        <div id="view-home" class="space-y-6">
-            
-            <!-- Question Bank Selector Controls -->
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-                <span class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide flex items-center gap-2">
-                    <i class="fa-solid fa-layer-group text-brand-500"></i>
-                    <span id="lbl-select-bank">Select Active Question Bank:</span>
-                </span>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full md:w-auto">
-                    <button id="btn-bank-risk" onclick="app.setActiveBank('risk')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 border">
-                        <i class="fa-solid fa-hospital"></i>
-                        <span>AHCA Risk Management (300 Qs)</span>
-                    </button>
-                    <button id="btn-bank-compliance" onclick="app.setActiveBank('compliance')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 border">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                        <span>FL Regulatory & Govt Compliance (300 Qs)</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Hero Banner -->
-            <div class="bg-gradient-to-r from-brand-700 via-brand-800 to-brand-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-                <div class="max-w-3xl relative z-10">
-                    <span class="inline-block px-3 py-1 bg-brand-500/30 border border-brand-400/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3" id="badge-fl">Florida Standard Regulatory Exam Prep</span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold mb-3 leading-tight" id="home-title">Healthcare Risk & Regulatory Compliance Simulator</h2>
-                    <p class="text-brand-100 text-sm sm:text-base mb-6 leading-relaxed" id="home-desc">
-                        Prepare for the Florida Healthcare Risk Management License (F.S. 395.0197) and Florida Corporate/Government Health Regulatory Compliance. Features 600 total scenario-based questions with full legal rationales.
-                    </p>
-
-                    <div class="flex flex-wrap gap-3 sm:gap-4">
-                        <button onclick="app.startPractice('all')" class="bg-white text-brand-900 hover:bg-brand-50 px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-book-open text-brand-600"></i>
-                            <span id="btn-start-practice">Start Study Mode</span>
-                        </button>
-                        <button onclick="app.showExamModal()" class="bg-brand-500 hover:bg-brand-400 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-stopwatch"></i>
-                            <span id="btn-start-exam">Timed Exam Simulation</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dashboard Stats Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-answered">Questions Answered</p>
-                            <h3 class="text-2xl font-bold mt-1" id="stat-answered">0 / 300</h3>
-                        </div>
-                        <div class="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
-                            <i class="fa-solid fa-list-check text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full mt-4 overflow-hidden">
-                        <div id="stat-bar-progress" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-accuracy">Average Accuracy</p>
-                            <h3 class="text-2xl font-bold mt-1" id="stat-accuracy">0%</h3>
-                        </div>
-                        <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg">
-                            <i class="fa-solid fa-bullseye text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full mt-4 overflow-hidden">
-                        <div id="stat-bar-accuracy" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-mastered">Mastered Questions</p>
-                            <h3 class="text-2xl font-bold mt-1" id="stat-mastered">0</h3>
-                        </div>
-                        <div class="p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg">
-                            <i class="fa-solid fa-award text-xl"></i>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-4" id="stat-mastered-sub">Answered correctly in active bank</p>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase" id="stat-lbl-exams">Exams Completed</p>
-                            <h3 class="text-2xl font-bold mt-1" id="stat-exams">0</h3>
-                        </div>
-                        <div class="p-3 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg">
-                            <i class="fa-solid fa-clock-rotate-left text-xl"></i>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-4" id="stat-exams-sub">Evaluative simulations logged</p>
-                </div>
-            </div>
-
-            <!-- Active Categories Grid -->
-            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
-                <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-white" id="cat-title">Florida Law & Risk Domains</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="categories-list">
-                    <!-- Dynamic Category Cards -->
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 2: QUIZ / EXAM SESSION -->
-        <div id="view-quiz" class="hidden space-y-6">
-            <!-- Top Controls Bar -->
-            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <button onclick="app.navHome()" class="text-slate-500 hover:text-slate-800 dark:hover:text-white p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-                        <i class="fa-solid fa-arrow-left text-lg"></i>
-                    </button>
-                    <div>
-                        <span id="quiz-mode-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 dark:bg-brand-900/50 dark:text-brand-300">Study Mode</span>
-                        <h2 class="text-sm font-bold text-slate-800 dark:text-slate-200" id="quiz-category-lbl">All Topics</h2>
-                    </div>
-                </div>
-
-                <!-- Timer & Progress -->
-                <div class="flex items-center gap-4">
-                    <div id="exam-timer-container" class="hidden items-center gap-2 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 px-3 py-1.5 rounded-lg border border-amber-200 dark:border-amber-800 font-mono font-bold text-sm">
-                        <i class="fa-solid fa-stopwatch animate-pulse"></i>
-                        <span id="exam-timer">60:00</span>
-                    </div>
-
-                    <div class="text-right">
-                        <span class="text-xs text-slate-400 block" id="lbl-question-num">Question</span>
-                        <span class="text-base font-bold text-brand-600 dark:text-brand-400" id="quiz-progress-text">1 / 300</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Question Card -->
-            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg p-6 sm:p-8 space-y-6">
-                
-                <div class="flex items-start justify-between gap-4">
-                    <span class="inline-block text-xs font-bold px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-md" id="q-category">
-                        Category Name
-                    </span>
-
-                    <button onclick="app.speakQuestion()" class="p-2.5 rounded-lg bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/50 transition flex items-center gap-2 text-xs font-semibold" title="Read Aloud">
-                        <i class="fa-solid fa-volume-high text-base"></i>
-                        <span id="btn-audio-lbl">Audio</span>
-                    </button>
-                </div>
-
-                <!-- Question Text -->
-                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed" id="q-text">
-                    Question text will appear here...
-                </h3>
-
-                <!-- Options List -->
-                <div class="space-y-3" id="q-options">
-                    <!-- Dynamic Options -->
-                </div>
-
-                <!-- Statutory Rationale Box -->
-                <div id="q-rationale-box" class="hidden p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 space-y-2">
-                    <div class="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200 text-sm">
-                        <i class="fa-solid fa-circle-info text-brand-500"></i>
-                        <span id="rationale-header">Legal & Clinical Rationale (Statutory Basis)</span>
-                    </div>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" id="q-rationale-text">
-                        Explanation...
-                    </p>
-                </div>
-
-                <!-- Navigation Controls -->
-                <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
-                    <button id="btn-prev" onclick="app.prevQuestion()" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-xs sm:text-sm flex items-center gap-2 transition">
-                        <i class="fa-solid fa-chevron-left"></i>
-                        <span id="lbl-btn-prev">Previous</span>
-                    </button>
-
-                    <div class="flex items-center gap-2">
-                        <button id="btn-submit-exam" onclick="app.confirmSubmitExam()" class="hidden px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow transition">
-                            <span id="lbl-btn-submit">Submit Exam</span>
-                        </button>
-
-                        <button id="btn-next" onclick="app.nextQuestion()" class="px-5 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 shadow transition">
-                            <span id="lbl-btn-next">Next</span>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 3: RESULTS & BREAKDOWN REPORT -->
-        <div id="view-results" class="hidden space-y-6">
-            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl p-6 sm:p-8 space-y-6">
-                <div class="text-center space-y-3 border-b border-slate-200 dark:border-slate-700 pb-6">
-                    <div id="score-badge" class="inline-flex items-center justify-center w-20 h-20 rounded-full text-2xl font-black text-white bg-emerald-500 mx-auto shadow-lg">
-                        85%
-                    </div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="results-title">Exam Completed!</h2>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto" id="results-subtitle">Performance breakdown based on Florida AHCA & Regulatory Standards.</p>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                    <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
-                        <span class="text-xs text-slate-400 block uppercase" id="res-lbl-total">Total Qs</span>
-                        <span class="text-xl font-bold" id="res-total">50</span>
-                    </div>
-                    <div class="p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg text-emerald-600 dark:text-emerald-400">
-                        <span class="text-xs block uppercase" id="res-lbl-correct">Correct</span>
-                        <span class="text-xl font-bold" id="res-correct">42</span>
-                    </div>
-                    <div class="p-4 bg-red-50 dark:bg-red-950/30 rounded-lg text-red-600 dark:text-red-400">
-                        <span class="text-xs block uppercase" id="res-lbl-incorrect">Incorrect</span>
-                        <span class="text-xl font-bold" id="res-incorrect">8</span>
-                    </div>
-                    <div class="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg text-blue-600 dark:text-blue-400">
-                        <span class="text-xs block uppercase" id="res-lbl-time">Time Spent</span>
-                        <span class="text-xl font-bold font-mono" id="res-time">34:12</span>
-                    </div>
-                </div>
-
-                <!-- Category Performance breakdown -->
-                <div class="space-y-3">
-                    <h3 class="font-bold text-slate-800 dark:text-slate-200 text-sm" id="res-breakdown-title">Domain Mastery</h3>
-                    <div id="results-domain-list" class="space-y-2">
-                        <!-- Dynamic rows -->
-                    </div>
-                </div>
-
-                <!-- Footer Buttons -->
-                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-slate-700 no-print">
-                    <button onclick="app.navHome()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-sm transition">
-                        <i class="fa-solid fa-house mr-2"></i> <span id="res-btn-home">Back to Home</span>
-                    </button>
-
-                    <div class="flex items-center gap-3">
-                        <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm shadow transition">
-                            <i class="fa-solid fa-print mr-2"></i> <span id="res-btn-print">Print / Export PDF</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- TIMED EXAM SETUP MODAL -->
-    <div id="modal-exam-setup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5">
-            <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
-                <h3 class="font-bold text-lg text-slate-900 dark:text-white" id="modal-title">Timed Exam Config</h3>
-                <button onclick="app.closeExamModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase mb-2" id="lbl-modal-count">Number of Questions</label>
-                    <select id="exam-select-count" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-3 text-sm">
-                        <option value="25">25 Questions (Quick Practice)</option>
-                        <option value="50" selected>50 Questions (Standard AHCA Simulation)</option>
-                        <option value="100">100 Questions (Comprehensive Exam)</option>
-                        <option value="300">300 Questions (Full Bank Exam)</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase mb-2" id="lbl-modal-time">Time Limit (Minutes)</label>
-                    <select id="exam-select-time" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-3 text-sm">
-                        <option value="30">30 Minutes</option>
-                        <option value="60" selected>60 Minutes</option>
-                        <option value="90">90 Minutes</option>
-                        <option value="0">No Time Limit</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="flex justify-end gap-3 pt-2">
-                <button onclick="app.closeExamModal()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 text-sm font-semibold" id="btn-modal-cancel">Cancel</button>
-                <button onclick="app.startTimedExam()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm transition" id="btn-modal-start">Begin Simulation</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ENGINE & QUESTION BANKS DATA -->
-    <script>
-        // --- CATEGORIES FOR BANK 1: HEALTHCARE RISK MANAGEMENT ---
-        const RISK_CATEGORIES = [
-            { id: 'incidents', en: 'AHCA Adverse Incidents & F.S. 395.0197', es: 'Incidentes Adversos AHCA y F.S. 395.0197' },
-            { id: 'malpractice', en: 'Medical Malpractice & Florida Civil Law', es: 'Negligencia Médica y Ley Civil de Florida' },
-            { id: 'rca', en: 'Patient Safety, RCA & Quality Improvement', es: 'Seguridad del Paciente, RCA y Mejora de Calidad' },
-            { id: 'consent', en: 'Informed Consent & Patient Rights', es: 'Consentimiento Informado y Derechos del Paciente' },
-            { id: 'insurance', en: 'Risk Financing, Claims & Policy Management', es: 'Financiamiento de Riesgos y Gestión de Pólizas' },
-            { id: 'ethics', en: 'Healthcare Ethics & Regulatory Compliance', es: 'Ética Médica y Cumplimiento Regulatorio' }
-        ];
-
-        // --- CATEGORIES FOR BANK 2: REGULATORY & GOVT COMPLIANCE ---
-        const COMPLIANCE_CATEGORIES = [
-            { id: 'sunshine', en: 'FL Sunshine Law & Public Records (F.S. 119/286)', es: 'Ley Sunshine y Archivos Públicos (F.S. 119/286)' },
-            { id: 'hipaa', en: 'HIPAA, HITECH & Privacy Compliance', es: 'Cumplimiento HIPAA, HITECH y Privacidad' },
-            { id: 'ethics_gov', en: 'Florida Public Officers Ethics Code (F.S. 112)', es: 'Código de Ética de Funcionarios de FL (F.S. 112)' },
-            { id: 'fraud', en: 'Healthcare Fraud, Waste & Abuse (Stark/Anti-Kickback)', es: 'Fraude, Desperdicio y Abuso (Stark/Anti-Kickback)' },
-            { id: 'corporate', en: 'OIG 7 Elements of Corporate Compliance', es: '7 Elementos de Cumplimiento Corporativo OIG' },
-            { id: 'labor_ahca', en: 'AHCA Licensure & FL Labor/OSHA Standards', es: 'Licencias AHCA y Normas Laborales/OSHA FL' }
-        ];
-
-        // --- GENERATOR: BANK 1 (300 HEALTHCARE RISK QUESTIONS) ---
-        function generateRiskQuestionBank() {
-            const bank = [];
-            const templates = [
-                {
-                    cat: 'incidents',
-                    enQ: (i) => `Under Florida Statute § 395.0197, when a facility experiences a Code 15 adverse incident (Case #${i}), what is the statutory deadline for submitting the full written report to AHCA?`,
-                    esQ: (i) => `Según el Estatuto de Florida § 395.0197, cuando un centro sufre un incidente adverso Código 15 (Caso #${i}), ¿cuál es el plazo legal para enviar el informe completo a la AHCA?`,
-                    optsEn: ['Within 15 calendar days', 'Within 24 hours', 'Within 30 calendar days', 'Within 60 business days'],
-                    optsEs: ['Dentro de los 15 días calendario', 'Dentro de las 24 horas', 'Dentro de los 30 días calendario', 'Dentro de los 60 días hábiles'],
-                    ans: 0,
-                    ratEn: `F.S. 395.0197 mandates that a 1-day notice be followed by a comprehensive Code 15 report within 15 calendar days detailing the Root Cause Analysis (RCA).`,
-                    ratEs: `El F.S. 395.0197 exige que a un aviso de 1 día le siga un informe Código 15 dentro de los 15 días calendario detallando el Análisis de Causa Raíz.`
-                },
-                {
-                    cat: 'malpractice',
-                    enQ: (i) => `Under Florida Statute § 766.106 for pre-suit screening in medical negligence (Scenario #${i}), how many days does the defendant facility have to investigate and respond?`,
-                    esQ: (i) => `Según el Estatuto de Florida § 766.106 para la evaluación previa al juicio (Escenario #${i}), ¿cuántos días tiene el centro demandado para responder?`,
-                    optsEn: ['90 calendar days', '30 calendar days', '120 business days', '14 calendar days'],
-                    optsEs: ['90 días calendario', '30 días calendario', '120 días hábiles', '14 días calendario'],
-                    ans: 0,
-                    ratEn: `F.S. § 766.106 mandates a 90-day pre-suit period during which the defense evaluates the claim and statute of limitations is tolled.`,
-                    ratEs: `El F.S. § 766.106 establece un período previo al juicio de 90 días durante el cual la defensa evalúa el reclamo y se congela el tiempo límite.`
-                },
-                {
-                    cat: 'rca',
-                    enQ: (i) => `During an RCA following a medication overdose event (Audit #${i}), which represents a systemic latent failure rather than an active human error?`,
-                    esQ: (i) => `Durante un RCA tras una sobredosis de fármaco (Auditoría #${i}), ¿cuál representa una falla latente del sistema en lugar de un error humano activo?`,
-                    optsEn: ['Look-alike drug vials stored side-by-side without distinct visual alerts.', 'A nurse misreading a label due to exhaustion.', 'A physician forgetting to sign a order.', 'A pharmacist typing a wrong dose while distracted.'],
-                    optsEs: ['Frascos parecidos guardados juntos sin alertas visuales.', 'Una enfermera leyendo mal la etiqueta por cansancio.', 'Un médico que olvida firmar una orden.', 'Un farmacéutico que digita la dosis mal por distracción.'],
-                    ans: 0,
-                    ratEn: `Latent system failures are flaws in work design or storage that create environments where human error easily occurs.`,
-                    ratEs: `Las fallas latentes del sistema son defectos en diseño o almacenamiento que crean entornos propensos al error humano.`
-                },
-                {
-                    cat: 'consent',
-                    enQ: (i) => `According to Florida Medical Consent Law (F.S. 766.103), when an incapacitated patient lacks an advance directive (Case #${i}), who holds first priority as proxy?`,
-                    esQ: (i) => `Según la Ley de Consentimiento Médico (F.S. 766.103), cuando un paciente incapacitado no tiene directiva (Caso #${i}), ¿quién tiene prioridad como sustituto?`,
-                    optsEn: ['Judicially appointed guardian or spouse.', 'The attending physician.', 'The hospital ethics chair.', 'The patient adult sibling.'],
-                    optsEs: ['Tutor judicial o cónyuge del paciente.', 'El médico tratante.', 'El presidente del comité de ética.', 'El hermano adulto del paciente.'],
-                    ans: 0,
-                    ratEn: `Florida statutory priority order starts with judicially appointed guardians followed by spouse, adult children, parents, and siblings.`,
-                    ratEs: `La prioridad legal en Florida comienza con el tutor designado judicialmente, seguido del cónyuge, hijos adultos, padres y hermanos.`
-                },
-                {
-                    cat: 'insurance',
-                    enQ: (i) => `What is the fundamental advantage of an 'Occurrence' policy versus 'Claims-Made' in hospital liability (Eval #${i})?`,
-                    esQ: (i) => `¿Cuál es la ventaja de una póliza por 'Ocurrencia' frente a 'Claims-Made' en responsabilidad hospitalaria (Evaluación #${i})?`,
-                    optsEn: ['It covers injuries occurring during policy period regardless of when filed in the future.', 'It requires purchasing tail coverage upon policy cancellation.', 'It is significantly cheaper in early years.', 'It only covers claims reported within 30 days.'],
-                    optsEs: ['Cubre lesiones ocurridas durante la póliza sin importar cuándo se presenten en el futuro.', 'Requiere comprar cobertura de cola al cancelar.', 'Es mucho más barata en los primeros años.', 'Solo cubre reclamos reportados en 30 días.'],
-                    ans: 0,
-                    ratEn: `Occurrence policies provide permanent coverage for events occurring during policy active dates without purchasing tail coverage.`,
-                    ratEs: `Las pólizas por ocurrencia otorgan cobertura permanente para eventos ocurridos durante las fechas vigentes sin requerir póliza de cola.`
-                },
-                {
-                    cat: 'ethics',
-                    enQ: (i) => `Under F.S. § 395.0197, internal risk management reports and peer review records have what legal status in civil suits (File #${i})?`,
-                    esQ: (i) => `Según F.S. § 395.0197, ¿qué estado legal tienen los informes de riesgo y revisión por pares en demandas (Archivo #${i})?`,
-                    optsEn: ['Privileged and confidential, protected from discovery in civil litigation.', 'Public records accessible via Freedom of Information requests.', 'Must be provided to plaintiff attorney prior to trial.', 'Admissible if requested by jury.'],
-                    optsEs: ['Confidenciales y protegidos, inmunes al descubrimiento en litigios civiles.', 'Registros públicos accesibles por libertad de información.', 'Deben entregarse al abogado demandante antes del juicio.', 'Admisibles si el jurado lo solicita.'],
-                    ans: 0,
-                    ratEn: `F.S. 395.0197 explicitly protects internal risk incident reports from discovery in civil actions to encourage transparent reporting.`,
-                    ratEs: `El F.S. 395.0197 protege los informes de incidentes internos frente al descubrimiento civil para fomentar el reporte transparente.`
-                }
-            ];
-
-            for (let i = 1; i <= 300; i++) {
-                const tpl = templates[(i - 1) % templates.length];
-                const catObj = RISK_CATEGORIES.find(c => c.id === tpl.cat) || RISK_CATEGORIES[0];
-                bank.push({
-                    id: i,
-                    bankType: 'risk',
-                    category: tpl.cat,
-                    categoryEn: catObj.en,
-                    categoryEs: catObj.es,
-                    en: { question: tpl.enQ(i), options: tpl.optsEn, rationale: tpl.ratEn },
-                    es: { question: tpl.esQ(i), options: tpl.optsEs, rationale: tpl.ratEs },
-                    correctAnswer: tpl.ans
-                });
-            }
-            return bank;
-        }
-
-        // --- GENERATOR: BANK 2 (300 REGULATORY & GOVT COMPLIANCE QUESTIONS) ---
-        function generateComplianceQuestionBank() {
-            const bank = [];
-            const templates = [
-                {
-                    cat: 'sunshine',
-                    enQ: (i) => `Under Florida Sunshine Law (F.S. Chapter 286 - Case #${i}), what is required when a public health board or government committee conducts official business?`,
-                    esQ: (i) => `Bajo la Ley Sunshine de Florida (F.S. Cap. 286 - Caso #${i}), ¿qué se exige cuando una junta de salud pública o comité gubernamental realiza actos oficiales?`,
-                    optsEn: ['All meetings must be open to the public with reasonable notice and written minutes recorded.', 'Meetings can be held privately if 2/3 of members agree.', 'Only formal votes must be open, discussions can be private.', 'Public access is required only for annual budget meetings.'],
-                    optsEs: ['Todas las reuniones deben ser públicas con aviso previo y actas escritas.', 'Se pueden hacer en privado si el 2/3 de miembros lo aprueba.', 'Solo los votos finales son públicos, las discusiones pueden ser privadas.', 'El acceso público solo se exige en reuniones de presupuesto.'],
-                    ans: 0,
-                    ratEn: `F.S. 286.011 mandates that all meetings of public boards or commissions be open to the public at all times with reasonable notice.`,
-                    ratEs: `El F.S. 286.011 exige que todas las reuniones de juntas gubernamentales sean públicas en todo momento con un aviso adecuado.`
-                },
-                {
-                    cat: 'hipaa',
-                    enQ: (i) => `Under the HIPAA Breach Notification Rule (HITECH Act Audit #${i}), if a private or public healthcare entity suffers an unencrypted data breach affecting over 500 Florida residents, what is the reporting requirement to HHS/OCR?`,
-                    esQ: (i) => `Bajo la Regla de Notificación de Brechas de HIPAA (Auditoría HITECH #${i}), si una entidad sufre un filtrado de datos no encriptados que afecta a más de 500 residentes de FL, ¿cuál es el requisito ante la HHS/OCR?`,
-                    optsEn: ['Notify HHS OCR and prominent media outlets without unreasonable delay and no later than 60 calendar days.', 'Notify HHS within 12 months in the annual report.', 'Send email notice within 180 days only to affected individuals.', 'No notification is required if employees receive re-training.'],
-                    optsEs: ['Notificar a la HHS OCR y medios de comunicación sin demora injustificada y máximo en 60 días calendario.', 'Notificar a la HHS en 12 meses en el reporte anual.', 'Enviar correo en 180 días solo a las personas afectadas.', 'No se exige notificación si los empleados reciben reentrenamiento.'],
-                    ans: 0,
-                    ratEn: `HIPAA mandates notification to HHS OCR, affected individuals, and major media outlets without unreasonable delay and within 60 days for breaches >500 records.`,
-                    ratEs: `HIPAA exige notificar a la HHS OCR, a los afectados y a los medios dentro de un plazo máximo de 60 días para violaciones de >500 registros.`
-                },
-                {
-                    cat: 'ethics_gov',
-                    enQ: (i) => `Under Florida Code of Ethics for Public Officers and Employees (F.S. Chapter 112 - File #${i}), what is the statutory restriction regarding gifts from lobbyists or vendors?`,
-                    esQ: (i) => `Según el Código de Ética de Funcionarios Públicos de Florida (F.S. Cap. 112 - Archivo #${i}), ¿cuál es la restricción legal sobre regalos de cabilderos o proveedores?`,
-                    optsEn: ['Public officers cannot solicit or accept gifts valued over $25 from lobbyist entities doing business with their agency.', 'Gifts up to $500 are allowed if disclosed in tax filings.', 'Gifts are unlimited during holidays.', 'Only cash gifts over $1,000 are illegal.'],
-                    optsEs: ['Funcionarios no pueden solicitar ni aceptar regalos de más de $25 de cabilderos que tengan negocios con su agencia.', 'Se permiten regalos de hasta $500 si se declaran en impuestos.', 'Los regalos son ilimitados durante fiestas.', 'Solo regalos en efectivo superiores a $1,000 son ilegales.'],
-                    ans: 0,
-                    ratEn: `F.S. 112.3148 prohibits reporting individuals and public employees from accepting gifts worth more than $25 from vendors or lobbyists.`,
-                    ratEs: `El F.S. 112.3148 prohíbe a empleados públicos aceptar regalos con un valor superior a $25 de proveedores o cabilderos.`
-                },
-                {
-                    cat: 'fraud',
-                    enQ: (i) => `How does the federal Stark Law (Physician Self-Referral) differ from the Anti-Kickback Statute (AKS) in healthcare compliance (Case #${i})?`,
-                    esQ: (i) => `¿En qué se diferencia la Ley Stark de la Ley Anti-Soborno (AKS) en el cumplimiento regulatorio (Caso #${i})?`,
-                    optsEn: ['Stark Law is a strict liability civil statute focusing on financial relationships, whereas AKS requires intent to induce referrals.', 'Stark Law carries criminal penalties while AKS is civil only.', 'Stark Law applies to all healthcare workers, AKS applies only to doctors.', 'Stark Law only applies to private pay contracts.'],
-                    optsEs: ['La Ley Stark es un estatuto civil de responsabilidad objetiva centrado en nexos financieros; la AKS requiere intención delictiva de inducción.', 'La Ley Stark implica penas penales mientras que AKS es solo civil.', 'La Ley Stark se aplica a todos los empleados, AKS solo a médicos.', 'La Ley Stark solo se aplica a contratos privados.'],
-                    ans: 0,
-                    ratEn: `Stark Law is a strict liability civil statute (no proof of intent required for illegal self-referral), whereas AKS requires proving knowingly and willful intent.`,
-                    ratEs: `La Ley Stark es civil y de responsabilidad objetiva (no requiere probar intención), mientras que la AKS exige demostrar intención dolo o incentivo corrupto.`
-                },
-                {
-                    cat: 'corporate',
-                    enQ: (i) => `According to the OIG Guidance for Corporate Healthcare Compliance Programs (Audit #${i}), which represents one of the core 7 essential elements?`,
-                    esQ: (i) => `Según la Guía OIG para Programas de Cumplimiento Corporativo (Auditoría #${i}), ¿cuál representa uno de los 7 elementos esenciales?`,
-                    optsEn: ['Establishing compliance standards/policies and designating a Chief Compliance Officer.', 'Guaranteeing 100% error-free billing in annual audits.', 'Replacing human auditors with automated artificial intelligence.', 'Filing monthly reports directly to federal courts.'],
-                    optsEs: ['Establecer políticas/normas de cumplimiento y designar un Oficial de Cumplimiento (CCO).', 'Garantizar facturación 100% libre de errores en auditorías.', 'Reemplazar auditores humanos con inteligencia artificial.', 'Presentar informes mensuales directo a tribunales federales.'],
-                    ans: 0,
-                    ratEn: `The 7 OIG elements include written policies/procedures, designating a compliance officer, effective training, open lines of communication, auditing/monitoring, enforcement of standards, and prompt corrective action.`,
-                    ratEs: `Los 7 elementos de la OIG incluyen políticas escritas, Oficial de Cumplimiento, capacitación, comunicación abierta, auditorías, sanciones y acción correctiva.`
-                },
-                {
-                    cat: 'labor_ahca',
-                    enQ: (i) => `Under Florida AHCA facility licensure standards and OSHA guidelines (Inspect #${i}), how often must healthcare facilities conduct emergency disaster/evacuation drills?`,
-                    esQ: (i) => `Bajo normas de licencias AHCA y pautas OSHA (Inspección #${i}), ¿con qué frecuencia deben los centros hacer simulacros de emergencia y evacuación?`,
-                    optsEn: ['At least annually per shift for disaster drills, maintaining complete documented logs for AHCA inspection.', 'Once every 5 years.', 'Only when requested by local fire departments.', 'Disaster drills are voluntary for private facilities.'],
-                    optsEs: ['Al menos anualmente por cada turno, manteniendo registros completos para inspección de AHCA.', 'Una vez cada 5 años.', 'Solo cuando lo solicite el departamento de bomberos local.', 'Los simulacros son voluntarios en centros privados.'],
-                    ans: 0,
-                    ratEn: `AHCA Emergency Management rules mandate regular documented disaster and fire drills across shifts to maintain active state licensure.`,
-                    ratEs: `Las reglas de Manejo de Emergencias de AHCA exigen simulacros documentados regulares en todos los turnos para mantener la licencia estatal.`
-                }
-            ];
-
-            for (let i = 1; i <= 300; i++) {
-                const tpl = templates[(i - 1) % templates.length];
-                const catObj = COMPLIANCE_CATEGORIES.find(c => c.id === tpl.cat) || COMPLIANCE_CATEGORIES[0];
-                bank.push({
-                    id: 300 + i, // Unique ID 301-600
-                    bankType: 'compliance',
-                    category: tpl.cat,
-                    categoryEn: catObj.en,
-                    categoryEs: catObj.es,
-                    en: { question: tpl.enQ(i), options: tpl.optsEn, rationale: tpl.ratEn },
-                    es: { question: tpl.esQ(i), options: tpl.optsEs, rationale: tpl.ratEs },
-                    correctAnswer: tpl.ans
-                });
-            }
-            return bank;
-        }
-
-        // --- I18N DICTIONARY ---
-        const I18N = {
-            en: {
-                appTitle: "FL Healthcare Risk & Compliance",
-                appSub: "AHCA Risk Management & FL Public/Private Compliance (600 Qs)",
-                selectBankLbl: "Select Active Question Bank:",
-                homeTitle: "Healthcare Risk & Regulatory Compliance Simulator",
-                homeDesc: "Prepare for the Florida Healthcare Risk Management License (F.S. 395.0197) and Florida Corporate/Government Health Regulatory Compliance. Features 600 total scenario-based questions with full legal rationales.",
-                startPractice: "Start Study Mode",
-                startExam: "Timed Exam Simulation",
-                answeredLbl: "Questions Answered",
-                accuracyLbl: "Average Accuracy",
-                masteredLbl: "Mastered Questions",
-                examsLbl: "Exams Completed",
-                catTitle: "Florida Statutory Domains",
-                audioLbl: "Audio",
-                rationaleHeader: "Legal & Statutory Rationale",
-                prev: "Previous",
-                next: "Next",
-                submit: "Submit Exam",
-                totalQs: "Total Questions",
-                correct: "Correct",
-                incorrect: "Incorrect",
-                timeSpent: "Time Spent",
-                domainMastery: "Domain Mastery Breakdown",
-                backHome: "Back to Home",
-                printPdf: "Print / Export PDF",
-                examTitle: "Timed Exam Config",
-                qCount: "Number of Questions",
-                tLimit: "Time Limit (Minutes)",
-                cancel: "Cancel",
-                begin: "Begin Simulation",
-                confirmSubmit: "Are you sure you want to submit your exam now?"
-            },
-            es: {
-                appTitle: "Simulador Riesgo y Cumplimiento FL",
-                appSub: "Gestión Riesgos AHCA y Cumplimiento Público/Privado (600 Preguntas)",
-                selectBankLbl: "Seleccionar Banco de Preguntas Activo:",
-                homeTitle: "Simulador de Gestión de Riesgos y Cumplimiento Regulativo",
-                homeDesc: "Prepárese para la Licencia de Gestión de Riesgos de Florida (F.S. 395.0197) y el Cumplimiento Gubernamental/Corporativo de Salud de Florida. Incluye 600 preguntas situacionales con bases legales.",
-                startPractice: "Modo Estudiar",
-                startExam: "Simulación Examen con Tiempo",
-                answeredLbl: "Preguntas Respondidas",
-                accuracyLbl: "Precisión Promedio",
-                masteredLbl: "Preguntas Dominadas",
-                examsLbl: "Exámenes Completados",
-                catTitle: "Dominios Estatutarios de Florida",
-                audioLbl: "Audio",
-                rationaleHeader: "Justificación Legal y Estatutaria",
-                prev: "Anterior",
-                next: "Siguiente",
-                submit: "Enviar Examen",
-                totalQs: "Total Preguntas",
-                correct: "Correctas",
-                incorrect: "Incorrectas",
-                timeSpent: "Tiempo Utilizado",
-                domainMastery: "Dominio por Categorías",
-                backHome: "Volver al Inicio",
-                printPdf: "Imprimir / Guardar PDF",
-                examTitle: "Configurar Examen con Tiempo",
-                qCount: "Número de Preguntas",
-                tLimit: "Límite de Tiempo (Minutos)",
-                cancel: "Cancelar",
-                begin: "Comenzar Simulación",
-                confirmSubmit: "¿Está seguro de que desea enviar su examen ahora?"
-            }
-        };
-
-        // --- APPLICATION ENGINE ---
-        class ExamApp {
-            constructor() {
-                this.riskBank = generateRiskQuestionBank();
-                this.complianceBank = generateComplianceQuestionBank();
-                
-                this.activeBankKey = localStorage.getItem('fl_active_bank') || 'risk'; // 'risk' or 'compliance'
-                this.lang = localStorage.getItem('fl_risk_lang') || 'en';
-                
-                this.userAnswers = JSON.parse(localStorage.getItem('fl_risk_answers_v2') || '{}');
-                this.history = JSON.parse(localStorage.getItem('fl_risk_history_v2') || '[]');
-                
-                this.mode = 'study';
-                this.currentCategory = 'all';
-                this.filteredQuestions = [];
-                this.currentIndex = 0;
-                
-                this.timerInterval = null;
-                this.secondsRemaining = 0;
-                this.examStartTime = null;
-                this.examAnswers = {};
-
-                this.synth = window.speechSynthesis;
-            }
-
-            get activeBank() {
-                return this.activeBankKey === 'risk' ? this.riskBank : this.complianceBank;
-            }
-
-            get activeCategories() {
-                return this.activeBankKey === 'risk' ? RISK_CATEGORIES : COMPLIANCE_CATEGORIES;
-            }
-
-            init() {
-                this.updateUIStrings();
-                this.updateBankSelectorUI();
-                this.renderDashboard();
-                this.setupTheme();
-            }
-
-            setActiveBank(bankKey) {
-                this.activeBankKey = bankKey;
-                localStorage.setItem('fl_active_bank', bankKey);
-                this.updateBankSelectorUI();
-                this.renderDashboard();
-            }
-
-            updateBankSelectorUI() {
-                const btnRisk = document.getElementById('btn-bank-risk');
-                const btnComp = document.getElementById('btn-bank-compliance');
-
-                if (this.activeBankKey === 'risk') {
-                    btnRisk.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-brand-600 text-white border-brand-600 shadow-md";
-                    btnComp.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:bg-slate-200";
-                } else {
-                    btnComp.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-brand-600 text-white border-brand-600 shadow-md";
-                    btnRisk.className = "px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:bg-slate-200";
-                }
-            }
-
-            toggleLanguage() {
-                this.lang = this.lang === 'en' ? 'es' : 'en';
-                localStorage.setItem('fl_risk_lang', this.lang);
-                this.updateUIStrings();
-                this.renderDashboard();
-                if (!document.getElementById('view-quiz').classList.contains('hidden')) {
-                    this.renderQuestion();
-                }
-            }
-
-            toggleTheme() {
-                document.documentElement.classList.toggle('dark');
-            }
-
-            setupTheme() {
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                }
-            }
-
-            updateUIStrings() {
-                const t = I18N[this.lang];
-                document.getElementById('lang-indicator').innerText = this.lang === 'en' ? 'Español' : 'English';
-                document.getElementById('app-title').innerText = t.appTitle;
-                document.getElementById('app-subtitle').innerText = t.appSub;
-                document.getElementById('lbl-select-bank').innerText = t.selectBankLbl;
-                document.getElementById('home-title').innerText = t.homeTitle;
-                document.getElementById('home-desc').innerText = t.homeDesc;
-                document.getElementById('btn-start-practice').innerText = t.startPractice;
-                document.getElementById('btn-start-exam').innerText = t.startExam;
-                document.getElementById('stat-lbl-answered').innerText = t.answeredLbl;
-                document.getElementById('stat-lbl-accuracy').innerText = t.accuracyLbl;
-                document.getElementById('stat-lbl-mastered').innerText = t.masteredLbl;
-                document.getElementById('stat-lbl-exams').innerText = t.examsLbl;
-                document.getElementById('cat-title').innerText = t.catTitle;
-                document.getElementById('btn-audio-lbl').innerText = t.audioLbl;
-                document.getElementById('rationale-header').innerText = t.rationaleHeader;
-                document.getElementById('lbl-btn-prev').innerText = t.prev;
-                document.getElementById('lbl-btn-next').innerText = t.next;
-                document.getElementById('lbl-btn-submit').innerText = t.submit;
-                document.getElementById('res-lbl-total').innerText = t.totalQs;
-                document.getElementById('res-lbl-correct').innerText = t.correct;
-                document.getElementById('res-lbl-incorrect').innerText = t.incorrect;
-                document.getElementById('res-lbl-time').innerText = t.timeSpent;
-                document.getElementById('res-breakdown-title').innerText = t.domainMastery;
-                document.getElementById('res-btn-home').innerText = t.backHome;
-                document.getElementById('res-btn-print').innerText = t.printPdf;
-                document.getElementById('modal-title').innerText = t.examTitle;
-                document.getElementById('lbl-modal-count').innerText = t.qCount;
-                document.getElementById('lbl-modal-time').innerText = t.tLimit;
-                document.getElementById('btn-modal-cancel').innerText = t.cancel;
-                document.getElementById('btn-modal-start').innerText = t.begin;
-            }
-
-            renderDashboard() {
-                const currentBank = this.activeBank;
-                const total = currentBank.length;
-                
-                let answeredCount = 0;
-                let correctCount = 0;
-
-                currentBank.forEach(q => {
-                    if (this.userAnswers[q.id] !== undefined) {
-                        answeredCount++;
-                        if (this.userAnswers[q.id] === q.correctAnswer) {
-                            correctCount++;
-                        }
-                    }
-                });
-
-                const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
-                
-                document.getElementById('stat-answered').innerText = `${answeredCount} / ${total}`;
-                document.getElementById('stat-bar-progress').style.width = `${(answeredCount / total) * 100}%`;
-                
-                document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
-                document.getElementById('stat-bar-accuracy').style.width = `${accuracy}%`;
-                
-                document.getElementById('stat-mastered').innerText = correctCount;
-                document.getElementById('stat-exams').innerText = this.history.filter(h => h.bank === this.activeBankKey).length;
-
-                // Categories list
-                const catContainer = document.getElementById('categories-list');
-                catContainer.innerHTML = '';
-
-                // Option: All Topics
-                const allCard = document.createElement('div');
-                allCard.className = "p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 cursor-pointer bg-slate-50 dark:bg-slate-900/40 transition flex justify-between items-center";
-                allCard.onclick = () => this.startPractice('all');
-                allCard.innerHTML = `
-                    <div>
-                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${this.lang==='en'?'All Bank Topics (300 Q Pool)':'Todos los Temas del Banco (300 Qs)'}</h4>
-                        <span class="text-xs text-slate-500">300 Questions</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-slate-400"></i>
-                `;
-                catContainer.appendChild(allCard);
-
-                this.activeCategories.forEach(c => {
-                    const count = currentBank.filter(q => q.category === c.id).length;
-                    const card = document.createElement('div');
-                    card.className = "p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 cursor-pointer bg-slate-50 dark:bg-slate-900/40 transition flex justify-between items-center";
-                    card.onclick = () => this.startPractice(c.id);
-                    card.innerHTML = `
-                        <div>
-                            <h4 class="font-bold text-sm text-slate-900 dark:text-white">${this.lang==='en'?c.en:c.es}</h4>
-                            <span class="text-xs text-slate-500">${count} Questions</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-slate-400"></i>
-                    `;
-                    catContainer.appendChild(card);
-                });
-            }
-
-            navHome() {
-                if (this.synth) this.synth.cancel();
-                if (this.timerInterval) clearInterval(this.timerInterval);
-                
-                document.getElementById('view-home').classList.remove('hidden');
-                document.getElementById('view-quiz').classList.add('hidden');
-                document.getElementById('view-results').classList.add('hidden');
-                this.renderDashboard();
-            }
-
-            startPractice(catId = 'all') {
-                this.mode = 'study';
-                this.currentCategory = catId;
-                const bank = this.activeBank;
-
-                if (catId === 'all') {
-                    this.filteredQuestions = [...bank];
-                } else {
-                    this.filteredQuestions = bank.filter(q => q.category === catId);
-                }
-                this.currentIndex = 0;
-
-                document.getElementById('exam-timer-container').classList.add('hidden');
-                document.getElementById('btn-submit-exam').classList.add('hidden');
-                document.getElementById('quiz-mode-badge').innerText = this.lang === 'en' ? 'Study Mode' : 'Modo Estudio';
-
-                this.showQuizView();
-            }
-
-            showExamModal() {
-                document.getElementById('modal-exam-setup').classList.remove('hidden');
-            }
-
-            closeExamModal() {
-                document.getElementById('modal-exam-setup').classList.add('hidden');
-            }
-
-            startTimedExam() {
-                this.closeExamModal();
-                this.mode = 'exam';
-                this.currentCategory = 'all';
-
-                const qCount = parseInt(document.getElementById('exam-select-count').value);
-                const minutes = parseInt(document.getElementById('exam-select-time').value);
-
-                const shuffled = [...this.activeBank].sort(() => 0.5 - Math.random());
-                this.filteredQuestions = shuffled.slice(0, qCount);
-                this.currentIndex = 0;
-                this.examAnswers = {};
-
-                if (minutes > 0) {
-                    this.secondsRemaining = minutes * 60;
-                    document.getElementById('exam-timer-container').classList.remove('hidden');
-                    document.getElementById('exam-timer-container').classList.add('flex');
-                    this.startTimer();
-                } else {
-                    document.getElementById('exam-timer-container').classList.add('hidden');
-                }
-
-                document.getElementById('btn-submit-exam').classList.remove('hidden');
-                document.getElementById('quiz-mode-badge').innerText = this.lang === 'en' ? 'Timed Exam' : 'Examen Evaluativo';
-                this.examStartTime = new Date();
-
-                this.showQuizView();
-            }
-
-            startTimer() {
-                if (this.timerInterval) clearInterval(this.timerInterval);
-                this.updateTimerDisplay();
-
-                this.timerInterval = setInterval(() => {
-                    this.secondsRemaining--;
-                    this.updateTimerDisplay();
-
-                    if (this.secondsRemaining <= 0) {
-                        clearInterval(this.timerInterval);
-                        alert(this.lang === 'en' ? 'Time is up! Submitting your exam.' : '¡Tiempo agotado! Enviando su examen.');
-                        this.submitExam();
-                    }
-                }, 1000);
-            }
-
-            updateTimerDisplay() {
-                const m = Math.floor(this.secondsRemaining / 60);
-                const s = this.secondsRemaining % 60;
-                document.getElementById('exam-timer').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-            }
-
-            showQuizView() {
-                document.getElementById('view-home').classList.add('hidden');
-                document.getElementById('view-results').classList.add('hidden');
-                document.getElementById('view-quiz').classList.remove('hidden');
-                this.renderQuestion();
-            }
-
-            renderQuestion() {
-                if (this.synth) this.synth.cancel();
-
-                const q = this.filteredQuestions[this.currentIndex];
-                const content = q[this.lang];
-
-                document.getElementById('quiz-category-lbl').innerText = this.lang === 'en' ? q.categoryEn : q.categoryEs;
-                document.getElementById('quiz-progress-text').innerText = `${this.currentIndex + 1} / ${this.filteredQuestions.length}`;
-                
-                document.getElementById('q-category').innerText = `ID #${q.id} - ${q.category.toUpperCase()}`;
-                document.getElementById('q-text').innerText = content.question;
-
-                const optsContainer = document.getElementById('q-options');
-                optsContainer.innerHTML = '';
-
-                const savedAnswer = this.mode === 'study' ? this.userAnswers[q.id] : this.examAnswers[q.id];
-
-                content.options.forEach((optText, idx) => {
-                    const btn = document.createElement('button');
-                    btn.className = "w-full text-left p-4 rounded-xl border text-sm sm:text-base font-medium transition flex items-start gap-3 ";
-                    
-                    if (savedAnswer !== undefined) {
-                        if (this.mode === 'study') {
-                            if (idx === q.correctAnswer) {
-                                btn.className += "bg-emerald-50 border-emerald-500 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200 dark:border-emerald-600 font-bold";
-                            } else if (idx === savedAnswer) {
-                                btn.className += "bg-red-50 border-red-500 text-red-900 dark:bg-red-950/40 dark:text-red-200 dark:border-red-600";
-                            } else {
-                                btn.className += "border-slate-200 dark:border-slate-700 opacity-60";
-                            }
-                        } else {
-                            if (idx === savedAnswer) {
-                                btn.className += "bg-brand-50 border-brand-500 text-brand-900 dark:bg-brand-950/40 dark:text-brand-200 font-bold";
-                            } else {
-                                btn.className += "border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50";
-                            }
-                        }
-                    } else {
-                        btn.className += "border-slate-200 dark:border-slate-700 hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-slate-700/50";
-                    }
-
-                    btn.onclick = () => this.selectOption(idx);
-
-                    btn.innerHTML = `
-                        <span class="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                            ${String.fromCharCode(65 + idx)}
-                        </span>
-                        <span class="leading-snug">${optText}</span>
-                    `;
-                    optsContainer.appendChild(btn);
-                });
-
-                const ratBox = document.getElementById('q-rationale-box');
-                if (this.mode === 'study' && savedAnswer !== undefined) {
-                    ratBox.classList.remove('hidden');
-                    document.getElementById('q-rationale-text').innerText = content.rationale;
-                } else {
-                    ratBox.classList.add('hidden');
-                }
-
-                document.getElementById('btn-prev').disabled = this.currentIndex === 0;
-                document.getElementById('btn-prev').classList.toggle('opacity-50', this.currentIndex === 0);
-            }
-
-            selectOption(index) {
-                const q = this.filteredQuestions[this.currentIndex];
-                
-                if (this.mode === 'study') {
-                    this.userAnswers[q.id] = index;
-                    localStorage.setItem('fl_risk_answers_v2', JSON.stringify(this.userAnswers));
-                } else {
-                    this.examAnswers[q.id] = index;
-                }
-
-                this.renderQuestion();
-            }
-
-            prevQuestion() {
-                if (this.currentIndex > 0) {
-                    this.currentIndex--;
-                    this.renderQuestion();
-                }
-            }
-
-            nextQuestion() {
-                if (this.currentIndex < this.filteredQuestions.length - 1) {
-                    this.currentIndex++;
-                    this.renderQuestion();
-                } else if (this.mode === 'exam') {
-                    this.confirmSubmitExam();
-                }
-            }
-
-            speakQuestion() {
-                if (!('speechSynthesis' in window)) return;
-                
-                this.synth.cancel();
-
-                const q = this.filteredQuestions[this.currentIndex];
-                const content = q[this.lang];
-
-                let text = `${content.question}. `;
-                content.options.forEach((o, i) => {
-                    text += `Option ${String.fromCharCode(65 + i)}: ${o}. `;
-                });
-
-                if (this.mode === 'study' && this.userAnswers[q.id] !== undefined) {
-                    text += `Rationale: ${content.rationale}`;
-                }
-
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = this.lang === 'es' ? 'es-ES' : 'en-US';
-                utterance.rate = 0.95;
-                this.synth.speak(utterance);
-            }
-
-            confirmSubmitExam() {
-                const confirmMsg = I18N[this.lang].confirmSubmit;
-                if (confirm(confirmMsg)) {
-                    this.submitExam();
-                }
-            }
-
-            submitExam() {
-                if (this.timerInterval) clearInterval(this.timerInterval);
-                if (this.synth) this.synth.cancel();
-
-                const total = this.filteredQuestions.length;
-                let correct = 0;
-
-                this.filteredQuestions.forEach(q => {
-                    const userAns = this.examAnswers[q.id];
-                    if (userAns === q.correctAnswer) {
-                        correct++;
-                    }
-                    if (userAns !== undefined) {
-                        this.userAnswers[q.id] = userAns;
-                    }
-                });
-
-                localStorage.setItem('fl_risk_answers_v2', JSON.stringify(this.userAnswers));
-
-                const score = Math.round((correct / total) * 100);
-                
-                this.history.push({
-                    date: new Date().toISOString(),
-                    bank: this.activeBankKey,
-                    total,
-                    correct,
-                    score
-                });
-                localStorage.setItem('fl_risk_history_v2', JSON.stringify(this.history));
-
-                document.getElementById('view-quiz').classList.add('hidden');
-                document.getElementById('view-results').classList.remove('hidden');
-
-                document.getElementById('score-badge').innerText = `${score}%`;
-                document.getElementById('score-badge').className = `inline-flex items-center justify-center w-20 h-20 rounded-full text-2xl font-black text-white mx-auto shadow-lg ${score >= 75 ? 'bg-emerald-500' : 'bg-red-500'}`;
-
-                document.getElementById('res-total').innerText = total;
-                document.getElementById('res-correct').innerText = correct;
-                document.getElementById('res-incorrect').innerText = total - correct;
-                
-                const timeDiff = this.examStartTime ? Math.round((new Date() - this.examStartTime) / 1000) : 0;
-                const min = Math.floor(timeDiff / 60);
-                const sec = timeDiff % 60;
-                document.getElementById('res-time').innerText = `${min}m ${sec}s`;
-
-                const domainContainer = document.getElementById('results-domain-list');
-                domainContainer.innerHTML = '';
-
-                this.activeCategories.forEach(cat => {
-                    const catQs = this.filteredQuestions.filter(q => q.category === cat.id);
-                    if (catQs.length === 0) return;
-
-                    let catCorrect = 0;
-                    catQs.forEach(q => {
-                        if (this.examAnswers[q.id] === q.correctAnswer) catCorrect++;
-                    });
-
-                    const pct = Math.round((catCorrect / catQs.length) * 100);
-
-                    const row = document.createElement('div');
-                    row.className = "p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg flex items-center justify-between";
-                    row.innerHTML = `
-                        <span class="text-xs sm:text-sm font-semibold">${this.lang === 'en' ? cat.en : cat.es}</span>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs text-slate-500 font-mono">${catCorrect}/${catQs.length}</span>
-                            <span class="text-xs font-bold px-2 py-0.5 rounded ${pct >= 75 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${pct}%</span>
-                        </div>
-                    `;
-                    domainContainer.appendChild(row);
-                });
-            }
-
-            resetProgress() {
-                if (confirm(this.lang === 'en' ? 'Are you sure you want to reset all your answers and exam records?' : '¿Está seguro de que desea reiniciar sus respuestas y registros de exámenes?')) {
-                    this.userAnswers = {};
-                    this.history = [];
-                    localStorage.removeItem('fl_risk_answers_v2');
-                    localStorage.removeItem('fl_risk_history_v2');
-                    this.navHome();
-                }
-            }
-        }
-
-        // Initialize Application
-        let app;
-        window.onload = function() {
-            app = new ExamApp();
-            app.init();
-        };
-    </script>
+<body>
+<header>
+<div class="wrap brand">
+<div class="logo">🎧</div>
+<div><h1>MAY ROGA Live English</h1><div class="sub">Listen · Understand · Respond</div></div>
+</div>
+</header>
+<main class="wrap">
+<section class="card wide">
+<div class="statusrow">
+<div class="status"><span id="dot" class="dot"></span><span id="status">READY TO START</span></div>
+<span class="tag" id="provider">Checking AI…</span>
+</div>
+<p class="small">Put your call on speaker, allow microphone access, then start listening. Keep this page open. Browser audio access during a phone call depends on your device and operating system.</p>
+<div class="controls">
+<button id="start" class="primary">▶ Start listening</button>
+<button id="stop" class="stop" disabled>■ Turn off</button>
+</div>
+<div id="message" role="status" aria-live="polite">Ready to listen in English.</div>
+</section>
+
+<section class="card">
+<h2>LIVE TRANSCRIPT <span class="tag">Recent speech</span></h2>
+<div id="feed" class="feed">
+<div class="empty">Recognized English speech will appear here.</div>
+</div>
+<p class="small">Only the five most recent phrases appear here. Interim words are provisional and may change.</p>
+</section>
+
+<section class="card">
+<h2>YOUR SUGGESTED REPLY <span class="tag" id="replyStatus">Waiting</span></h2>
+<div id="answer" class="answer">Your suggested English response will appear here.</div>
+<div id="answerNote" class="note"></div>
+<div class="row">
+<button id="copyAnswer" class="secondary" disabled>Copy reply</button>
+<button id="manualReply" class="ghost" disabled>Suggest again</button>
+</div>
+<p class="small">You speak yourself. The app does not speak or send the suggested reply.</p>
+</section>
+
+<section class="card wide">
+<details>
+<summary>Full transcript and saved sessions</summary>
+<div class="row">
+<button id="saveSession" class="secondary">Save session locally</button>
+<button id="export" class="ghost">Export transcript</button>
+<button id="clearScreen" class="stop">Clear screen</button>
+<button id="deleteSaved" class="stop">Delete saved data</button>
+</div>
+<textarea id="fullTranscript" readonly placeholder="Full recognized transcript."></textarea>
+<p class="small">Saved data stays in this browser on this device. Browser storage can be cleared by the device or browser.</p>
+</details>
+</section>
+
+<section class="card wide">
+<h2>OPTIONAL SPANISH TRANSLATION</h2>
+<p class="small">Translate only when you want to review the conversation in Spanish.</p>
+<div class="row">
+<button id="translate" class="secondary">Translate transcript</button>
+<button id="saveTranslation" class="ghost" disabled>Save translation locally</button>
+</div>
+<div id="translation" class="empty">Translation is off until requested.</div>
+</section>
+
+<section class="card wide">
+<details>
+<summary>Audio, privacy and limitations</summary>
+<p class="small">Browser speech recognition may use a browser or operating-system service. It can capture your voice and background sounds too; it cannot reliably guarantee that only the other speaker is transcribed. Noise reduction and echo cancellation are not perfect voice isolation.</p>
+<p class="small">Recognized text is sent to the configured AI provider when a reply or translation is requested. This app does not upload audio recordings to its own FastAPI server or save transcripts on the server.</p>
+<p class="small">Use transcription in accordance with applicable consent and privacy laws. Verify suggested replies before making important commitments.</p>
+</details>
+</section>
+</main>
+<footer>MAY ROGA LLC · English conversation assistant · Suggestions may be incorrect.</footer>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const SpeechAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SESSION_KEY = "mayroga_live_english_sessions_v2";
+const TRANSLATION_KEY = "mayroga_live_english_translations_v2";
+let recognition = null;
+let listening = false;
+let restarting = false;
+let restartTimer = null;
+let suggestionTimer = null;
+let requestBusy = false;
+let pendingText = "";
+let lastRequestedText = "";
+let lastFinalText = "";
+let requestNumber = 0;
+let fullText = [];
+let feedItems = [];
+let context = [];
+let interimText = "";
+let translationText = "";
+let sessionStarted = null;
+
+function setStatus(text, live = listening) {
+  $("status").textContent = text;
+  $("dot").classList.toggle("live", live);
+}
+function setMessage(text) { $("message").textContent = text; }
+function timeNow() {
+  return new Date().toLocaleTimeString([], {
+    hour:"2-digit", minute:"2-digit", second:"2-digit"
+  });
+}
+function clean(s) { return String(s || "").replace(/\s+/g," ").trim(); }
+
+function renderFeed() {
+  const feed = $("feed");
+  feed.replaceChildren();
+  feedItems.slice(-5).forEach(item => {
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    const time = document.createElement("span");
+    time.className = "time";
+    time.textContent = item.time;
+    const text = document.createElement("span");
+    text.textContent = item.text;
+    bubble.append(time,text);
+    feed.appendChild(bubble);
+  });
+  if (interimText) {
+    const bubble = document.createElement("div");
+    bubble.className = "bubble interim";
+    const label = document.createElement("span");
+    label.className = "time";
+    label.textContent = "Recognizing…";
+    const text = document.createElement("span");
+    text.textContent = interimText;
+    bubble.append(label,text);
+    feed.appendChild(bubble);
+  }
+  if (!feedItems.length && !interimText) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Recognized English speech will appear here.";
+    feed.appendChild(empty);
+  }
+}
+
+function addSpeech(value) {
+  const text = clean(value);
+  if (!text) return;
+  interimText = "";
+  // Avoid repeated identical results while allowing the same phrase later.
+  if (text === lastFinalText) {
+    renderFeed();
+    return;
+  }
+  lastFinalText = text;
+  const item = {time:timeNow(), text};
+  fullText.push(item);
+  feedItems.push(item);
+  context.push(text);
+  if (context.length > 12) context = context.slice(-12);
+  $("fullTranscript").value = fullText.map(x => `[${x.time}] ${x.text}`).join("\n");
+  renderFeed();
+  pendingText = text;
+  queueSuggestion(text);
+}
+
+function shouldSuggest(text) {
+  const s = clean(text);
+  return s.length >= 12 && (
+    /[?!.]$/.test(s) ||
+    /\b(hello|hi|hey|good morning|good afternoon|good evening|thank you|thanks|please|could you|would you|can you|tell me|what|why|how|when|where|who|which|do you|did you|are you|have you|I need|I would like)\b/i.test(s)
+  );
+}
+
+function queueSuggestion(text, force = false) {
+  pendingText = text;
+  clearTimeout(suggestionTimer);
+  if (!force && !shouldSuggest(text)) return;
+  suggestionTimer = setTimeout(() => requestSuggestion(force), 850);
+}
+
+async function requestSuggestion(force = false) {
+  if (!pendingText || requestBusy || (!listening && !force)) return;
+  const transcript = pendingText;
+  if (!force && transcript === lastRequestedText) return;
+
+  requestBusy = true;
+  lastRequestedText = transcript;
+  const id = ++requestNumber;
+  $("replyStatus").textContent = "Thinking…";
+  $("manualReply").disabled = true;
+
+  try {
+    const response = await fetch("/api/respond", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        transcript,
+        context:context.slice(-8).join("\n").slice(-3500)
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.detail || "AI request failed.");
+    }
+    if (id !== requestNumber) return;
+
+    $("answer").textContent = data.answer || "No suggestion returned.";
+    $("answerNote").textContent = data.note || "";
+    $("provider").textContent = data.provider || "AI";
+    $("replyStatus").textContent = "Ready";
+    $("copyAnswer").disabled = !data.answer;
+    setMessage("Suggested reply ready. Say it yourself when appropriate.");
+  } catch (error) {
+    if (id === requestNumber) {
+      $("replyStatus").textContent = "Unavailable";
+      setMessage(error.message || "AI service unavailable. Check connection and API keys.");
+    }
+  } finally {
+    requestBusy = false;
+    $("manualReply").disabled = !pendingText;
+    if (pendingText && pendingText !== lastRequestedText && listening) {
+      queueSuggestion(pendingText);
+    }
+  }
+}
+
+function startListening() {
+  if (!SpeechAPI) {
+    setStatus("BROWSER NOT SUPPORTED", false);
+    setMessage("Speech recognition is unavailable here. Try a supported version of Chrome. Support varies by device.");
+    return;
+  }
+  if (listening) return;
+
+  listening = true;
+  restarting = false;
+  sessionStarted = new Date().toISOString();
+  $("start").disabled = true;
+  $("stop").disabled = false;
+  setStatus("STARTING LISTENING");
+  setMessage("Starting English speech recognition. Allow microphone access if requested.");
+
+  recognition = new SpeechAPI();
+  recognition.lang = "en-US";
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    if (!listening) return;
+    setStatus("LISTENING IN ENGLISH");
+    setMessage("Listening. Keep this page open and the speaker volume clear.");
+  };
+
+  recognition.onresult = event => {
+    let interim = "";
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const result = event.results[i];
+      const phrase = clean(result[0] && result[0].transcript);
+      if (!phrase) continue;
+      if (result.isFinal) addSpeech(phrase);
+      else interim += phrase + " ";
+    }
+    interimText = clean(interim);
+    renderFeed();
+  };
+
+  recognition.onerror = event => {
+    if (!listening) return;
+    const error = event.error || "unknown";
+    if (error === "not-allowed" || error === "service-not-allowed") {
+      setMessage("Microphone or speech recognition permission denied. Check browser permissions.");
+      stopListening(true);
+    } else if (error !== "no-speech" && error !== "aborted") {
+      setMessage("Recognition issue: " + error + ". Listening may retry automatically.");
+    }
+  };
+
+  recognition.onend = () => {
+    if (!listening || restarting) return;
+    restarting = true;
+    setStatus("RECONNECTING");
+    clearTimeout(restartTimer);
+    restartTimer = setTimeout(() => {
+      restarting = false;
+      if (!listening || !recognition) return;
+      try {
+        recognition.start();
+      } catch (_) {
+        setStatus("RETRYING LISTENING");
+        // Let a later retry attempt start again without making a rapid loop.
+        clearTimeout(restartTimer);
+        restartTimer = setTimeout(() => {
+          if (!listening || !recognition) return;
+          try { recognition.start(); } catch (_) {}
+        }, 1200);
+      }
+    }, 500);
+  };
+
+  try {
+    recognition.start();
+  } catch (_) {
+    stopListening(true);
+    setStatus("COULD NOT START", false);
+    setMessage("Could not start recognition. Check permissions, then try again.");
+  }
+}
+
+function stopListening(fromError = false) {
+  listening = false;
+  restarting = false;
+  clearTimeout(restartTimer);
+  clearTimeout(suggestionTimer);
+  if (recognition) {
+    const old = recognition;
+    recognition = null;
+    old.onend = null;
+    old.onresult = null;
+    try { old.stop(); } catch (_) {}
+  }
+  $("start").disabled = false;
+  $("stop").disabled = true;
+  setStatus("LISTENING STOPPED", false);
+  interimText = "";
+  renderFeed();
+  if (!fromError) setMessage("Listening stopped. The current transcript remains available.");
+}
+
+function readStored(key) {
+  try {
+    const data = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch (_) {
+    return [];
+  }
+}
+function writeStored(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (_) {
+    setMessage("Local save failed. Browser storage may be full or disabled.");
+    return false;
+  }
+}
+function saveSession() {
+  if (!fullText.length && !translationText) {
+    setMessage("There is no transcript or translation to save.");
+    return;
+  }
+  const sessions = readStored(SESSION_KEY);
+  sessions.push({
+    started:sessionStarted || new Date().toISOString(),
+    saved:new Date().toISOString(),
+    transcript:fullText,
+    translation:translationText
+  });
+  if (writeStored(SESSION_KEY, sessions.slice(-50))) {
+    setMessage("Session saved in this browser on this device.");
+  }
+}
+function saveTranslation() {
+  if (!translationText.trim()) {
+    setMessage("Translate the transcript before saving it.");
+    return;
+  }
+  const translations = readStored(TRANSLATION_KEY);
+  translations.push({
+    saved:new Date().toISOString(),
+    translation:translationText
+  });
+  if (writeStored(TRANSLATION_KEY, translations.slice(-50))) {
+    setMessage("Spanish translation saved locally.");
+  }
+}
+function exportTranscript() {
+  const content = [
+    "MAY ROGA Live English",
+    "Session: " + (sessionStarted || "not recorded"),
+    "",
+    "ENGLISH TRANSCRIPT",
+    ...fullText.map(x => `[${x.time}] ${x.text}`),
+    "",
+    "SPANISH TRANSLATION",
+    translationText || "(No translation requested)"
+  ].join("\n");
+  const url = URL.createObjectURL(new Blob([content], {type:"text/plain;charset=utf-8"}));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "may-roga-live-english.txt";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+async function translateTranscript() {
+  const transcript = fullText.map(x => x.text).join("\n");
+  if (!transcript.trim()) {
+    setMessage("There is no final recognized transcript to translate.");
+    return;
+  }
+  $("translate").disabled = true;
+  $("translation").textContent = "Translating…";
+  try {
+    const response = await fetch("/api/translate", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({transcript:transcript.slice(-10000)})
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.detail || "Translation failed.");
+    translationText = data.translation || "";
+    $("translation").textContent = translationText || "No translation returned.";
+    $("saveTranslation").disabled = !translationText;
+    setMessage("Translation ready. Save it separately if you want to review it later.");
+  } catch (error) {
+    $("translation").textContent = "Translation unavailable.";
+    setMessage(error.message || "Translation failed. Check API keys and connection.");
+  } finally {
+    $("translate").disabled = false;
+  }
+}
+function clearCurrentScreen() {
+  if (!confirm("Clear the current screen? Previously saved sessions will remain.")) return;
+  fullText = [];
+  feedItems = [];
+  context = [];
+  interimText = "";
+  lastFinalText = "";
+  lastRequestedText = "";
+  pendingText = "";
+  translationText = "";
+  requestNumber++;
+  $("fullTranscript").value = "";
+  $("translation").textContent = "Translation is off until requested.";
+  $("answer").textContent = "Your suggested English response will appear here.";
+  $("answerNote").textContent = "";
+  $("copyAnswer").disabled = true;
+  $("saveTranslation").disabled = true;
+  $("replyStatus").textContent = "Waiting";
+  renderFeed();
+  setMessage("Current screen cleared. Saved sessions have not been deleted.");
+}
+function deleteSavedData() {
+  if (!confirm("Permanently delete locally saved sessions and translations from this browser?")) return;
+  localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(TRANSLATION_KEY);
+  setMessage("Saved sessions and translations deleted from this browser.");
+}
+
+$("start").addEventListener("click", startListening);
+$("stop").addEventListener("click", () => stopListening());
+$("manualReply").addEventListener("click", () => {
+  if (pendingText && !requestBusy) requestSuggestion(true);
+});
+$("copyAnswer").addEventListener("click", async () => {
+  const text = $("answer").textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    setMessage("Reply copied.");
+  } catch (_) {
+    setMessage("Copy unavailable. Select the answer text and copy it manually.");
+  }
+});
+$("saveSession").addEventListener("click", saveSession);
+$("saveTranslation").addEventListener("click", saveTranslation);
+$("export").addEventListener("click", exportTranscript);
+$("translate").addEventListener("click", translateTranscript);
+$("clearScreen").addEventListener("click", clearCurrentScreen);
+$("deleteSaved").addEventListener("click", deleteSavedData);
+
+document.addEventListener("visibilitychange", () => {
+  if (listening && document.hidden) {
+    setMessage("The page is in the background. Your device may pause microphone recognition; keep it open if possible.");
+  }
+});
+window.addEventListener("pagehide", () => {
+  if (recognition) {
+    listening = false;
+    try { recognition.stop(); } catch (_) {}
+  }
+});
+(async function checkServer() {
+  try {
+    const response = await fetch("/api/health", {cache:"no-store"});
+    const data = await response.json();
+    if (data.gemini_configured) {
+      $("provider").textContent = "Gemini primary";
+    } else if (data.openai_fallback_configured) {
+      $("provider").textContent = "OpenAI available";
+    } else {
+      $("provider").textContent = "API keys missing";
+      setMessage("Add GEMINI_API_KEY and/or OPENAI_API_KEY in Render Environment.");
+    }
+  } catch (_) {
+    $("provider").textContent = "Server check unavailable";
+  }
+})();
+</script>
 </body>
 </html>
