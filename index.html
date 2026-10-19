@@ -1,553 +1,277 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#173d35">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f9fc">
 <title>MAY ROGA Live English</title>
 <style>
-:root{color-scheme:light;--ink:#173d35;--bg:#f4f7f5;--muted:#65756e;--line:#dce6e0;--green:#176b4d;--red:#a33b3b}
+:root{font-family:Arial,Helvetica,sans-serif;color:#172b4d;background:#f5f7fb;font-synthesis:none}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-button,textarea{font:inherit}
-button{border:0;border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer}
+body{margin:0;min-height:100vh}
+button,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 15px;font-weight:700}
 button:disabled{opacity:.45;cursor:not-allowed}
-header{background:var(--ink);color:white;padding:17px}
-.wrap{width:min(760px,100%);margin:auto}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:44px;height:44px;border-radius:13px;background:#ffffff20;display:grid;place-items:center;font-size:23px}
-h1{font-size:19px;margin:0}
-.sub{font-size:12px;color:#d0e2d9;margin-top:4px}
-main{padding:13px;display:grid;gap:12px}
-.card{background:white;border:1px solid var(--line);border-radius:17px;padding:15px;min-width:0}
-.statusrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.status{font-size:12px;font-weight:800;color:var(--muted)}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aab6b0;margin-right:6px}
-.dot.live{background:#1b9c69;box-shadow:0 0 0 4px #1b9c691c}
-.controls,.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.controls button,.row button{flex:1;min-width:110px}
-.primary{background:var(--green);color:white}
-.stop{background:#f9e8e8;color:var(--red)}
-.secondary{background:#edf3ef;color:var(--ink)}
-.ghost{background:white;color:var(--ink);border:1px solid var(--line)}
-.small{font-size:12px;color:var(--muted);line-height:1.5}
-h2{font-size:14px;margin:0 0 11px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.tag{font-size:10px;border-radius:30px;background:#edf3ef;padding:5px 8px;color:var(--muted);white-space:nowrap}
-.feed{display:flex;flex-direction:column;gap:8px;max-height:290px;overflow:hidden}
-.bubble{background:#f1f5f2;border-radius:12px;padding:10px 12px;line-height:1.5;overflow-wrap:anywhere;animation:appear .2s ease}
-.bubble.interim{border:1px dashed #aebeb4;color:#65756e;background:#fafcfb}
-.time{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}
-.empty{font-size:13px;color:var(--muted);padding:10px 0;line-height:1.6}
-.answer{background:#eaf5ee;border:1px solid #d1e8d9;border-radius:13px;padding:13px;font-size:17px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
-.note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
-textarea{width:100%;min-height:145px;margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical;color:var(--ink);background:white;line-height:1.5}
-#translation{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
-#message{font-size:12px;color:var(--muted);margin-top:9px;min-height:18px}
-details summary{cursor:pointer;font-size:14px;font-weight:700}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:5px 18px 22px;line-height:1.6}
-@keyframes appear{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-@media(min-width:650px){main{grid-template-columns:1fr 1fr;align-items:start}.wide{grid-column:1/-1}.feed{max-height:340px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+.app{width:min(760px,100%);margin:auto;padding:20px 16px 36px}
+header{margin-bottom:20px}
+h1{font-size:25px;margin:0 0 7px;letter-spacing:-.5px}
+.subtitle{color:#64748b;font-size:14px;line-height:1.5}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;margin-top:14px}
+.dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;flex:none}
+.dot.on{background:#16a34a}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+.mode{background:white;border:1px solid #dce3ed;color:#334155;text-align:left;min-height:78px}
+.mode.active{border:2px solid #245bd6;background:#eef4ff;color:#1746a2}
+.mode strong{display:block;font-size:15px;margin-bottom:5px}
+.mode small{display:block;font-weight:400;line-height:1.4}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.primary{background:#245bd6;color:white}
+.stop{background:#b42318;color:white}
+.secondary{background:#e8edf5;color:#24344d}
+.light{background:white;border:1px solid #dce3ed;color:#334155}
+.panel{background:white;border:1px solid #e1e7ef;border-radius:14px;padding:16px;margin:13px 0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+h2{font-size:15px;margin:0}
+.tag{font-size:11px;font-weight:700;color:#52627a;background:#eef2f7;padding:5px 8px;border-radius:20px}
+.transcript{font-size:18px;line-height:1.65;overflow-wrap:anywhere;min-height:54px;white-space:pre-wrap}
+.placeholder{font-size:15px;color:#94a3b8}
+.answer{font-size:21px;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap}
+.note{font-size:13px;line-height:1.5;color:#64748b;margin-top:8px}
+.answer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.settings{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.settings label{font-size:14px;line-height:1.5}
+select{max-width:100%;border:1px solid #dce3ed;background:white;border-radius:9px;padding:10px;color:#24344d}
+details{margin-top:16px}
+summary{cursor:pointer;font-size:14px;color:#52627a;padding:8px 0}
+#fullTranscript{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.6;max-height:300px;overflow:auto}
+.message{font-size:13px;line-height:1.5;color:#64748b;min-height:20px;margin:10px 0}
+footer{font-size:12px;line-height:1.6;color:#718096;margin-top:22px}
+.hidden{display:none!important}
+@media(max-width:440px){.app{padding:17px 12px 28px}h1{font-size:23px}.mode{padding:11px}.panel{padding:13px}.answer{font-size:19px}.transcript{font-size:17px}}
 </style>
 </head>
 <body>
+<main class="app">
 <header>
-<div class="wrap brand">
-<div class="logo">🎧</div>
-<div><h1>MAY ROGA Live English</h1><div class="sub">Listen · Understand · Respond</div></div>
-</div>
+<h1>MAY ROGA Live English</h1>
+<div class="subtitle">Escucha en inglés. Comprende la pregunta. Encuentra tus palabras.</div>
+<div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Listo para comenzar</span></div>
 </header>
-<main class="wrap">
-<section class="card wide">
-<div class="statusrow">
-<div class="status"><span id="dot" class="dot"></span><span id="status">READY TO START</span></div>
-<span class="tag" id="provider">Checking AI…</span>
-</div>
-<p class="small">Put your call on speaker, allow microphone access, then start listening. Keep this page open. Browser audio access during a phone call depends on your device and operating system.</p>
+
+<section aria-label="Seleccionar modo" class="modes">
+<button type="button" class="mode active" data-mode="conversation" aria-pressed="true">
+<strong>Conversación</strong>
+<small>Charlas, llamadas y diálogos reales.</small>
+</button>
+<button type="button" class="mode" data-mode="interview" aria-pressed="false">
+<strong>Preguntas y respuestas</strong>
+<small>Entrevistas y preguntas profesionales.</small>
+</button>
+</section>
+
 <div class="controls">
-<button id="start" class="primary">▶ Start listening</button>
-<button id="stop" class="stop" disabled>■ Turn off</button>
+<button id="startBtn" class="primary" type="button">Iniciar escucha</button>
+<button id="stopBtn" class="stop" type="button" disabled>Detener</button>
 </div>
-<div id="message" role="status" aria-live="polite">Ready to listen in English.</div>
+
+<section class="panel" aria-live="polite">
+<div class="panel-head">
+<h2>Lo que escucho</h2>
+<span id="modeTag" class="tag">CONVERSACIÓN</span>
+</div>
+<div id="liveText" class="transcript"><span class="placeholder">El texto reconocido aparecerá aquí.</span></div>
+<div id="interimText" class="note"></div>
 </section>
 
-<section class="card">
-<h2>LIVE TRANSCRIPT <span class="tag">Recent speech</span></h2>
-<div id="feed" class="feed">
-<div class="empty">Recognized English speech will appear here.</div>
+<section class="panel" aria-live="polite">
+<div class="panel-head">
+<h2>Tu respuesta en inglés</h2>
+<span class="tag">SUGERENCIA</span>
 </div>
-<p class="small">Only the five most recent phrases appear here. Interim words are provisional and may change.</p>
-</section>
-
-<section class="card">
-<h2>YOUR SUGGESTED REPLY <span class="tag" id="replyStatus">Waiting</span></h2>
-<div id="answer" class="answer">Your suggested English response will appear here.</div>
+<div id="answerText" class="answer"><span class="placeholder">Aquí aparecerá una respuesta que puedes decir con tus propias palabras.</span></div>
 <div id="answerNote" class="note"></div>
-<div class="row">
-<button id="copyAnswer" class="secondary" disabled>Copy reply</button>
-<button id="manualReply" class="ghost" disabled>Suggest again</button>
+<div class="answer-actions">
+<button id="copyBtn" class="secondary" type="button" disabled>Copiar respuesta</button>
+<button id="suggestBtn" class="light" type="button" disabled>Sugerir respuesta</button>
 </div>
-<p class="small">You speak yourself. The app does not speak or send the suggested reply.</p>
 </section>
 
-<section class="card wide">
+<section class="panel">
+<div class="settings">
+<label for="responseMode"><strong>Cómo sugerir respuestas</strong><br><span class="note">Automático o cuando tú lo decidas.</span></label>
+<select id="responseMode">
+<option value="auto">Automático</option>
+<option value="manual">Manual</option>
+</select>
+</div>
+</section>
+
+<div id="message" class="message" role="status"></div>
+
 <details>
-<summary>Full transcript and saved sessions</summary>
-<div class="row">
-<button id="saveSession" class="secondary">Save session locally</button>
-<button id="export" class="ghost">Export transcript</button>
-<button id="clearScreen" class="stop">Clear screen</button>
-<button id="deleteSaved" class="stop">Delete saved data</button>
+<summary>Ver transcripción completa</summary>
+<div id="fullTranscript">Todavía no hay texto reconocido.</div>
+<div class="answer-actions">
+<button id="copyTranscriptBtn" class="light" type="button" disabled>Copiar transcripción</button>
+<button id="translateBtn" class="light" type="button" disabled>Traducir al español</button>
 </div>
-<textarea id="fullTranscript" readonly placeholder="Full recognized transcript."></textarea>
-<p class="small">Saved data stays in this browser on this device. Browser storage can be cleared by the device or browser.</p>
+<div id="translation" class="note"></div>
 </details>
-</section>
 
-<section class="card wide">
-<h2>OPTIONAL SPANISH TRANSLATION</h2>
-<p class="small">Translate only when you want to review the conversation in Spanish.</p>
-<div class="row">
-<button id="translate" class="secondary">Translate transcript</button>
-<button id="saveTranslation" class="ghost" disabled>Save translation locally</button>
-</div>
-<div id="translation" class="empty">Translation is off until requested.</div>
-</section>
-
-<section class="card wide">
-<details>
-<summary>Audio, privacy and limitations</summary>
-<p class="small">Browser speech recognition may use a browser or operating-system service. It can capture your voice and background sounds too; it cannot reliably guarantee that only the other speaker is transcribed. Noise reduction and echo cancellation are not perfect voice isolation.</p>
-<p class="small">Recognized text is sent to the configured AI provider when a reply or translation is requested. This app does not upload audio recordings to its own FastAPI server or save transcripts on the server.</p>
-<p class="small">Use transcription in accordance with applicable consent and privacy laws. Verify suggested replies before making important commitments.</p>
-</details>
-</section>
+<footer>
+La aplicación propone respuestas escritas; tú decides qué decir y cómo pronunciarlo. El reconocimiento de voz depende del navegador y del micrófono. Puede captar tu voz y la de la otra persona, y no garantiza funcionar durante una llamada en el mismo teléfono.
+</footer>
 </main>
-<footer>MAY ROGA LLC · English conversation assistant · Suggestions may be incorrect.</footer>
 
 <script>
 "use strict";
-const $ = id => document.getElementById(id);
-const SpeechAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
-const SESSION_KEY = "mayroga_live_english_sessions_v2";
-const TRANSLATION_KEY = "mayroga_live_english_translations_v2";
-let recognition = null;
-let listening = false;
-let restarting = false;
-let restartTimer = null;
-let suggestionTimer = null;
-let requestBusy = false;
-let pendingText = "";
-let lastRequestedText = "";
-let lastFinalText = "";
-let requestNumber = 0;
-let fullText = [];
-let feedItems = [];
-let context = [];
-let interimText = "";
-let translationText = "";
-let sessionStarted = null;
-
-function setStatus(text, live = listening) {
-  $("status").textContent = text;
-  $("dot").classList.toggle("live", live);
+const $=id=>document.getElementById(id);
+const startBtn=$("startBtn"),stopBtn=$("stopBtn"),liveText=$("liveText"),interimText=$("interimText"),answerText=$("answerText"),answerNote=$("answerNote"),suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message"),fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn"),translateBtn=$("translateBtn"),translation=$("translation"),responseMode=$("responseMode");
+const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+let recognition=null,listening=false,stopping=false,mode="conversation",finalLines=[],latestSpeech="",interimSpeech="",requestBusy=false,pendingSpeech="",autoTimer=null,lastRequested="",requestNumber=0;
+const MAX_LINES=80;
+function setStatus(text,on=false){$("statusText").textContent=text;$("statusDot").classList.toggle("on",on)}
+function notify(text){message.textContent=text}
+function setPlaceholder(el,text,cls="placeholder"){el.innerHTML="";const span=document.createElement("span");span.className=cls;span.textContent=text;el.appendChild(span)}
+function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
+function allText(){return finalLines.join("\n")}
+function renderTranscript(){
+ const text=allText();
+ if(!text)setPlaceholder(liveText,"El texto reconocido aparecerá aquí.");
+ else liveText.textContent=finalLines.slice(-4).join("\n");
+ fullTranscript.textContent=text||"Todavía no hay texto reconocido.";
+ copyTranscriptBtn.disabled=!text;translateBtn.disabled=!text;
+ suggestBtn.disabled=!latestSpeech;
 }
-function setMessage(text) { $("message").textContent = text; }
-function timeNow() {
-  return new Date().toLocaleTimeString([], {
-    hour:"2-digit", minute:"2-digit", second:"2-digit"
-  });
+function setMode(next){
+ if(listening){notify("Detén la escucha antes de cambiar de modo.");return}
+ mode=next;
+ document.querySelectorAll("[data-mode]").forEach(b=>{const active=b.dataset.mode===mode;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
+ $("modeTag").textContent=mode==="conversation"?"CONVERSACIÓN":"PREGUNTAS Y RESPUESTAS";
+ answerText.textContent=mode==="conversation"?"Aquí aparecerá una respuesta natural para la conversación.":"Aquí aparecerá una respuesta clara para la pregunta.";
+ answerNote.textContent="";
+ translation.textContent="";
+ notify("");
 }
-function clean(s) { return String(s || "").replace(/\s+/g," ").trim(); }
-
-function renderFeed() {
-  const feed = $("feed");
-  feed.replaceChildren();
-  feedItems.slice(-5).forEach(item => {
-    const bubble = document.createElement("div");
-    bubble.className = "bubble";
-    const time = document.createElement("span");
-    time.className = "time";
-    time.textContent = item.time;
-    const text = document.createElement("span");
-    text.textContent = item.text;
-    bubble.append(time,text);
-    feed.appendChild(bubble);
-  });
-  if (interimText) {
-    const bubble = document.createElement("div");
-    bubble.className = "bubble interim";
-    const label = document.createElement("span");
-    label.className = "time";
-    label.textContent = "Recognizing…";
-    const text = document.createElement("span");
-    text.textContent = interimText;
-    bubble.append(label,text);
-    feed.appendChild(bubble);
+document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+function initRecognition(){
+ if(!SpeechRecognition){notify("Este navegador no ofrece reconocimiento de voz. Prueba Chrome actualizado.");return false}
+ recognition=new SpeechRecognition();
+ recognition.lang="en-US";
+ recognition.continuous=true;
+ recognition.interimResults=true;
+ recognition.maxAlternatives=1;
+ recognition.onstart=()=>{listening=true;stopping=false;startBtn.disabled=true;stopBtn.disabled=false;setStatus("Escuchando en inglés…",true);notify("")};
+ recognition.onresult=e=>{
+  let interim="";
+  for(let i=e.resultIndex;i<e.results.length;i++){
+   const result=e.results[i],text=cleanText(result[0].transcript);
+   if(!text)continue;
+   if(result.isFinal){
+    const previous=finalLines[finalLines.length-1]||"";
+    if(text!==previous){finalLines.push(text);if(finalLines.length>MAX_LINES)finalLines=finalLines.slice(-MAX_LINES)}
+    latestSpeech=text;interimSpeech="";
+    renderTranscript();
+    if(responseMode.value==="auto")scheduleSuggestion(text);
+   }else interim+=text+" ";
   }
-  if (!feedItems.length && !interimText) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "Recognized English speech will appear here.";
-    feed.appendChild(empty);
+  interimSpeech=cleanText(interim);
+  interimText.textContent=interimSpeech?("En curso: "+interimSpeech):"";
+ };
+ recognition.onerror=e=>{
+  const err=e.error||"unknown";
+  if(err==="not-allowed"||err==="service-not-allowed"){stopping=true;listening=false;startBtn.disabled=false;stopBtn.disabled=true;setStatus("Micrófono no disponible");notify("Permite el acceso al micrófono y revisa los permisos del navegador.");return}
+  if(err==="audio-capture"){notify("No se encontró un micrófono disponible.");return}
+  if(err==="network"){notify("El reconocimiento de voz tiene un problema de conexión.");return}
+  if(err!=="no-speech"&&err!=="aborted")notify("Problema de reconocimiento: "+err);
+ };
+ recognition.onend=()=>{
+  if(listening&&!stopping){
+   try{recognition.start()}catch(e){setTimeout(()=>{if(listening&&!stopping){try{recognition.start()}catch(_){}}},500)}
+  }else{
+   listening=false;startBtn.disabled=false;stopBtn.disabled=true;
+   setStatus("Escucha detenida");
   }
+ };
+ return true;
 }
-
-function addSpeech(value) {
-  const text = clean(value);
-  if (!text) return;
-  interimText = "";
-  // Avoid repeated identical results while allowing the same phrase later.
-  if (text === lastFinalText) {
-    renderFeed();
-    return;
+function startListening(){
+ if(listening)return;
+ if(!recognition&&!initRecognition())return;
+ stopping=false;
+ try{recognition.start();notify("")}
+ catch(e){notify("No se pudo iniciar la escucha. Comprueba los permisos del micrófono.");setStatus("Listo para comenzar")}
+}
+function stopListening(){
+ if(!recognition||!listening)return;
+ stopping=true;listening=false;
+ if(autoTimer){clearTimeout(autoTimer);autoTimer=null}
+ try{recognition.stop()}catch(e){}
+ startBtn.disabled=false;stopBtn.disabled=true;setStatus("Escucha detenida");
+}
+startBtn.addEventListener("click",startListening);
+stopBtn.addEventListener("click",stopListening);
+function scheduleSuggestion(text){
+ if(autoTimer)clearTimeout(autoTimer);
+ autoTimer=setTimeout(()=>requestSuggestion(text),1000);
+}
+async function requestSuggestion(text){
+ text=cleanText(text||latestSpeech);
+ if(!text){notify("Todavía no hay una pregunta o frase reconocida.");return}
+ if(requestBusy){pendingSpeech=text;return}
+ if(text===lastRequested&&responseMode.value==="auto")return;
+ requestBusy=true;lastRequested=text;
+ const id=++requestNumber;
+ suggestBtn.disabled=true;
+ answerNote.textContent="Preparando una respuesta…";
+ try{
+  const context="SELECTED MODE: "+(mode==="conversation"?"REAL CONVERSATION":"INTERVIEW / QUESTIONS AND ANSWERS")+"\nRecent recognized English conversation:\n"+finalLines.slice(-8,-1).join("\n");
+  const res=await fetch("/api/respond",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({transcript:text,context})});
+  const data=await res.json();
+  if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
+  if(id===requestNumber){
+   answerText.textContent=data.answer||"No se generó una respuesta.";
+   answerNote.textContent=data.note||"";
+   copyBtn.disabled=!data.answer;
   }
-  lastFinalText = text;
-  const item = {time:timeNow(), text};
-  fullText.push(item);
-  feedItems.push(item);
-  context.push(text);
-  if (context.length > 12) context = context.slice(-12);
-  $("fullTranscript").value = fullText.map(x => `[${x.time}] ${x.text}`).join("\n");
-  renderFeed();
-  pendingText = text;
-  queueSuggestion(text);
+ }catch(e){
+  if(id===requestNumber)answerNote.textContent=e.message||"No se pudo conectar con el servicio de respuestas.";
+ }finally{
+  requestBusy=false;suggestBtn.disabled=!latestSpeech;
+  if(pendingSpeech&&pendingSpeech!==text){const next=pendingSpeech;pendingSpeech="";if(responseMode.value==="auto")requestSuggestion(next)}
+ }
 }
-
-function shouldSuggest(text) {
-  const s = clean(text);
-  return s.length >= 12 && (
-    /[?!.]$/.test(s) ||
-    /\b(hello|hi|hey|good morning|good afternoon|good evening|thank you|thanks|please|could you|would you|can you|tell me|what|why|how|when|where|who|which|do you|did you|are you|have you|I need|I would like)\b/i.test(s)
-  );
-}
-
-function queueSuggestion(text, force = false) {
-  pendingText = text;
-  clearTimeout(suggestionTimer);
-  if (!force && !shouldSuggest(text)) return;
-  suggestionTimer = setTimeout(() => requestSuggestion(force), 850);
-}
-
-async function requestSuggestion(force = false) {
-  if (!pendingText || requestBusy || (!listening && !force)) return;
-  const transcript = pendingText;
-  if (!force && transcript === lastRequestedText) return;
-
-  requestBusy = true;
-  lastRequestedText = transcript;
-  const id = ++requestNumber;
-  $("replyStatus").textContent = "Thinking…";
-  $("manualReply").disabled = true;
-
-  try {
-    const response = await fetch("/api/respond", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        transcript,
-        context:context.slice(-8).join("\n").slice(-3500)
-      })
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      throw new Error(data.detail || "AI request failed.");
-    }
-    if (id !== requestNumber) return;
-
-    $("answer").textContent = data.answer || "No suggestion returned.";
-    $("answerNote").textContent = data.note || "";
-    $("provider").textContent = data.provider || "AI";
-    $("replyStatus").textContent = "Ready";
-    $("copyAnswer").disabled = !data.answer;
-    setMessage("Suggested reply ready. Say it yourself when appropriate.");
-  } catch (error) {
-    if (id === requestNumber) {
-      $("replyStatus").textContent = "Unavailable";
-      setMessage(error.message || "AI service unavailable. Check connection and API keys.");
-    }
-  } finally {
-    requestBusy = false;
-    $("manualReply").disabled = !pendingText;
-    if (pendingText && pendingText !== lastRequestedText && listening) {
-      queueSuggestion(pendingText);
-    }
-  }
-}
-
-function startListening() {
-  if (!SpeechAPI) {
-    setStatus("BROWSER NOT SUPPORTED", false);
-    setMessage("Speech recognition is unavailable here. Try a supported version of Chrome. Support varies by device.");
-    return;
-  }
-  if (listening) return;
-
-  listening = true;
-  restarting = false;
-  sessionStarted = new Date().toISOString();
-  $("start").disabled = true;
-  $("stop").disabled = false;
-  setStatus("STARTING LISTENING");
-  setMessage("Starting English speech recognition. Allow microphone access if requested.");
-
-  recognition = new SpeechAPI();
-  recognition.lang = "en-US";
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
-
-  recognition.onstart = () => {
-    if (!listening) return;
-    setStatus("LISTENING IN ENGLISH");
-    setMessage("Listening. Keep this page open and the speaker volume clear.");
-  };
-
-  recognition.onresult = event => {
-    let interim = "";
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      const result = event.results[i];
-      const phrase = clean(result[0] && result[0].transcript);
-      if (!phrase) continue;
-      if (result.isFinal) addSpeech(phrase);
-      else interim += phrase + " ";
-    }
-    interimText = clean(interim);
-    renderFeed();
-  };
-
-  recognition.onerror = event => {
-    if (!listening) return;
-    const error = event.error || "unknown";
-    if (error === "not-allowed" || error === "service-not-allowed") {
-      setMessage("Microphone or speech recognition permission denied. Check browser permissions.");
-      stopListening(true);
-    } else if (error !== "no-speech" && error !== "aborted") {
-      setMessage("Recognition issue: " + error + ". Listening may retry automatically.");
-    }
-  };
-
-  recognition.onend = () => {
-    if (!listening || restarting) return;
-    restarting = true;
-    setStatus("RECONNECTING");
-    clearTimeout(restartTimer);
-    restartTimer = setTimeout(() => {
-      restarting = false;
-      if (!listening || !recognition) return;
-      try {
-        recognition.start();
-      } catch (_) {
-        setStatus("RETRYING LISTENING");
-        // Let a later retry attempt start again without making a rapid loop.
-        clearTimeout(restartTimer);
-        restartTimer = setTimeout(() => {
-          if (!listening || !recognition) return;
-          try { recognition.start(); } catch (_) {}
-        }, 1200);
-      }
-    }, 500);
-  };
-
-  try {
-    recognition.start();
-  } catch (_) {
-    stopListening(true);
-    setStatus("COULD NOT START", false);
-    setMessage("Could not start recognition. Check permissions, then try again.");
-  }
-}
-
-function stopListening(fromError = false) {
-  listening = false;
-  restarting = false;
-  clearTimeout(restartTimer);
-  clearTimeout(suggestionTimer);
-  if (recognition) {
-    const old = recognition;
-    recognition = null;
-    old.onend = null;
-    old.onresult = null;
-    try { old.stop(); } catch (_) {}
-  }
-  $("start").disabled = false;
-  $("stop").disabled = true;
-  setStatus("LISTENING STOPPED", false);
-  interimText = "";
-  renderFeed();
-  if (!fromError) setMessage("Listening stopped. The current transcript remains available.");
-}
-
-function readStored(key) {
-  try {
-    const data = JSON.parse(localStorage.getItem(key) || "[]");
-    return Array.isArray(data) ? data : [];
-  } catch (_) {
-    return [];
-  }
-}
-function writeStored(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (_) {
-    setMessage("Local save failed. Browser storage may be full or disabled.");
-    return false;
-  }
-}
-function saveSession() {
-  if (!fullText.length && !translationText) {
-    setMessage("There is no transcript or translation to save.");
-    return;
-  }
-  const sessions = readStored(SESSION_KEY);
-  sessions.push({
-    started:sessionStarted || new Date().toISOString(),
-    saved:new Date().toISOString(),
-    transcript:fullText,
-    translation:translationText
-  });
-  if (writeStored(SESSION_KEY, sessions.slice(-50))) {
-    setMessage("Session saved in this browser on this device.");
-  }
-}
-function saveTranslation() {
-  if (!translationText.trim()) {
-    setMessage("Translate the transcript before saving it.");
-    return;
-  }
-  const translations = readStored(TRANSLATION_KEY);
-  translations.push({
-    saved:new Date().toISOString(),
-    translation:translationText
-  });
-  if (writeStored(TRANSLATION_KEY, translations.slice(-50))) {
-    setMessage("Spanish translation saved locally.");
-  }
-}
-function exportTranscript() {
-  const content = [
-    "MAY ROGA Live English",
-    "Session: " + (sessionStarted || "not recorded"),
-    "",
-    "ENGLISH TRANSCRIPT",
-    ...fullText.map(x => `[${x.time}] ${x.text}`),
-    "",
-    "SPANISH TRANSLATION",
-    translationText || "(No translation requested)"
-  ].join("\n");
-  const url = URL.createObjectURL(new Blob([content], {type:"text/plain;charset=utf-8"}));
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "may-roga-live-english.txt";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-async function translateTranscript() {
-  const transcript = fullText.map(x => x.text).join("\n");
-  if (!transcript.trim()) {
-    setMessage("There is no final recognized transcript to translate.");
-    return;
-  }
-  $("translate").disabled = true;
-  $("translation").textContent = "Translating…";
-  try {
-    const response = await fetch("/api/translate", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({transcript:transcript.slice(-10000)})
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.detail || "Translation failed.");
-    translationText = data.translation || "";
-    $("translation").textContent = translationText || "No translation returned.";
-    $("saveTranslation").disabled = !translationText;
-    setMessage("Translation ready. Save it separately if you want to review it later.");
-  } catch (error) {
-    $("translation").textContent = "Translation unavailable.";
-    setMessage(error.message || "Translation failed. Check API keys and connection.");
-  } finally {
-    $("translate").disabled = false;
-  }
-}
-function clearCurrentScreen() {
-  if (!confirm("Clear the current screen? Previously saved sessions will remain.")) return;
-  fullText = [];
-  feedItems = [];
-  context = [];
-  interimText = "";
-  lastFinalText = "";
-  lastRequestedText = "";
-  pendingText = "";
-  translationText = "";
-  requestNumber++;
-  $("fullTranscript").value = "";
-  $("translation").textContent = "Translation is off until requested.";
-  $("answer").textContent = "Your suggested English response will appear here.";
-  $("answerNote").textContent = "";
-  $("copyAnswer").disabled = true;
-  $("saveTranslation").disabled = true;
-  $("replyStatus").textContent = "Waiting";
-  renderFeed();
-  setMessage("Current screen cleared. Saved sessions have not been deleted.");
-}
-function deleteSavedData() {
-  if (!confirm("Permanently delete locally saved sessions and translations from this browser?")) return;
-  localStorage.removeItem(SESSION_KEY);
-  localStorage.removeItem(TRANSLATION_KEY);
-  setMessage("Saved sessions and translations deleted from this browser.");
-}
-
-$("start").addEventListener("click", startListening);
-$("stop").addEventListener("click", () => stopListening());
-$("manualReply").addEventListener("click", () => {
-  if (pendingText && !requestBusy) requestSuggestion(true);
+suggestBtn.addEventListener("click",()=>requestSuggestion(latestSpeech));
+responseMode.addEventListener("change",()=>{
+ if(responseMode.value==="auto"&&latestSpeech)scheduleSuggestion(latestSpeech);
 });
-$("copyAnswer").addEventListener("click", async () => {
-  const text = $("answer").textContent;
-  try {
-    await navigator.clipboard.writeText(text);
-    setMessage("Reply copied.");
-  } catch (_) {
-    setMessage("Copy unavailable. Select the answer text and copy it manually.");
-  }
+copyBtn.addEventListener("click",async()=>{
+ const text=answerText.textContent.trim();
+ if(!text)return;
+ try{await navigator.clipboard.writeText(text);notify("Respuesta copiada.")}
+ catch(e){notify("No se pudo copiar automáticamente. Selecciona el texto y cópialo.")}
 });
-$("saveSession").addEventListener("click", saveSession);
-$("saveTranslation").addEventListener("click", saveTranslation);
-$("export").addEventListener("click", exportTranscript);
-$("translate").addEventListener("click", translateTranscript);
-$("clearScreen").addEventListener("click", clearCurrentScreen);
-$("deleteSaved").addEventListener("click", deleteSavedData);
-
-document.addEventListener("visibilitychange", () => {
-  if (listening && document.hidden) {
-    setMessage("The page is in the background. Your device may pause microphone recognition; keep it open if possible.");
-  }
+copyTranscriptBtn.addEventListener("click",async()=>{
+ const text=allText();if(!text)return;
+ try{await navigator.clipboard.writeText(text);notify("Transcripción copiada.")}
+ catch(e){notify("No se pudo copiar automáticamente.")}
 });
-window.addEventListener("pagehide", () => {
-  if (recognition) {
-    listening = false;
-    try { recognition.stop(); } catch (_) {}
-  }
+translateBtn.addEventListener("click",async()=>{
+ const text=allText();if(!text)return;
+ translateBtn.disabled=true;translation.textContent="Traduciendo…";
+ try{
+  const res=await fetch("/api/translate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({transcript:text})});
+  const data=await res.json();
+  if(!res.ok)throw new Error(data.detail||"No se pudo traducir.");
+  translation.textContent=data.translation||"No se recibió traducción.";
+ }catch(e){translation.textContent=e.message||"Error de traducción."}
+ finally{translateBtn.disabled=!allText()}
 });
-(async function checkServer() {
-  try {
-    const response = await fetch("/api/health", {cache:"no-store"});
-    const data = await response.json();
-    if (data.gemini_configured) {
-      $("provider").textContent = "Gemini primary";
-    } else if (data.openai_fallback_configured) {
-      $("provider").textContent = "OpenAI available";
-    } else {
-      $("provider").textContent = "API keys missing";
-      setMessage("Add GEMINI_API_KEY and/or OPENAI_API_KEY in Render Environment.");
-    }
-  } catch (_) {
-    $("provider").textContent = "Server check unavailable";
-  }
-})();
+window.addEventListener("beforeunload",()=>{if(recognition){stopping=true;listening=false;try{recognition.stop()}catch(e){}}});
+fetch("/api/health").then(r=>r.json()).then(data=>{
+ if(!data.gemini_configured&&!data.openai_fallback_configured)notify("Falta configurar GEMINI_API_KEY u OPENAI_API_KEY en Render.");
+}).catch(()=>{});
 </script>
 </body>
 </html>
