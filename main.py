@@ -63,7 +63,7 @@ def parse_json_response(text: str) -> dict:
 
 def response_prompt(transcript: str, context: str, mode: str, style: str = "") -> str:
     if mode == "interview":
-        mode_instructions = """
+        mode_instructions
 You help the user answer job interview questions in spoken English.
 Identify what the interviewer actually asks and answer that question.
 Use short, honest, professional answers with common words.
@@ -73,7 +73,7 @@ If asked about experience, skills, education, salary, or availability, do not
 claim details that the user has not provided.
 If the speaker makes a statement rather than asking a question, respond naturally.
     else:
-        mode_instructions = """
+        mode_instructions
 You help the user take part in a real English conversation or phone call.
 Reply to the latest statement or question as a person would.
 For greetings, greet the person back.
