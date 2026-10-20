@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,11 +10,13 @@
 :root{font-family:Arial,Helvetica,sans-serif;color:#172b4d;background:#f5f7fb}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh}
-button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:700}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:10px 13px;font-weight:700}
 button:disabled{opacity:.45;cursor:not-allowed}
 .app{width:min(1000px,100%);margin:auto;padding:18px 16px 30px}
 header{margin-bottom:12px}
 h1{font-size:24px;margin:0 0 8px;letter-spacing:-.4px}
+h2{font-size:14px;margin:0}
 .status{display:flex;align-items:center;gap:8px;font-size:12px;color:#64748b;margin-top:8px}
 .dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;flex:none}
 .dot.on{background:#16a34a}
@@ -28,34 +31,39 @@ h1{font-size:24px;margin:0 0 8px;letter-spacing:-.4px}
 .light{background:white;border:1px solid #d8e0ec;color:#334155}
 .panel{background:white;border:1px solid #dfe6ef;border-radius:13px;padding:15px;margin:12px 0}
 .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
-h2{font-size:14px;margin:0}
 .tag{font-size:10px;font-weight:700;color:#52627a;background:#eef2f7;padding:5px 8px;border-radius:20px}
-.transcript{font-size:18px;line-height:1.55;overflow-wrap:anywhere}
+.transcript,.interim{font-size:18px;line-height:1.55;overflow-wrap:anywhere}
 .line{padding:7px 10px;margin:4px 0;border-radius:8px;border-bottom:1px solid #e8edf4;white-space:pre-wrap;overflow-wrap:anywhere}
 .line.old{color:#52627a;background:#f8fafc}
-.line.new{color:#14532d;background:#e8f9ed;border:1px solid #9bd9aa;font-weight:500}
+.line.new{color:#14532d;background:#e8f9ed;border:1px solid #9bd9aa}
 .line.current{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.interim{font-size:18px;line-height:1.55;overflow-wrap:anywhere}
-.answer{font-size:22px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+.answer{font-size:21px;line-height:1.6;overflow-wrap:anywhere;white-space:pre-wrap}
 .placeholder{font-size:14px;color:#94a3b8}
 .note{font-size:12px;line-height:1.5;color:#64748b;margin-top:8px;white-space:pre-wrap}
 .actions{margin-top:12px;margin-bottom:0}
+.fixed-panel{border:2px solid #16a34a;background:#f0fdf4}
+.fixed-panel .panel-head h2{color:#166534}
+.fixed-question{font-weight:700;font-size:15px;line-height:1.5;margin:8px 0}
+.answer-option{background:white;border:1px solid #bbf7d0;border-radius:9px;padding:11px;margin:8px 0;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.answer-option strong{display:block;font-size:12px;color:#166534;margin-bottom:5px}
+.fixed-note{font-size:12px;color:#166534;line-height:1.5;margin-top:8px}
+.ai-panel{border:1px solid #c7d2fe;background:#fff}
+.ai-panel .panel-head h2{color:#3730a3}
+.bank-tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.bank-tools input,.bank-tools select{min-width:0;flex:1;padding:10px;border:1px solid #d8e0ec;border-radius:9px;background:white;color:#172b4d}
+.bank-list{display:grid;gap:7px;margin-top:10px}
+.bank-item{background:#f8fafc;border:1px solid #dfe6ef;color:#24344d;text-align:left;font-weight:500;line-height:1.4}
+.bank-item:hover{border-color:#245bd6;background:#eef4ff}
+.bank-answer{padding:10px;background:white;border:1px solid #dfe6ef;border-radius:8px;margin:7px 0;line-height:1.5;white-space:pre-wrap}
+.message{font-size:12px;line-height:1.5;color:#52627a;margin:8px 0}
+.message:empty{display:none}
 details{margin-top:14px}
 summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 #fullTranscript{font-size:15px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
-.message{font-size:12px;line-height:1.5;color:#52627a;margin:8px 0}
-.message:empty{display:none}
-
-.bank-tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,220px);gap:8px;margin:12px 0}.bank-tools input,.bank-tools select{width:100%;padding:10px;border:1px solid #d8e0ec;border-radius:9px;background:#fff;color:#172b4d}.bank-results{display:grid;gap:7px;max-height:360px;overflow:auto}.bank-item{width:100%;text-align:left;background:#f6f8fb;border:1px solid #e2e8f0;color:#24344d;padding:10px 12px;font-weight:500}.bank-item small{display:block;color:#64748b;font-size:11px;margin-top:3px}.bank-item.active{background:#eef4ff;border-color:#245bd6}.bank-answer{border-top:1px solid #e2e8f0;margin-top:13px;padding-top:12px}.bank-question{font-size:17px;font-weight:700;margin-bottom:10px}.bank-option{background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:11px;margin:8px 0;line-height:1.55;white-space:pre-wrap}.bank-option strong{display:block;color:#1746a2;font-size:12px;margin-bottom:5px}.bank-copy{margin-top:8px;font-size:12px}.bank-empty{color:#64748b;font-size:13px;padding:10px}@media(max-width:520px){.bank-tools{grid-template-columns:1fr}.bank-results{max-height:300px}}
 @media(max-width:520px){
-.app{padding:14px 10px 24px}
-h1{font-size:21px}
-.panel{padding:12px}
-.answer{font-size:19px}
-.transcript,.interim{font-size:16px}
-.modes{gap:7px}
-.mode{padding:11px 9px}
-button{padding:10px 11px}
+.app{padding:14px 10px 24px}h1{font-size:21px}.panel{padding:12px}
+.answer{font-size:18px}.transcript,.interim{font-size:16px}
+.modes{gap:7px}.mode{padding:11px 9px}button{padding:10px 11px}
 }
 </style>
 </head>
@@ -72,7 +80,7 @@ button{padding:10px 11px}
 <div class="controls">
 <button id="startBtn" class="primary" type="button">Escuchar</button>
 <button id="stopBtn" class="stop" type="button" disabled>Detener escucha</button>
-<button id="clearBtn" class="delete" type="button">Borrar</button>
+<button id="clearBtn" class="delete" type="button">Borrar conversación</button>
 <button id="repeatAudioBtn" class="light" type="button" disabled>Repetir audio</button>
 <button id="deleteAudioBtn" class="light" type="button" disabled>Borrar audio</button>
 </div>
@@ -81,34 +89,43 @@ button{padding:10px 11px}
 <div id="liveText" class="transcript"></div>
 <div id="interimText" class="interim"></div>
 </section>
-<section class="panel" aria-live="polite">
-<div class="panel-head">
-<h2>Respuesta en inglés</h2>
-<span id="answerTag" class="tag">INACTIVA</span>
-</div>
-<div class="note">Lee esta respuesta y di lo que aparece aquí:</div>
+<section class="panel fixed-panel" aria-live="polite">
+<div class="panel-head"><h2>Respuesta fija del sistema</h2><span id="fixedTag" class="tag">LISTA LOCAL</span></div>
+<div class="note">Esta respuesta se busca en la biblioteca de la aplicación. No necesita internet ni esperar a la IA.</div>
+<div id="fixedQuestion" class="fixed-question">Esperando una pregunta o frase en inglés...</div>
+<div class="answer-option"><strong>OPCIÓN 1</strong><div id="fixedAnswer1">Las respuestas preparadas aparecerán aquí cuando se encuentre una coincidencia.</div><div class="actions"><button id="copyFixed1" class="secondary" type="button" disabled>Copiar opción 1</button></div></div>
+<div class="answer-option"><strong>OPCIÓN 2</strong><div id="fixedAnswer2">La segunda respuesta aparecerá aquí.</div><div class="actions"><button id="copyFixed2" class="secondary" type="button" disabled>Copiar opción 2</button></div></div>
+<div id="fixedNote" class="fixed-note">La biblioteca local funciona independientemente de la IA.</div>
+</section>
+<section class="panel ai-panel" aria-live="polite">
+<div class="panel-head"><h2>Respuesta adicional de la IA</h2><span id="answerTag" class="tag">IA INACTIVA</span></div>
+<div class="note">La IA prepara una respuesta adicional en este espacio. Nunca reemplaza las respuestas fijas de arriba.</div>
 <div id="answerText" class="answer"></div>
 <div id="answerNote" class="note"></div>
 <div class="actions">
-<button id="suggestBtn" class="primary" type="button" disabled>Preparar respuesta</button>
-<button id="copyBtn" class="secondary" type="button" disabled>Copiar respuesta</button>
+<button id="suggestBtn" class="primary" type="button" disabled>Preparar respuesta de IA</button>
+<button id="copyBtn" class="secondary" type="button" disabled>Copiar respuesta de IA</button>
 </div>
 </section>
-<div id="message" class="message" role="status"></div>
-
-<section class="panel" id="questionBankPanel">
-<div class="panel-head"><h2>Biblioteca de 120 preguntas de entrevista</h2><span class="tag" id="bankCount">120 preguntas</span></div>
-<div class="note">Busca una pregunta y practica dos respuestas profesionales. Las respuestas son modelos; adapta los detalles a tu experiencia real.</div>
-<div class="bank-tools"><input id="bankSearch" type="search" placeholder="Buscar pregunta en inglés..." aria-label="Buscar preguntas"><select id="bankCategory" aria-label="Filtrar categoría"><option value="all">Todas las categorías</option></select></div>
-<div id="bankResults" class="bank-results"></div>
-<div class="bank-answer" id="bankAnswer" hidden><div class="bank-question" id="bankQuestion"></div><div class="bank-option"><strong>Option 1</strong><div id="bankAnswer1"></div><button type="button" class="light bank-copy" data-copy="1">Copiar respuesta 1</button></div><div class="bank-option"><strong>Option 2</strong><div id="bankAnswer2"></div><button type="button" class="light bank-copy" data-copy="2">Copiar respuesta 2</button></div><button type="button" class="primary" id="useBankAnswer">Mostrar en respuesta principal</button></div>
+<section class="panel">
+<div class="panel-head"><h2>Biblioteca de preguntas y respuestas</h2><span id="bankCount" class="tag">Biblioteca local</span></div>
+<div class="note">Busca una pregunta o selecciona una de la lista. Las respuestas se muestran sin consultar a la IA.</div>
+<div class="bank-tools">
+<input id="bankSearch" type="search" placeholder="Buscar pregunta..." aria-label="Buscar pregunta">
+<select id="bankCategory" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select>
+</div>
+<div id="bankList" class="bank-list"></div>
+<div id="bankSelected" class="note"></div>
 </section>
+<div id="message" class="message" role="status"></div>
 <details>
 <summary>Historial completo</summary>
 <div id="fullTranscript">Todavía no hay texto reconocido.</div>
 <div class="actions">
 <button id="copyTranscriptBtn" class="light" type="button" disabled>Copiar transcripción</button>
+<button id="translateBtn" class="light" type="button" disabled>Traducir al español</button>
 </div>
+<div id="translation" class="note"></div>
 </details>
 </main>
 <script>
@@ -119,139 +136,164 @@ const liveText=$("liveText"),interimText=$("interimText");
 const answerText=$("answerText"),answerNote=$("answerNote");
 const suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message");
 const fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn");
+const translateBtn=$("translateBtn"),translation=$("translation");
 const repeatAudioBtn=$("repeatAudioBtn"),deleteAudioBtn=$("deleteAudioBtn");
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-const RESPONSE_STYLE="Use clear, simple, natural English. Use common words and short sentences. Give only the words the user can say aloud. Do not explain the answer. Do not translate into Spanish. Avoid difficult words, long introductions, and unnecessary details. Understand the latest spoken sentence using the recent conversation as context. If it is a question, answer that question directly. If it is a statement, reply naturally to what the person said. If this is an interview, give a truthful, professional sample answer that is easy to say aloud. Usually use one to three short sentences. Never invent the user's experience, skills, or qualifications.";
+const RESPONSE_STYLE="Use clear, simple, natural English. Use common words and short sentences. Give only the words the user can say aloud. Do not explain the answer. Do not translate into Spanish. Avoid difficult words and unnecessary details. Understand the latest spoken sentence using recent conversation as context. If it is a question, answer directly. If it is a statement, reply naturally. For an interview, give a truthful, professional sample answer that is easy to say aloud. Usually use one to three short sentences. Never invent the user's experience, skills, or qualifications.";
+const QUESTION_BANK=[
+["Tell me about yourself.","I am a professional with an MBA and experience in operations, customer service, and team coordination. I enjoy solving problems and helping work run smoothly.","I have a background in management and nursing, along with practical experience in operations. I am organized, responsible, and ready to keep learning.","Introduction"],
+["Why should we hire you?","I am responsible, organized, and focused on good results. I learn quickly and work well with different people.","I bring management education, practical operations experience, and a strong commitment to safety, service, and teamwork.","Introduction"],
+["What are your strengths?","My strengths are organization, communication, problem-solving, and responsibility.","I stay calm under pressure, learn new processes quickly, and focus on completing work correctly.","Introduction"],
+["What is your biggest weakness?","Sometimes I spend extra time checking details. I am improving by setting priorities and managing my time carefully.","I am always working to improve my English fluency. I practice regularly and focus on clear communication.","Introduction"],
+["Why do you want this job?","This position matches my experience and my interest in operations. I would like to contribute and continue developing professionally.","I am interested in the responsibilities and the opportunity to support the team and the company's goals.","Introduction"],
+["What do you know about our company?","I understand that your company serves customers and depends on quality, safety, and reliable operations. I would like to learn more about your specific goals.","I have reviewed the information available about your company. I am interested in its services and how this position supports the operation.","Introduction"],
+["What are your career goals?","My goal is to grow into a role with greater responsibility and help improve team performance and daily operations.","I want to keep building my management skills, learn from experienced colleagues, and contribute long term.","Introduction"],
+["Where do you see yourself in five years?","I hope to have developed stronger skills and taken on more responsibility while delivering consistent results.","I see myself growing professionally, supporting important projects, and helping the organization reach its goals.","Introduction"],
+["Why are you leaving your current job?","I appreciate what I have learned in my current role. I am looking for an opportunity to grow and use more of my management skills.","I am ready for a new challenge where I can contribute, learn, and take on additional responsibilities.","Introduction"],
+["What motivates you?","I am motivated by solving problems, helping a team succeed, and seeing clear results from our work.","I enjoy learning, improving processes, and knowing that my work makes a useful difference.","Introduction"],
+["How do you handle pressure?","I stay calm, identify the most urgent task, and work through the priorities one at a time.","I focus on facts, communicate clearly, and follow the correct procedures even when things are busy.","Workplace"],
+["How do you manage priorities?","I review deadlines, safety needs, and business impact. Then I organize the work and communicate any changes.","I handle the most urgent and important tasks first and check progress as I go.","Workplace"],
+["How do you handle conflict with a coworker?","I listen to the other person, discuss the facts respectfully, and work toward a practical solution.","I stay professional and focus on the shared goal instead of making the disagreement personal.","Workplace"],
+["Tell me about a difficult situation.","I first identify the problem, check the available information, and decide what needs immediate attention. Then I communicate and follow up.","I try to understand what happened, consider safe options, and take action within my responsibilities.","Workplace"],
+["How do you respond to feedback?","I listen carefully, ask questions if needed, and use feedback to improve my work.","I see feedback as a chance to learn. I focus on what I can change and apply it going forward.","Workplace"],
+["What would you do if you made a mistake?","I would report it when required, correct it safely, and learn how to prevent it from happening again.","I would be honest about the mistake, follow the correct process, and take steps to avoid repeating it.","Workplace"],
+["How do you work in a team?","I communicate clearly, respect different views, and do my part to help the team meet its goals.","I support my coworkers, share important information, and ask for help when it is needed.","Workplace"],
+["How do you deal with a difficult customer?","I listen without interrupting, stay calm, and try to understand the problem. Then I explain what I can do to help.","I remain respectful, clarify the customer's concern, and follow company policy to find a solution.","Customer Service"],
+["What does good customer service mean to you?","It means listening, giving accurate information, treating people with respect, and following through.","Good service means making the process clear, solving problems professionally, and treating each customer fairly.","Customer Service"],
+["What if you do not know the answer to a question?","I would be honest, check the correct source, and ask the right person rather than guess.","I would explain that I need to confirm the information and then follow up with an accurate answer.","Customer Service"],
+["How do you protect confidential information?","I only access information needed for my work and share it only with authorized people through approved channels.","I follow privacy rules, verify who needs the information, and never disclose confidential details without authorization.","Compliance"],
+["What does compliance mean to you?","Compliance means following applicable laws, company policies, and approved procedures consistently.","It means understanding the rules, applying them in daily work, and reporting concerns through the proper channels.","Compliance"],
+["What would you do if you noticed a safety risk?","I would protect people from immediate danger when safe to do so, report the risk, and follow the required procedure.","I would not ignore it. I would alert the appropriate person and make sure the issue is handled according to policy.","Safety"],
+["What if a manager asked you to break a rule?","I would respectfully explain my concern and follow the required policy. If needed, I would use the proper reporting channel.","I would not knowingly violate a rule. I would ask for clarification and escalate the issue appropriately.","Compliance"],
+["Why is documentation important?","Accurate documentation supports accountability, clear communication, safety, and reliable decisions.","Good records show what happened, support follow-up, and help the team meet its requirements.","Compliance"],
+["How do you organize daily operations?","I review staffing, priorities, supplies, and deadlines. Then I communicate responsibilities and monitor progress.","I make a clear plan, check resources, assign or coordinate tasks, and address problems as they arise.","Operations"],
+["How do you improve a process?","I first understand the current process, identify delays or errors, and suggest a practical change. Then I review the results.","I use feedback and available data to find problems, test improvements, and make sure the change works.","Operations"],
+["How do you handle a tight deadline?","I identify the essential tasks, organize the work, and communicate early if there is a risk of delay.","I focus on the highest priorities and maintain quality and safety while managing time carefully.","Operations"],
+["How do you manage inventory or supplies?","I check stock levels, track usage, and coordinate purchases to help prevent shortages and waste.","I keep records accurate, monitor what is needed, and follow the approved purchasing process.","Operations"],
+["How do you make a decision?","I gather the relevant facts, consider risks and options, and choose an action within my authority.","I look at the goal, available evidence, and possible consequences before deciding or asking for guidance.","Operations"],
+["How do you measure success?","I look at quality, safety, customer service, deadlines, and whether the team meets its goals.","Success means delivering reliable results, following requirements, and finding ways to improve.","Operations"],
+["What is your leadership style?","I believe in clear expectations, respectful communication, accountability, and supporting people so they can do their jobs well.","I lead by example, listen to the team, and make sure responsibilities and priorities are understood.","Management"],
+["How do you motivate employees?","I set clear goals, recognize good work, listen to concerns, and help people understand their responsibilities.","I try to understand what the team needs, provide support, and recognize progress and good performance.","Management"],
+["How would you handle poor performance?","I would discuss the issue privately, explain the expectations, listen to the employee, and agree on steps to improve.","I would use facts, provide clear feedback, and follow company procedures for coaching and follow-up.","Management"],
+["How do you delegate tasks?","I match tasks to skills and workload, explain the expected result, and follow up without unnecessary interference.","I make sure each person understands the task, deadline, and support available.","Management"],
+["How do you handle change?","I try to understand the reason for the change, learn the new process, and help others adjust through clear communication.","I stay flexible, ask questions when necessary, and focus on applying the updated instructions correctly.","Management"],
+["How do you train a new employee?","I explain the task, demonstrate the correct method, and let the person practice with appropriate support.","I break the process into clear steps, check understanding, and give constructive feedback.","Management"],
+["What is your management experience?","My experience includes coordinating daily work, supporting operations, and helping ensure tasks are completed correctly.","I have practical experience with operational responsibilities and team coordination, supported by my MBA education.","Management"],
+["How do you handle confidential workplace issues?","I keep the information private, follow policy, and share it only with people who are authorized to handle it.","I stay professional, avoid gossip, and use the proper channels to address sensitive matters.","Management"],
+["What would you do if your team missed a target?","I would review what happened, identify the main obstacles, and agree on practical steps to improve the next result.","I would focus on the causes, communicate with the team, and track progress on a realistic action plan.","Management"],
+["What is risk management?","Risk management means identifying what could go wrong, evaluating the impact, and taking reasonable steps to reduce the risk.","It is a structured way to protect people, operations, information, and the organization from avoidable harm.","Compliance"],
+["How would you report a compliance concern?","I would record the relevant facts and report through the approved company channel without making unsupported accusations.","I would follow the reporting procedure, protect confidential information, and cooperate with an authorized review.","Compliance"],
+["What is the purpose of an audit?","An audit checks whether records, processes, and controls meet requirements and work as intended.","It helps identify gaps, verify accuracy, and recommend improvements or corrective action.","Compliance"],
+["What is a standard operating procedure?","It is a documented set of steps that helps people perform a task consistently and safely.","An SOP explains how a task should be done so work follows the approved process.","Compliance"],
+["What would you do if you saw unsafe behavior?","I would address the immediate risk when appropriate, notify the responsible person, and follow safety policy.","I would take the concern seriously, report it promptly, and help prevent harm without putting myself at risk.","Safety"],
+["How do you maintain workplace safety?","I follow training and procedures, use required protective equipment, and report hazards or incidents promptly.","I stay alert, follow safety rules, and never assume that a familiar task is risk-free.","Safety"],
+["How do you handle a delayed shipment?","I check the shipment status and documentation, contact the appropriate team, and give accurate updates to the people affected.","I confirm the reason for the delay, follow the escalation process, and communicate the next steps clearly.","Logistics"],
+["What is important in warehouse operations?","Accuracy, safe handling, inventory control, clear documentation, and timely movement of goods are all important.","A warehouse needs organized processes, reliable records, teamwork, and strong attention to safety.","Logistics"],
+["How do you verify cargo information?","I compare the information and documents with the applicable requirements and report any difference before proceeding.","I check the details carefully, measure or weigh items when required, and follow the acceptance procedure.","Logistics"],
+["What would you do if cargo documents did not match?","I would stop the affected step when required, report the discrepancy, and ask for clarification before accepting or processing the cargo.","I would not guess or change the information myself. I would follow the process for resolving documentation issues.","Logistics"],
+["Why is accurate data entry important?","Accurate data supports tracking, safety, compliance, and good decisions. I review entries carefully before completing them.","Incorrect information can cause delays and other problems, so I verify details and correct errors through the proper process.","Logistics"],
+["How do you work safely around cargo?","I follow handling procedures, use the correct equipment, and stay aware of people and hazards around me.","I follow training, check the work area, and report damaged items or unsafe conditions.","Logistics"],
+["What would you do if you found damaged cargo?","I would document and report the damage according to procedure and avoid making an unauthorized decision about the shipment.","I would follow the inspection and reporting process and notify the appropriate person before continuing.","Logistics"],
+["How do you manage competing operational demands?","I consider safety, deadlines, and business impact, then communicate priorities and coordinate with the team.","I organize the tasks, confirm what is most urgent, and keep the people involved informed.","Operations"],
+["Why do you want to work in aviation?","I am interested in an environment where safety, accuracy, teamwork, and reliable procedures are essential.","Aviation operations require discipline and attention to detail, and those are areas where I want to contribute and grow.","Aviation"],
+["What is important in airline operations?","Safety, on-time performance, accurate information, clear communication, and following procedures are all essential.","Every team must coordinate carefully while protecting passengers, employees, aircraft, and cargo.","Aviation"],
+["What would you do if you noticed a security concern?","I would follow security procedures and report the concern immediately to the appropriate authorized person.","I would not ignore it or investigate beyond my role. I would secure the situation when safe and report it properly.","Aviation"],
+["How do you handle changing flight schedules?","I confirm the latest approved information, communicate with the relevant team, and follow the updated procedures.","I stay flexible, check reliable updates, and focus on safety and accurate coordination.","Aviation"],
+["What would you do if a task was outside your training?","I would explain that I need guidance and ask an authorized, trained person before proceeding.","I would not take unnecessary risks. I would follow the escalation process and get the correct support.","Safety"],
+["How do you deal with a busy restaurant shift?","I prioritize food safety and customer needs, communicate with the team, and monitor the most urgent tasks.","I stay calm, coordinate staff, and make sure quality and service standards are maintained.","Restaurant Management"],
+["How do you control restaurant costs?","I monitor purchasing, waste, inventory, and staffing needs while protecting product quality and customer service.","I review expenses and usage, look for avoidable waste, and follow the approved purchasing process.","Restaurant Management"],
+["How do you handle a food safety concern?","I follow food safety procedures immediately, protect customers, and report the concern to the responsible manager.","I take the issue seriously, follow the required controls, and document or escalate it according to policy.","Restaurant Management"],
+["How do you handle a complaint about food?","I listen politely, apologize for the poor experience, and follow the restaurant's process to resolve the issue.","I remain calm, understand what went wrong, and offer an appropriate solution within company policy.","Restaurant Management"],
+["How do you manage staff schedules?","I consider business needs, employee availability, workload, and applicable rules before preparing the schedule.","I plan ahead, communicate changes clearly, and make sure the operation has suitable coverage.","Restaurant Management"],
+["How do you reduce waste?","I monitor inventory and product use, follow storage procedures, and adjust purchasing based on actual needs.","I look for recurring waste, improve handling and planning, and track whether the changes help.","Restaurant Management"],
+["What does good quality control mean?","It means checking that products and services meet the required standards consistently.","Quality control helps detect problems early and protect customers and the business.","Operations"],
+["How do you use data to make decisions?","I check whether the information is accurate, look for patterns, and compare the results with the goal.","I use reliable data together with operational knowledge, then review the outcome after taking action.","Management"],
+["What is your approach to problem-solving?","I define the problem, identify its cause, consider options, and take a practical action. Then I check the result.","I separate facts from assumptions, focus on the main issue, and follow up to make sure the solution works.","Operations"],
+["How do you communicate with senior managers?","I give a clear summary of the situation, the key facts, the risks, and any action or decision needed.","I keep updates concise, accurate, and focused on the information needed to make a decision.","Management"],
+["What salary are you expecting?","I am open to discussing a fair salary based on the responsibilities, schedule, and overall compensation for the role.","I would like to understand the full scope of the position and the salary range budgeted for it. I am open to a fair offer.","Salary"],
+["When can you start?","I can discuss a start date that works with the company's needs and my current commitments.","I am interested in moving forward and can confirm my availability once we discuss the expected start date.","Introduction"],
+["Do you have any questions for us?","Yes. What would success look like in the first three months, and what are the team's main priorities?","Yes. What are the biggest challenges for this position, and how does the team measure good performance?","Introduction"],
+["Are you comfortable learning new systems?","Yes. I learn by following instructions, practicing the workflow, and asking questions when something is unclear.","Yes. I am comfortable learning new software and procedures, and I take care to use them accurately.","Technology"],
+["How do you protect data quality?","I check required fields, compare details with reliable sources, and correct mistakes through the approved process.","I enter information carefully, verify important details, and report inconsistencies rather than guessing.","Technology"],
+["What would you do if a computer system stopped working?","I would follow the backup procedure, notify the appropriate support team, and avoid losing or entering incorrect information.","I would report the problem, record essential details if allowed, and use only approved alternatives.","Technology"],
+["How do you keep learning?","I practice regularly, ask for feedback, and look for reliable training that improves my skills.","I set practical learning goals and apply what I learn to my daily work.","Development"],
+["Why should we trust you with responsibility?","I take procedures seriously, communicate honestly, and understand the importance of following through on commitments.","I try to be consistent, careful, and accountable. If I need help, I ask instead of making risky assumptions.","Introduction"],
+["What makes you a good fit for this role?","My management education, practical experience, and willingness to learn match the needs of a role focused on reliable operations.","I bring a responsible attitude, attention to detail, and a focus on safety, service, and teamwork.","Introduction"]
+];
 let recognition=null,listening=false,stopping=false,mode=null;
 let finalLines=[],latestSpeech="",interimSpeech="";
-let requestBusy=false,sessionId=0,modeVersion=0;
-let pendingAuto=null,lastAutoKey="";
+let requestBusy=false,sessionId=0,modeVersion=0,pendingAuto=null,lastAutoKey="";
 let audioChunks=[],mediaRecorder=null,microphoneStream=null,audioUrl=null;
 let recordingWanted=false,restartTimer=null,playback=null;
 function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
 function punctuate(text,final=true){
- let s=cleanText(text);
- if(!s)return "";
+ let s=cleanText(text);if(!s)return "";
  s=s.replace(/\s+([,.!?;:])/g,"$1").replace(/([,.!?;:])([^\s])/g,"$1 $2").replace(/\bi\b/g,"I");
  s=s.charAt(0).toUpperCase()+s.slice(1);
  if(final&&!/[.!?]$/.test(s)){
   const first=s.split(/\s+/)[0].toLowerCase();
-  const questions=["who","what","when","where","why","how","which","whose","whom","do","does","did","is","are","am","was","were","will","would","can","could","should","have","has","had"];
-  s+=questions.includes(first)?"?":".";
+  s+=["who","what","when","where","why","how","which","whose","whom","do","does","did","is","are","am","was","were","will","would","can","could","should","have","has","had"].includes(first)?"?":".";
  }
  return s;
 }
-function setStatus(text,on=false){
- $("statusText").textContent=text;
- $("statusDot").classList.toggle("on",on);
-}
+function setStatus(text,on=false){$("statusText").textContent=text;$("statusDot").classList.toggle("on",on)}
 function notify(text){message.textContent=text||""}
 function setPlaceholder(el,text){
- el.replaceChildren();
- if(!text)return;
- const span=document.createElement("span");
- span.className="placeholder";
- span.textContent=text;
- el.appendChild(span);
+ el.replaceChildren();if(!text)return;
+ const span=document.createElement("span");span.className="placeholder";span.textContent=text;el.appendChild(span);
 }
 function allText(){return finalLines.join("\n\n")}
 function renderTranscript(){
  liveText.replaceChildren();
- const hasInterim=!!interimSpeech;
- const oldLines=hasInterim?finalLines.slice(-3):finalLines.slice(-4,-1);
- oldLines.forEach(line=>{
-  const div=document.createElement("div");
-  div.className="line old";
-  div.textContent=line;
-  liveText.appendChild(div);
- });
- if(!hasInterim&&finalLines.length){
-  const div=document.createElement("div");
-  div.className="line new current";
-  div.textContent=finalLines[finalLines.length-1];
-  liveText.appendChild(div);
- }
+ const oldLines=interimSpeech?finalLines.slice(-3):finalLines.slice(-4,-1);
+ oldLines.forEach(line=>{const d=document.createElement("div");d.className="line old";d.textContent=line;liveText.appendChild(d)});
+ if(!interimSpeech&&finalLines.length){const d=document.createElement("div");d.className="line new current";d.textContent=finalLines[finalLines.length-1];liveText.appendChild(d)}
  interimText.replaceChildren();
- if(hasInterim){
-  const div=document.createElement("div");
-  div.className="line new current";
-  div.textContent=punctuate(interimSpeech,false);
-  interimText.appendChild(div);
- }
+ if(interimSpeech){const d=document.createElement("div");d.className="line new current";d.textContent=punctuate(interimSpeech,false);interimText.appendChild(d)}
  fullTranscript.textContent=allText()||"Todavía no hay texto reconocido.";
- copyTranscriptBtn.disabled=!finalLines.length;
+ copyTranscriptBtn.disabled=!finalLines.length;translateBtn.disabled=!finalLines.length;
  suggestBtn.disabled=!mode||!latestSpeech||requestBusy;
 }
 function setMode(next){
  if(mode!==next){
-  mode=next;
-  modeVersion++;
-  pendingAuto=null;
-  lastAutoKey="";
-  setPlaceholder(answerText,"Esperando lo que diga la otra persona en inglés...");
-  answerNote.textContent="";
-  copyBtn.disabled=true;
+  mode=next;modeVersion++;pendingAuto=null;lastAutoKey="";
+  answerNote.textContent="";copyBtn.disabled=true;
+  setPlaceholder(answerText,"La respuesta adicional de la IA aparecerá aquí.");
  }
- document.querySelectorAll("[data-mode]").forEach(b=>{
-  const active=b.dataset.mode===mode;
-  b.classList.toggle("active",active);
-  b.setAttribute("aria-pressed",String(active));
- });
- $("answerTag").textContent=mode==="conversation"?"CONVERSACIÓN":"ENTREVISTA";
- notify("");
- renderTranscript();
+ document.querySelectorAll("[data-mode]").forEach(b=>{const active=b.dataset.mode===mode;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
+ $("answerTag").textContent=mode==="conversation"?"IA · CONVERSACIÓN":"IA · ENTREVISTA";
+ notify("");renderTranscript();
  if(!listening)startListening();
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 function initRecognition(){
- if(!SpeechRecognition){
-  notify("Este navegador no ofrece reconocimiento de voz. Prueba Chrome actualizado.");
-  return false;
- }
- recognition=new SpeechRecognition();
- recognition.lang="en-US";
- recognition.continuous=true;
- recognition.interimResults=true;
- recognition.maxAlternatives=3;
+ if(!SpeechRecognition){notify("Este navegador no ofrece reconocimiento de voz. Prueba Chrome actualizado.");return false}
+ recognition=new SpeechRecognition();recognition.lang="en-US";recognition.continuous=true;recognition.interimResults=true;recognition.maxAlternatives=3;
  recognition.onstart=()=>{
-  listening=true;stopping=false;
-  startBtn.disabled=true;startBtn.textContent="Escuchando";
-  stopBtn.disabled=false;
-  setStatus(mode?"Escuchando y preparando respuestas":"Escuchando",true);
-  notify("");
+  listening=true;stopping=false;startBtn.disabled=true;startBtn.textContent="Escuchando";stopBtn.disabled=false;
+  setStatus(mode?"Escuchando y preparando respuestas":"Escuchando",true);notify("");
  };
  recognition.onresult=e=>{
   let interim="";
   for(let i=e.resultIndex;i<e.results.length;i++){
-   const result=e.results[i];
-   const alternatives=Array.from(result).filter(a=>cleanText(a.transcript));
+   const result=e.results[i],alternatives=Array.from(result).filter(a=>cleanText(a.transcript));
    alternatives.sort((a,b)=>(b.confidence||0)-(a.confidence||0));
-   const spoken=cleanText((alternatives[0]||result[0]).transcript);
-   if(!spoken)continue;
+   const spoken=cleanText((alternatives[0]||result[0]).transcript);if(!spoken)continue;
    if(result.isFinal){
-    const formatted=punctuate(spoken,true);
-    const previous=finalLines[finalLines.length-1]||"";
+    const formatted=punctuate(spoken,true),previous=finalLines[finalLines.length-1]||"";
     if(formatted!==previous){
-     finalLines.push(formatted);
-     latestSpeech=formatted;
+     finalLines.push(formatted);latestSpeech=formatted;translation.textContent="";
      if(mode)queueAutoResponse(formatted,finalLines.slice(0,-1).slice(-7).join("\n"),mode);
     }
     interim="";
-   }else{
-    interim+=(interim?" ":"")+spoken;
-   }
+   }else interim+=(interim?" ":"")+spoken;
   }
-  interimSpeech=cleanText(interim);
-  renderTranscript();
+  interimSpeech=cleanText(interim);renderTranscript();
  };
  recognition.onerror=e=>{
   const err=e.error||"unknown";
   if(err==="not-allowed"||err==="service-not-allowed"){
-   stopping=true;listening=false;recordingWanted=false;
-   startBtn.disabled=false;startBtn.textContent="Continuar escuchando";
-   stopBtn.disabled=true;setStatus("Micrófono no disponible");
-   notify("Permite el acceso al micrófono en el navegador.");
-   stopAudioRecording();return;
+   stopping=true;listening=false;recordingWanted=false;startBtn.disabled=false;startBtn.textContent="Continuar escuchando";stopBtn.disabled=true;setStatus("Micrófono no disponible");notify("Permite el acceso al micrófono en el navegador.");stopAudioRecording();return;
   }
   if(err==="audio-capture"){notify("No se encontró un micrófono disponible.");return}
   if(err==="network"){notify("Problema de conexión del reconocimiento.");return}
@@ -259,268 +301,218 @@ function initRecognition(){
  };
  recognition.onend=()=>{
   if(listening&&!stopping){
-   clearTimeout(restartTimer);
-   restartTimer=setTimeout(()=>{
-    if(listening&&!stopping){
-     try{recognition.start()}catch(e){}
-    }
-   },250);
-  }else{
-   listening=false;
-   startBtn.disabled=false;startBtn.textContent="Continuar escuchando";
-   stopBtn.disabled=true;setStatus("Escucha detenida");
-  }
+   clearTimeout(restartTimer);restartTimer=setTimeout(()=>{if(listening&&!stopping){try{recognition.start()}catch(e){}}},250);
+  }else{listening=false;startBtn.disabled=false;startBtn.textContent="Continuar escuchando";stopBtn.disabled=true;setStatus("Escucha detenida")}
  };
  return true;
 }
-function setAudioAvailable(available){
- repeatAudioBtn.disabled=!available;
- deleteAudioBtn.disabled=!available&&!audioChunks.length&&!(mediaRecorder&&mediaRecorder.state==="recording");
-}
-function stopPlayback(){
- if(playback){
-  playback.pause();
-  try{playback.currentTime=0}catch(e){}
-  playback=null;
- }
- repeatAudioBtn.textContent="Repetir audio";
-}
+function setAudioAvailable(available){repeatAudioBtn.disabled=!available;deleteAudioBtn.disabled=!available&&!audioChunks.length&&!(mediaRecorder&&mediaRecorder.state==="recording")}
+function stopPlayback(){if(playback){playback.pause();try{playback.currentTime=0}catch(e){}playback=null}repeatAudioBtn.textContent="Repetir audio"}
 function createRecorder(stream){
  if(typeof MediaRecorder==="undefined"||!stream)return;
- audioChunks=[];
- const recorder=new MediaRecorder(stream);
- mediaRecorder=recorder;
- recorder.ondataavailable=e=>{
-  if(mediaRecorder===recorder&&e.data&&e.data.size)audioChunks.push(e.data);
- };
+ audioChunks=[];const recorder=new MediaRecorder(stream);mediaRecorder=recorder;
+ recorder.ondataavailable=e=>{if(mediaRecorder===recorder&&e.data&&e.data.size)audioChunks.push(e.data)};
  recorder.onstop=()=>{
   if(mediaRecorder!==recorder)return;
-  if(audioChunks.length){
-   const blob=new Blob(audioChunks,{type:recorder.mimeType||"audio/webm"});
-   if(audioUrl)URL.revokeObjectURL(audioUrl);
-   audioUrl=URL.createObjectURL(blob);
-  }
+  if(audioChunks.length){const blob=new Blob(audioChunks,{type:recorder.mimeType||"audio/webm"});if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(blob)}
   setAudioAvailable(!!audioUrl);
  };
  try{recorder.start();setAudioAvailable(true)}catch(e){}
 }
 async function startAudioRecording(){
- recordingWanted=true;
- if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return;
+ recordingWanted=true;if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return;
  try{
   const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-  if(!recordingWanted||!listening){
-   stream.getTracks().forEach(t=>t.stop());
-   return;
-  }
-  microphoneStream=stream;
-  createRecorder(stream);
- }catch(e){
-  if(listening)notify("No se pudo grabar el audio. La escucha puede continuar.");
- }
+  if(!recordingWanted||!listening){stream.getTracks().forEach(t=>t.stop());return}
+  microphoneStream=stream;createRecorder(stream);
+ }catch(e){if(listening)notify("No se pudo grabar el audio. La escucha puede continuar.")}
 }
 function stopAudioRecording(){
  recordingWanted=false;
- if(mediaRecorder&&mediaRecorder.state!=="inactive"){
-  try{mediaRecorder.stop()}catch(e){}
- }
- if(microphoneStream){
-  microphoneStream.getTracks().forEach(track=>track.stop());
-  microphoneStream=null;
- }
+ if(mediaRecorder&&mediaRecorder.state!=="inactive"){try{mediaRecorder.stop()}catch(e){}}
+ if(microphoneStream){microphoneStream.getTracks().forEach(t=>t.stop());microphoneStream=null}
 }
 function startListening(){
- if(listening)return;
- if(!recognition&&!initRecognition())return;
- stopping=false;listening=true;
- startBtn.disabled=true;stopBtn.disabled=false;
- setStatus("Conectando micrófono",true);
- startAudioRecording();
- try{recognition.start()}
- catch(e){
-  listening=false;startBtn.disabled=false;
-  startBtn.textContent="Continuar escuchando";
-  stopBtn.disabled=true;setStatus("Listo");
-  notify("No se pudo iniciar. Comprueba los permisos del micrófono.");
- }
+ if(listening)return;if(!recognition&&!initRecognition())return;
+ stopping=false;listening=true;startBtn.disabled=true;stopBtn.disabled=false;setStatus("Conectando micrófono",true);startAudioRecording();
+ try{recognition.start()}catch(e){listening=false;startBtn.disabled=false;startBtn.textContent="Continuar escuchando";stopBtn.disabled=true;setStatus("Listo");notify("No se pudo iniciar. Comprueba los permisos del micrófono.")}
 }
 function stopListening(){
- if(!recognition||!listening)return;
- stopping=true;listening=false;
- clearTimeout(restartTimer);
- try{recognition.stop()}catch(e){}
- stopAudioRecording();
- startBtn.disabled=false;startBtn.textContent="Continuar escuchando";
- stopBtn.disabled=true;setStatus("Escucha detenida");
+ if(!recognition||!listening)return;stopping=true;listening=false;clearTimeout(restartTimer);
+ try{recognition.stop()}catch(e){}stopAudioRecording();startBtn.disabled=false;startBtn.textContent="Continuar escuchando";stopBtn.disabled=true;setStatus("Escucha detenida");
 }
-startBtn.addEventListener("click",startListening);
-stopBtn.addEventListener("click",stopListening);
+startBtn.addEventListener("click",startListening);stopBtn.addEventListener("click",stopListening);
 function clearConversation(){
- sessionId++;
- finalLines=[];latestSpeech="";interimSpeech="";
- pendingAuto=null;lastAutoKey="";
- setPlaceholder(answerText,"Esperando la próxima frase...");
- copyBtn.disabled=true;
- renderTranscript();
- notify("");
+ sessionId++;finalLines=[];latestSpeech="";interimSpeech="";pendingAuto=null;lastAutoKey="";
+ answerNote.textContent="";translation.textContent="";copyBtn.disabled=true;
+ setPlaceholder(answerText,"Esperando la próxima frase...");$("fixedQuestion").textContent="Esperando una pregunta o frase en inglés...";
+ $("fixedAnswer1").textContent="Las respuestas preparadas aparecerán aquí."; $("fixedAnswer2").textContent="La segunda respuesta aparecerá aquí.";
+ $("fixedNote").textContent="La biblioteca local funciona independientemente de la IA.";
+ $("fixedTag").textContent="LISTA LOCAL";$("copyFixed1").disabled=true;$("copyFixed2").disabled=true;
+ $("bankSelected").textContent="";renderTranscript();notify("");
  if(listening)setStatus(mode?"Escuchando y preparando respuestas":"Escuchando",true);
 }
 clearBtn.addEventListener("click",clearConversation);
 function deleteAudio(){
- stopPlayback();
- if(audioUrl){URL.revokeObjectURL(audioUrl);audioUrl=null}
- audioChunks=[];
- repeatAudioBtn.textContent="Repetir audio";
- setAudioAvailable(false);
+ stopPlayback();if(audioUrl){URL.revokeObjectURL(audioUrl);audioUrl=null}audioChunks=[];repeatAudioBtn.textContent="Repetir audio";setAudioAvailable(false);
  if(mediaRecorder&&mediaRecorder.state==="recording"&&microphoneStream&&listening){
-  const oldRecorder=mediaRecorder;
-  const stream=microphoneStream;
-  mediaRecorder=null;
-  oldRecorder.addEventListener("stop",()=>{
-   if(listening&&recordingWanted&&microphoneStream===stream)createRecorder(stream);
-  },{once:true});
+  const oldRecorder=mediaRecorder,stream=microphoneStream;mediaRecorder=null;
+  oldRecorder.addEventListener("stop",()=>{if(listening&&recordingWanted&&microphoneStream===stream)createRecorder(stream)},{once:true});
   try{oldRecorder.stop()}catch(e){if(listening&&recordingWanted)createRecorder(stream)}
  }
  notify("");
 }
 deleteAudioBtn.addEventListener("click",deleteAudio);
-
-const QUESTION_BANK=[["Tell me about yourself.","I have an MBA and practical experience in operations, restaurant management, and air cargo activities. I am organized, adaptable, and focused on doing work accurately.","My background combines business education with hands-on responsibilities. I want to use my operational experience and management knowledge to contribute to a strong team.","Introduction"],["Why do you want this job?","This position matches my interest in operations, problem-solving, and professional growth. I believe I can contribute while learning your procedures and expectations.","I am interested in the responsibilities and the opportunity to support the team's goals. I would bring a practical mindset, reliability, and a willingness to learn.","Motivation"],["Why should we hire you?","I bring an MBA, practical operations experience, and a strong sense of responsibility. I focus on accuracy, communication, and following procedures.","I can combine business understanding with hands-on work. I am dependable, adaptable, and committed to learning the role and supporting the team.","Motivation"],["What are your greatest strengths?","My strengths include organization, adaptability, practical problem-solving, and clear communication. I also take accuracy and accountability seriously.","I learn new processes quickly, stay focused on priorities, and work to complete tasks correctly. I try to communicate early when an issue needs attention.","Strengths"],["What is your biggest weakness?","I can sometimes spend extra time checking details. I manage that by setting priorities and matching the level of review to the task's risk.","I am continuing to build confidence when speaking English spontaneously. I practice regularly and focus on communicating clearly and professionally.","Development"],["Where do you see yourself in five years?","I hope to have developed deeper expertise, taken on greater responsibility, and become a trusted contributor to the organization.","I would like to grow based on performance, training, and business needs. My goal is to keep improving and contribute over the long term.","Goals"],["Why are you leaving your current job?","I appreciate what I have learned, and I am looking for an opportunity that better aligns with my long-term career goals and management education.","I am focused on professional growth and a role where I can use my operational skills while developing new capabilities. I prefer to keep the discussion positive.","Motivation"],["What motivates you at work?","I am motivated by solving practical problems, completing work correctly, and helping operations run smoothly.","I value clear goals, teamwork, and opportunities to learn. It is satisfying to see that reliable work supports a larger business objective.","Motivation"],["What do you know about our company?","I understand that your organization serves its customers through reliable operations and consistent standards. I would like to learn more about your current priorities and expectations.","I have reviewed the information available about your organization and the position. I am especially interested in how this team contributes to the company's goals.","Preparation"],["What are your salary expectations?","I am open to discussing a fair range based on the responsibilities, schedule, benefits, and expectations of the position.","I would like to understand the full scope of the role first. I am looking for compensation that is competitive for the responsibilities and my relevant experience.","Salary"],["What makes you different from other candidates?","I combine an MBA with practical experience across different operational environments. I bring a business perspective while respecting the importance of day-to-day execution.","My background has taught me to adapt, communicate, and take responsibility. I am prepared to learn the company's specific processes and contribute consistently.","Strengths"],["Describe your leadership style.","My approach is practical and respectful. I clarify expectations, listen to the team, support people when needed, and follow up on responsibilities.","I believe in clear communication, accountability, and leading by example. I also try to understand the problem before deciding how to address it.","Leadership"],["How do you handle conflict at work?","I listen to the people involved, focus on facts, and identify the shared goal. Then I work toward a practical solution and clarify the next steps.","I stay professional and avoid making the disagreement personal. If the issue cannot be resolved directly, I use the appropriate escalation process.","Teamwork"],["How do you handle stress?","I identify the most urgent priorities, break the work into steps, and communicate if a deadline or risk needs attention.","I try to remain calm and focus on facts and procedures. That helps me make better decisions even when the workload is high.","Pressure"],["How do you prioritize tasks?","I consider safety, urgency, deadlines, and business impact. If priorities conflict, I confirm what should take precedence.","I organize tasks by importance and timing, then review progress as conditions change. I communicate early if I see a potential delay.","Organization"],["Describe a difficult problem you solved.","I would explain the situation, identify my responsibility, describe the steps I took, and share the actual result and lesson learned.","My approach is to clarify the facts, identify the root cause, and choose a practical solution. I then check whether the issue has been resolved.","Problem-solving"],["Tell me about a mistake you made.","If I make a mistake, I acknowledge it, report it when required, correct it through the proper process, and learn how to prevent it from happening again.","I believe accountability is important. I focus on reducing the impact, communicating honestly, and improving the process where appropriate.","Accountability"],["How do you respond to feedback?","I listen carefully, ask questions if something is unclear, and identify specific actions I can take to improve.","I view constructive feedback as a way to learn. I try to apply it and check whether my performance improves.","Development"],["How do you learn a new system?","I review the instructions, practice the key steps, take notes, and ask focused questions when I need clarification.","I learn by combining training with hands-on practice. I also verify that I can complete the process accurately before working independently.","Learning"],["How do you make decisions?","I review the available facts, compare options, consider risks and consequences, and follow the authority and procedures that apply.","I try to balance business needs with safety, accuracy, and compliance. When information is missing, I seek clarification rather than guess.","Decision-making"],["How do you work with a difficult coworker?","I remain respectful, focus on the work, and communicate clearly about responsibilities and expectations.","I try to understand the source of the difficulty and agree on practical ways to work together. I involve a supervisor if the issue affects performance or safety.","Teamwork"],["How do you motivate a team?","I explain the goal, clarify responsibilities, recognize good work, and make sure people have the information and support they need.","I try to connect daily tasks to the team's purpose, listen to concerns, and follow up consistently on commitments.","Leadership"],["How do you delegate tasks?","I match tasks to skills and capacity, explain the expected result and deadline, and make sure the person knows when to ask for help.","I delegate with clear responsibilities and appropriate authority. I follow up on progress without unnecessary micromanagement.","Leadership"],["How do you manage underperformance?","I clarify expectations, discuss the specific gap respectfully, understand any obstacles, and agree on corrective steps and follow-up.","I focus on facts and improvement rather than blame. If performance does not improve, I follow the organization's established process.","Leadership"],["How do you communicate with senior managers?","I keep communication concise, factual, and focused on the issue, its impact, available options, and any decision needed.","I provide the relevant details, explain risks or delays early, and confirm responsibilities and next steps.","Communication"],["How do you handle customer complaints?","I listen without interrupting, clarify the concern, explain the options within policy, and follow up to make sure the issue is addressed.","I stay calm and respectful, verify the facts, and focus on a fair solution. I escalate matters outside my authority.","Customer service"],["How do you provide good customer service?","I listen carefully, communicate clearly, and try to resolve requests accurately and respectfully.","I focus on understanding the customer's need, setting realistic expectations, and following through on what I can do.","Customer service"],["What does teamwork mean to you?","Teamwork means sharing information, respecting different responsibilities, helping when appropriate, and working toward a common goal.","It means being dependable and communicating early when something affects another person's work. Everyone should understand how their role contributes.","Teamwork"],["How do you manage competing deadlines?","I assess urgency and impact, plan the work, and communicate early if the deadlines cannot all be met as expected.","I break projects into steps and track progress. If priorities change, I confirm the new order with the relevant manager.","Organization"],["How do you stay organized?","I use task lists, deadlines, and clear records. I review priorities regularly and keep important information easy to find.","I organize work by urgency and responsibility, document key details, and check progress so that commitments are not missed.","Organization"],["How do you ensure accuracy?","I verify critical information, follow the established process, and double-check details that could affect safety, compliance, or service.","I use consistent steps and confirm discrepancies before proceeding. I would rather ask a question than make an unsupported assumption.","Accuracy"],["What does accountability mean to you?","Accountability means taking responsibility for my actions, communicating honestly, and following through on commitments.","It means acknowledging errors, correcting them through the proper process, and learning from the outcome rather than shifting blame.","Accountability"],["How do you handle confidential information?","I access and share information only when authorized, follow company policy, and use approved systems and channels.","I protect sensitive information, avoid unnecessary disclosure, and ask for guidance if I am unsure about the proper handling procedure.","Compliance"],["What is your understanding of compliance?","Compliance means following applicable laws, regulations, policies, and required procedures. It also means documenting work accurately and reporting concerns.","I see compliance as part of reliable operations. Controls help protect people, customers, and the organization from avoidable risk.","Compliance"],["What would you do if a manager asked you to skip a required procedure?","I would respectfully explain the concern and follow the required procedure. If needed, I would raise the issue through the appropriate channel.","I would not ignore a mandatory safety or compliance control. I would clarify the request and seek guidance from the authorized person.","Compliance"],["How do you manage risk?","I identify what could go wrong, consider the likelihood and impact, and follow controls that reduce the risk to an acceptable level.","I focus on prevention, clear procedures, and early reporting. I also check whether corrective actions are effective.","Risk"],["How do you approach continuous improvement?","I look for repeated delays, errors, or unnecessary steps, ask the people doing the work for input, and evaluate practical changes.","I use available evidence to identify a gap, test a reasonable improvement, and monitor results without compromising safety or quality.","Improvement"],["How would you reduce operating costs?","I would review expenses, waste, resource use, and workflow efficiency. I would avoid savings that create unacceptable safety or quality risks.","I would look for unnecessary steps and better planning, then evaluate whether the change improves the overall business result.","Operations"],["How would you improve an inefficient process?","I would map the steps, identify bottlenecks, consult the people involved, and test changes that preserve required controls.","I would investigate the root cause, simplify where possible, and measure whether the process becomes faster or more accurate.","Operations"],["How do you measure performance?","I use measures relevant to the role, such as accuracy, productivity, timeliness, safety, and customer service.","I compare performance with clear goals and reliable data, then use the results to identify issues and guide improvement.","Operations"],["What would you do if productivity declined?","I would review the available data, speak with the team, and investigate possible causes such as workload, training, equipment, or process issues.","I would identify the cause before choosing a solution, then follow up to see whether performance improves.","Operations"],["How do you manage inventory?","I focus on accurate records, organized storage, timely updates, and reporting discrepancies according to procedure.","I use consistent checks and clear documentation to help ensure that inventory information matches what is actually available.","Operations"],["What is important in warehouse operations?","Safety, accurate records, clear communication, correct handling, and following standard procedures are all essential.","A reliable warehouse depends on organized workflows, correct information, safe equipment use, and prompt reporting of problems.","Logistics"],["How do you maintain cargo data accuracy?","I verify shipment details, measurements, weight, and required documentation, and I report discrepancies before proceeding.","I follow the acceptance and recording process carefully. I do not guess or change information without proper authorization.","Logistics"],["What would you do if cargo details did not match the documents?","I would stop the affected step as required, verify the discrepancy, and notify the appropriate person for a proper correction.","I would follow the established process, keep the record accurate, and avoid accepting or processing cargo based on assumptions.","Logistics"],["How do you prioritize safety in operations?","I follow approved procedures, use the required equipment, report hazards, and avoid shortcuts that could put people or cargo at risk.","I treat safety as a daily responsibility. If I see a hazard, I take the appropriate immediate action and report it.","Safety"],["How would you handle a workplace hazard?","I would protect people from immediate danger as appropriate, report the hazard promptly, and follow the site's safety procedure.","I would not ignore the issue. I would notify the responsible person and follow up through the established process.","Safety"],["How do you handle a sudden operational change?","I confirm what has changed, identify the most urgent impacts, and communicate the updated priorities to the people involved.","I stay flexible, follow the approved process, and check that the team understands any changes to timing or responsibilities.","Adaptability"],["How do you work with limited information?","I identify what is known, clarify the missing details, and avoid making assumptions that could create risk.","I make a reasonable decision only within my authority and seek guidance when the missing information is important.","Decision-making"],["How do you handle a disagreement with a supervisor?","I explain my concern respectfully and provide the facts. I listen to the supervisor's perspective and follow the appropriate process.","I remain professional and focus on the work outcome. If the concern involves safety or compliance, I use the required reporting channel.","Communication"],["How do you build trust at work?","I build trust by being honest, consistent, respectful, and reliable. I follow through on commitments and communicate early about problems.","I earn trust through my actions: accurate work, accountability, respect for others, and a willingness to learn.","Professionalism"],["What is your management philosophy?","I believe in clear goals, practical planning, accountability, and respectful communication. I also value continuous improvement.","My approach combines business priorities with the realities of daily operations. Good management should help people understand expectations and succeed.","Management"],["How do you connect strategy with daily operations?","I translate broader goals into clear priorities, responsibilities, and measures that people can use in their daily work.","I look at how routine decisions affect cost, quality, customer service, risk, and long-term business objectives.","Management"],["How does your MBA help you at work?","My MBA strengthened my understanding of management, planning, business strategy, and decision-making. I apply that knowledge alongside practical experience.","It helps me consider resources, risks, costs, and organizational goals while staying focused on the operational details.","Education"],["How do you use data to make decisions?","I check that the information is reliable, look for relevant patterns, and compare options against the business objective.","I use data to support judgment, not replace it. I also consider operational context and verify unusual results.","Analysis"],["How do you manage a project?","I clarify the objective, break the work into tasks, set deadlines, identify risks, and communicate progress.","I define responsibilities and expected results, monitor progress, and address obstacles early so the project stays on track.","Project management"],["How do you handle a project delay?","I identify the cause and impact, inform the relevant people, and propose a realistic recovery plan.","I review priorities and dependencies, agree on corrective steps, and keep stakeholders updated on progress and risks.","Project management"],["How do you adapt to new technology?","I learn the purpose of the tool, review instructions, practice safely, and ask for help when I need it.","I am comfortable learning digital tools and troubleshooting issues methodically. I focus on using technology to support reliable work.","Technology"],["Tell me about your experience with digital projects.","I have developed independent digital application projects and worked on planning, code changes with AI assistance, testing, and troubleshooting.","My digital projects have helped me practice problem-solving, iterative improvement, and translating an idea into a working product.","Technology"],["How do you handle a customer who is upset?","I listen calmly, acknowledge the concern, verify the facts, and explain what I can do within policy.","I avoid arguing and focus on a fair, practical solution. If the matter is outside my authority, I involve the appropriate person.","Customer service"],["How do you respond when priorities change?","I confirm the new priority, review what it affects, and adjust my plan while communicating any risks or delays.","I stay flexible and reorganize the work based on urgency and business impact. I ask for clarification if the new priorities conflict.","Adaptability"],["What kind of work environment helps you succeed?","I work well where expectations are clear, people communicate respectfully, and safety and accountability matter.","I appreciate a professional environment with clear goals, teamwork, and opportunities to learn and improve.","Work style"],["Do you prefer working independently or on a team?","I can do both. I take responsibility for my own tasks and communicate with the team when coordination is needed.","I value independent ownership, but most operations also depend on sharing information and supporting common goals.","Work style"],["How do you handle repetitive tasks?","I stay focused on accuracy and consistency, follow the process, and look for safe ways to reduce avoidable errors.","I understand that routine tasks can be important to the whole operation. I maintain attention to detail and report recurring issues.","Work style"],["What does quality mean to you?","Quality means meeting the required standard consistently, providing accurate information, and correcting issues when they are found.","I see quality as doing the job right, following the process, and checking that the result meets the customer's and organization's requirements.","Quality"],["How do you respond to an audit finding?","I review the finding, verify the evidence, understand the required correction, and help track actions through the approved process.","I treat findings as opportunities to close gaps. I focus on corrective action, documentation, and checking that the issue does not recur.","Compliance"],["How do you handle a sensitive conversation?","I prepare the facts, speak respectfully and privately when appropriate, and focus on the issue and next steps.","I listen carefully, protect confidentiality, and avoid assumptions. If needed, I follow the organization's formal process.","Communication"],["What have you learned from working in different industries?","I have learned to adapt to different procedures, customer needs, and operational priorities while staying focused on reliability and communication.","Different environments have strengthened my flexibility and practical thinking. I understand that each industry has its own standards and risks.","Experience"],["What would you do in your first 30 days?","I would learn the role, procedures, safety requirements, systems, and team expectations. I would ask questions and focus on accurate work.","I would listen, observe the workflow, clarify priorities with my manager, and build a solid understanding before suggesting changes.","Goals"],["What would success look like after 90 days?","Success would mean understanding the role, meeting performance expectations, following procedures consistently, and becoming a reliable team member.","I would aim to work accurately and independently within my responsibilities, communicate effectively, and understand the team's key goals.","Goals"],["Are you willing to receive additional training?","Yes. I am willing to learn the required systems, procedures, and standards. I see training as an important part of doing the job correctly.","Absolutely. I would take the training seriously, ask questions, and apply what I learn to improve my performance.","Learning"],["Are you comfortable working with procedures and rules?","Yes. I understand that procedures support consistency, safety, and compliance. I follow them and ask for clarification when needed.","Yes. I value clear standards because they help people work accurately and reduce avoidable risks.","Compliance"],["How do you handle a task outside your authority?","I explain the issue and refer it to the person authorized to make the decision. I do not exceed my role or bypass required controls.","I clarify who owns the decision, provide the relevant facts, and follow the approved process while keeping the work moving where possible.","Judgment"],["What are your long-term career goals?","I want to keep developing in operations and management, deepen my industry knowledge, and earn greater responsibility through performance.","My goal is to combine my MBA with practical experience and continue growing into roles where I can improve processes and support business results.","Goals"],["Is there anything else we should know about you?","I bring business education, practical operational experience, and a strong willingness to learn. I would welcome the opportunity to contribute to your team.","I take responsibility seriously, adapt to new environments, and focus on accurate work and professional communication. I am interested in making a positive contribution.","Closing"],["How do you handle a missed deadline?","I explain the delay early, identify the cause, and agree on a realistic recovery plan with the relevant people.","I take responsibility, communicate the impact, and adjust priorities to complete the work as soon as practical.","Organization"],["How do you respond to a safety incident?","I follow the emergency and reporting procedures, help protect people within my role, and provide accurate information to the responsible team.","I prioritize immediate safety, notify the appropriate personnel, and cooperate with the review and corrective actions.","Safety"],["How do you maintain professional relationships?","I communicate respectfully, keep commitments, and address concerns directly and constructively.","I build relationships through reliability, clear expectations, and respect for different roles and perspectives.","Professionalism"],["What would you do if instructions were unclear?","I would ask focused questions and confirm the expected result before proceeding, especially if accuracy or safety could be affected.","I would review the available guidance and check my understanding with the appropriate person rather than make assumptions.","Communication"],["How do you define success in a role?","Success means meeting expectations consistently, supporting team goals, and continuing to improve the quality and reliability of my work.","I measure success by results, professionalism, accountability, and how well my work supports the organization's objectives.","Goals"],["Can you tell me more about your experience?","My experience combines business education with hands-on operational responsibilities. I have learned the importance of organization, communication, accuracy, and following procedures.","I have worked in different operational settings, which has helped me become adaptable and practical. I am interested in applying these skills in a role with greater responsibility.","Follow-up"],["What was your biggest responsibility in your previous role?","My responsibilities included supporting daily operations, handling assigned tasks, and making sure work was completed properly. I understand the importance of being reliable and accountable.","I had to stay organized, respond to daily needs, and help keep operations running smoothly. I learned to focus on priorities and communicate when issues required attention.","Follow-up"],["How has your MBA prepared you for this position?","My MBA strengthened my understanding of business strategy, management, planning, and decision-making. I can apply that knowledge while learning the specific requirements of this position.","My MBA helps me understand how daily decisions affect business performance, resources, and organizational goals. I combine that perspective with practical experience.","Follow-up"],["Which of your skills would be most useful here?","I believe organization, problem-solving, communication, and adaptability would be especially useful. I also take accuracy and responsibility seriously.","I can bring business knowledge, practical thinking, and a willingness to learn. I would focus on understanding your priorities and supporting the team's performance.","Follow-up"],["What did you learn from your previous jobs?","I learned that good results depend on communication, consistency, and attention to detail. I also learned to adapt when priorities change.","My experience taught me to be dependable, follow procedures, and address problems early. These are habits I would bring to this position.","Follow-up"],["Can you give me a specific example?","Certainly. I would describe the situation, explain my responsibility, and then walk you through the actions I took and the result.","Yes. I can explain the situation step by step, including the problem, my role, and what I learned from the experience.","Follow-up"],["What exactly did you do?","I focused on understanding the task, organizing the steps, and completing my responsibilities correctly. I also communicated when clarification was needed.","My role was to handle my assigned responsibilities, follow the appropriate process, and make sure the necessary information was accurate.","Follow-up"],["What was the result?","The goal was to resolve the issue and complete the work properly. I would explain the actual outcome and what I learned from the situation.","The experience helped me understand the value of preparation, communication, and follow-through. I would use those lessons in a similar situation.","Follow-up"],["How do you know your approach worked?","I look at whether the problem was resolved, the work met the requirements, and the next steps were completed. Where available, I also consider measurable results.","I evaluate the outcome against the original goal. I also check whether the solution reduced confusion, improved accuracy, or helped the operation continue.","Follow-up"],["What would you do differently next time?","I would review what worked and what could be improved. I would consider whether better planning, earlier communication, or a clearer process could produce a better result.","I would use what I learned to prepare more effectively and prevent avoidable problems. Continuous improvement is important to me.","Follow-up"],["Why did you choose that solution?","I would choose a solution based on the facts, urgency, risks, and expected impact. I also make sure the decision follows company procedures.","I prefer practical solutions that address the cause of the problem while protecting quality, safety, and business priorities.","Follow-up"],["What if your first solution does not work?","I would review the situation, identify what did not work, and consider another option. If necessary, I would ask for guidance from the appropriate person.","I would remain calm, reassess the facts, and adjust my approach. I would keep the relevant people informed rather than allowing the problem to continue.","Follow-up"],["How do you decide what to do first?","I prioritize based on safety, urgency, deadlines, and business impact. If two priorities conflict, I confirm which one should come first.","I identify what cannot wait, organize the remaining tasks, and communicate any risks to the schedule.","Follow-up"],["What if you have several urgent problems at once?","I assess which issue presents the greatest risk, address the most critical matter first, and coordinate support for the other tasks.","I stay organized, communicate clearly, and avoid making rushed decisions without the necessary information. Safety and critical deadlines guide my priorities.","Follow-up"],["How do you perform under pressure?","I focus on the immediate priorities, follow established procedures, and communicate clearly. I try to remain calm so pressure does not affect the quality of my decisions.","I handle pressure by breaking work into manageable steps and staying focused on what needs to be done first. I ask for support when necessary.","Follow-up"],["How would you handle a team member who disagrees with you?","I would listen to their perspective, explain my reasoning respectfully, and focus on the best outcome for the team.","I would discuss the facts and look for common ground. If the disagreement affected an important decision, I would follow the appropriate escalation process.","Follow-up"],["How would you motivate someone who has lost interest?","I would speak with the person respectfully to understand the cause, clarify expectations, and identify what support could help them improve.","I would listen, recognize their concerns, and agree on practical next steps. I believe motivation improves when people understand their responsibilities and feel respected.","Follow-up"],["How do you handle someone who does not complete their tasks?","I would clarify the expectations, understand the reason for the delay, and agree on a plan to complete the work. I would follow company policy.","I would address the issue directly and respectfully, establish clear responsibilities, and follow up on progress.","Follow-up"],["What if your team does not agree with your decision?","I would explain the reasons behind the decision and listen to relevant concerns. If new information changes the situation, I would consider it.","I would encourage respectful discussion, clarify the shared goal, and make sure everyone understands the next steps.","Follow-up"],["How do you give constructive feedback?","I focus on specific behavior and its impact, not on personal criticism. I explain what needs to change and offer practical guidance.","I give feedback respectfully, explain the expected standard, and allow the person to respond. The goal is improvement, not blame.","Follow-up"],["How would you improve an inefficient process?","I would map the current steps, identify delays or repeated errors, and consult the people who perform the work. Then I would evaluate practical improvements.","I would use available information to identify the root cause, test a reasonable change, and check whether it improves efficiency without reducing quality or safety.","Follow-up"],["How would you reduce operating costs?","I would review resource use, recurring expenses, waste, and process efficiency. I would avoid cost reductions that create unacceptable safety or quality risks.","I would look for unnecessary steps, better planning, and more effective use of resources. Any change should be evaluated against its actual business impact.","Follow-up"],["How would you measure team performance?","I would use measures relevant to the role, such as quality, productivity, timeliness, safety, and customer service. I would also look at trends rather than one result alone.","I would connect team performance to clear goals and reliable data. The measures should help identify problems and guide improvement, not simply assign blame.","Follow-up"],["What would you do if productivity dropped?","I would check the available data, speak with the team, and investigate possible causes such as workload, training, resources, or process problems.","I would identify the cause before proposing a solution. Then I would agree on corrective actions and monitor whether performance improves.","Follow-up"],["What if meeting a deadline conflicts with safety?","Safety must come first. I would follow the required safety procedure, notify the responsible supervisor, and seek a safe way to meet the operational need.","I would not take an unsafe shortcut to save time. I would communicate the risk and work with the appropriate people to establish a safe plan.","Follow-up"],["What would you do if you discovered a compliance problem?","I would verify the facts, follow the reporting procedure, and notify the appropriate person. I would not ignore the issue or make unsupported accusations.","I would protect relevant information, report the concern through the approved channel, and cooperate with any authorized review.","Follow-up"],["What would you do if you noticed a security concern?","I would follow the applicable security procedures, avoid interfering with any investigation, and report the concern promptly to the authorized personnel.","I would treat the concern seriously, protect people and operations as appropriate, and use the established reporting channel.","Follow-up"],["How would you handle an inaccurate cargo record?","I would verify the information, follow the established correction procedure, and notify the appropriate person if the error could affect acceptance, handling, or documentation.","I would not guess or change information without authorization. I would report the discrepancy and make sure it is corrected and documented according to procedure.","Follow-up"],["How do you balance efficiency and compliance?","I believe efficiency should come from good planning and clear processes, not from skipping required controls. Compliance protects the organization and its people.","I would look for ways to simplify unnecessary steps while preserving mandatory requirements, documentation, and safety standards.","Follow-up"],["Why don't you have more experience in this specific role?","My experience may not cover every aspect of this particular position, but I bring transferable skills, business education, and a willingness to learn. I would focus on mastering your procedures quickly.","I understand that every role has specific requirements. I bring relevant operational experience and a strong learning mindset, and I am prepared to build the additional knowledge needed.","Follow-up"],["Why should we trust you with more responsibility?","I understand that trust is earned through consistent performance, honesty, and accountability. I would demonstrate that by meeting expectations and communicating openly.","I would earn that trust by following procedures, taking ownership of my work, and asking for guidance when a decision is outside my authority.","Follow-up"],["What if we hire you and you make a mistake?","I would acknowledge the mistake, report it when required, correct it through the proper process, and learn how to prevent it from happening again.","I would be honest about what happened and focus on reducing the impact. I believe accountability and corrective action are essential to professional work.","Follow-up"],["Why haven't you achieved your career goal yet?","Career development takes time, experience, and the right opportunities. I have continued developing my education and practical skills, and I am focused on the next step.","My career has included different responsibilities that helped me learn and adapt. I am now looking for an opportunity that aligns more closely with my long-term goals.","Follow-up"],["What would you do if you did not know how to perform a task?","I would clarify the expected result, review the approved instructions, and ask a qualified person for guidance. I would not guess when accuracy or safety is involved.","I would be honest about what I need to learn, use the available training, and confirm that I understand the procedure before proceeding.","Follow-up"],["What would be your first priority if we hired you?","My first priority would be to understand the role, learn the required procedures, and clarify the standards by which my performance will be evaluated.","I would focus on learning the team's workflow, safety expectations, and immediate goals so I can become a reliable contributor as quickly as possible.","Follow-up"],["What would make you leave this job?","I value stability, professional growth, and a respectful work environment. I would normally try to address concerns professionally before making any decision about leaving.","I am looking for an opportunity where I can contribute and grow over time. I take professional commitments seriously and prefer to resolve challenges through communication.","Follow-up"],["What would you like us to remember about you?","I bring business education, practical operational experience, and a strong willingness to learn. I would welcome the opportunity to contribute to your team.","I take responsibility seriously, adapt to new environments, and focus on accurate work and professional communication. I am interested in making a positive contribution.","Follow-up"],["Can you explain your reasoning in more detail?","I considered the facts, the risks, and the expected outcome before choosing that approach. I would be happy to explain each step.","My decision was based on the information available and the procedures that applied. I also considered the effect on the team and the operation.","Follow-up"],["What did you personally contribute to the outcome?","I was responsible for my assigned tasks, communicating relevant information, and completing the work according to the process.","My contribution was to stay organized, address my responsibilities, and coordinate with others when the situation required it.","Follow-up"],["How would you apply that lesson in this position?","I would apply the same focus on planning, communication, and accuracy while learning your specific procedures and performance expectations.","I would use the lesson to anticipate risks, work effectively with the team, and follow through on the result.","Follow-up"]];
-
-
-const bankSearch=$("bankSearch"),bankCategory=$("bankCategory"),bankResults=$("bankResults"),bankAnswer=$("bankAnswer");
-let selectedBankQuestion=null;
 function normalizeMatch(s){return cleanText(s).toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()}
-function initQuestionBank(){
- const categories=[...new Set(QUESTION_BANK.map(q=>q[3]))];
- categories.forEach(cat=>{const opt=document.createElement("option");opt.value=cat;opt.textContent=cat;bankCategory.appendChild(opt)});
- renderQuestionBank();
+const STOP_WORDS=new Set("tell me about your you the a an and or to for of in on at is are was were do does did can could would will have has had what how why when where which please with that this it my i we our their".split(" "));
+function meaningfulWords(text){return normalizeMatch(text).split(" ").filter(w=>w.length>2&&!STOP_WORDS.has(w))}
+const SYNONYMS=[
+["yourself","background","introduce","introduction","experience"],
+["hire","choose","select","candidate","fit"],
+["strength","strengths","skills","good"],
+["weakness","weaknesses","improve","development"],
+["salary","pay","compensation","expectations"],
+["manager","leadership","lead","team"],
+["problem","challenge","difficult","issue"],
+["mistake","error","wrong","failure"],
+["deadline","pressure","stress","urgent"],
+["compliance","rules","policy","procedure"],
+["safety","hazard","risk","security"],
+["operations","operational","process","workflow"],
+["motivate","motivation","interested","interest"],
+["goal","goals","future","career"],
+["result","outcome","achieve","achievement"],
+["customer","client","service","complaint"],
+["cargo","shipment","freight","warehouse"],
+["restaurant","food","kitchen","inventory"],
+["aviation","airline","flight","airport"],
+["data","record","documentation","information"]
+];
+function similarityScore(spoken,question){
+ const a=normalizeMatch(spoken),b=normalizeMatch(question);if(!a||!b)return 0;if(a===b)return 100;
+ const aw=meaningfulWords(a),bw=meaningfulWords(b);if(!aw.length||!bw.length)return 0;
+ const aset=new Set(aw),bset=new Set(bw),common=[...aset].filter(w=>bset.has(w)).length;
+ let score=100*(.65*common/bset.size+.35*common/aset.size);
+ for(const group of SYNONYMS){if(aw.some(w=>group.includes(w))&&bw.some(w=>group.includes(w)))score=Math.min(100,score+12)}
+ return score;
 }
-function renderQuestionBank(){
- const term=normalizeMatch(bankSearch.value||"");const cat=bankCategory.value;
- const matches=QUESTION_BANK.map((q,i)=>({q,i})).filter(x=>(cat==="all"||x.q[3]===cat)&&(!term||normalizeMatch(x.q[0]).includes(term)||normalizeMatch(x.q[3]).includes(term)));
- bankResults.replaceChildren();
- if(!matches.length){const empty=document.createElement("div");empty.className="bank-empty";empty.textContent="No se encontraron preguntas.";bankResults.appendChild(empty);return}
- matches.forEach(({q,i})=>{const b=document.createElement("button");b.type="button";b.className="bank-item"+(selectedBankQuestion===i?" active":"");b.innerHTML="<span></span><small></small>";b.querySelector("span").textContent=(i+1)+". "+q[0];b.querySelector("small").textContent=q[3];b.addEventListener("click",()=>showBankQuestion(i));bankResults.appendChild(b)});
-}
-function showBankQuestion(i){
- selectedBankQuestion=i;const q=QUESTION_BANK[i];bankAnswer.hidden=false;$("bankQuestion").textContent=(i+1)+". "+q[0];$("bankAnswer1").textContent=q[1];$("bankAnswer2").textContent=q[2];renderQuestionBank();
-}
-bankSearch.addEventListener("input",renderQuestionBank);bankCategory.addEventListener("change",renderQuestionBank);
-document.querySelectorAll(".bank-copy").forEach(b=>b.addEventListener("click",()=>{if(selectedBankQuestion===null)return;copyText(QUESTION_BANK[selectedBankQuestion][Number(b.dataset.copy)],"Respuesta copiada.")}));
-$("useBankAnswer").addEventListener("click",()=>{if(selectedBankQuestion===null)return;const q=QUESTION_BANK[selectedBankQuestion];latestSpeech=q[0];answerText.textContent="Option 1: "+q[1]+"\n\nOption 2: "+q[2];answerNote.textContent="Respuesta de la biblioteca local. Adapta cualquier detalle a tu experiencia real.";copyBtn.disabled=false;notify("Respuestas cargadas en el panel principal.")});
 function findBankMatch(text){
- if(mode!=="interview")return null;
- const target=normalizeMatch(text);if(!target)return null;
- let best=null,bestScore=0;
- QUESTION_BANK.forEach((q,i)=>{
-  const key=normalizeMatch(q[0]);let score=0;
-  if(target===key)score=100;
-  else if(target.includes(key)||key.includes(target))score=Math.min(target.length,key.length)/Math.max(target.length,key.length)*85;
-  else {const words=key.split(" ").filter(w=>w.length>3);const hits=words.filter(w=>target.includes(w)).length;score=words.length?hits/words.length*70:0}
-  if(score>bestScore){bestScore=score;best={q,i,score}}
- });
- return best&&bestScore>=58?best:null;
+ let best=null;QUESTION_BANK.forEach((q,i)=>{const score=similarityScore(text,q[0]);if(!best||score>best.score)best={q,i,score}});
+ return best&&best.score>=34?best:null;
 }
-
+function displayFixedMatch(match,originalText){
+ const qEl=$("fixedQuestion"),a1=$("fixedAnswer1"),a2=$("fixedAnswer2"),note=$("fixedNote");
+ if(!match){
+  qEl.textContent="Frase escuchada: "+originalText;
+  a1.textContent="No se encontró una pregunta suficientemente parecida en la biblioteca local.";
+  a2.textContent="Puedes buscar en la biblioteca de abajo. La IA intentará preparar una respuesta aparte.";
+  note.textContent="No se eligió una respuesta fija para evitar mostrar una respuesta que podría no corresponder.";
+  $("fixedTag").textContent="SIN COINCIDENCIA";$("copyFixed1").disabled=true;$("copyFixed2").disabled=true;return false;
+ }
+ const q=match.q;qEl.textContent="Pregunta preparada: "+q[0];a1.textContent=q[1];a2.textContent=q[2];
+ note.textContent="Coincidencia local · "+q[3]+" · Similitud aproximada: "+Math.round(match.score)+"%. Estas respuestas no dependen de la IA.";
+ $("fixedTag").textContent="RESPUESTA FIJA";$("copyFixed1").disabled=false;$("copyFixed2").disabled=false;return true;
+}
 function queueAutoResponse(text,context,selectedMode){
  if(!selectedMode||!text)return;
- const key=sessionId+"|"+modeVersion+"|"+selectedMode+"|"+text;
- if(key===lastAutoKey)return;
- lastAutoKey=key;
- pendingAuto={text,context,mode:selectedMode,session:sessionId,version:modeVersion,key};
- processAutoResponse();
+ const key=sessionId+"|"+modeVersion+"|"+selectedMode+"|"+normalizeMatch(text);if(key===lastAutoKey)return;lastAutoKey=key;
+ displayFixedMatch(findBankMatch(text),text);
+ pendingAuto={text,context,mode:selectedMode,session:sessionId,version:modeVersion,key};processAutoResponse();
 }
 async function processAutoResponse(){
  if(requestBusy||!pendingAuto)return;
- const job=pendingAuto;
- pendingAuto=null;
+ const job=pendingAuto;pendingAuto=null;
  if(job.session!==sessionId||job.version!==modeVersion||job.mode!==mode)return;
- requestBusy=true;
- suggestBtn.disabled=true;
- answerNote.textContent="Preparando una respuesta breve...";
+ requestBusy=true;suggestBtn.disabled=true;$("answerTag").textContent="IA PREPARANDO";
+ answerNote.textContent="Esperando la respuesta adicional de la IA...";setPlaceholder(answerText,"La respuesta de la IA aparecerá aquí.");
+ const controller=new AbortController(),timeoutId=setTimeout(()=>controller.abort(),12000);
  try{
-  const localMatch=job.mode==="interview"?findBankMatch(job.text):null;
-  if(localMatch){
-   const q=localMatch.q;
-   if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
-    answerText.textContent="Option 1: "+q[1]+"\n\nOption 2: "+q[2];
-    answerNote.textContent="Biblioteca local · "+q[3]+". Puedes elegir una respuesta y adaptarla a tu experiencia real.";
-    copyBtn.disabled=false;
-   }
-   return;
-  }
   const res=await fetch("/api/respond",{
-   method:"POST",headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({
-    transcript:job.text,
-    context:job.context,
-    mode:job.mode,
-    response_style:RESPONSE_STYLE,
-    language:"en-US",
-    automatic:true
-   })
+   method:"POST",headers:{"Content-Type":"application/json"},signal:controller.signal,
+   body:JSON.stringify({transcript:job.text,context:job.context,mode:job.mode,response_style:RESPONSE_STYLE,language:"en-US",automatic:true})
   });
-  const data=await res.json();
-  if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
+  const data=await res.json();if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
   if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
-   const answer=cleanText(data.answer);
-   answerText.textContent=answer||"No se recibió una respuesta útil.";
-   answerNote.textContent=data.note||"";
-   copyBtn.disabled=!answer;
+   const answer=cleanText(data.answer);answerText.textContent=answer||"La IA no devolvió una respuesta útil.";
+   answerNote.textContent=data.note||"Respuesta adicional generada por la IA.";copyBtn.disabled=!answer;$("answerTag").textContent=answer?"IA DISPONIBLE":"IA SIN RESPUESTA";
   }
  }catch(e){
   if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
-   answerNote.textContent=(e.message||"No se pudo conectar con el servicio.")+" Pulsa «Preparar respuesta» para intentarlo otra vez.";
+   $("answerTag").textContent="IA NO DISPONIBLE";answerNote.textContent=e.name==="AbortError"?"La IA tardó demasiado. Las respuestas fijas de arriba siguen disponibles.":"La IA no respondió. Las respuestas fijas de arriba siguen disponibles.";
+   setPlaceholder(answerText,"No se recibió una respuesta adicional de la IA.");copyBtn.disabled=true;
   }
  }finally{
-  requestBusy=false;
-  suggestBtn.disabled=!mode||!latestSpeech;
+  clearTimeout(timeoutId);requestBusy=false;suggestBtn.disabled=!mode||!latestSpeech;
   if(pendingAuto)processAutoResponse();
  }
 }
 async function requestSuggestion(){
  if(!mode){notify("Selecciona Conversación o Preguntas y respuestas.");return}
- const text=cleanText(latestSpeech);
- if(!text){notify("Primero escucha una frase o pregunta en inglés.");return}
- pendingAuto={
-  text,
-  context:finalLines.slice(0,-1).slice(-7).join("\n"),
-  mode,
-  session:sessionId,
-  version:modeVersion,
-  key:"manual-"+Date.now()
- };
+ const text=cleanText(latestSpeech);if(!text){notify("Primero escucha una frase o pregunta en inglés.");return}
+ displayFixedMatch(findBankMatch(text),text);
+ pendingAuto={text,context:finalLines.slice(0,-1).slice(-7).join("\n"),mode,session:sessionId,version:modeVersion,key:"manual-"+Date.now()};
  await processAutoResponse();
 }
 suggestBtn.addEventListener("click",requestSuggestion);
 async function copyText(text,success){
- if(!text)return;
- try{await navigator.clipboard.writeText(text);notify(success)}
- catch(e){notify("Selecciona el texto y cópialo.")}
+ if(!text)return;try{await navigator.clipboard.writeText(text);notify(success)}catch(e){notify("No se pudo copiar automáticamente. Selecciona el texto y cópialo.")}
 }
-copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta copiada."));
+copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta de IA copiada."));
+$("copyFixed1").addEventListener("click",()=>copyText($("fixedAnswer1").textContent,"Respuesta fija 1 copiada."));
+$("copyFixed2").addEventListener("click",()=>copyText($("fixedAnswer2").textContent,"Respuesta fija 2 copiada."));
 copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripción copiada."));
+translateBtn.addEventListener("click",async()=>{
+ const text=allText();if(!text)return;translateBtn.disabled=true;translation.textContent="Traduciendo…";const currentSession=sessionId;
+ try{
+  const res=await fetch("/api/translate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({transcript:text})});
+  const data=await res.json();if(!res.ok)throw new Error(data.detail||"No se pudo traducir.");
+  if(currentSession===sessionId)translation.textContent=data.translation||"No se recibió traducción.";
+ }catch(e){if(currentSession===sessionId)translation.textContent=e.message||"Error de traducción."}
+ finally{translateBtn.disabled=!finalLines.length}
+});
 repeatAudioBtn.addEventListener("click",()=>{
- if(playback&&!playback.paused){stopPlayback();return}
- if(!audioUrl){notify("No hay audio grabado.");return}
- playback=new Audio(audioUrl);
- repeatAudioBtn.textContent="Detener audio";
+ if(playback&&!playback.paused){stopPlayback();return}if(!audioUrl){notify("No hay audio grabado.");return}
+ playback=new Audio(audioUrl);repeatAudioBtn.textContent="Detener audio";
  playback.onended=()=>{playback=null;repeatAudioBtn.textContent="Repetir audio"};
  playback.onerror=()=>{playback=null;repeatAudioBtn.textContent="Repetir audio";notify("No se pudo reproducir el audio.")};
  playback.play().catch(()=>{playback=null;repeatAudioBtn.textContent="Repetir audio";notify("No se pudo reproducir el audio.")});
 });
+function initBank(){
+ const categories=[...new Set(QUESTION_BANK.map(q=>q[3]))].sort();
+ categories.forEach(cat=>{const opt=document.createElement("option");opt.value=cat;opt.textContent=cat;$("bankCategory").appendChild(opt)});
+ $("bankCount").textContent=QUESTION_BANK.length+" preguntas";
+ renderBank();
+}
+function renderBank(){
+ const search=normalizeMatch($("bankSearch").value),category=$("bankCategory").value,list=$("bankList");list.replaceChildren();
+ const matches=QUESTION_BANK.map((q,i)=>({q,i})).filter(({q})=>(!category||q[3]===category)&&(!search||normalizeMatch(q[0]).includes(search)||normalizeMatch(q[1]+" "+q[2]).includes(search)));
+ $("bankCount").textContent=matches.length+" de "+QUESTION_BANK.length;
+ matches.slice(0,80).forEach(({q,i})=>{
+  const b=document.createElement("button");b.type="button";b.className="bank-item";b.textContent=q[0]+" · "+q[3];
+  b.addEventListener("click",()=>showBankQuestion(i));list.appendChild(b);
+ });
+ if(!matches.length){const p=document.createElement("div");p.className="note";p.textContent="No se encontraron preguntas. Prueba otras palabras.";list.appendChild(p)}
+ if(matches.length>80){const p=document.createElement("div");p.className="note";p.textContent="Se muestran las primeras 80 coincidencias. Escribe más palabras para filtrar.";list.appendChild(p)}
+}
+function showBankQuestion(index){
+ const q=QUESTION_BANK[index];if(!q)return;
+ $("bankSelected").replaceChildren();
+ const title=document.createElement("div");title.className="fixed-question";title.textContent=q[0];$("bankSelected").appendChild(title);
+ [q[1],q[2]].forEach((answer,i)=>{
+  const div=document.createElement("div");div.className="bank-answer";div.textContent="Opción "+(i+1)+": "+answer;$("bankSelected").appendChild(div);
+ });
+ $("fixedQuestion").textContent="Pregunta preparada: "+q[0];$("fixedAnswer1").textContent=q[1];$("fixedAnswer2").textContent=q[2];
+ $("fixedNote").textContent="Seleccionada manualmente desde la biblioteca local · "+q[3]+".";
+ $("fixedTag").textContent="RESPUESTA FIJA";$("copyFixed1").disabled=false;$("copyFixed2").disabled=false;
+}
+$("bankSearch").addEventListener("input",renderBank);$("bankCategory").addEventListener("change",renderBank);
 window.addEventListener("beforeunload",()=>{
- listening=false;stopping=true;clearTimeout(restartTimer);
- stopPlayback();
+ listening=false;stopping=true;clearTimeout(restartTimer);stopPlayback();
  if(recognition){try{recognition.stop()}catch(e){}}
- stopAudioRecording();
- if(audioUrl)URL.revokeObjectURL(audioUrl);
+ stopAudioRecording();if(audioUrl)URL.revokeObjectURL(audioUrl);
 });
-setPlaceholder(liveText,"");
-setPlaceholder(answerText,"Selecciona un modo para comenzar.");
-setAudioAvailable(false);
-initQuestionBank();
+setPlaceholder(liveText,"");setPlaceholder(answerText,"Selecciona un modo para comenzar.");
+setAudioAvailable(false);initBank();
 </script>
 </body>
 </html>
