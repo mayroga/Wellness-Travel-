@@ -16,8 +16,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini").strip()
 MAX_TEXT = 10000
-TIMEOUT = httpx.Timeout(30.0, connect=10.0)
-
+TIMEOUT = httpx.Timeout(35.0, connect=10.0)
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("mayroga.liveenglish")
 
@@ -31,7 +30,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="MAY ROGA Live English",
-    version="1.2.0",
+    version="1.3.0",
     lifespan=lifespan
 )
 
@@ -39,10 +38,10 @@ app = FastAPI(
 class ConversationRequest(BaseModel):
     transcript: str = Field(min_length=1, max_length=MAX_TEXT)
     context: str = Field(default="", max_length=5000)
-    mode: str = Field(
-        default="conversation",
-        pattern="^(conversation|interview)$"
-    )
+    mode: str = Field(default="conversation", pattern="^(conversation|interview)$")
+    response_style: str = Field(default="", max_length=3000)
+    language: str = Field(default="en-US", max_length=20)
+    automatic: bool = False
 
 
 class TranslationRequest(BaseModel):
@@ -58,64 +57,67 @@ def parse_json_response(text: str) -> dict:
         if lines and lines[-1].strip() == "```":
             lines = lines[:-1]
         text = "\n".join(lines).strip()
-
     try:
         value = json.loads(text)
         if isinstance(value, dict):
             return value
     except (ValueError, TypeError):
         pass
-
     return {"answer": text[:2500], "note": ""}
 
 
-def response_prompt(transcript: str, context: str, mode: str) -> str:
+def response_prompt(transcript: str, context: str, mode: str, style: str = "") -> str:
     if mode == "interview":
         mode_instructions = """
-MODE: QUESTIONS AND ANSWERS / INTERVIEW
-
-The user may be speaking with a recruiter, interviewer, manager,
-coworker, or professional contact.
-
-- If the latest speech is an interview question, write a concise,
-  professional answer the user can say aloud in English.
-- Prefer simple, natural English that is easy to understand and repeat.
-- Use the conversation context to understand the question.
-- Never invent the user's education, licenses, skills, experience,
-  achievements, availability, salary expectations, or personal facts.
-- If the answer depends on information you do not know, suggest an
-  honest response or a polite question asking for clarification.
-- If the latest speech is not an interview question, respond naturally
-  to what the other person said.
+You help the user answer job interview questions in spoken English.
+Identify what the interviewer actually asks and answer that question.
+Use short, honest, professional answers with common words.
+Use the user's known context when relevant, but never invent facts.
+For unknown personal details, give a safe honest answer or ask for clarification.
+If asked about experience, skills, education, salary, or availability, do not
+claim details that the user has not provided.
+If the speaker makes a statement rather than asking a question, respond naturally.
 """
     else:
         mode_instructions = """
-MODE: LIVE CONVERSATION
-
-Help the user participate in a real-time English conversation.
-
-- Suggest the actual words the user can say next in English.
-- Respond naturally to the other person's latest statement or question.
-- For greetings, give a suitable greeting in return.
-- For questions, answer directly when enough information is available.
-- For instructions, suggest an appropriate acknowledgement or follow-up.
-- If the other person asks for personal information you do not know,
-  do not invent it. Suggest an honest answer or ask for clarification.
-- Keep the reply short, practical, polite, and easy to say aloud.
+You help the user take part in a real English conversation or phone call.
+Reply to the latest statement or question as a person would.
+For greetings, greet the person back.
+For a question, answer it directly if enough information is available.
+For a request, give a suitable reply or ask a short clarifying question.
+For thanks, apologize, agreement, or a farewell, respond naturally.
+Use the recent conversation to understand short replies and follow-up questions.
+Never invent the user's personal information or make commitments for them.
 """
 
     return f"""
-You are MAY ROGA Live English.
+You are MAY ROGA Live English, a written live-response assistant.
 
-Your purpose is to help a person respond to spoken English during a
-real conversation or telephone call. The user will speak the response
-themselves. You must provide the words they can say next.
+MAIN TASK:
+The user hears another person speaking English. You read the recognized words
+and provide the exact simple English words the user can say in reply.
+The user will read the answer and speak it. Do not speak aloud.
 
 {mode_instructions}
 
-Return valid JSON only with exactly these keys:
-"answer": a natural English reply the user can say aloud.
-"note": a short English clarification, or an empty string.
+STRICT ANSWER RULES:
+- Write in simple, natural US English.
+- Prefer common words and short sentences.
+- Normally use one or two sentences, maximum 45 words.
+- Give the reply itself, not a translation of the other person's words.
+- Do not start with "You can say", "The answer is", or explanations.
+- No difficult synonyms, long introductions, or unnecessary details.
+- Do not include Spanish in the answer.
+- Do not repeat the full question.
+- If the speech is unclear, suggest a short phrase such as:
+  "I'm sorry, could you repeat that, please?"
+- If the words are only a fragment, use the context and avoid guessing too much.
+- Return JSON only with exactly two keys:
+  "answer": the words the user can say in English.
+  "note": a brief English note only when needed; otherwise an empty string.
+
+ADDITIONAL USER STYLE:
+{style or "Use short, clear, easy-to-say English."}
 
 RECENT CONVERSATION:
 {context or "(No earlier context available)"}
@@ -123,47 +125,28 @@ RECENT CONVERSATION:
 LATEST RECOGNIZED SPEECH:
 {transcript}
 
-IMPORTANT RULES:
-- Give the proposed reply, not a translation of the latest speech.
-- Usually provide 1 to 3 short sentences.
-- Do not explain your reasoning or add unnecessary introductions.
-- Do not repeat the other person's entire statement.
-- Do not claim the suggested answer is what the other person said.
-- Do not invent personal facts, promises, qualifications, or commitments.
-- If the recognized speech is unclear or incomplete, use "note" to
-  briefly explain the uncertainty and suggest asking the speaker to
-  repeat or clarify.
-- Do not translate into Spanish.
-- Do not include Markdown fences or additional JSON keys.
+Return only valid JSON. No Markdown fences.
 """.strip()
 
 
 def translation_prompt(transcript: str) -> str:
     return (
-        "Translate the following English conversation into natural Spanish. "
-        "Preserve the meaning, uncertainty, and order of the text. Do not "
-        "invent missing words or add advice. Return only the translation.\n\n"
-        + transcript
+        "Translate this English conversation into natural Spanish. "
+        "Keep the original meaning and uncertainty. Do not add advice. "
+        "Return only the Spanish translation.\n\n" + transcript
     )
 
 
 async def ask_gemini(prompt: str, json_mode: bool = False) -> str:
     if not GEMINI_API_KEY:
         raise RuntimeError("Gemini key is not configured.")
-
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
         f"{GEMINI_MODEL}:generateContent"
     )
-
-    generation_config = {
-        "temperature": 0.2,
-        "maxOutputTokens": 500
-    }
-
+    config = {"temperature": 0.2, "maxOutputTokens": 300}
     if json_mode:
-        generation_config["responseMimeType"] = "application/json"
-
+        config["responseMimeType"] = "application/json"
     response = await app.state.client.post(
         url,
         headers={
@@ -172,45 +155,37 @@ async def ask_gemini(prompt: str, json_mode: bool = False) -> str:
         },
         json={
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": generation_config
+            "generationConfig": config
         }
     )
-    response.raise_for_status()
+    if response.is_error:
+        log.warning("Gemini HTTP error: %s", response.status_code)
+        response.raise_for_status()
     data = response.json()
     candidates = data.get("candidates") or []
-
     if not candidates:
         raise RuntimeError("Gemini returned no candidates.")
-
     parts = candidates[0].get("content", {}).get("parts", [])
     result = "".join(
         part.get("text", "")
-        for part in parts
-        if isinstance(part, dict)
+        for part in parts if isinstance(part, dict)
     ).strip()
-
     if not result:
         raise RuntimeError("Gemini returned empty text.")
-
     return result
 
 
 async def ask_openai(prompt: str, json_mode: bool = False) -> str:
     if not OPENAI_API_KEY:
         raise RuntimeError("OpenAI key is not configured.")
-
     payload = {
         "model": OPENAI_MODEL,
         "input": prompt,
-        "max_output_tokens": 500,
+        "max_output_tokens": 300,
         "store": False
     }
-
     if json_mode:
-        payload["text"] = {
-            "format": {"type": "json_object"}
-        }
-
+        payload["text"] = {"format": {"type": "json_object"}}
     response = await app.state.client.post(
         "https://api.openai.com/v1/responses",
         headers={
@@ -219,50 +194,43 @@ async def ask_openai(prompt: str, json_mode: bool = False) -> str:
         },
         json=payload
     )
-    response.raise_for_status()
+    if response.is_error:
+        log.warning("OpenAI HTTP error: %s", response.status_code)
+        response.raise_for_status()
     data = response.json()
-
     texts = []
     for item in data.get("output", []):
-        if item.get("type") != "message":
-            continue
-        for part in item.get("content", []):
-            if part.get("type") == "output_text":
-                texts.append(part.get("text", ""))
-
+        if item.get("type") == "message":
+            for part in item.get("content", []):
+                if part.get("type") == "output_text":
+                    texts.append(part.get("text", ""))
     result = "\n".join(texts).strip()
-
     if not result:
         raise RuntimeError("OpenAI returned empty text.")
-
     return result
 
 
 async def generate(prompt: str, json_mode: bool = False):
     errors = []
-
     if GEMINI_API_KEY:
         try:
             return await ask_gemini(prompt, json_mode), "Gemini"
         except Exception as exc:
             log.warning("Gemini failed: %s", type(exc).__name__)
             errors.append("Gemini")
-
     if OPENAI_API_KEY:
         try:
             return await ask_openai(prompt, json_mode), "OpenAI fallback"
         except Exception as exc:
             log.warning("OpenAI fallback failed: %s", type(exc).__name__)
             errors.append("OpenAI")
-
     if not GEMINI_API_KEY and not OPENAI_API_KEY:
         detail = "Configure GEMINI_API_KEY or OPENAI_API_KEY in Render."
     else:
         detail = (
             "AI services unavailable. Check API keys, quota, model access, "
-            "and connection."
+            "model names, and connection."
         )
-
     raise HTTPException(status_code=503, detail=detail)
 
 
@@ -272,19 +240,13 @@ async def home():
         BASE_DIR / "templates" / "index.html",
         BASE_DIR / "index.html"
     ]
-
-    html_file = next(
-        (path for path in candidates if path.is_file()),
-        None
-    )
-
+    html_file = next((path for path in candidates if path.is_file()), None)
     if html_file is None:
-        log.error("index.html not found in expected locations.")
+        log.error("index.html not found.")
         raise HTTPException(
             status_code=500,
             detail="index.html not found. Check the application file structure."
         )
-
     return HTMLResponse(
         html_file.read_text(encoding="utf-8"),
         headers={"Cache-Control": "no-store"}
@@ -306,34 +268,26 @@ async def health():
 async def respond(body: ConversationRequest):
     transcript = body.transcript.strip()
     context = body.context.strip()
-
     if not transcript:
-        raise HTTPException(
-            status_code=400,
-            detail="Transcript is empty."
-        )
-
+        raise HTTPException(status_code=400, detail="Transcript is empty.")
     prompt = response_prompt(
         transcript=transcript,
         context=context,
-        mode=body.mode
+        mode=body.mode,
+        style=body.response_style
     )
-
     raw, provider = await generate(prompt, json_mode=True)
     result = parse_json_response(raw)
-
     answer = str(result.get("answer", "")).strip()
     note = str(result.get("note", "")).strip()
-
     if not answer:
         raise HTTPException(
             status_code=502,
             detail="The AI service did not return a usable reply."
         )
-
     return {
-        "answer": answer[:2500],
-        "note": note[:500],
+        "answer": answer[:1200],
+        "note": note[:300],
         "provider": provider,
         "mode": body.mode
     }
@@ -342,15 +296,9 @@ async def respond(body: ConversationRequest):
 @app.post("/api/translate")
 async def translate(body: TranslationRequest):
     transcript = body.transcript.strip()
-
     if not transcript:
-        raise HTTPException(
-            status_code=400,
-            detail="Transcript is empty."
-        )
-
+        raise HTTPException(status_code=400, detail="Transcript is empty.")
     raw, provider = await generate(translation_prompt(transcript))
-
     return {
         "translation": raw[:15000],
         "provider": provider
