@@ -34,27 +34,27 @@ h2{font-size:14px;margin:0}
 .transcript{font-size:18px;line-height:1.55;overflow-wrap:anywhere}
 .line{padding:7px 10px;margin:4px 0;border-radius:8px;border-bottom:1px solid #e8edf4;white-space:pre-wrap;overflow-wrap:anywhere}
 .line.old{color:#52627a;background:#f8fafc}
-.line.new{color:#14532d;background:#e8f9ed;border:1px solid #9bd9aa;box-shadow:0 0 13px rgba(34,197,94,.22);font-weight:500}
+.line.new{color:#14532d;background:#e8f9ed;border:1px solid #9bd9aa;font-weight:500}
 .line.current{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .interim{font-size:18px;line-height:1.55;overflow-wrap:anywhere}
-.answer{font-size:20px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+.answer{font-size:22px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
 .placeholder{font-size:14px;color:#94a3b8}
 .note{font-size:12px;line-height:1.5;color:#64748b;margin-top:8px;white-space:pre-wrap}
 .actions{margin-top:12px;margin-bottom:0}
 details{margin-top:14px}
 summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 #fullTranscript{font-size:15px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
-.message{font-size:12px;line-height:1.5;color:#52627a;min-height:0;margin:8px 0}
+.message{font-size:12px;line-height:1.5;color:#52627a;margin:8px 0}
 .message:empty{display:none}
 @media(max-width:520px){
- .app{padding:14px 10px 24px}
- h1{font-size:21px}
- .panel{padding:12px}
- .answer{font-size:18px}
- .transcript,.interim{font-size:16px}
- .modes{gap:7px}
- .mode{padding:11px 9px}
- button{padding:10px 11px}
+.app{padding:14px 10px 24px}
+h1{font-size:21px}
+.panel{padding:12px}
+.answer{font-size:19px}
+.transcript,.interim{font-size:16px}
+.modes{gap:7px}
+.mode{padding:11px 9px}
+button{padding:10px 11px}
 }
 </style>
 </head>
@@ -64,12 +64,10 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 <h1>MAY ROGA Live English</h1>
 <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Listo</span></div>
 </header>
-
-<section class="modes" aria-label="Modo">
+<section class="modes" aria-label="Modo de asistencia">
 <button type="button" class="mode" data-mode="conversation" aria-pressed="false"><strong>Conversación</strong></button>
 <button type="button" class="mode" data-mode="interview" aria-pressed="false"><strong>Preguntas y respuestas</strong></button>
 </section>
-
 <div class="controls">
 <button id="startBtn" class="primary" type="button">Escuchar</button>
 <button id="stopBtn" class="stop" type="button" disabled>Detener escucha</button>
@@ -77,17 +75,17 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 <button id="repeatAudioBtn" class="light" type="button" disabled>Repetir audio</button>
 <button id="deleteAudioBtn" class="light" type="button" disabled>Borrar audio</button>
 </div>
-
 <section class="panel" aria-live="polite">
+<div class="note">Lo que la otra persona dice en inglés:</div>
 <div id="liveText" class="transcript"></div>
 <div id="interimText" class="interim"></div>
 </section>
-
 <section class="panel" aria-live="polite">
 <div class="panel-head">
 <h2>Respuesta en inglés</h2>
 <span id="answerTag" class="tag">INACTIVA</span>
 </div>
+<div class="note">Lee esta respuesta y di lo que aparece aquí:</div>
 <div id="answerText" class="answer"></div>
 <div id="answerNote" class="note"></div>
 <div class="actions">
@@ -95,9 +93,7 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 <button id="copyBtn" class="secondary" type="button" disabled>Copiar respuesta</button>
 </div>
 </section>
-
 <div id="message" class="message" role="status"></div>
-
 <details>
 <summary>Historial completo</summary>
 <div id="fullTranscript">Todavía no hay texto reconocido.</div>
@@ -108,7 +104,6 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 <div id="translation" class="note"></div>
 </details>
 </main>
-
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -120,16 +115,14 @@ const fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn"
 const translateBtn=$("translateBtn"),translation=$("translation");
 const repeatAudioBtn=$("repeatAudioBtn"),deleteAudioBtn=$("deleteAudioBtn");
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-
+const RESPONSE_STYLE="Use clear, simple, natural English. Use common words and short sentences. Give only the words the user can say aloud. Do not explain the answer. Do not translate into Spanish. Avoid difficult words, long introductions, and unnecessary details. Understand the latest spoken sentence using the recent conversation as context. If it is a question, answer that question directly. If it is a statement, reply naturally to what the person said. If this is an interview, give a truthful, professional sample answer that is easy to say aloud. Usually use one to three short sentences. Never invent the user's experience, skills, or qualifications.";
 let recognition=null,listening=false,stopping=false,mode=null;
 let finalLines=[],latestSpeech="",interimSpeech="";
 let requestBusy=false,sessionId=0,modeVersion=0;
 let pendingAuto=null,lastAutoKey="";
 let audioChunks=[],mediaRecorder=null,microphoneStream=null,audioUrl=null;
 let recordingWanted=false,restartTimer=null,playback=null;
-
 function cleanText(s){return String(s||"").replace(/\s+/g," ").trim()}
-
 function punctuate(text,final=true){
  let s=cleanText(text);
  if(!s)return "";
@@ -156,7 +149,6 @@ function setPlaceholder(el,text){
  el.appendChild(span);
 }
 function allText(){return finalLines.join("\n\n")}
-
 function renderTranscript(){
  liveText.replaceChildren();
  const hasInterim=!!interimSpeech;
@@ -183,16 +175,15 @@ function renderTranscript(){
  fullTranscript.textContent=allText()||"Todavía no hay texto reconocido.";
  copyTranscriptBtn.disabled=!finalLines.length;
  translateBtn.disabled=!finalLines.length;
- suggestBtn.disabled=!mode||!latestSpeech;
+ suggestBtn.disabled=!mode||!latestSpeech||requestBusy;
 }
-
 function setMode(next){
  if(mode!==next){
   mode=next;
   modeVersion++;
   pendingAuto=null;
   lastAutoKey="";
-  setPlaceholder(answerText,"");
+  setPlaceholder(answerText,"Esperando lo que diga la otra persona en inglés...");
   answerNote.textContent="";
   copyBtn.disabled=true;
  }
@@ -201,13 +192,12 @@ function setMode(next){
   b.classList.toggle("active",active);
   b.setAttribute("aria-pressed",String(active));
  });
- $("answerTag").textContent=mode==="conversation"?"CONVERSACIÓN":"PREGUNTAS Y RESPUESTAS";
+ $("answerTag").textContent=mode==="conversation"?"CONVERSACIÓN":"ENTREVISTA";
  notify("");
  renderTranscript();
  if(!listening)startListening();
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
-
 function initRecognition(){
  if(!SpeechRecognition){
   notify("Este navegador no ofrece reconocimiento de voz. Prueba Chrome actualizado.");
@@ -218,7 +208,6 @@ function initRecognition(){
  recognition.continuous=true;
  recognition.interimResults=true;
  recognition.maxAlternatives=3;
-
  recognition.onstart=()=>{
   listening=true;stopping=false;
   startBtn.disabled=true;startBtn.textContent="Escuchando";
@@ -280,7 +269,6 @@ function initRecognition(){
  };
  return true;
 }
-
 function setAudioAvailable(available){
  repeatAudioBtn.disabled=!available;
  deleteAudioBtn.disabled=!available&&!audioChunks.length&&!(mediaRecorder&&mediaRecorder.state==="recording");
@@ -324,7 +312,7 @@ async function startAudioRecording(){
   microphoneStream=stream;
   createRecorder(stream);
  }catch(e){
-  if(listening)notify("No se pudo grabar el audio.");
+  if(listening)notify("No se pudo grabar el audio. La escucha puede continuar.");
  }
 }
 function stopAudioRecording(){
@@ -363,20 +351,18 @@ function stopListening(){
 }
 startBtn.addEventListener("click",startListening);
 stopBtn.addEventListener("click",stopListening);
-
 function clearConversation(){
  sessionId++;
  finalLines=[];latestSpeech="";interimSpeech="";
  pendingAuto=null;lastAutoKey="";
- requestBusy=false;
  answerNote.textContent="";translation.textContent="";
- setPlaceholder(answerText,"");copyBtn.disabled=true;
+ setPlaceholder(answerText,"Esperando la próxima frase...");
+ copyBtn.disabled=true;
  renderTranscript();
  notify("");
  if(listening)setStatus(mode?"Escuchando y preparando respuestas":"Escuchando",true);
 }
 clearBtn.addEventListener("click",clearConversation);
-
 function deleteAudio(){
  stopPlayback();
  if(audioUrl){URL.revokeObjectURL(audioUrl);audioUrl=null}
@@ -395,9 +381,6 @@ function deleteAudio(){
  notify("");
 }
 deleteAudioBtn.addEventListener("click",deleteAudio);
-
-/* Cada frase final reconocida genera una respuesta automáticamente.
-   Si llega otra mientras el servidor responde, se conserva la más reciente. */
 function queueAutoResponse(text,context,selectedMode){
  if(!selectedMode||!text)return;
  const key=sessionId+"|"+modeVersion+"|"+selectedMode+"|"+text;
@@ -413,22 +396,30 @@ async function processAutoResponse(){
  if(job.session!==sessionId||job.version!==modeVersion||job.mode!==mode)return;
  requestBusy=true;
  suggestBtn.disabled=true;
- answerNote.textContent="";
+ answerNote.textContent="Preparando una respuesta breve...";
  try{
   const res=await fetch("/api/respond",{
    method:"POST",headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({transcript:job.text,context:job.context,mode:job.mode})
+   body:JSON.stringify({
+    transcript:job.text,
+    context:job.context,
+    mode:job.mode,
+    response_style:RESPONSE_STYLE,
+    language:"en-US",
+    automatic:true
+   })
   });
   const data=await res.json();
   if(!res.ok)throw new Error(data.detail||"No se pudo obtener una respuesta.");
   if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
-   answerText.textContent=cleanText(data.answer)||"No se recibió una respuesta útil.";
+   const answer=cleanText(data.answer);
+   answerText.textContent=answer||"No se recibió una respuesta útil.";
    answerNote.textContent=data.note||"";
-   copyBtn.disabled=!cleanText(data.answer);
+   copyBtn.disabled=!answer;
   }
  }catch(e){
   if(job.session===sessionId&&job.version===modeVersion&&job.mode===mode){
-   answerNote.textContent=(e.message||"No se pudo conectar con el servicio.")+" Puedes pulsar «Preparar respuesta» para intentarlo otra vez.";
+   answerNote.textContent=(e.message||"No se pudo conectar con el servicio.")+" Pulsa «Preparar respuesta» para intentarlo otra vez.";
   }
  }finally{
   requestBusy=false;
@@ -436,22 +427,21 @@ async function processAutoResponse(){
   if(pendingAuto)processAutoResponse();
  }
 }
-
-/* El botón manual utiliza la frase más reciente como respaldo. */
 async function requestSuggestion(){
  if(!mode){notify("Selecciona Conversación o Preguntas y respuestas.");return}
  const text=cleanText(latestSpeech);
  if(!text){notify("Primero escucha una frase o pregunta en inglés.");return}
- if(requestBusy){
-  pendingAuto={text,context:finalLines.slice(0,-1).slice(-7).join("\n"),mode,session:sessionId,version:modeVersion,key:"manual-"+Date.now()};
-  notify("Preparando la respuesta más reciente.");
-  return;
- }
- pendingAuto={text,context:finalLines.slice(0,-1).slice(-7).join("\n"),mode,session:sessionId,version:modeVersion,key:"manual-"+Date.now()};
+ pendingAuto={
+  text,
+  context:finalLines.slice(0,-1).slice(-7).join("\n"),
+  mode,
+  session:sessionId,
+  version:modeVersion,
+  key:"manual-"+Date.now()
+ };
  await processAutoResponse();
 }
 suggestBtn.addEventListener("click",requestSuggestion);
-
 async function copyText(text,success){
  if(!text)return;
  try{await navigator.clipboard.writeText(text);notify(success)}
@@ -459,7 +449,6 @@ async function copyText(text,success){
 }
 copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta copiada."));
 copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripción copiada."));
-
 translateBtn.addEventListener("click",async()=>{
  const text=allText();
  if(!text)return;
@@ -477,31 +466,15 @@ translateBtn.addEventListener("click",async()=>{
   if(currentSession===sessionId)translation.textContent=e.message||"Error de traducción.";
  }finally{translateBtn.disabled=!finalLines.length}
 });
-
 repeatAudioBtn.addEventListener("click",()=>{
- if(playback&&!playback.paused){
-  stopPlayback();
-  return;
- }
+ if(playback&&!playback.paused){stopPlayback();return}
  if(!audioUrl){notify("No hay audio grabado.");return}
  playback=new Audio(audioUrl);
  repeatAudioBtn.textContent="Detener audio";
- playback.onended=()=>{
-  playback=null;
-  repeatAudioBtn.textContent="Repetir audio";
- };
- playback.onerror=()=>{
-  playback=null;
-  repeatAudioBtn.textContent="Repetir audio";
-  notify("No se pudo reproducir el audio.");
- };
- playback.play().catch(()=>{
-  playback=null;
-  repeatAudioBtn.textContent="Repetir audio";
-  notify("No se pudo reproducir el audio.");
- });
+ playback.onended=()=>{playback=null;repeatAudioBtn.textContent="Repetir audio"};
+ playback.onerror=()=>{playback=null;repeatAudioBtn.textContent="Repetir audio";notify("No se pudo reproducir el audio.")};
+ playback.play().catch(()=>{playback=null;repeatAudioBtn.textContent="Repetir audio";notify("No se pudo reproducir el audio.")});
 });
-
 window.addEventListener("beforeunload",()=>{
  listening=false;stopping=true;clearTimeout(restartTimer);
  stopPlayback();
@@ -509,9 +482,8 @@ window.addEventListener("beforeunload",()=>{
  stopAudioRecording();
  if(audioUrl)URL.revokeObjectURL(audioUrl);
 });
-
 setPlaceholder(liveText,"");
-setPlaceholder(answerText,"");
+setPlaceholder(answerText,"Selecciona un modo para comenzar.");
 setAudioAvailable(false);
 </script>
 </body>
