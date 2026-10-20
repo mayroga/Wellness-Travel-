@@ -82,7 +82,6 @@ For a request, give a suitable reply or ask a short clarifying question.
 For thanks, apologize, agreement, or a farewell, respond naturally.
 Use the recent conversation to understand short replies and follow-up questions.
 Never invent the user's personal information or make commitments for them.
-"""
 
     return f
 You are MAY ROGA Live English, a written live-response assistant.
