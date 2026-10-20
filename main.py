@@ -72,7 +72,6 @@ For unknown personal details, give a safe honest answer or ask for clarification
 If asked about experience, skills, education, salary, or availability, do not
 claim details that the user has not provided.
 If the speaker makes a statement rather than asking a question, respond naturally.
-"""
     else:
         mode_instructions = """
 You help the user take part in a real English conversation or phone call.
@@ -85,7 +84,7 @@ Use the recent conversation to understand short replies and follow-up questions.
 Never invent the user's personal information or make commitments for them.
 """
 
-    return f"""
+    return f
 You are MAY ROGA Live English, a written live-response assistant.
 
 MAIN TASK:
