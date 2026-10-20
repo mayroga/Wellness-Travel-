@@ -98,7 +98,9 @@ button{padding:10px 11px}
 <div id="fullTranscript">Todavía no hay texto reconocido.</div>
 <div class="actions">
 <button id="copyTranscriptBtn" class="light" type="button" disabled>Copiar transcripción</button>
+<button id="translateBtn" class="light" type="button" disabled>Traducir al español</button>
 </div>
+<div id="translation" class="note"></div>
 </details>
 </main>
 <script>
@@ -109,6 +111,7 @@ const liveText=$("liveText"),interimText=$("interimText");
 const answerText=$("answerText"),answerNote=$("answerNote");
 const suggestBtn=$("suggestBtn"),copyBtn=$("copyBtn"),message=$("message");
 const fullTranscript=$("fullTranscript"),copyTranscriptBtn=$("copyTranscriptBtn");
+const translateBtn=$("translateBtn"),translation=$("translation");
 const repeatAudioBtn=$("repeatAudioBtn"),deleteAudioBtn=$("deleteAudioBtn");
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
 const RESPONSE_STYLE="Use clear, simple, natural English. Use common words and short sentences. Give only the words the user can say aloud. Do not explain the answer. Do not translate into Spanish. Avoid difficult words, long introductions, and unnecessary details. Understand the latest spoken sentence using the recent conversation as context. If it is a question, answer that question directly. If it is a statement, reply naturally to what the person said. If this is an interview, give a truthful, professional sample answer that is easy to say aloud. Usually use one to three short sentences. Never invent the user's experience, skills, or qualifications.";
@@ -170,6 +173,7 @@ function renderTranscript(){
  }
  fullTranscript.textContent=allText()||"Todavía no hay texto reconocido.";
  copyTranscriptBtn.disabled=!finalLines.length;
+ translateBtn.disabled=!finalLines.length;
  suggestBtn.disabled=!mode||!latestSpeech||requestBusy;
 }
 function setMode(next){
@@ -224,6 +228,7 @@ function initRecognition(){
     if(formatted!==previous){
      finalLines.push(formatted);
      latestSpeech=formatted;
+     translation.textContent="";
      if(mode)queueAutoResponse(formatted,finalLines.slice(0,-1).slice(-7).join("\n"),mode);
     }
     interim="";
@@ -349,6 +354,7 @@ function clearConversation(){
  sessionId++;
  finalLines=[];latestSpeech="";interimSpeech="";
  pendingAuto=null;lastAutoKey="";
+ answerNote.textContent="";translation.textContent="";
  setPlaceholder(answerText,"Esperando la próxima frase...");
  copyBtn.disabled=true;
  renderTranscript();
@@ -442,6 +448,23 @@ async function copyText(text,success){
 }
 copyBtn.addEventListener("click",()=>copyText(answerText.textContent.trim(),"Respuesta copiada."));
 copyTranscriptBtn.addEventListener("click",()=>copyText(allText(),"Transcripción copiada."));
+translateBtn.addEventListener("click",async()=>{
+ const text=allText();
+ if(!text)return;
+ translateBtn.disabled=true;translation.textContent="Traduciendo…";
+ const currentSession=sessionId;
+ try{
+  const res=await fetch("/api/translate",{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({transcript:text})
+  });
+  const data=await res.json();
+  if(!res.ok)throw new Error(data.detail||"No se pudo traducir.");
+  if(currentSession===sessionId)translation.textContent=data.translation||"No se recibió traducción.";
+ }catch(e){
+  if(currentSession===sessionId)translation.textContent=e.message||"Error de traducción.";
+ }finally{translateBtn.disabled=!finalLines.length}
+});
 repeatAudioBtn.addEventListener("click",()=>{
  if(playback&&!playback.paused){stopPlayback();return}
  if(!audioUrl){notify("No hay audio grabado.");return}
