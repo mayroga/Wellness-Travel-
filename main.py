@@ -1,4 +1,3 @@
-
 import os
 import json
 import logging
@@ -21,8 +20,9 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini").strip()
 
 MAX_TEXT = 10000
-GEMINI_LIMIT = 3.0
-OPENAI_LIMIT = 2.0
+GEMINI_LIMIT = 4.7
+OPENAI_LIMIT = 4.7
+AI_TOTAL_LIMIT = 4.9
 CONNECT_LIMIT = 1.5
 
 TIMEOUT = httpx.Timeout(
@@ -327,15 +327,22 @@ async def generate(prompt: str, json_mode: bool = False):
 
     pending = set(tasks.keys())
     errors = []
+    deadline = asyncio.get_running_loop().time() + AI_TOTAL_LIMIT
 
     try:
         while pending:
+            remaining = max(0.0, deadline - asyncio.get_running_loop().time())
+            if remaining <= 0:
+                break
             done, pending = await asyncio.wait(
                 pending,
+                timeout=remaining,
                 return_when=asyncio.FIRST_COMPLETED
             )
+            if not done:
+                break
 
-            # If both finish together, prefer the first usable result.
+            # Use the first successful provider; cancel the other request.
             for task in done:
                 provider = tasks[task]
 
@@ -505,6 +512,7 @@ async def health():
         "openai_fallback_configured": bool(OPENAI_API_KEY),
         "gemini_timeout_seconds": GEMINI_LIMIT,
         "openai_timeout_seconds": OPENAI_LIMIT,
+        "total_ai_timeout_seconds": AI_TOTAL_LIMIT,
         "response_endpoint": "/api/respond",
         "translation_endpoint": "/api/translate"
     }
@@ -542,6 +550,7 @@ async def respond(body: ConversationRequest):
             "answer": answer[:1200],
             "note": note[:300],
             "provider": provider,
+            "source": "AI",
             "mode": body.mode,
             "fallback": False
         }
@@ -564,7 +573,8 @@ async def respond(body: ConversationRequest):
         return {
             "answer": answer,
             "note": "Prepared fallback response. AI was unavailable or too slow.",
-            "provider": "Local fallback",
+            "provider": "Respuesta local de respaldo",
+            "source": "Local fallback",
             "mode": body.mode,
             "fallback": True
         }
