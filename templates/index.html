@@ -48,6 +48,27 @@ summary{cursor:pointer;font-size:13px;color:#52627a;padding:9px 0}
 #fullTranscript{font-size:15px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
 .message{font-size:12px;line-height:1.5;color:#52627a;margin:8px 0}
 .message:empty{display:none}
+
+/* Respaldo manual: permanece oculto hasta que la persona lo solicite. */
+.backup-launch-row{display:flex;justify-content:flex-end;margin:-5px 0 8px}.backup-launch{padding:8px 11px;font-size:12px;background:#fff;border:1px solid #cbd5e1;color:#334155}
+.backup-overlay{display:none;position:fixed;inset:0;z-index:9999;background:#f5f7fb;overflow:auto;padding:clamp(12px,3vw,28px)}
+.backup-overlay.open{display:block}
+.backup-shell{width:min(980px,100%);min-height:calc(100dvh - 2 * clamp(12px,3vw,28px));margin:auto;background:#fff;border:1px solid #dbe3ed;border-radius:16px;padding:clamp(14px,3vw,24px);box-shadow:0 10px 35px #0f172a18}
+.backup-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.backup-top h2{font-size:20px;margin:2px 0 6px}
+.backup-intro{font-size:13px;color:#64748b;line-height:1.5;margin:0 0 16px}
+.backup-keywords{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+.backup-key{background:#eef4ff;border:1px solid #c9d8f7;color:#1746a2;padding:13px 8px;min-height:46px;font-size:14px;overflow-wrap:anywhere}
+.backup-key.active{background:#245bd6;color:#fff;border-color:#245bd6}
+.backup-results{margin-top:18px;border-top:1px solid #e2e8f0;padding-top:16px}
+.backup-results h3{font-size:16px;margin:0 0 10px}
+.backup-answer{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f0fff4;border:1px solid #a7dfb4;border-radius:11px;padding:12px;margin:9px 0}
+.backup-answer p{margin:0;color:#14532d;font-size:16px;line-height:1.5;flex:1}
+.backup-use{background:#166534;color:#fff;white-space:nowrap;padding:9px 11px;font-size:12px}
+.backup-empty{font-size:14px;color:#64748b;padding:12px;background:#f8fafc;border-radius:10px}
+@media(max-width:650px){.backup-keywords{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.backup-key{padding:12px 5px;font-size:13px}.backup-answer{align-items:stretch;flex-direction:column}.backup-use{width:100%}.backup-top h2{font-size:18px}}
+@media(max-width:360px){.backup-keywords{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 @media(max-width:520px){
 .app{padding:14px 10px 24px}
 h1{font-size:21px}
@@ -77,6 +98,7 @@ button{padding:10px 11px}
 <button id="repeatAudioBtn" class="light" type="button" disabled>Repetir audio</button>
 <button id="deleteAudioBtn" class="light" type="button" disabled>Borrar audio</button>
 </div>
+<div class="backup-launch-row"><button id="openBackupBtn" class="backup-launch" type="button" aria-haspopup="dialog" aria-controls="backupOverlay">Respaldo manual · palabras clave</button></div>
 <section class="panel" aria-live="polite">
 <div class="note">Lo que la otra persona dice en inglés:</div>
 <div id="liveText" class="transcript"></div>
@@ -110,6 +132,21 @@ button{padding:10px 11px}
 </div>
 <div id="translation" class="note"></div>
 </details>
+
+<div id="backupOverlay" class="backup-overlay" role="dialog" aria-modal="true" aria-labelledby="backupTitle" aria-hidden="true">
+ <section class="backup-shell">
+  <div class="backup-top">
+   <div><h2 id="backupTitle">Respaldo manual de entrevista</h2><p class="backup-intro">Si la voz no se reconoce bien, toca una palabra. Verás tres respuestas cortas. Elige “Usar respuesta” para llevarla a la pantalla principal y regresar al mismo lugar.</p></div>
+   <button id="closeBackupBtn" class="secondary" type="button">Cerrar ✕</button>
+  </div>
+  <div id="backupKeywords" class="backup-keywords" aria-label="Palabras clave"></div>
+  <div class="backup-results" aria-live="polite">
+   <h3 id="backupResultsTitle">Elige una palabra clave</h3>
+   <div id="backupResults"><div class="backup-empty">No necesitas escribir ni hablar. Solo toca una palabra de la lista.</div></div>
+  </div>
+ </section>
+</div>
+
 </main>
 <script>
 "use strict";
@@ -1291,6 +1328,88 @@ repeatAudioBtn.addEventListener("click",()=>{
  playback.onerror=()=>{playback=null;repeatAudioBtn.textContent="Repetir audio";notify("No se pudo reproducir el audio.")};
  playback.play().catch(()=>{playback=null;repeatAudioBtn.textContent="Repetir audio";notify("No se pudo reproducir el audio.")});
 });
+
+// Respaldo manual independiente: 30 palabras clave, con tres respuestas cada una.
+const MANUAL_KEYWORD_BACKUP = [
+ {word:"Experience", answers:["I have experience in operations, customer service, and daily problem-solving.","My experience has taught me to stay organized and work well with others.","I learn quickly and use my experience to support the team."]},
+ {word:"Strengths", answers:["My strengths are organization, responsibility, and clear communication.","I am dependable, calm under pressure, and willing to learn.","I focus on solving problems and helping the team succeed."]},
+ {word:"Weakness", answers:["I sometimes focus too much on details, so I set clear priorities.","I am improving my public speaking by practicing regularly.","I ask questions when needed and use feedback to improve."]},
+ {word:"Salary", answers:["I am open to discussing a fair salary based on the role and responsibilities.","I would like to understand the full position before discussing a number.","I am looking for a competitive offer that matches my experience and the job requirements."]},
+ {word:"Availability", answers:["I am available to discuss a start date that works for the team.","I can be flexible with reasonable scheduling needs.","I would be happy to confirm my availability based on the position's schedule."]},
+ {word:"Teamwork", answers:["I communicate clearly and help my team reach shared goals.","I listen to different ideas and focus on the best solution.","I do my part, support coworkers, and ask for help when needed."]},
+ {word:"Conflict", answers:["I stay calm, listen to both sides, and look for a fair solution.","I address problems respectfully and focus on facts, not blame.","If needed, I ask a manager to help resolve the issue professionally."]},
+ {word:"Leadership", answers:["I lead by example, communicate expectations, and follow up.","Good leadership means supporting people and taking responsibility.","I try to be fair, organized, and clear when guiding a team."]},
+ {word:"Customer", answers:["I listen carefully, stay polite, and work to solve the customer's concern.","I treat every customer with respect and explain the next steps clearly.","If I cannot solve an issue myself, I involve the right person quickly."]},
+ {word:"Problem", answers:["I identify the main issue, check the facts, and choose a practical solution.","I stay calm, consider the risks, and take the next appropriate step.","I solve what I can and communicate early when I need support."]},
+ {word:"Deadline", answers:["I organize tasks by priority and track progress against the deadline.","I plan ahead and communicate early if a delay may happen.","I focus on the most important work while maintaining quality."]},
+ {word:"Pressure", answers:["I stay calm, set priorities, and focus on one task at a time.","I manage pressure by staying organized and communicating clearly.","I focus on safety, accuracy, and the next action I can control."]},
+ {word:"Mistake", answers:["I take responsibility, correct the mistake, and learn from it.","I report important errors quickly and help prevent them from happening again.","I do not hide mistakes; I focus on fixing the problem and improving the process."]},
+ {word:"Success", answers:["Success means meeting goals while keeping quality and teamwork strong.","I measure success by reliable results and satisfied customers.","I feel successful when I solve problems and help the team improve."]},
+ {word:"Failure", answers:["I review what went wrong, learn from it, and make a better plan.","I see setbacks as a chance to improve my approach.","I take responsibility and focus on what I can change next time."]},
+ {word:"Goals", answers:["My goal is to keep learning and contribute to the team's results.","I want to grow professionally and take on more responsibility over time.","I set clear goals, track progress, and adjust when needed."]},
+ {word:"Company", answers:["I am interested in a company that values service, teamwork, and improvement.","I want to contribute to the company's goals and learn its processes.","I am looking for a place where I can do useful work and grow."]},
+ {word:"Position", answers:["This position matches my skills and the kind of work I enjoy.","I am interested because I can contribute and continue learning.","I understand the role requires reliability, communication, and follow-through."]},
+ {word:"Leaving", answers:["I am looking for a role that better matches my long-term goals.","I appreciate what I learned and am ready for a new opportunity.","I prefer to focus on what I can contribute in my next position."]},
+ {word:"Schedule", answers:["I can discuss the schedule and understand what the role requires.","I value being punctual and communicating schedule changes early.","I am open to reviewing the team's scheduling needs."]},
+ {word:"Start", answers:["I can start after we agree on the required date and next steps.","I am ready to discuss a start date that works for both sides.","I would like to confirm the onboarding process and expected start date."]},
+ {word:"Skills", answers:["My key skills are organization, communication, problem-solving, and learning quickly.","I can follow procedures, manage priorities, and work with a team.","I combine practical experience with a strong willingness to improve."]},
+ {word:"Education", answers:["I have an MBA and a background that supports operations and management.","My education helped me strengthen my planning and problem-solving skills.","I continue learning because I want to apply useful knowledge at work."]},
+ {word:"Manager", answers:["I respect clear expectations and keep my manager informed about progress.","I welcome feedback and ask questions when priorities are unclear.","I work independently when appropriate and communicate when support is needed."]},
+ {word:"Challenge", answers:["I break a challenge into smaller steps and address the most urgent issue first.","I stay flexible, check the facts, and look for a practical solution.","I communicate with the people involved and follow through on the plan."]},
+ {word:"Safety", answers:["I follow safety procedures and report hazards promptly.","I do not take shortcuts when safety or security is involved.","I stay alert, follow instructions, and ask when a procedure is unclear."]},
+ {word:"Compliance", answers:["I follow company policies and applicable procedures carefully.","If I notice a possible compliance issue, I report it through the proper channel.","I keep accurate information and ask for clarification rather than guess."]},
+ {word:"Communication", answers:["I keep my communication clear, respectful, and focused on the task.","I listen first, confirm important details, and share updates on time.","I adapt how I communicate so the message is easy to understand."]},
+ {word:"Why", answers:["I am interested in this opportunity because it matches my skills and goals.","I believe I can contribute through reliability, teamwork, and problem-solving.","I want to help the team deliver good results and continue to grow."]},
+ {word:"Questions", answers:["What would success look like in the first three months?","What are the most important priorities for this position?","What are the next steps in the interview process?"]}
+];
+let backupReturnScroll=0;
+function openManualBackup(){
+ backupReturnScroll=window.scrollY;
+ const overlay=$("backupOverlay");
+ overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");
+ document.body.style.overflow="hidden";
+ renderManualKeywords();
+ $("closeBackupBtn").focus();
+}
+function closeManualBackup(){
+ const overlay=$("backupOverlay");
+ overlay.classList.remove("open");overlay.setAttribute("aria-hidden","true");
+ document.body.style.overflow="";
+ window.scrollTo(0,backupReturnScroll);
+ $("openBackupBtn").focus({preventScroll:true});
+}
+function renderManualKeywords(){
+ const root=$("backupKeywords");root.replaceChildren();
+ MANUAL_KEYWORD_BACKUP.forEach((item,index)=>{
+  const b=document.createElement("button");b.type="button";b.className="backup-key";b.textContent=item.word;b.dataset.index=String(index);
+  b.addEventListener("click",()=>showManualAnswers(index,b));root.appendChild(b);
+ });
+}
+function showManualAnswers(index,button){
+ const item=MANUAL_KEYWORD_BACKUP[index];
+ document.querySelectorAll(".backup-key").forEach(b=>b.classList.toggle("active",b===button));
+ $("backupResultsTitle").textContent="Tres respuestas: "+item.word;
+ const root=$("backupResults");root.replaceChildren();
+ item.answers.forEach((answer,i)=>{
+  const card=document.createElement("div");card.className="backup-answer";
+  const p=document.createElement("p");p.textContent=(i+1)+". "+answer;
+  const use=document.createElement("button");use.type="button";use.className="backup-use";use.textContent="Usar respuesta";
+  use.addEventListener("click",()=>{
+   answerText.textContent=answer;
+   answerNote.textContent="Respuesta del respaldo manual · "+item.word+" · Independiente de la IA.";
+   answerNote.dataset.provider="Manual backup";
+   copyBtn.disabled=false;
+   closeManualBackup();
+   notify("Respuesta seleccionada del respaldo manual.");
+  });
+  card.append(p,use);root.appendChild(card);
+ });
+}
+$("openBackupBtn").addEventListener("click",openManualBackup);
+$("closeBackupBtn").addEventListener("click",closeManualBackup);
+$("backupOverlay").addEventListener("click",e=>{if(e.target===$("backupOverlay"))closeManualBackup()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("backupOverlay").classList.contains("open"))closeManualBackup()});
+
 window.addEventListener("beforeunload",()=>{
  listening=false;stopping=true;clearTimeout(restartTimer);
  stopPlayback();
